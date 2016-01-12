@@ -21,7 +21,7 @@ This will create a new app based on your selection.
 ## Create a new activity:
 
 ```bash
-yo android-hipster
+yo android-hipster:activity
 ```
 
 ## Getting To Know Yeoman
