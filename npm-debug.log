@@ -1,0 +1,119 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/Cellar/node/5.3.0/bin/node',
+1 verbose cli   '/Users/deividi/.node/bin/npm',
+1 verbose cli   'publish',
+1 verbose cli   './' ]
+2 info using npm@3.5.3
+3 info using node@v5.3.0
+4 verbose publish [ './' ]
+5 silly cache add args [ './', null ]
+6 verbose cache add spec ./
+7 silly cache add parsed spec Result {
+7 silly cache add   raw: './',
+7 silly cache add   scope: null,
+7 silly cache add   name: null,
+7 silly cache add   rawSpec: './',
+7 silly cache add   spec: '/Users/deividi/development/deividi/github/generators/generator-android-hipster',
+7 silly cache add   type: 'directory' }
+8 verbose addLocalDirectory /Users/deividi/.npm/generator-android-hipster/0.0.1/package.tgz not in flight; packing
+9 info lifecycle generator-android-hipster@0.0.1~prepublish: generator-android-hipster@0.0.1
+10 silly lifecycle generator-android-hipster@0.0.1~prepublish: no script for prepublish, continuing
+11 verbose tar pack [ '/Users/deividi/.npm/generator-android-hipster/0.0.1/package.tgz',
+11 verbose tar pack   '/Users/deividi/development/deividi/github/generators/generator-android-hipster' ]
+12 verbose tarball /Users/deividi/.npm/generator-android-hipster/0.0.1/package.tgz
+13 verbose folder /Users/deividi/development/deividi/github/generators/generator-android-hipster
+14 verbose addLocalTarball adding from inside cache /Users/deividi/.npm/generator-android-hipster/0.0.1/package.tgz
+15 silly cache afterAdd generator-android-hipster@0.0.1
+16 verbose afterAdd /Users/deividi/.npm/generator-android-hipster/0.0.1/package/package.json not in flight; writing
+17 verbose afterAdd /Users/deividi/.npm/generator-android-hipster/0.0.1/package/package.json written
+18 silly publish { name: 'generator-android-hipster',
+18 silly publish   version: '0.0.1',
+18 silly publish   description: 'Android generator based on MVP, Dagger2, RxJava, Java/Kotlin Stack and usefull libraries for Android',
+18 silly publish   homepage: 'https://github.com/cavarzan/generator-android-hipster',
+18 silly publish   author:
+18 silly publish    { name: 'cavarzan',
+18 silly publish      email: 'deividi.cavarzan@gmail.com',
+18 silly publish      url: 'https://github.com/cavarzan/' },
+18 silly publish   main: 'app/index.js',
+18 silly publish   keywords: [ 'android', 'rxjava', 'dagger2', 'mvp', 'nucleus' ],
+18 silly publish   dependencies:
+18 silly publish    { androidmanifest: '^2.0.0',
+18 silly publish      chai: '^3.4.1',
+18 silly publish      chalk: '^1.0.0',
+18 silly publish      'file-exists': '^1.0.0',
+18 silly publish      'fs-extra': '^0.26.4',
+18 silly publish      gulp: '^3.9.0',
+18 silly publish      mkdirp: '^0.5.1',
+18 silly publish      mocha: '^2.3.4',
+18 silly publish      'pixl-xml': '^1.0.4',
+18 silly publish      'yeoman-generator': '^0.21.1',
+18 silly publish      yosay: '^1.0.2' },
+18 silly publish   devDependencies:
+18 silly publish    { 'yeoman-assert': '^2.0.0',
+18 silly publish      'eslint-config-xo-space': '^0.7.0',
+18 silly publish      gulp: '^3.9.0',
+18 silly publish      'gulp-eslint': '^1.0.0',
+18 silly publish      'gulp-exclude-gitignore': '^1.0.0',
+18 silly publish      'gulp-istanbul': '^0.10.3',
+18 silly publish      'gulp-mocha': '^2.0.0',
+18 silly publish      'gulp-plumber': '^1.0.0',
+18 silly publish      'gulp-nsp': '^2.1.0',
+18 silly publish      'gulp-coveralls': '^0.1.0' },
+18 silly publish   eslintConfig: { extends: 'xo-space', env: { mocha: true } },
+18 silly publish   readme: '# generator-android-hipster\n> Android generator based on MVP, Dagger2, RxJava, Java/Kotlin Stack and usefull libraries for Android\n\n## Installation\n\nFirst, install [Yeoman](http://yeoman.io) and generator-android-hipster using [npm](https://www.npmjs.com/) (we assume you have pre-installed [node.js](https://nodejs.org/)).\n\n```bash\nnpm install -g yo\nnpm install -g generator-android-hipster\n```\n\n## Create new project:\n\n```bash\nyo android-hipster\n```\n\nThis will create a new app based on your selection.\n\n## Create a new activity:\n\n```bash\nyo android-hipster\n```\n\n## Getting To Know Yeoman\n\nYeoman has a heart of gold. He&#39;s a person with feelings and opinions, but he&#39;s very easy to work with. If you think he&#39;s too opinionated, he can be easily convinced. Feel free to [learn more about him](http://yeoman.io/).\n\n## License\n\n © [cavarzan](https://github.com/cavarzan/)\n\n\n[npm-image]: https://badge.fury.io/js/generator-android-hipster.svg\n[npm-url]: https://npmjs.org/package/generator-android-hipster\n[travis-image]: https://travis-ci.org/cavarzan/generator-android-hipster.svg?branch=master\n[travis-url]: https://travis-ci.org/cavarzan/generator-android-hipster\n[daviddm-image]: https://david-dm.org/cavarzan/generator-android-hipster.svg?theme=shields.io\n[daviddm-url]: https://david-dm.org/cavarzan/generator-android-hipster\n[coveralls-image]: https://coveralls.io/repos/cavarzan/generator-android-hipster/badge.svg\n[coveralls-url]: https://coveralls.io/r/cavarzan/generator-android-hipster\n',
+18 silly publish   readmeFilename: 'README.md',
+18 silly publish   gitHead: 'ec48d6b78474658198e3d21b76cacd6aa858735a',
+18 silly publish   _id: 'generator-android-hipster@0.0.1',
+18 silly publish   scripts: {},
+18 silly publish   _shasum: 'e73c416040192412cc0587d906170f42aedc4114',
+18 silly publish   _from: '.' }
+19 verbose getPublishConfig undefined
+20 silly mapToRegistry name generator-android-hipster
+21 silly mapToRegistry using default registry
+22 silly mapToRegistry registry https://registry.npmjs.org/
+23 silly mapToRegistry uri https://registry.npmjs.org/generator-android-hipster
+24 verbose publish registryBase https://registry.npmjs.org/
+25 silly publish uploading /Users/deividi/.npm/generator-android-hipster/0.0.1/package.tgz
+26 verbose request uri https://registry.npmjs.org/generator-android-hipster
+27 verbose request sending authorization for write operation
+28 info attempt registry request try #1 at 00:11:44
+29 verbose request using bearer token for auth
+30 verbose request id 857d45dd8f0a6aed
+31 http request PUT https://registry.npmjs.org/generator-android-hipster
+32 http 403 https://registry.npmjs.org/generator-android-hipster
+33 verbose headers { 'content-type': 'application/json',
+33 verbose headers   'cache-control': 'max-age=300',
+33 verbose headers   'content-length': '95',
+33 verbose headers   'accept-ranges': 'bytes',
+33 verbose headers   date: 'Tue, 12 Jan 2016 02:11:47 GMT',
+33 verbose headers   via: '1.1 varnish',
+33 verbose headers   connection: 'keep-alive',
+33 verbose headers   'x-served-by': 'cache-atl6228-ATL',
+33 verbose headers   'x-cache': 'MISS',
+33 verbose headers   'x-cache-hits': '0',
+33 verbose headers   'x-timer': 'S1452564704.624129,VS0,VE2578' }
+34 verbose request invalidating /Users/deividi/.npm/registry.npmjs.org/generator-android-hipster on PUT
+35 error publish Failed PUT 403
+36 verbose stack Error: "You cannot publish over the previously published version 0.0.1." : generator-android-hipster
+36 verbose stack     at makeError (/Users/deividi/.node/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:264:12)
+36 verbose stack     at CachingRegistryClient.<anonymous> (/Users/deividi/.node/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:252:14)
+36 verbose stack     at Request._callback (/Users/deividi/.node/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:172:14)
+36 verbose stack     at Request.self.callback (/Users/deividi/.node/lib/node_modules/npm/node_modules/request/request.js:198:22)
+36 verbose stack     at emitTwo (events.js:87:13)
+36 verbose stack     at Request.emit (events.js:172:7)
+36 verbose stack     at Request.<anonymous> (/Users/deividi/.node/lib/node_modules/npm/node_modules/request/request.js:1035:10)
+36 verbose stack     at emitOne (events.js:82:20)
+36 verbose stack     at Request.emit (events.js:169:7)
+36 verbose stack     at IncomingMessage.<anonymous> (/Users/deividi/.node/lib/node_modules/npm/node_modules/request/request.js:962:12)
+37 verbose statusCode 403
+38 verbose pkgid generator-android-hipster
+39 verbose cwd /Users/deividi/development/deividi/github/generators/generator-android-hipster
+40 error Darwin 15.2.0
+41 error argv "/usr/local/Cellar/node/5.3.0/bin/node" "/Users/deividi/.node/bin/npm" "publish" "./"
+42 error node v5.3.0
+43 error npm  v3.5.3
+44 error code E403
+45 error "You cannot publish over the previously published version 0.0.1." : generator-android-hipster
+46 error If you need help, you may report this error at:
+46 error     <https://github.com/npm/npm/issues>
+47 verbose exit [ 1, true ]
