@@ -1,0 +1,50 @@
+{
+  "name": "generator-android-hipster",
+  "version": "0.0.1",
+  "description": "Android generator based on MVP, Dagger2, RxJava, Java/Kotlin Stack and usefull libraries for Android",
+  "homepage": "https://github.com/cavarzan/generator-android-hipster",
+  "author": {
+    "name": "cavarzan",
+    "email": "deividi.cavarzan@gmail.com",
+    "url": "https://github.com/cavarzan/"
+  },
+  "main": "app/index.js",
+  "keywords": [
+    "android",
+    "rxjava",
+    "dagger2",
+    "mvp",
+    "nucleus"
+  ],
+  "dependencies": {
+    "androidmanifest": "^2.0.0",
+    "chai": "^3.4.1",
+    "chalk": "^1.0.0",
+    "file-exists": "^1.0.0",
+    "fs-extra": "^0.26.4",
+    "gulp": "^3.9.0",
+    "mkdirp": "^0.5.1",
+    "mocha": "^2.3.4",
+    "pixl-xml": "^1.0.4",
+    "yeoman-generator": "^0.21.1",
+    "yosay": "^1.0.2"
+  },
+  "devDependencies": {
+    "yeoman-assert": "^2.0.0",
+    "eslint-config-xo-space": "^0.7.0",
+    "gulp": "^3.9.0",
+    "gulp-eslint": "^1.0.0",
+    "gulp-exclude-gitignore": "^1.0.0",
+    "gulp-istanbul": "^0.10.3",
+    "gulp-mocha": "^2.0.0",
+    "gulp-plumber": "^1.0.0",
+    "gulp-nsp": "^2.1.0",
+    "gulp-coveralls": "^0.1.0"
+  },
+  "eslintConfig": {
+    "extends": "xo-space",
+    "env": {
+      "mocha": true
+    }
+  }
+}
