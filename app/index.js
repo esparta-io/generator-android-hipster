@@ -120,6 +120,12 @@ module.exports = yeoman.generators.Base.extend({
       },
       {
         type: 'confirm',
+        name: 'mixpanel',
+        message: 'Would you like to use MixPanel?',
+        default: true
+      },
+      {
+        type: 'confirm',
         name: 'jodamoney',
         message: 'Would you like to use Joda Money?',
         default: true
@@ -167,6 +173,7 @@ module.exports = yeoman.generators.Base.extend({
     this.prompt(prompts, function (props) {
       this.appName = props.name;
       this.imageLib = props.image;
+      this.mixpanel = props.mixpanel;
       this.timber = props.timber;
       this.jodatime = props.jodatime;
       this.jodamoney = props.jodamoney;
@@ -217,15 +224,13 @@ module.exports = yeoman.generators.Base.extend({
         appFolder = 'app-kotlin';
       }
 
-      this.copy(appFolder + '/gitignore', 'app/.gitignore');
+      this.copy('common/gitignore', 'app/.gitignore');
 
-      this.copy(appFolder + '/proguard-rules.pro', 'app/proguard-rules.pro');
-
+      this.copy('common/proguard-rules.pro', 'app/proguard-rules.pro');
 
       this.template('_build.gradle', 'build.gradle', this, {});
 
-      this.template(appFolder + '/_build.gradle', 'app/build.gradle', this, {});
-
+      this.template('common/_app_build.gradle', 'app/build.gradle', this, {});
 
       mkdirp('app/src/internal/java/' + packageDir);
 
