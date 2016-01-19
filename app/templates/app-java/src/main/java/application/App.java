@@ -49,7 +49,11 @@ public static ApplicationComponent graph;
         } else {
                Timber.plant(new CrashReportingTree());
         }<% } %>
-        graph = DaggerApplicationComponent.builder().androidModule(new AndroidModule()).gsonModule(new GsonModule()).applicationModule(new ApplicationModule(this)).build();
+        graph = DaggerApplicationComponent.builder()
+                        .androidModule(new AndroidModule())
+                        .gsonModule(new GsonModule())
+                        .applicationModule(new ApplicationModule(this))
+                        .build();
         graph.inject(this);
 
     }

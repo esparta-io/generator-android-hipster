@@ -4,9 +4,9 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 <% if (jodamoney == true) { %>import org.joda.money.CurrencyUnit;
-  import org.joda.money.Money;<% } %>
+import org.joda.money.Money;<% } %>
 <% if (jodatime == true) { %>import org.joda.time.DateTime;
-  import org.joda.time.DateTimeZone;<% } %>
+import org.joda.time.DateTimeZone;<% } %>
 
 import javax.inject.Singleton;
 
@@ -29,8 +29,8 @@ public class GsonModule {
   }
 
   @Provides
-    @Singleton
-    Gson provideGson(GsonBuilder gsonBuilder) {
+  @Singleton
+  Gson provideGson(GsonBuilder gsonBuilder) {
         return gsonBuilder.create();
     }
 
