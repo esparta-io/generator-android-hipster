@@ -2,13 +2,12 @@ package <%= appPackage %>.application;
 
 import android.app.Application;
 import android.support.multidex.MultiDex;
-import android.util.Log;
 import android.content.Context;
 import com.squareup.leakcanary.LeakCanary;
 
 <% if (jodatime == true) { %>import net.danlew.android.joda.JodaTimeAndroid; <% } %>
 
-import <%= appPackage %>.BuildConfig;
+import <%= appPackage %>.environment.EnvironmentModule;
 import <%= appPackage %>.R;
 import <%= appPackage %>.di.components.ApplicationComponent;
 import <%= appPackage %>.di.ForApplication;
@@ -17,7 +16,6 @@ import <%= appPackage %>.di.modules.AndroidModule;
 import <%= appPackage %>.di.modules.ApplicationModule;
 import <%= appPackage %>.environment.EnvironmentConfiguration;
 import <%= appPackage %>.util.gson.GsonModule;
-import <%= appPackage %>.util.logging.CrashReportingTree;
 
 import javax.inject.Inject;
 
