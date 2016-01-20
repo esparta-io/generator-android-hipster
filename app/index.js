@@ -244,15 +244,19 @@ module.exports = AppGenerator.extend({
 
     writing: {
         projectfiles: function () {
+
             this.copy('gitignore', '.gitignore');
             this.copy('gradle.properties', 'gradle.properties');
             this.copy('gradlew', 'gradlew');
             this.copy('gradlew.bat', 'gradlew.bat');
             this.template('settings.gradle', 'settings.gradle');
             this.directory('gradle', 'gradle');
+
             this.copy('common/gitignore', 'app/.gitignore');
             this.copy('common/proguard-rules.pro', 'app/proguard-rules.pro');
+
             this.template('_build.gradle', 'build.gradle', this, {});
+
             this.template('common/_app_build.gradle', 'app/build.gradle', this, {});
         },
 
@@ -271,15 +275,15 @@ module.exports = AppGenerator.extend({
                 appFolder = 'app-kotlin';
             }
 
+
             mkdirp('app/src/internal/java/' + packageDir);
-            this.template(appFolder + '/src/main/java/environment', 'app/src/internal/java/' + packageDir + '/environment', this, {});
             mkdirp('app/src/internalDebug/java/' + packageDir);
             this.template(appFolder + '/src/main/java/environment', 'app/src/internalDebug/java/' + packageDir + '/environment', this, {});
             mkdirp('app/src/internalRelease/java/' + packageDir);
             this.template(appFolder + '/src/main/java/environment', 'app/src/internalRelease/java/' + packageDir + '/environment', this, {});
 
+
             mkdirp('app/src/production/java/' + packageDir);
-            this.template(appFolder + '/src/main/java/environment', 'app/src/production/java/' + packageDir + '/environment', this, {});
             mkdirp('app/src/productionDebug/java/' + packageDir);
             mkdirp('app/src/productionRelease/java/' + packageDir);
 
@@ -412,8 +416,8 @@ module.exports = AppGenerator.extend({
           this.addGradleDependency('compile', 'com.mixpanel.android', 'mixpanel-android', '4.6.4');}
 
         if (this.stetho) {
-          this.addGradleDependency('compile', 'com.facebook.stetho', 'stetho', '1.2.0'); }
-          this.addGradleDependency('compile', 'com.facebook.stetho', 'stetho-okhttp', '1.2.0'); }
+          this.addGradleDependency('compile', 'com.facebook.stetho', 'stetho', '1.2.0');
+          this.addGradleDependency('compile', 'com.facebook.stetho', 'stetho-okhttp', '1.2.0');
         }
         if (this.playServices.lenght > 0) {
 

@@ -1,4 +1,4 @@
-package <%= appPackage %>.di.modules;
+package <%= appPackage %>.environment;
 
 import <%= appPackage %>.application.App;
 
@@ -9,10 +9,6 @@ import dagger.Provides;
 import retrofit2.GsonConverterFactory;
 import retrofit2.Retrofit;
 
-/**
- * @author deividi
- * @since 20/01/16.
- */
 @Module
 public class EnvironmentModule {
 

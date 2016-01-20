@@ -20,9 +20,9 @@ android {
     defaultConfig {
         applicationId '<%= appPackage %>'
         minSdkVersion <%= androidMinSdkVersion %>
-                targetSdkVersion <%= androidTargetSdkVersion %>
+        targetSdkVersion <%= androidTargetSdkVersion %>
 
-                multiDexEnabled true
+        multiDexEnabled true
 
         versionCode versionMajor * 10000 + versionMinor * 1000 + versionPatch * 100 + versionBuild
         versionName "${versionMajor}.${versionMinor}.${versionPatch}"
@@ -30,7 +30,6 @@ android {
         buildConfigField 'String', 'GIT_SHA', "\"${gitSha}\""
 //        buildConfigField 'long', 'GIT_TIMESTAMP', "${gitTimestamp}"
 //        signingConfig signingConfigs.app
-
     }
 
     signingConfigs {
@@ -50,7 +49,8 @@ android {
             buildConfigField 'String', 'API_ENDPOINT_PRODUCTION', "\"http://example.com\""
         }
         debug {
-
+          def host = InetAddress.getLocalHost().getCanonicalHostName()
+          buildConfigField "String", "LOCAL_IP", '\"' + host + '\"'
         }
         release {
             minifyEnabled false
@@ -109,8 +109,7 @@ android {
 <% if (language == 'kotlin') { %>
     kapt {
         generateStubs = true
-    }
-    <% } %>
+    }<% } %>
 <% if (language == 'java') { %>
 apt {
     arguments {
@@ -155,10 +154,9 @@ dependencies {
 
     // android-hipster-needle-gradle-dependency
 
-
 }
 
-<% if (language == 'kotlin') { buildscript {
+<% if (language == 'kotlin') { %> buildscript {
     ext.kotlin_version = '1.0.0-beta-4584'
     ext.anko_version = '0.8.1'
     ext.support_version = '23.1.1'

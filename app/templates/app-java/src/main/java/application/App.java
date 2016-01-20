@@ -15,7 +15,7 @@ import <%= appPackage %>.di.ForApplication;
 import <%= appPackage %>.di.components.DaggerApplicationComponent;
 import <%= appPackage %>.di.modules.AndroidModule;
 import <%= appPackage %>.di.modules.ApplicationModule;
-import <%= appPackage %>.environment.EnvironmentModule;
+import <%= appPackage %>.environment.EnvironmentConfiguration;
 import <%= appPackage %>.util.gson.GsonModule;
 import <%= appPackage %>.util.logging.CrashReportingTree;
 

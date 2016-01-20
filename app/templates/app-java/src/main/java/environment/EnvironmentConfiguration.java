@@ -3,12 +3,14 @@ package <%= appPackage %>.environment;
 import android.app.Application;
 import android.os.StrictMode;
 
+import <%= appPackage %>.BuildConfig;
 import <%= appPackage %>.di.ForApplication;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-<% if (timber == true) { %>import timber.log.Timber; <% } %>
+<% if (timber == true) { %>import timber.log.Timber;
+import <%= appPackage %>.util.logging.CrashReportingTree; <% } %>
 <% if (stetho == true) { %>import com.facebook.stetho.Stetho;<% } %>
 
 @Singleton
