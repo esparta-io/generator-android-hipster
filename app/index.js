@@ -172,6 +172,12 @@ module.exports = AppGenerator.extend({
                 default: true
             },
             {
+                type: 'confirm',
+                name: 'stetho',
+                message: 'Would you like to use Stetho for Network Monitoring?',
+                default: true
+            },
+            {
                 type: 'checkbox',
                 name: 'playServices',
                 message: 'Enable Google Play Services Libraries?',
@@ -221,6 +227,7 @@ module.exports = AppGenerator.extend({
             this.language = props.language;
             this.calligraphy = props.calligraphy;
             this.playServices = props.playServices;
+            this.stetho = props.stetho;
 
             done();
         }.bind(this));
@@ -265,12 +272,16 @@ module.exports = AppGenerator.extend({
             }
 
             mkdirp('app/src/internal/java/' + packageDir);
-
-            this.template(appFolder + '/src/internal/java', 'app/src/internal/java/' + packageDir, this, {});
+            this.template(appFolder + '/src/main/java/environment', 'app/src/internal/java/' + packageDir + '/environment', this, {});
+            mkdirp('app/src/internalDebug/java/' + packageDir);
+            this.template(appFolder + '/src/main/java/environment', 'app/src/internalDebug/java/' + packageDir + '/environment', this, {});
+            mkdirp('app/src/internalRelease/java/' + packageDir);
+            this.template(appFolder + '/src/main/java/environment', 'app/src/internalRelease/java/' + packageDir + '/environment', this, {});
 
             mkdirp('app/src/production/java/' + packageDir);
-
-            this.template(appFolder + '/src/production/java', 'app/src/production/java/' + packageDir, this, {});
+            this.template(appFolder + '/src/main/java/environment', 'app/src/production/java/' + packageDir + '/environment', this, {});
+            mkdirp('app/src/productionDebug/java/' + packageDir);
+            mkdirp('app/src/productionRelease/java/' + packageDir);
 
             mkdirp('app/src/main/java/' + packageDir);
 
@@ -396,10 +407,14 @@ module.exports = AppGenerator.extend({
         if (this.jodatime == true) {   this.addGradleDependency('compile', 'net.danlew', 'android.joda', '2.8.2'); }
 
         if (this.jodamoney == true) {
-        this.addGradleDependency('compile', 'org.joda', 'joda-money', '0.10.0'); }
+          this.addGradleDependency('compile', 'org.joda', 'joda-money', '0.10.0'); }
         if (this.mixpanel == true) {
-        this.addGradleDependency('compile', 'com.mixpanel.android', 'mixpanel-android', '4.6.4');}
+          this.addGradleDependency('compile', 'com.mixpanel.android', 'mixpanel-android', '4.6.4');}
 
+        if (this.stetho) {
+          this.addGradleDependency('compile', 'com.facebook.stetho', 'stetho', '1.2.0'); }
+          this.addGradleDependency('compile', 'com.facebook.stetho', 'stetho-okhttp', '1.2.0'); }
+        }
         if (this.playServices.lenght > 0) {
 
             this.addGradleDependency('compile', 'com.google.android.gms', 'play-services-base', '8.4.0');

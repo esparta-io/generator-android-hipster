@@ -17,9 +17,6 @@ import <%= appPackage %>.BuildConfig;
 import <%= appPackage %>.domain.executors.JobExecutor;
 import <%= appPackage %>.domain.executors.ThreadExecutor;
 
-import retrofit2.GsonConverterFactory;
-import retrofit2.Retrofit;
-
 @Module
 public class ApplicationModule {
 
@@ -47,16 +44,6 @@ public class ApplicationModule {
   @Singleton
   public ThreadExecutor provideThreadExecutor() {
     return new JobExecutor();
-  }
-
-  @Provides
-  @Singleton
-  public Retrofit provideRestAdapter() {
-    Retrofit restAdapter = new Retrofit.Builder()
-      .baseUrl(BuildConfig.API_ENDPOINT)
-      .addConverterFactory(GsonConverterFactory.create())
-      .build();
-    return restAdapter;
   }
 
   @Provides
