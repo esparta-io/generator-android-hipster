@@ -3,16 +3,22 @@ var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
 var yosay = require('yosay');
 var mkdirp = require('mkdirp');
+var generators = require('yeoman-generator');
 var _ = require('lodash');
 var fileExists = require('file-exists');
+
+var scriptBase = require('../script-base');
+var util = require('util');
 
 
 var AndroidManifest = require('androidmanifest');
 var AndroidResource = require('../androidresources');
 
+var ActivityGenerator = generators.Base.extend({});
 
+util.inherits(ActivityGenerator, scriptBase);
 
-module.exports = yeoman.generators.Base.extend({
+module.exports = ActivityGenerator.extend({
 
   initializing: {
     getConfig: function (args) {
@@ -111,7 +117,6 @@ module.exports = yeoman.generators.Base.extend({
 
       var resourceFilePath = 'app/src/main/res/values/strings.xml';
 
-
       var manifest = new AndroidManifest().readFile(manifestFilePath);
       manifest.activity('.ui.' + this.activityPackageName + '.' + this.activityName + 'Activity')
         .attr('android:theme', '@style/' + this.activityName + 'Style')
@@ -140,11 +145,24 @@ module.exports = yeoman.generators.Base.extend({
 
       var ext = this.language == 'java' ? ".java" : ".kt";
 
-      this.template(appFolder + '/src/main/java/di/components/_Component' + ext,
-        'app/src/main/java/' + packageDir + '/di/components/' + this.activityName + 'Component' + ext, this, {});
-
-      this.template(appFolder + '/src/main/java/di/modules/_Module' + ext,
-        'app/src/main/java/' + packageDir + '/di/modules/' + this.activityName + 'Module' + ext, this, {});
+        if (this.componentType == 'createNew') {
+          this.template(appFolder + '/src/main/java/di/components/_Component' + ext,
+            'app/src/main/java/' + packageDir + '/di/components/' + this.activityName + 'Component' + ext, this, {});
+          this.template(appFolder + '/src/main/java/di/modules/_Module' + ext,
+            'app/src/main/java/' + packageDir + '/di/modules/' + this.activityName + 'Module' + ext, this, {});
+        } else {
+          if (this.language == 'java') {
+            this.addComponentInjection(this.activityName+'Activity', packageDir, this.appPackage+'.ui.'+this.activityPackageName)
+            if (fragment) {
+              this.addComponentInjection(this.activityName+'Fragment', packageDir, this.appPackage+'.ui.'+this.activityPackageName)
+            }
+          } else {
+            this.addComponentInjectionKotlin(this.activityName+'Activity', packageDir, this.appPackage+'.ui.'+this.activityPackageName)
+            if (fragment) {
+              this.addComponentInjectionKotlin(this.activityName+'Fragment', packageDir, this.appPackage+'.ui.'+this.activityPackageName)
+            }
+          }
+        }
 
       this.template(appFolder + '/src/main/java/ui/_Activity' + ext,
         'app/src/main/java/' + packageDir + '/ui/' + dotActivityPackageName + '/' + this.activityName + 'Activity' + ext, this, {});

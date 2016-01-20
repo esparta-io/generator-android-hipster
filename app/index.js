@@ -3,9 +3,22 @@ var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
 var yosay = require('yosay');
 var mkdirp = require('mkdirp');
+var generators = require('yeoman-generator');
+var _ = require('lodash');
+var fileExists = require('file-exists');
+
+var scriptBase = require('../script-base');
+var util = require('util');
 
 
-module.exports = yeoman.generators.Base.extend({
+var AndroidManifest = require('androidmanifest');
+var AndroidResource = require('../androidresources');
+
+var AppGenerator = generators.Base.extend({});
+
+util.inherits(AppGenerator, scriptBase);
+
+module.exports = AppGenerator.extend({
     prompting: function () {
         var done = this.async();
 
@@ -312,6 +325,111 @@ module.exports = yeoman.generators.Base.extend({
             this.template('resources/_AndroidManifest.xml', 'app/src/main/AndroidManifest.xml', this, {});
 
             mkdirp('app/src/debug');
+
+            if (this.nucleus) {
+              this.addGradleDependency('compile', 'info.android15.nucleus', 'nucleus', '2.4.0');
+              this.addGradleDependency('compile', 'info.android15.nucleus', 'nucleus-support-v4', '2.4.0');
+              this.addGradleDependency('compile', 'info.android15.nucleus', 'nucleus-support-v7', '2.4.0');
+            }
+
+            if (this.language == 'kotlin') {
+              this.addGradleDependency('compile', 'io.reactivex', 'rxkotlin', '0.30.1');
+              this.addGradleDependency('compile', 'org.jetbrains.kotlin', 'kotlin-stdlib', '1.0.0-beta-4584');
+              this.addGradleDependency('compile', 'org.jetbrains.anko', 'anko-sdk15', '0.8.1');
+              this.addGradleDependency('compile', 'org.jetbrains.anko', 'anko-support-v4', '0.8.1');
+              this.addGradleDependency('kapt', 'com.google.dagger', 'dagger-compiler', '2.0.2');
+              this.addGradleDependency('compile', 'io.reactivex', 'rxkotlin', '0.30.1');
+              if (this.butterknife == true) {
+                this.addGradleDependency('kapt', 'com.jakewharton', 'butterknife', '7.0.1');
+              }
+            } else {
+              this.addGradleDependency('retrolambdaConfig', 'net.orfjackal.retrolambda', 'retrolambda', '2.1.0');
+            }
+
+            if (this.butterknife) {
+              this.addGradleDependency('compile', 'com.jakewharton', 'butterknife', '7.0.1');
+            }
+
+            if (this.events = 'eventbus') {
+              this.addGradleDependency('compile', 'de.greenrobot', 'eventbus', '2.4.0');
+            }
+
+            if (this.events = 'otto') {
+              this.addGradleDependency('compile', 'com.squareup', 'otto', '1.3.8');
+            }
+
+            if (this.imageLib == 'glide') {
+              this.addGradleDependency('compile', 'com.github.bumptech.glide', 'glide', '3.6.1');
+            }
+
+            if (this.imageLib == 'picasso') {
+              this.addGradleDependency('compile', 'com.squareup.picasso', 'picasso', '2.5.2');
+            }
+
+            if (calligraphy == true) {
+              this.addGradleDependency('compile', 'uk.co.chrisjenx', 'calligraphy', '2.1.0');
+            }
+
+            if (timber == true) {
+              this.addGradleDependency('compile', 'com.jakewharton.timber', 'timber', '3.1.0');
+            }
+            if (jodatime == true) {   this.addGradleDependency('compile', 'net.danlew', 'android.joda', '2.8.2'); }
+
+            if (jodamoney == true) {
+            this.addGradleDependency('compile', 'org.joda', 'joda-money', '0.10.0'); }
+            if (mixpanel == true) {
+            this.addGradleDependency('compile', 'com.mixpanel.android', 'mixpanel-android', '4.6.4');}
+
+            if (playServices.lenght > 0) {
+
+                this.addGradleDependency('compile', 'com.google.android.gms', 'play-services-base', '8.4.0');
+
+                if (playServices.indexOf('plus') != -1)
+                  this.addGradleDependency('compile', 'com.google.android.gms', 'play-services-plus', '8.4.0');
+                if (playServices.indexOf('auth') != -1)
+                  this.addGradleDependency('compile', 'com.google.android.gms', 'play-services-auth', '8.4.0');
+                if (playServices.indexOf('identity') != -1)
+                  this.addGradleDependency('compile', 'com.google.android.gms', 'play-services-identity', '8.4.0');
+                if (playServices.indexOf('appindexing') != -1)
+                  this.addGradleDependency('compile', 'com.google.android.gms', 'play-services-appindexing', '8.4.0');
+                if (playServices.indexOf('appinvite') != -1)
+                  this.addGradleDependency('compile', 'com.google.android.gms', 'play-services-appinvite', '8.4.0');
+                if (playServices.indexOf('analytics') != -1)
+                  this.addGradleDependency('compile', 'com.google.android.gms', 'play-services-analytics', '8.4.0');
+                if (playServices.indexOf('cast') != -1)
+                  this.addGradleDependency('compile', 'com.google.android.gms', 'play-services-cast', '8.4.0');
+                if (playServices.indexOf('gcm') != -1)
+                  this.addGradleDependency('compile', 'com.google.android.gms', 'play-services-gcm', '8.4.0');
+                if (playServices.indexOf('drive') != -1)
+                  this.addGradleDependency('compile', 'com.google.android.gms', 'play-services-drive', '8.4.0');
+                if (playServices.indexOf('fitness') != -1)
+                  this.addGradleDependency('compile', 'com.google.android.gms', 'play-services-fitness', '8.4.0');
+                if (playServices.indexOf('location') != -1)
+                  this.addGradleDependency('compile', 'com.google.android.gms', 'play-services-location', '8.4.0');
+                if (playServices.indexOf('maps') != -1)
+                  this.addGradleDependency('compile', 'com.google.android.gms', 'play-services-maps', '8.4.0');
+                if (playServices.indexOf('ads') != -1)
+                  this.addGradleDependency('compile', 'com.google.android.gms', 'play-services-ads', '8.4.0');
+                if (playServices.indexOf('vision') != -1)
+                  this.addGradleDependency('compile', 'com.google.android.gms', 'play-services-vision', '8.4.0');
+                if (playServices.indexOf('nearby') != -1)
+                  this.addGradleDependency('compile', 'com.google.android.gms', 'play-services-nearby', '8.4.0');
+                if (playServices.indexOf('panorama') != -1)
+                  this.addGradleDependency('compile', 'com.google.android.gms', 'play-services-panorama', '8.4.0');
+                if (playServices.indexOf('games') != -1)
+                  this.addGradleDependency('compile', 'com.google.android.gms', 'play-services-games', '8.4.0');
+                if (playServices.indexOf('wearable') != -1)
+                  this.addGradleDependency('compile', 'com.google.android.gms', 'play-services-wearable', '8.4.0');
+                if (playServices.indexOf('safetynet') != -1)
+                  this.addGradleDependency('compile', 'com.google.android.gms', 'play-services-safetynet', '8.4.0');
+                if (playServices.indexOf('wallet') != -1) 
+                  this.addGradleDependency('compile', 'com.google.android.gms', 'play-services-wallet', '8.4.0');
+
+            }
+            this.addGradleDependency('compile', '', '', '');
+
+
+
 
         },
 
