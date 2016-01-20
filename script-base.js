@@ -279,7 +279,7 @@ Generator.prototype.addGradleDependency = function (scope, group, name, version)
             file: fullPath,
             needle: 'android-hipster-needle-gradle-dependency',
             splicable: [
-                scope + ' group: \'' + group + '\', name: \'' + name + '\', version: \'' + version + '\''
+                scope + ' "' + group + ':' + name + ':' + version + '"'
             ]
         });
     } catch (e) {
@@ -287,6 +287,8 @@ Generator.prototype.addGradleDependency = function (scope, group, name, version)
         this.log(chalk.yellow('\nUnable to find ') + fullPath + chalk.yellow(' or missing required jhipster-needle. Reference to ') + group + ':' + name + ':' + version + chalk.yellow(' not added.\n'));
     }
 };
+
+
 
 /**
  * Apply from an external Gradle build script.

@@ -1,21 +1,36 @@
 package <%=appPackage%>.storage;
 
+/**
+ * Copyright 2016 Deividi Cavarzan
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 
-public abstract class Storage {
+public abstract class GsonStorage {
 
     protected final SharedPreferences.Editor editor;
     protected final SharedPreferences preferences;
     protected final Gson gson;
 
-    protected Storage(SharedPreferences preferences, Gson gson) {
+    protected GsonStorage(SharedPreferences preferences, Gson gson) {
         this.preferences = preferences;
         this.editor = preferences.edit();
         this.gson = gson;
@@ -49,12 +64,12 @@ public abstract class Storage {
         return clazz.cast(gson.fromJson(json, clazz));
     }
 
-    public <T> T get(Class<T> krazz) {
-        String json = preferences.getString(krazz.getSimpleName(), null);
+    public <T> T get(Class<T> clazz) {
+        String json = preferences.getString(clazz.getSimpleName(), null);
         if (json == null) {
             return null;
         }
-        return krazz.cast(gson.fromJson(json, krazz));
+        return clazz.cast(gson.fromJson(json, clazz));
     }
 
     public <T> List<T> getList(String type, Class<T[]> clazz) {
@@ -95,8 +110,8 @@ public abstract class Storage {
 
     }
 
-    public <T> void updateSet(String type, T value, Class<T[]> krazz, boolean add) {
-        HashSet<T> hashSet = getHashSet(type, krazz, new HashSet<>());
+    public <T> void updateSet(String type, T value, Class<T[]> clazz, boolean add) {
+        HashSet<T> hashSet = getHashSet(type, clazz, new HashSet<T>());
         if (add) {
             if (!hashSet.add(value)) { // equals can not be able to force the replace
                 hashSet.remove(value);
@@ -105,7 +120,7 @@ public abstract class Storage {
         } else {
             hashSet.remove(value);
         }
-        set(type, hashSet, krazz);
+        set(type, hashSet, clazz);
     }
 
 

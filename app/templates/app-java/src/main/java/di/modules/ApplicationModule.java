@@ -62,7 +62,7 @@ public class ApplicationModule {
   @Provides
   @Singleton
   Storage provideStorage(Gson gson, SharedPreferences preferences) {
-    return new Storage(gson, preferences);
+    return new Storage(preferences, gson);
   }
 
   <% if (events == 'otto') { %>

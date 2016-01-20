@@ -49,7 +49,7 @@ android {
     }
 
     buildTypes {
-        buildVariants.all {
+        all {
             buildConfigField 'String', 'API_ENDPOINT_LOCAL', "\"http://example.com\""
             buildConfigField 'String', 'API_ENDPOINT_INTERNAL', "\"http://example.com\""
             buildConfigField 'String', 'API_ENDPOINT_STAGING', "\"http://example.com\""
@@ -61,12 +61,22 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            apply plugin: "signing"
+
+
+            shrinkResources true
+            minifyEnabled true
+
+            signingConfig signingConfigs.app
+
         }
     }
 
+    <% if (language == 'kotlin') { %>
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
     }
+    <% } %>
 
     packagingOptions {
         exclude 'META-INF/DEPENDENCIES'
@@ -96,6 +106,16 @@ android {
             applicationId '<%= appPackage %>'
         }
     }
+    <% if (language == 'java') { %>
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    <% } %>
+    lintOptions {
+        disable "InvalidPackage"
+    }
+
 }
 
 <% if (language == 'kotlin') { %>
@@ -105,14 +125,14 @@ android {
     <% } %>
 
 <% if (language == 'java') { %>
-    apt {
-        arguments {
-        }
+apt {
+    arguments {
     }
+}
 
-    retrolambda {
-        jvmArgs "-noverify"
-    }
+retrolambda {
+    jvmArgs "-noverify"
+}
     <% } %>
 
 repositories {
@@ -168,5 +188,5 @@ dependencies {
             classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 
         }
+    }
         <% } %>
-}
