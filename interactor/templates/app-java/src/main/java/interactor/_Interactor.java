@@ -7,13 +7,13 @@ import javax.inject.Inject;
 
 public class <%= interactorName %>Interactor extends BaseInteractor {
 
-        @Inject
-        public <%= interactorName %>Interactor(ThreadExecutor executor) {
-            super(executor);
-        }
+    @Inject
+    public <%= interactorName %>Interactor(ThreadExecutor executor) {
+        super(executor);
+    }
 
-        public void invoke() {
-            // TODO
-        }
+    public void invoke() {
+        // TODO
+    }
 
 }

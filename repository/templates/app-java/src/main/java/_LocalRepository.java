@@ -5,6 +5,6 @@ import javax.inject.Inject;
 public class <%= repositoryName %>LocalRepository {
 
     @Inject
-    <%= repositoryName %>LocalRepository() { }
+    public <%= repositoryName %>LocalRepository() { }
 
-  }
+}

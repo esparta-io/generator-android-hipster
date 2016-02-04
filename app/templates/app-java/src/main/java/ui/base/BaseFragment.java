@@ -1,6 +1,5 @@
 package <%= appPackage %>.ui.base;
 
-
 import <%= appPackage %>.di.HasComponent;
 
 import android.content.Context;
@@ -19,40 +18,40 @@ public abstract class BaseFragment<P extends BasePresenter> extends <% if (nucle
     @CallSuper
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-      View rootView = inflater.inflate(getLayoutResource(), container, false);
-      <% if (butterknife == true) { %>ButterKnife.bind(this, rootView);<% } %>
+        View rootView = inflater.inflate(getLayoutResource(), container, false);
+        <% if (butterknife == true) { %>ButterKnife.bind(this, rootView);<% } %>
 
-      return rootView;
+        return rootView;
     }
 
     @Override
     public void onCreate(Bundle bundle) {
-      super.onCreate(bundle);
-      inject();
+        super.onCreate(bundle);
+        inject();
 
-      <% if (nucleus == true) { %>setPresenterFactory(getPresenterFactory());<% } %>
+        <% if (nucleus == true) { %>setPresenterFactory(getPresenterFactory());<% } %>
     }
 
     @CallSuper
     @Override
     public void onDestroyView() {
-    <% if (butterknife == true) { %>ButterKnife.unbind(this); <% } %>
-        super.onDestroyView();
-    }
+      <% if (butterknife == true) { %>ButterKnife.unbind(this); <% } %>
+          super.onDestroyView();
+      }
 
     public BaseActivity getBaseActivity() {
-      return (BaseActivity) getActivity();
+        return (BaseActivity) getActivity();
     }
 
     @CallSuper
     @Override
     public void onAttach(Context context) {
-      super.onAttach(context);
+        super.onAttach(context);
     }
 
     @SuppressWarnings("unchecked")
     protected <C> C getComponent(Class<C> componentType) {
-      return componentType.cast(((HasComponent<C>) getActivity()).getComponent());
+        return componentType.cast(((HasComponent<C>) getActivity()).getComponent());
     }
 
     protected abstract void inject();

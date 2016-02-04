@@ -10,7 +10,7 @@ import <%= appPackage %>.ui.main.MainFragment;
 @Component(dependencies = {ApplicationComponent.class}, modules = {MainModule.class})
 public interface MainComponent {
 
-  void inject(MainActivity activity);
-  void inject(MainFragment fragment);
+    void inject(MainActivity activity);
+    void inject(MainFragment fragment);
 
 }

@@ -7,13 +7,13 @@ import javax.inject.Inject;
 
 public class <%= useCaseName %>UseCase extends UseCaseInteractor  {
 
-        @Inject
-        public <%= useCaseName %>UseCase(ThreadExecutor executor) {
-            super(executor);
-        }
+    @Inject
+    public <%= useCaseName %>UseCase(ThreadExecutor executor) {
+        super(executor);
+    }
 
-        public void invoke() {
-            // TODO
-        }
+    public void invoke() {
+        // TODO
+    }
 
 }

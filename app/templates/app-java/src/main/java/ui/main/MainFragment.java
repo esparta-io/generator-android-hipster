@@ -7,13 +7,14 @@ import <%= appPackage %>.R;
 
 public class MainFragment extends BaseFragment<EmptyPresenter> {
 
-  @Override
-  protected void inject() {
-    getComponent(MainComponent.class).inject(this);
-  }
+    @Override
+    protected void inject() {
+        getComponent(MainComponent.class).inject(this);
+    }
 
-  @Override
-  protected int getLayoutResource() {
-    return R.layout.fragment_main;
-  }
+    @Override
+    protected int getLayoutResource() {
+        return R.layout.fragment_main;
+    }
+
 }

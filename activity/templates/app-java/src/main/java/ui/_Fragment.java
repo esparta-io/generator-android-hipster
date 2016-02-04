@@ -13,13 +13,13 @@ import <%= appPackage %>.R;
 
 public class <%= activityName %>Fragment extends BaseFragment<EmptyPresenter> {
 
-  @Override
-  protected void inject() {
-    <% if (componentType == 'createNew') { %>getComponent(<%= activityName %>Component.class).inject(this);<% } else { %>App.graph.inject(this);<% } %>
-  }
+    @Override
+    protected void inject() {
+        <% if (componentType == 'createNew') { %>getComponent(<%= activityName %>Component.class).inject(this);<% } else { %>App.graph.inject(this);<% } %>
+    }
 
-  @Override
-  protected int getLayoutResource() {
-    return R.layout.fragment_<%= activityName.toLowerCase() %>;
-  }
+    @Override
+    protected int getLayoutResource() {
+        return R.layout.fragment_<%= activityName.toLowerCase() %>;
+    }
 }

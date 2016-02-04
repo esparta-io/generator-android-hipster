@@ -10,7 +10,6 @@ import com.squareup.leakcanary.RefWatcher;
 <% if (jodatime == true) { %>import net.danlew.android.joda.JodaTimeAndroid; <% } %>
 <% if (printview == true) { %>import com.github.johnkil.print.PrintConfig; <% } %>
 
-
 import <%= appPackage %>.environment.EnvironmentModule;
 import <%= appPackage %>.environment.EnvironmentConfiguration;
 import <%= appPackage %>.R;
@@ -26,10 +25,11 @@ import javax.inject.Inject;
 
 <% if (calligraphy == true) { %>import uk.co.chrisjenx.calligraphy.CalligraphyConfig; <% } %>
 
-
 public class App extends Application {
 
 public static ApplicationComponent graph;
+
+    private static RefWatcher refWatcher;
 
     @ForApplication
     @Inject
@@ -55,7 +55,6 @@ public static ApplicationComponent graph;
 
         <% if (jodatime == true) { %>JodaTimeAndroid.init(this); <% } %>
         <% if (printview == true) { %>PrintConfig.initDefault(getAssets(), "fonts/MaterialIcons-Regular.ttf");<% } %>
-
         <% if (calligraphy == true) { %>CalligraphyConfig.initDefault(new CalligraphyConfig.Builder().setDefaultFontPath("fonts/Roboto-Regular.ttf").setFontAttrId(R.attr.fontPath).build()); <% } %>
 
         graph = createComponent();
@@ -69,10 +68,7 @@ public static ApplicationComponent graph;
 
         applicationComponent.inject(this);
         return applicationComponent;
-
     }
-
-    private static RefWatcher refWatcher;
 
     public static RefWatcher getRefWatcher() {
        return refWatcher;

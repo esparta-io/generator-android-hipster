@@ -16,14 +16,11 @@ import <%= appPackage %>.environment.EnvironmentConfiguration;
 import <%= appPackage %>.util.gson.GsonModule;
 
 
-
 import android.content.Context;
 
 import <%= appPackage %>.domain.executors.ThreadExecutor;
 import <%= appPackage %>.storage.Storage;
 import com.google.gson.Gson;
-
-import java.util.concurrent.Executor;
 
 import javax.inject.Singleton;
 

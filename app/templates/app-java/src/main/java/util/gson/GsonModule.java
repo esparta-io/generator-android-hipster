@@ -16,23 +16,23 @@ import dagger.Provides;
 @Module
 public class GsonModule {
 
-  @Provides
-  @Singleton
-  public GsonBuilder provideDefaultGsonBuilder() {
-    GsonBuilder gsonBuilder = new GsonBuilder();
-    <% if (jodamoney == true) { %>gsonBuilder.registerTypeAdapter(Money.class, new MoneyTypeConverter());
-      gsonBuilder.registerTypeAdapter(CurrencyUnit.class, new CurrencyUnitTypeConverter()); <% } %>
-    <% if (jodatime == true) { %>gsonBuilder.registerTypeAdapter(DateTime.class, new DateTimeTypeConverter());
-        gsonBuilder.registerTypeAdapter(DateTimeZone.class, new DateTimeZoneTypeConverter());<% } %>
+    @Provides
+    @Singleton
+    public GsonBuilder provideDefaultGsonBuilder() {
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        <% if (jodamoney == true) { %>gsonBuilder.registerTypeAdapter(Money.class, new MoneyTypeConverter());
+          gsonBuilder.registerTypeAdapter(CurrencyUnit.class, new CurrencyUnitTypeConverter()); <% } %>
+        <% if (jodatime == true) { %>gsonBuilder.registerTypeAdapter(DateTime.class, new DateTimeTypeConverter());
+            gsonBuilder.registerTypeAdapter(DateTimeZone.class, new DateTimeZoneTypeConverter());<% } %>
 
-    <% if (autoparcel == true) { %>gsonBuilder.registerTypeAdapterFactory(new AutoValueTypeAdapterFactory());<% } %>
+        <% if (autoparcel == true) { %>gsonBuilder.registerTypeAdapterFactory(new AutoValueTypeAdapterFactory());<% } %>
 
-    return gsonBuilder;
-  }
+        return gsonBuilder;
+    }
 
-  @Provides
-  @Singleton
-  Gson provideGson(GsonBuilder gsonBuilder) {
+    @Provides
+    @Singleton
+    Gson provideGson(GsonBuilder gsonBuilder) {
         return gsonBuilder.create();
     }
 

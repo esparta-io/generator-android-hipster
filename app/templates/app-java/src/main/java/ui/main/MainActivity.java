@@ -20,31 +20,31 @@ import javax.inject.Inject;
 @ActivityScope
 public class MainActivity extends BaseActivity<MainPresenter> implements MainView, HasComponent<MainComponent> {
 
-        @Inject
-        MainPresenter mainPresenter;
+    @Inject
+    MainPresenter mainPresenter;
 
-        MainComponent component;
+    MainComponent component;
 
-        protected void injectModule() {
-                component = DaggerMainComponent.builder().applicationComponent(App.graph).mainModule(new MainModule(this)).build();
-                component.inject(this);
-        }
-          <% if (nucleus == true) { %>
-        public PresenterFactory<MainPresenter> getPresenterFactory() {
-                return () -> mainPresenter;
-        }<% } %>
+    protected void injectModule() {
+        component = DaggerMainComponent.builder().applicationComponent(App.graph).mainModule(new MainModule(this)).build();
+        component.inject(this);
+    }
+      <% if (nucleus == true) { %>
+    public PresenterFactory<MainPresenter> getPresenterFactory() {
+        return () -> mainPresenter;
+    }<% } %>
 
-        public void onCreate(Bundle savedInstanceState ) {
-                super.onCreate(savedInstanceState);
-        }
+    public void onCreate(Bundle savedInstanceState ) {
+        super.onCreate(savedInstanceState);
+    }
 
-        protected int getLayoutResource() {
-                return R.layout.activity_main;
-        }
+    protected int getLayoutResource() {
+        return R.layout.activity_main;
+    }
 
-        @Override
-        public MainComponent getComponent() {
-          return component;
-        }
+    @Override
+    public MainComponent getComponent() {
+        return component;
+    }
 
 }

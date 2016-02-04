@@ -22,31 +22,31 @@ import javax.inject.Inject;
 @ActivityScope
 public class <%= activityName %>Activity extends BaseActivity<<%= activityName %>Presenter> implements <%= activityName %>View, HasComponent<<% if (componentType == 'createNew') { %><%= activityName %><% } else { %>Application<% } %>Component> {
 
-        @Inject
-        <%= activityName %>Presenter <%= activityName.toLowerCase() %>Presenter;
+    @Inject
+    <%= activityName %>Presenter <%= activityName.toLowerCase() %>Presenter;
 
-        <% if (componentType == 'createNew') { %><%= activityName %>Component component;<% } else { %>ApplicationComponent component;<% } %>
+    <% if (componentType == 'createNew') { %><%= activityName %>Component component;<% } else { %>ApplicationComponent component;<% } %>
 
-        protected void injectModule() {
-            <% if (componentType == 'useApplication') { %>component = App.graph.inject(this);<% } else { %>component = Dagger<%= activityName %>Component.builder().applicationComponent(App.graph).<%= activityName.toLowerCase() %>Module(new <%= activityName %>Module(this)).build();
-            component.inject(this);<% } %>
-        }
-          <% if (nucleus == true) { %>
-        public PresenterFactory<<%= activityName %>Presenter> getPresenterFactory() {
-                return () -> <%= activityName.toLowerCase() %>Presenter;
-        }<% } %>
+    protected void injectModule() {
+        <% if (componentType == 'useApplication') { %>component = App.graph.inject(this);<% } else { %>component = Dagger<%= activityName %>Component.builder().applicationComponent(App.graph).<%= activityName.toLowerCase() %>Module(new <%= activityName %>Module(this)).build();
+        component.inject(this);<% } %>
+    }
+      <% if (nucleus == true) { %>
+    public PresenterFactory<<%= activityName %>Presenter> getPresenterFactory() {
+        return () -> <%= activityName.toLowerCase() %>Presenter;
+    }<% } %>
 
-        public void onCreate(Bundle savedInstanceState ) {
-                super.onCreate(savedInstanceState);
-        }
+    public void onCreate(Bundle savedInstanceState ) {
+        super.onCreate(savedInstanceState);
+    }
 
-        protected int getLayoutResource() {
-                return R.layout.activity_<%= activityName.toLowerCase() %>;
-        }
+    protected int getLayoutResource() {
+        return R.layout.activity_<%= activityName.toLowerCase() %>;
+    }
 
-        @Override
-        public <% if (componentType == 'createNew') { %><%= activityName %><% } else { %>Application<% } %>Component getComponent() {
-          return component;
-        }
+    @Override
+    public <% if (componentType == 'createNew') { %><%= activityName %><% } else { %>Application<% } %>Component getComponent() {
+        return component;
+    }
 
 }

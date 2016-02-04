@@ -11,6 +11,6 @@ public class <%= repositoryName %>Repository {
     <%= repositoryName %>RemoteRepository remoteRepository;<% } %>
 
     @Inject
-    <%= repositoryName %>Repository() { }
+    public <%= repositoryName %>Repository() { }
 
   }
