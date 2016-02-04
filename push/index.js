@@ -78,30 +78,40 @@ module.exports = ActivityGenerator.extend({
 
       var manifest = new AndroidManifest().readFile(manifestFilePath);
       manifest.receiver('com.google.android.gms.gcm.GcmReceiver')
-        .attr('android:exported', true);
-        //android:permission="com.google.android.c2dm.permission.SEND">
+        .attr('android:exported', true)
+        .attr('android:permission', 'com.google.android.c2dm.permission.SEND');
+              .append('<intent-filter>')
+              .find('intent-filter')
+              .append('<action>')
+              .find('action')
+              .attr('android:name', 'com.google.android.c2dm.intent.RECEIVE');
 
       manifest.receiver(appPackage + '.service.push.DefaultPushReceiver')
         .attr('android:enabled', true)
-        .attr('android:exported', true);
-        // <intent-filter android:priority="0">
-        //                 <action android:name="Events.PUSH" />
-        //             </intent-filter>
+        .attr('android:exported', true)
+        .append('<intent-filter>')
+        .find('intent-filter')
+        .attr('android:priority', 0)
+        .append('<action>')
+        .find('action')
+        .attr('android:name', 'Events.PUSH');
 
       manifest.service(appPackage + '.service.push.PushIDListenerService')
-          .attr('android:exported', false);
-          // android:exported="false">
-          //   <intent-filter>
-          //       <action android:name="com.google.android.gms.iid.InstanceID" />
-          //   </intent-filter>
-
-
+          .attr('android:exported', false)
+          .append('<intent-filter>')
+          .find('intent-filter')
+          .append('<action>')
+          .find('action')
+          .attr('android:name', 'com.google.android.gms.iid.InstanceID');
 
       manifest.service(appPackage + '.service.push.PushServiceListener')
-          .attr('android:exported', false);
-            // <intent-filter>
-            //                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-            //             </intent-filter>
+          .attr('android:exported', false)
+          .append('<intent-filter>')
+          .find('intent-filter')
+          .append('<action>')
+          .find('action')
+          .attr('android:name', 'com.google.android.c2dm.intent.RECEIVE');
+
       manifest.writeFile(manifestFilePath);
 
       var appFolder;
