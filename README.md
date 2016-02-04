@@ -44,6 +44,12 @@ yo android-hipster:usecase
 yo android-hipster:repository
 ```
 
+## Create a new entity:
+
+```bash
+yo android-hipster:entity
+```
+
 ## Create a new push support like this article: https://medium.com/@deividi/a-good-way-to-handle-incoming-notifications-in-android-dc64c29041a5
 
 ```bash
