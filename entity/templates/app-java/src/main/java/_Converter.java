@@ -1,6 +1,6 @@
 package <%= appPackage %>.domain.entity.converter;
 
-import <%= appPackage %>.domain.entity.<%= entityName %>;
+import <%= appPackage %>.domain.entity.<%= entityName %>Entity;
 import <%= appPackage %>.model.<%= entityName %>;
 
 public class <%= entityName %>Converter {
