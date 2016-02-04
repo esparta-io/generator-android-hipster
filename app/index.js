@@ -452,7 +452,6 @@ module.exports = AppGenerator.extend({
           }else {
             this.addGradleDependency('kapt', 'com.github.frankiesardo', 'auto-parcel-processor', '0.3.1');
           }
-
         }
 
         if (this.playServices.length > 0) {
