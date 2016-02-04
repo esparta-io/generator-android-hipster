@@ -1,5 +1,6 @@
-package <%= appPackage %>.service.push;
+package <%= appPackage %>.services.push;
 
+import  <%= appPackage %>.R;
 import  <%= appPackage %>.application.App;
 import android.app.IntentService;
 import android.app.NotificationManager;
@@ -35,12 +36,11 @@ public class PushIntentService extends IntentService {
       NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(PushIntentService.this)
               .setSmallIcon(R.mipmap.ic_launcher)
               .setContentTitle("Title")
-              .setContentText("Text")
-              .setContentIntent(contentIntent);
+              .setContentText("Text");
 
       mBuilder.setStyle(new NotificationCompat.InboxStyle()
               .setBigContentTitle("Big Content")
-              .addLine("Line 1");
+              .addLine("Line 1"));
 
 
       notificationManager.notify(1, mBuilder.build());

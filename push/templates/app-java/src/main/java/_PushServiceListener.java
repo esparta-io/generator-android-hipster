@@ -1,4 +1,4 @@
-package <%= appPackage %>.service.push;
+package <%= appPackage %>.services.push;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -6,7 +6,7 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 
-import <%= appPackage %>application.App;
+import <%= appPackage %>.application.App;
 
 import com.google.android.gms.gcm.GcmListenerService;
 import com.google.gson.Gson;
@@ -14,8 +14,6 @@ import com.google.gson.Gson;
 import javax.inject.Inject;
 
 public class PushServiceListener extends GcmListenerService {
-
-    private SubscriptionList subscriptions = new SubscriptionList();
 
     @Override
     public void onCreate() {

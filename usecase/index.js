@@ -67,7 +67,7 @@ module.exports = ActivityGenerator.extend({
 
     this.prompt(prompts, function (props) {
       this.useCaseName = props.name;
-      this.useCasePackageName = props.activityPackageName;
+      this.useCasePackageName = props.useCasePackageName;
       done();
     }.bind(this));
   },

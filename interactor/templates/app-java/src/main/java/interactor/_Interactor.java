@@ -1,7 +1,7 @@
 package <%= appPackage %>.domain.interactors.<%= interactorPackageName %>;
 
 import <%= appPackage %>.domain.executors.ThreadExecutor;
-import <%= appPackage %>.domain.interactors.base.UseCaseInteractor;
+import <%= appPackage %>.domain.interactors.base.BaseInteractor;
 
 import javax.inject.Inject;
 

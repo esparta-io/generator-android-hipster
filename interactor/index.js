@@ -67,7 +67,7 @@ module.exports = ActivityGenerator.extend({
 
     this.prompt(prompts, function (props) {
       this.interactorName = props.name;
-      this.interactorPackageName = props.activityPackageName;
+      this.interactorPackageName = props.interactorPackageName;
       done();
     }.bind(this));
   },

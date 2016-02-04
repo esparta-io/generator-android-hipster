@@ -1,4 +1,4 @@
-package <%= appPackage %>.service.push;
+package <%= appPackage %>.services.push;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;

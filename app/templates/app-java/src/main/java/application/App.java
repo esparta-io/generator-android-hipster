@@ -3,12 +3,16 @@ package <%= appPackage %>.application;
 import android.app.Application;
 import android.support.multidex.MultiDex;
 import android.content.Context;
+
 import com.squareup.leakcanary.LeakCanary;
+import com.squareup.leakcanary.RefWatcher;
 
 <% if (jodatime == true) { %>import net.danlew.android.joda.JodaTimeAndroid; <% } %>
 <% if (printview == true) { %>import com.github.johnkil.print.PrintConfig; <% } %>
 
+
 import <%= appPackage %>.environment.EnvironmentModule;
+import <%= appPackage %>.environment.EnvironmentConfiguration;
 import <%= appPackage %>.R;
 import <%= appPackage %>.di.components.ApplicationComponent;
 import <%= appPackage %>.di.ForApplication;
@@ -34,27 +38,45 @@ public static ApplicationComponent graph;
     @Inject
     EnvironmentConfiguration environmentConfiguration;
 
+    private static App instance = null;
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
+    }
+
     public void onCreate() {
         super.onCreate();
 
-        MultiDex.install(this);
         LeakCanary.install(this);
+        instance = this;
+        refWatcher = LeakCanary.install(this);
 
         <% if (jodatime == true) { %>JodaTimeAndroid.init(this); <% } %>
         <% if (printview == true) { %>PrintConfig.initDefault(getAssets(), "fonts/icons.ttf");<% } %>
 
         <% if (calligraphy == true) { %>CalligraphyConfig.initDefault(new CalligraphyConfig.Builder().setDefaultFontPath("fonts/Roboto-Regular.ttf").setFontAttrId(R.attr.fontPath).build()); <% } %>
 
-        graph = DaggerApplicationComponent.builder()
-                        .androidModule(new AndroidModule())
-                        .gsonModule(new GsonModule())
-                        .applicationModule(new ApplicationModule(this))
-                        .environmentModule(new EnvironmentModule(this))
-                        .build();
-        graph.inject(this);
+        graph = createComponent();
 
         environmentConfiguration.configure();
 
     }
+
+    public ApplicationComponent createComponent() {
+        ApplicationComponent applicationComponent = ApplicationComponent.Initializer.init(this);
+
+        applicationComponent.inject(this);
+        return applicationComponent;
+
+    }
+
+    private static RefWatcher refWatcher;
+
+    public static RefWatcher getRefWatcher() {
+       return refWatcher;
+    }
+
 
 }

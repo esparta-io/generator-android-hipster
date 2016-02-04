@@ -1,4 +1,4 @@
-package <%= appPackage %>.service.push;
+package <%= appPackage %>.services.push;
 
 import android.content.Intent;
 

@@ -79,14 +79,14 @@ module.exports = ActivityGenerator.extend({
       var manifest = new AndroidManifest().readFile(manifestFilePath);
       manifest.receiver('com.google.android.gms.gcm.GcmReceiver')
         .attr('android:exported', true)
-        .attr('android:permission', 'com.google.android.c2dm.permission.SEND');
+        .attr('android:permission', 'com.google.android.c2dm.permission.SEND')
               .append('<intent-filter>')
               .find('intent-filter')
               .append('<action>')
               .find('action')
               .attr('android:name', 'com.google.android.c2dm.intent.RECEIVE');
 
-      manifest.receiver(appPackage + '.service.push.DefaultPushReceiver')
+      manifest.receiver(this.appPackage + '.services.push.DefaultPushReceiver')
         .attr('android:enabled', true)
         .attr('android:exported', true)
         .append('<intent-filter>')
@@ -96,7 +96,7 @@ module.exports = ActivityGenerator.extend({
         .find('action')
         .attr('android:name', 'Events.PUSH');
 
-      manifest.service(appPackage + '.service.push.PushIDListenerService')
+      manifest.service(this.appPackage + '.services.push.PushIDListenerService')
           .attr('android:exported', false)
           .append('<intent-filter>')
           .find('intent-filter')
@@ -104,7 +104,7 @@ module.exports = ActivityGenerator.extend({
           .find('action')
           .attr('android:name', 'com.google.android.gms.iid.InstanceID');
 
-      manifest.service(appPackage + '.service.push.PushServiceListener')
+      manifest.service(this.appPackage + '.services.push.PushServiceListener')
           .attr('android:exported', false)
           .append('<intent-filter>')
           .find('intent-filter')
@@ -135,6 +135,13 @@ module.exports = ActivityGenerator.extend({
       this.template(appFolder + '/src/main/java/_PushServiceListener' + ext,
         'app/src/main/java/' + packageDir + '/services/push/PushServiceListener' + ext, this, {});
 
+        if (this.language == 'java') {
+          this.addComponentInjection('PushServiceListener', packageDir, this.appPackage+'.services.push')
+          this.addComponentInjection('PushIntentService', packageDir, this.appPackage+'.services.push')
+        } else {
+          this.addComponentInjectionKotlin('PushServiceListener', packageDir, this.appPackage+'.services.push')
+          this.addComponentInjectionKotlin('PushIntentService', packageDir, this.appPackage+'.services.push')
+        }
     },
 
     install: function () {
