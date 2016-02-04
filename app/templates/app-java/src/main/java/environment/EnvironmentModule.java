@@ -3,6 +3,9 @@ package <%= appPackage %>.environment;
 import <%= appPackage %>.application.App;
 
 import javax.inject.Singleton;
+import <%= appPackage %>.di.ForApplication;
+import <%= appPackage %>.application.App;
+<% if (mixpanel == true) { %>import com.mixpanel.android.mpmetrics.MixpanelAPI;<% } %>
 
 import dagger.Module;
 import dagger.Provides;
@@ -27,5 +30,12 @@ public class EnvironmentModule {
                 .build();
         return restAdapter;
     }
+
+    <% if (mixpanel == true) { %>@Provides
+    @Singleton
+    public MixpanelAPI provideMixpanelApi(@ForApplication App application) {
+    	   MixpanelAPI mixpanel = MixpanelAPI.getInstance(application, "token");
+    	   return mixpanel;
+    }<% } %>
 
 }

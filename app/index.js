@@ -241,7 +241,8 @@ module.exports = AppGenerator.extend({
             this.playServices = props.playServices;
             this.stetho = props.stetho;
             this.printview = props.printview;
-            this.autoparcel = props.autoparcel;
+            this.autoparcel = true; // Yeap, need to be true at this time
+            // this.autoparcel = props.autoparcel;
 
             done();
         }.bind(this));

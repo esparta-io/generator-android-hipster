@@ -7,30 +7,43 @@
 
 It provides a generator to create and maintain a android application based on the latests frameworks and patterns used by the community.
 
+Stack:
+- Java / Kotlin
 - RxJava
+- RxAndroid
 - MVP
+- Interactors / UseCases
+- Repositories
+- Flavors like used in u2020
 - Dagger2
 - Event bus systems (EventBus / Otto)
 - Stetho
 - Retrofit / OkHttp
 - Timber
 - Image Loaders (Glide / Picasso)
-- Google Play services
+- Google Play Services
 - Push notifications
-- Java / Kotlin
-- Butterknife
+- ButterKnife
 - Anko (kotlin)
 - Retrolambda (Java)
 - JodaTime / jodamoney
 - Gson
+- MixPanel
 - Storage in SharedPreferences using Gson
 - PrintView
 - Calligraphy
 - AutoValue / AutoParcel
-- ... more to come?
+- Guava Optionals (source included)
+
+Yet to come:
+- RxLifeCycle
+- Hank / RxPreferences
+- Dexter / RxPermissions
+- DB implementations (I usually work with ORMLite, but it will be awesome to create a multi db options to use ORMLite, DBFlow, Storio, Realm and etc..)
+- ???
 
 Some of these technologies are optional, and you can choose what you want to use answering the questions when you create the project.
-Some of them are mandatory, but can be optional soon. If you have any questions, please create a new issue.
+Some of them are mandatory, but can be optional soon. If you have any questions, please create a new issue and we will discuss.
 
 ---
 
@@ -48,11 +61,11 @@ Some of them are mandatory, but can be optional soon. If you have any questions,
   * It will create a model (AutoParcel), an Entity class for REST / DB communication, and a converter to change from Entity <> Model class.
 
 - Create a Interactor
-  * Create a base interactor to you.
+  * Create a base interactor.
 
 - Create a UseCase
   * Same as Interactor, but different name =)
-  * It equal to Interactor generation, future changes use proof.
+  * It equal to Interactor generation, future changes proof.
 
 - Create a repository
   * Create a repository layer (To manage calls to Remote / Local without exposing them to Interactors / UseCases)
@@ -63,6 +76,8 @@ Some of them are mandatory, but can be optional soon. If you have any questions,
   * Create the classes to handle push notifications like this [article](https://medium.com/@deividi/a-good-way-to-handle-incoming-notifications-in-android-dc64c29041a5)
 
 Check this [article](https://medium.com/@dmilicic/a-detailed-guide-on-developing-android-apps-using-the-clean-architecture-pattern-d38d71e94029#.ucymv1rr1)
+
+Any suggestions? [Please let me know](https://github.com/cavarzan/generator-android-hipster/issues)!
 
 ### Sample:
 >yet to come
@@ -79,47 +94,52 @@ npm install -g generator-android-hipster
 
 # Available commands:
 
-## Create new project:
+### Create new project:
 
 ```bash
 yo android-hipster
 ```
 
-## Create a new activity:
+### Create a new activity:
 
 ```bash
 yo android-hipster:activity
 ```
 
-## Create a new interactor:
+### Create a new interactor:
 
 ```bash
 yo android-hipster:interactor
 ```
 
-## Create a new use case:
+### Create a new use case:
 
 ```bash
 yo android-hipster:usecase
 ```
 
-## Create a new repository:
+### Create a new repository:
 
 ```bash
 yo android-hipster:repository
 ```
 
-## Create a new entity:
+### Create a new entity:
 
 ```bash
 yo android-hipster:entity
 ```
 
-## Create a new push support like this [article](https://medium.com/@deividi/a-good-way-to-handle-incoming-notifications-in-android-dc64c29041a5):
+### Create a new push support like this [article](https://medium.com/@deividi/a-good-way-to-handle-incoming-notifications-in-android-dc64c29041a5):
 
 ```bash
 yo android-hipster:push
 ```
+
+# Special THANKS to:
+
+[JHipster](https://github.com/jhipster/generator-jhipster) that inspired me and helped in development!!!
+[Android Kickstarter](https://github.com/cristhianescobar/generator-android-starter/) another inspiration for Environment classes and Mixpanel.
 
 
 ## License
