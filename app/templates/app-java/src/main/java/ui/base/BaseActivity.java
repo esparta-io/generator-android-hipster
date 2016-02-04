@@ -5,6 +5,7 @@ import android.support.annotation.CallSuper;
 <% if (nucleus == true) { %>import nucleus.view.NucleusAppCompatActivity;<% } else { %>import android.support.v7.app.AppCompatActivity;<% } %>
 <% if (butterknife == true) { %>import butterknife.Bind;
 import butterknife.ButterKnife; <% } %>
+<% if (calligraphy == true) { %>import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;<% } %>
 
 public abstract class BaseActivity<P extends BasePresenter> extends <% if (nucleus == true) { %>NucleusAppCompatActivity<P><% } else { %>AppCompatActivity;<% } %> {
 
@@ -29,4 +30,11 @@ public abstract class BaseActivity<P extends BasePresenter> extends <% if (nucle
     <% if (butterknife == true) { %>ButterKnife.unbind(this); <% } %>
         super.onDestroy();
     }
+
+    <% if (calligraphy == true) { %>
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
+    <% } %>
 }

@@ -54,7 +54,7 @@ public static ApplicationComponent graph;
         refWatcher = LeakCanary.install(this);
 
         <% if (jodatime == true) { %>JodaTimeAndroid.init(this); <% } %>
-        <% if (printview == true) { %>PrintConfig.initDefault(getAssets(), "fonts/icons.ttf");<% } %>
+        <% if (printview == true) { %>PrintConfig.initDefault(getAssets(), "fonts/MaterialIcons-Regular.ttf");<% } %>
 
         <% if (calligraphy == true) { %>CalligraphyConfig.initDefault(new CalligraphyConfig.Builder().setDefaultFontPath("fonts/Roboto-Regular.ttf").setFontAttrId(R.attr.fontPath).build()); <% } %>
 
