@@ -1,6 +1,8 @@
 # generator-android-hipster
 > Android generator based on MVP, Dagger2, RxJava, Java/Kotlin Stack and usefull libraries for Android
 
+#Beta stage, currently kotlin generation is broken... I'm working on full Java code generation and after that I will migrate code to kotlin.
+
 ## Installation
 
 First, install [Yeoman](http://yeoman.io) and generator-android-hipster using [npm](https://www.npmjs.com/) (we assume you have pre-installed [node.js](https://nodejs.org/)).
@@ -24,9 +26,30 @@ This will create a new app based on your selection.
 yo android-hipster:activity
 ```
 
-## Getting To Know Yeoman
+## Create a new interactor:
 
-Yeoman has a heart of gold. He&#39;s a person with feelings and opinions, but he&#39;s very easy to work with. If you think he&#39;s too opinionated, he can be easily convinced. Feel free to [learn more about him](http://yeoman.io/).
+```bash
+yo android-hipster:interactor
+```
+
+## Create a new use case:
+
+```bash
+yo android-hipster:usecase
+```
+
+## Create a new repository:
+
+```bash
+yo android-hipster:repository
+```
+
+## Create a new push support like this article: https://medium.com/@deividi/a-good-way-to-handle-incoming-notifications-in-android-dc64c29041a5
+
+```bash
+yo android-hipster:push
+```
+
 
 ## License
 
