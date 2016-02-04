@@ -364,6 +364,7 @@ module.exports = AppGenerator.extend({
             this.template(appFolder + '/src/main/java/util/google', 'app/src/main/java/' + packageDir + '/util/google', this, {});
 
             this.template(appFolder + '/src/main/java/ui/main', 'app/src/main/java/' + packageDir + '/ui/main', this, {});
+            this.template(appFolder + '/src/main/java/environment', 'app/src/main/java/' + packageDir + '/environment', this, {});
 
             mkdirp('app/src/main/assets');
 
