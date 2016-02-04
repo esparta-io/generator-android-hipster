@@ -58,8 +58,8 @@ public class PermissionUtils {
 
 
     public static void snackbarForSettings(Activity activity, int REQUEST_SETTINGS) {
-        Snackbar make = Snackbar.make(activity.findViewById(android.R.id.content), R.string.need_permissions, Snackbar.LENGTH_INDEFINITE);
-        make.setAction(R.string.settings, v -> {
+        Snackbar make = Snackbar.make(activity.findViewById(android.R.id.content), "R.string.need_permissions", Snackbar.LENGTH_INDEFINITE);
+        make.setAction("R.string.settings", v -> {
             make.dismiss();
             Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:" + activity.getPackageName()));
             intent.setFlags(0);
@@ -73,7 +73,7 @@ public class PermissionUtils {
         builder.setTitle("R.string.permissions_required");
         builder.setMessage("R.string.permissions_required_to_use_app");
         builder.setCancelable(false);
-        builder.setPositiveButton(R.string.ok, (dialog, which) -> {
+        builder.setPositiveButton("R.string.ok", (dialog, which) -> {
             dialog.dismiss();
             callback.onAccept();
         });

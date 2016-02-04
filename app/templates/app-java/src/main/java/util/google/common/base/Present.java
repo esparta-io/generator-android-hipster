@@ -19,7 +19,7 @@ package <%=appPackage%>.util.google.common.base;
 import java.util.Collections;
 import java.util.Set;
 
-import static <%=appPackage%>.util.common.base.Preconditions.checkNotNull;
+import static <%=appPackage%>.util.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Implementation of an {@link Optional} containing a reference.

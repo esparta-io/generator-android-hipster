@@ -398,9 +398,9 @@ module.exports = AppGenerator.extend({
         }
 
         if (this.nucleus) {
-          this.addGradleDependency('compile', 'info.android15.nucleus', 'nucleus', '2.0.4');
-          this.addGradleDependency('compile', 'info.android15.nucleus', 'nucleus-support-v4', '2.0.4');
-          this.addGradleDependency('compile', 'info.android15.nucleus', 'nucleus-support-v7', '2.0.4');
+          this.addGradleDependency('compile', 'info.android15.nucleus', 'nucleus', '2.0.5');
+          this.addGradleDependency('compile', 'info.android15.nucleus', 'nucleus-support-v4', '2.0.5');
+          this.addGradleDependency('compile', 'info.android15.nucleus', 'nucleus-support-v7', '2.0.5');
         }
 
         if (this.butterknife) {
