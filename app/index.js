@@ -292,16 +292,18 @@ module.exports = AppGenerator.extend({
 
             mkdirp('app/src/internal/java/' + packageDir);
             mkdirp('app/src/internalDebug/java/' + packageDir);
-            this.template(appFolder + '/src/main/java/environment', 'app/src/internalDebug/java/' + packageDir + '/environment', this, {});
             mkdirp('app/src/internalRelease/java/' + packageDir);
-            this.template(appFolder + '/src/main/java/environment', 'app/src/internalRelease/java/' + packageDir + '/environment', this, {});
-
 
             mkdirp('app/src/production/java/' + packageDir);
             mkdirp('app/src/productionDebug/java/' + packageDir);
             mkdirp('app/src/productionRelease/java/' + packageDir);
 
             mkdirp('app/src/main/java/' + packageDir);
+
+            this.template(appFolder + '/src/main/java/environment', 'app/src/internalDebug/java/' + packageDir + '/environment', this, {});
+            this.template(appFolder + '/src/main/java/environment', 'app/src/internalRelease/java/' + packageDir + '/environment', this, {});
+            this.template(appFolder + '/src/main/java/environment', 'app/src/productionDebug/java/' + packageDir + '/environment', this, {});
+            this.template(appFolder + '/src/main/java/environment', 'app/src/productionRelease/java/' + packageDir + '/environment', this, {});
 
             this.template(appFolder + '/src/main/java/application', 'app/src/main/java/' + packageDir + '/application', this, {});
 
@@ -319,7 +321,6 @@ module.exports = AppGenerator.extend({
             this.template(appFolder + '/src/main/java/model', 'app/src/main/java/' + packageDir + '/model', this, {});
 
             var ext = this.language == 'java' ? ".java" : ".kt";
-
 
             this.template(appFolder + '/src/main/java/ui/base/BaseActivity' + ext, 'app/src/main/java/' + packageDir + '/ui/base/BaseActivity' + ext, this, {});
 
@@ -364,7 +365,6 @@ module.exports = AppGenerator.extend({
             this.template(appFolder + '/src/main/java/util/google', 'app/src/main/java/' + packageDir + '/util/google', this, {});
 
             this.template(appFolder + '/src/main/java/ui/main', 'app/src/main/java/' + packageDir + '/ui/main', this, {});
-            this.template(appFolder + '/src/main/java/environment', 'app/src/main/java/' + packageDir + '/environment', this, {});
 
             mkdirp('app/src/main/assets');
 
