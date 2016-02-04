@@ -358,7 +358,10 @@ module.exports = AppGenerator.extend({
             }
 
             this.template(appFolder + '/src/main/java/util/gson/GsonModule' + ext, 'app/src/main/java/' + packageDir + '/util/gson/GsonModule'+ext, this, {});
+            this.template(appFolder + '/src/main/java/util/RxUtils' + ext, 'app/src/main/java/' + packageDir + '/util/RxUtils'+ext, this, {});
+            this.template(appFolder + '/src/main/java/util/PermissionUtils' + ext, 'app/src/main/java/' + packageDir + '/util/PermissionUtils'+ext, this, {});
 
+            this.template(appFolder + '/src/main/java/util/google', 'app/src/main/java/' + packageDir + '/util/google', this, {});
 
             this.template(appFolder + '/src/main/java/ui/main', 'app/src/main/java/' + packageDir + '/ui/main', this, {});
 

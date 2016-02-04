@@ -1,14 +1,14 @@
-package <%= appPackage %>.domain.interactors.<%= interactorPackageName %>;
+package <%= appPackage %>.domain.usecases.<%= useCasePackageName %>;
 
 import <%= appPackage %>.domain.executors.ThreadExecutor;
 import <%= appPackage %>.domain.interactors.base.UseCaseInteractor;
 
 import javax.inject.Inject;
 
-public class <%= interactorName %>Interactor extends BaseInteractor {
+public class <%= useCaseName %>UseCase extends UseCaseInteractor  {
 
         @Inject
-        public <%= interactorName %>Interactor(ThreadExecutor executor) {
+        public <%= useCaseName %>UseCase(ThreadExecutor executor) {
             super(executor);
         }
 

@@ -54,7 +54,7 @@ module.exports = ActivityGenerator.extend({
           return true;
         },
         name: 'useCasePackageName',
-        message: 'What is the package of the Interactor? (it will be placed inside interactors package)',
+        message: 'What is the package of the Interactor? (it will be placed inside usecase package)',
         validate: function (input) {
           if (/^([a-z_]{1}[a-z0-9_]*(\.[a-z_]{1}[a-z0-9_]*)*)$/.test(input)) return true;
           return 'The package name you have provided is not a valid Java package name.';
@@ -96,8 +96,8 @@ module.exports = ActivityGenerator.extend({
 
       var ext = this.language == 'java' ? ".java" : ".kt";
 
-      this.template(appFolder + '/src/main/java/interactor/_UseCase' + ext,
-        'app/src/main/java/' + packageDir + '/domain/interactors/' + dotActivityPackageName + '/' + this.useCaseName + 'UseCase' + ext, this, {});
+      this.template(appFolder + '/src/main/java/usecase/_UseCase' + ext,
+        'app/src/main/java/' + packageDir + '/domain/usecases/' + dotActivityPackageName + '/' + this.useCaseName + 'UseCase' + ext, this, {});
 
     },
 

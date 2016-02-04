@@ -84,7 +84,7 @@ module.exports = ActivityGenerator.extend({
 
     app: function () {
 
-      var dotActivityPackageName = this.interactorPackageName.replace(/\./g, '/').replace(this.appPackage, '');
+      var dotPackageName = this.interactorPackageName.replace(/\./g, '/').replace(this.appPackage, '');
       var packageDir = this.appPackage.replace(/\./g, '/');
 
       var appFolder;
@@ -97,7 +97,7 @@ module.exports = ActivityGenerator.extend({
       var ext = this.language == 'java' ? ".java" : ".kt";
 
       this.template(appFolder + '/src/main/java/interactor/_Interactor' + ext,
-        'app/src/main/java/' + packageDir + '/domain/interactors/' + dotActivityPackageName + '/' + this.interactorName + 'Interactor' + ext, this, {});
+        'app/src/main/java/' + packageDir + '/domain/interactors/' + dotPackageName + '/' + this.interactorName + 'Interactor' + ext, this, {});
 
     },
 

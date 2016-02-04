@@ -40,11 +40,11 @@ module.exports = ActivityGenerator.extend({
 
     var prompts = [{
       name: 'name',
-      message: 'What are the name of your activity (Without ActivitySuffix. Ex: Login (for a LoginActivity)?',
+      message: 'What are the name of your Repository (Without ActivitySuffix. Ex: User (for a UserRepository)?',
       store: true,
       validate: function (input) {
         if (/^([a-zA-Z0-9_]*)$/.test(input)) return true;
-        return 'Your activity name cannot contain special characters or a blank space, using the default name instead : ' + defaultAppBaseName;
+        return 'Your Repository name cannot contain special characters or a blank space, using the default name instead : ' + defaultAppBaseName;
       },
       default: this.defaultAppBaseName
     },
@@ -53,8 +53,8 @@ module.exports = ActivityGenerator.extend({
           defaultName = response.name;
           return true;
         },
-        name: 'activityPackageName',
-        message: 'What is the package of the activity? (it will be placed inside ui package)',
+        name: 'packageName',
+        message: 'What is the package of the repository? (it will be placed inside domain/repository package)',
         validate: function (input) {
           if (/^([a-z_]{1}[a-z0-9_]*(\.[a-z_]{1}[a-z0-9_]*)*)$/.test(input)) return true;
           return 'The package name you have provided is not a valid Java package name.';
@@ -63,36 +63,32 @@ module.exports = ActivityGenerator.extend({
         store: true
       },
       {
-        type: 'list',
-        name: 'componentType',
-        message: 'For dependency injection, do you want a new Component? ',
-        choices: [
-          {
-            value: 'createNew',
-            name: 'Create new Component / Module for this Activity'
-          },
-          {
-            value: 'useApplication',
-            name: 'Use the ApplicationComponent to inject this activity'
-          }
-
-        ],
-        default: 0
+          type: 'checkbox',
+          name: 'remoteLocal',
+          message: 'Enable Local / Remote Repository?',
+          choices: [
+              {name: 'Remote', value: 'remote'},
+              {name: 'Local', value: 'local'}
+          ],
+          default: ['no']
       },
       {
+        when: function(response) {
+            return response.remoteLocal.indexOf('remote') >= 0;
+        },
         type: 'confirm',
-        name: 'fragment',
-        message: 'Create a simple Fragment for this Activity?',
+        name: 'service',
+        message: 'Create a simple Retorfit Service inside RemoteRepository?',
         default: true
       }
 
     ];
 
     this.prompt(prompts, function (props) {
-      this.activityName = props.name;
-      this.activityPackageName = props.activityPackageName;
-      this.fragment = props.fragment;
-      this.componentType = props.componentType;
+      this.repositoryName = props.name;
+      this.repositoryPackageName = props.packageName;
+      this.remoteLocal = props.remoteLocal;
+      this.service = props.service;
 
       done();
     }.bind(this));
@@ -110,31 +106,8 @@ module.exports = ActivityGenerator.extend({
 
     app: function () {
 
-      var dotActivityPackageName = this.activityPackageName.replace(/\./g, '/').replace(this.appPackage, '');
+      var dotRepositoryPackageName = this.repositoryPackageName.replace(/\./g, '/').replace(this.appPackage, '');
       var packageDir = this.appPackage.replace(/\./g, '/');
-
-      var manifestFilePath = 'app/src/main/AndroidManifest.xml';
-
-      var resourceFilePath = 'app/src/main/res/values/strings.xml';
-
-      var manifest = new AndroidManifest().readFile(manifestFilePath);
-      manifest.activity('.ui.' + this.activityPackageName + '.' + this.activityName + 'Activity')
-        .attr('android:theme', '@style/' + this.activityName + 'Style')
-        .attr('android:label', '@string/' + this.activityName.toLowerCase() + '_name');
-
-      manifest.writeFile(manifestFilePath);
-
-      var resource = new AndroidResource().readFile(resourceFilePath);
-      resource.string(this.activityName.toLowerCase() + '_name').text(this.activityName+'HispterActivity');
-      resource.writeFile(resourceFilePath);
-
-      var stylesFilePath = 'app/src/main/res/values/styles.xml';
-      var styles = new AndroidResource().readFile(stylesFilePath);
-      styles.style(this.activityName + 'Style').attr('parent', 'AppTheme').text('');
-      styles.writeFile(stylesFilePath);
-
-      var styles21FilePath = 'app/src/main/res/values-v21/styles.xml';
-      styles.writeFile(styles21FilePath);
 
       var appFolder;
       if (this.language == 'java') {
@@ -145,46 +118,19 @@ module.exports = ActivityGenerator.extend({
 
       var ext = this.language == 'java' ? ".java" : ".kt";
 
-        if (this.componentType == 'createNew') {
-          this.template(appFolder + '/src/main/java/di/components/_Component' + ext,
-            'app/src/main/java/' + packageDir + '/di/components/' + this.activityName + 'Component' + ext, this, {});
-          this.template(appFolder + '/src/main/java/di/modules/_Module' + ext,
-            'app/src/main/java/' + packageDir + '/di/modules/' + this.activityName + 'Module' + ext, this, {});
-        } else {
-          if (this.language == 'java') {
-            this.addComponentInjection(this.activityName+'Activity', packageDir, this.appPackage+'.ui.'+this.activityPackageName)
-            if (fragment) {
-              this.addComponentInjection(this.activityName+'Fragment', packageDir, this.appPackage+'.ui.'+this.activityPackageName)
-            }
-          } else {
-            this.addComponentInjectionKotlin(this.activityName+'Activity', packageDir, this.appPackage+'.ui.'+this.activityPackageName)
-            if (fragment) {
-              this.addComponentInjectionKotlin(this.activityName+'Fragment', packageDir, this.appPackage+'.ui.'+this.activityPackageName)
-            }
-          }
-        }
+      this.template(appFolder + '/src/main/java/_Repository' + ext,
+        'app/src/main/java/' + packageDir + '/domain/repository/' + dotRepositoryPackageName + '/' + this.repositoryName + 'Repository' + ext, this, {});
 
-      this.template(appFolder + '/src/main/java/ui/_Activity' + ext,
-        'app/src/main/java/' + packageDir + '/ui/' + dotActivityPackageName + '/' + this.activityName + 'Activity' + ext, this, {});
-
-      if (this.fragment == true) {
-        this.template(appFolder + '/src/main/java/ui/_Fragment' + ext,
-          'app/src/main/java/' + packageDir + '/ui/' + dotActivityPackageName + '/' + this.activityName + 'Fragment' + ext, this, {});
+      if (this.remoteLocal.indexOf('local') >= 0) {
+        this.template(appFolder + '/src/main/java/_LocalRepository' + ext,
+          'app/src/main/java/' + packageDir + '/domain/repository/' + dotRepositoryPackageName + '/' + this.repositoryName + 'LocalRepository' + ext, this, {});
       }
 
-      this.template(appFolder + '/src/main/java/ui/_Presenter' + ext,
-        'app/src/main/java/' + packageDir + '/ui/' + dotActivityPackageName + '/' + this.activityName + 'Presenter' + ext, this, {});
-      this.template(appFolder + '/src/main/java/ui/_View' + ext,
-        'app/src/main/java/' + packageDir + '/ui/' + dotActivityPackageName + '/' + this.activityName + 'View' + ext, this, {});
-
-
-      this.template('resources/res/layout/_activity.xml',
-        'app/src/main/res/layout/activity_' + this.activityName.toLowerCase() + '.xml', this, {});
-
-      if (this.fragment == true) {
-        this.template('resources/res/layout/_fragment.xml',
-          'app/src/main/res/layout/fragment_' + this.activityName.toLowerCase() + '.xml', this, {});
+      if (this.remoteLocal.indexOf('remote') >= 0) {
+        this.template(appFolder + '/src/main/java/_RemoteRepository' + ext,
+          'app/src/main/java/' + packageDir + '/domain/repository/' + dotRepositoryPackageName + '/' + this.repositoryName + 'RemoteRepository' + ext, this, {});
       }
+
     },
 
     install: function () {

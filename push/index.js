@@ -38,61 +38,17 @@ module.exports = ActivityGenerator.extend({
     var defaultAppBaseName = 'Sample';
     var defaultName = '';
 
-    var prompts = [{
-      name: 'name',
-      message: 'What are the name of your activity (Without ActivitySuffix. Ex: Login (for a LoginActivity)?',
-      store: true,
-      validate: function (input) {
-        if (/^([a-zA-Z0-9_]*)$/.test(input)) return true;
-        return 'Your activity name cannot contain special characters or a blank space, using the default name instead : ' + defaultAppBaseName;
-      },
-      default: this.defaultAppBaseName
-    },
-      {
-        when: function (response) {
-          defaultName = response.name;
-          return true;
-        },
-        name: 'activityPackageName',
-        message: 'What is the package of the activity? (it will be placed inside ui package)',
-        validate: function (input) {
-          if (/^([a-z_]{1}[a-z0-9_]*(\.[a-z_]{1}[a-z0-9_]*)*)$/.test(input)) return true;
-          return 'The package name you have provided is not a valid Java package name.';
-        },
-        default: defaultName.toLowerCase(),
-        store: true
-      },
-      {
-        type: 'list',
-        name: 'componentType',
-        message: 'For dependency injection, do you want a new Component? ',
-        choices: [
-          {
-            value: 'createNew',
-            name: 'Create new Component / Module for this Activity'
-          },
-          {
-            value: 'useApplication',
-            name: 'Use the ApplicationComponent to inject this activity'
-          }
-
-        ],
-        default: 0
-      },
+    var prompts = [
       {
         type: 'confirm',
-        name: 'fragment',
-        message: 'Create a simple Fragment for this Activity?',
+        name: 'ok',
+        message: 'This will create a Push structure in your app. Continue?',
         default: true
       }
-
     ];
 
     this.prompt(prompts, function (props) {
-      this.activityName = props.name;
-      this.activityPackageName = props.activityPackageName;
-      this.fragment = props.fragment;
-      this.componentType = props.componentType;
+      this.ok = props.ok;
 
       done();
     }.bind(this));
@@ -110,7 +66,10 @@ module.exports = ActivityGenerator.extend({
 
     app: function () {
 
-      var dotActivityPackageName = this.activityPackageName.replace(/\./g, '/').replace(this.appPackage, '');
+      if (!this.ok) {
+        return;
+      }
+
       var packageDir = this.appPackage.replace(/\./g, '/');
 
       var manifestFilePath = 'app/src/main/AndroidManifest.xml';
@@ -118,23 +77,32 @@ module.exports = ActivityGenerator.extend({
       var resourceFilePath = 'app/src/main/res/values/strings.xml';
 
       var manifest = new AndroidManifest().readFile(manifestFilePath);
-      manifest.activity('.ui.' + this.activityPackageName + '.' + this.activityName + 'Activity')
-        .attr('android:theme', '@style/' + this.activityName + 'Style')
-        .attr('android:label', '@string/' + this.activityName.toLowerCase() + '_name');
+      manifest.receiver('com.google.android.gms.gcm.GcmReceiver')
+        .attr('android:exported', true);
+        //android:permission="com.google.android.c2dm.permission.SEND">
 
+      manifest.receiver(appPackage + '.service.push.DefaultPushReceiver')
+        .attr('android:enabled', true)
+        .attr('android:exported', true);
+        // <intent-filter android:priority="0">
+        //                 <action android:name="Events.PUSH" />
+        //             </intent-filter>
+
+      manifest.service(appPackage + '.service.push.PushIDListenerService')
+          .attr('android:exported', false);
+          // android:exported="false">
+          //   <intent-filter>
+          //       <action android:name="com.google.android.gms.iid.InstanceID" />
+          //   </intent-filter>
+
+
+
+      manifest.service(appPackage + '.service.push.PushServiceListener')
+          .attr('android:exported', false);
+            // <intent-filter>
+            //                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+            //             </intent-filter>
       manifest.writeFile(manifestFilePath);
-
-      var resource = new AndroidResource().readFile(resourceFilePath);
-      resource.string(this.activityName.toLowerCase() + '_name').text(this.activityName+'HispterActivity');
-      resource.writeFile(resourceFilePath);
-
-      var stylesFilePath = 'app/src/main/res/values/styles.xml';
-      var styles = new AndroidResource().readFile(stylesFilePath);
-      styles.style(this.activityName + 'Style').attr('parent', 'AppTheme').text('');
-      styles.writeFile(stylesFilePath);
-
-      var styles21FilePath = 'app/src/main/res/values-v21/styles.xml';
-      styles.writeFile(styles21FilePath);
 
       var appFolder;
       if (this.language == 'java') {
@@ -145,46 +113,18 @@ module.exports = ActivityGenerator.extend({
 
       var ext = this.language == 'java' ? ".java" : ".kt";
 
-        if (this.componentType == 'createNew') {
-          this.template(appFolder + '/src/main/java/di/components/_Component' + ext,
-            'app/src/main/java/' + packageDir + '/di/components/' + this.activityName + 'Component' + ext, this, {});
-          this.template(appFolder + '/src/main/java/di/modules/_Module' + ext,
-            'app/src/main/java/' + packageDir + '/di/modules/' + this.activityName + 'Module' + ext, this, {});
-        } else {
-          if (this.language == 'java') {
-            this.addComponentInjection(this.activityName+'Activity', packageDir, this.appPackage+'.ui.'+this.activityPackageName)
-            if (fragment) {
-              this.addComponentInjection(this.activityName+'Fragment', packageDir, this.appPackage+'.ui.'+this.activityPackageName)
-            }
-          } else {
-            this.addComponentInjectionKotlin(this.activityName+'Activity', packageDir, this.appPackage+'.ui.'+this.activityPackageName)
-            if (fragment) {
-              this.addComponentInjectionKotlin(this.activityName+'Fragment', packageDir, this.appPackage+'.ui.'+this.activityPackageName)
-            }
-          }
-        }
+      this.template(appFolder + '/src/main/java/_DefaultPushReceiver' + ext,
+        'app/src/main/java/' + packageDir + '/services/push/DefaultPushReceiver' + ext, this, {});
 
-      this.template(appFolder + '/src/main/java/ui/_Activity' + ext,
-        'app/src/main/java/' + packageDir + '/ui/' + dotActivityPackageName + '/' + this.activityName + 'Activity' + ext, this, {});
+      this.template(appFolder + '/src/main/java/_PushIDListenerService' + ext,
+        'app/src/main/java/' + packageDir + '/services/push/PushIDListenerService' + ext, this, {});
 
-      if (this.fragment == true) {
-        this.template(appFolder + '/src/main/java/ui/_Fragment' + ext,
-          'app/src/main/java/' + packageDir + '/ui/' + dotActivityPackageName + '/' + this.activityName + 'Fragment' + ext, this, {});
-      }
+      this.template(appFolder + '/src/main/java/_PushIntentService' + ext,
+        'app/src/main/java/' + packageDir + '/services/push/PushIntentService' + ext, this, {});
 
-      this.template(appFolder + '/src/main/java/ui/_Presenter' + ext,
-        'app/src/main/java/' + packageDir + '/ui/' + dotActivityPackageName + '/' + this.activityName + 'Presenter' + ext, this, {});
-      this.template(appFolder + '/src/main/java/ui/_View' + ext,
-        'app/src/main/java/' + packageDir + '/ui/' + dotActivityPackageName + '/' + this.activityName + 'View' + ext, this, {});
+      this.template(appFolder + '/src/main/java/_PushServiceListener' + ext,
+        'app/src/main/java/' + packageDir + '/services/push/PushServiceListener' + ext, this, {});
 
-
-      this.template('resources/res/layout/_activity.xml',
-        'app/src/main/res/layout/activity_' + this.activityName.toLowerCase() + '.xml', this, {});
-
-      if (this.fragment == true) {
-        this.template('resources/res/layout/_fragment.xml',
-          'app/src/main/res/layout/fragment_' + this.activityName.toLowerCase() + '.xml', this, {});
-      }
     },
 
     install: function () {
