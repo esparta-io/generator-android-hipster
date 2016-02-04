@@ -24,6 +24,9 @@ public class GsonModule {
       gsonBuilder.registerTypeAdapter(CurrencyUnit.class, new CurrencyUnitTypeConverter()); <% } %>
     <% if (jodatime == true) { %>gsonBuilder.registerTypeAdapter(DateTime.class, new DateTimeTypeConverter());
         gsonBuilder.registerTypeAdapter(DateTimeZone.class, new DateTimeZoneTypeConverter());<% } %>
+
+    <% if (autoparcel == true) { %>gsonBuilder.registerTypeAdapterFactory(new AutoValueTypeAdapterFactory());<% } %>
+
     return gsonBuilder;
   }
 

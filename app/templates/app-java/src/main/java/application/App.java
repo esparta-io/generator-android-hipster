@@ -6,6 +6,7 @@ import android.content.Context;
 import com.squareup.leakcanary.LeakCanary;
 
 <% if (jodatime == true) { %>import net.danlew.android.joda.JodaTimeAndroid; <% } %>
+<% if (printview == true) { %>import com.github.johnkil.print.PrintConfig; <% } %>
 
 import <%= appPackage %>.environment.EnvironmentModule;
 import <%= appPackage %>.R;
@@ -40,6 +41,8 @@ public static ApplicationComponent graph;
         LeakCanary.install(this);
 
         <% if (jodatime == true) { %>JodaTimeAndroid.init(this); <% } %>
+        <% if (printview == true) { %>PrintConfig.initDefault(getAssets(), "fonts/icons.ttf");<% } %>
+
         <% if (calligraphy == true) { %>CalligraphyConfig.initDefault(new CalligraphyConfig.Builder().setDefaultFontPath("fonts/Roboto-Regular.ttf").setFontAttrId(R.attr.fontPath).build()); <% } %>
 
         graph = DaggerApplicationComponent.builder()

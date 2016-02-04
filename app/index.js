@@ -173,8 +173,20 @@ module.exports = AppGenerator.extend({
             },
             {
                 type: 'confirm',
+                name: 'printview',
+                message: 'Would you like to use PrintView for icon font?',
+                default: true
+            },
+            {
+                type: 'confirm',
                 name: 'stetho',
                 message: 'Would you like to use Stetho for Network Monitoring?',
+                default: true
+            },
+            {
+                type: 'confirm',
+                name: 'autoparcel',
+                message: 'Would you like to use AutoParcel?',
                 default: true
             },
             {
@@ -228,6 +240,8 @@ module.exports = AppGenerator.extend({
             this.calligraphy = props.calligraphy;
             this.playServices = props.playServices;
             this.stetho = props.stetho;
+            this.printview = props.printview;
+            this.autoparcel = props.autoparcel;
 
             done();
         }.bind(this));
@@ -338,6 +352,11 @@ module.exports = AppGenerator.extend({
               this.template(appFolder + '/src/main/java/util/gson/MoneyTypeConverter' + ext, 'app/src/main/java/' + packageDir + '/util/gson/MoneyTypeConverter'+ext, this, {});
             }
 
+            if (this.autoparcel) {
+              this.template(appFolder + '/src/main/java/util/gson/AutoGson' + ext, 'app/src/main/java/' + packageDir + '/util/gson/AutoGson'+ext, this, {});
+              this.template(appFolder + '/src/main/java/util/gson/AutoValueTypeAdapterFactory' + ext, 'app/src/main/java/' + packageDir + '/util/gson/AutoValueTypeAdapterFactory'+ext, this, {});
+            }
+
             this.template(appFolder + '/src/main/java/util/gson/GsonModule' + ext, 'app/src/main/java/' + packageDir + '/util/gson/GsonModule'+ext, this, {});
 
 
@@ -411,7 +430,13 @@ module.exports = AppGenerator.extend({
         if (this.jodatime == true) {   this.addGradleDependency('compile', 'net.danlew', 'android.joda', '2.8.2'); }
 
         if (this.jodamoney == true) {
-          this.addGradleDependency('compile', 'org.joda', 'joda-money', '0.10.0'); }
+          this.addGradleDependency('compile', 'org.joda', 'joda-money', '0.10.0');
+        }
+
+        if (this.printview == true) {
+            this.addGradleDependency('compile', 'com.github.johnkil.print', 'print', '1.3.1');
+        }
+
         if (this.mixpanel == true) {
           this.addGradleDependency('compile', 'com.mixpanel.android', 'mixpanel-android', '4.6.4');}
 
@@ -419,7 +444,18 @@ module.exports = AppGenerator.extend({
           this.addGradleDependency('compile', 'com.facebook.stetho', 'stetho', '1.2.0');
           this.addGradleDependency('compile', 'com.facebook.stetho', 'stetho-okhttp', '1.2.0');
         }
-        if (this.playServices.lenght > 0) {
+
+        if (this.autoparcel) {
+          this.addGradleDependency('compile', 'com.github.frankiesardo', 'auto-parcel', '0.3.1');
+          if (this.language == 'java') {
+            this.addGradleDependency('apt', 'com.github.frankiesardo', 'auto-parcel-processor', '0.3.1');
+          }else {
+            this.addGradleDependency('kapt', 'com.github.frankiesardo', 'auto-parcel-processor', '0.3.1');
+          }
+
+        }
+
+        if (this.playServices.length > 0) {
 
             this.addGradleDependency('compile', 'com.google.android.gms', 'play-services-base', '8.4.0');
 
