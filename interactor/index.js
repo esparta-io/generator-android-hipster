@@ -111,7 +111,7 @@ module.exports = ActivityGenerator.extend({
           'app/src/main/java/' + packageDir + '/domain/interactors/' + dotPackageName + '/' + this.interactorName + 'Interactor' + ext, this, {});
         this.template(appFolder + '/src/main/java/interactor/_InteractorImpl' + ext,
           'app/src/main/java/' + packageDir + '/domain/interactors/' + dotPackageName + '/' + this.interactorName + 'InteractorImpl' + ext, this, {});
-        // this.provideInComponent(this.interactorName, packageDir, this.appPackage+'.domain.interactors.'+this.interactorPackageName, "UseCase");
+        this.provideInComponent(this.interactorName, packageDir, this.appPackage+'.domain.interactors.'+this.interactorPackageName, "Interactor");
         this.updateApplicationModuleToProvide(this.interactorName, packageDir, this.appPackage+'.domain.interactors.'+this.interactorPackageName, 'Interactor');
       }
 
