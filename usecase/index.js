@@ -54,7 +54,7 @@ module.exports = ActivityGenerator.extend({
           return true;
         },
         name: 'useCasePackageName',
-        message: 'What is the package of the Interactor? (it will be placed inside usecase package)',
+        message: 'What is the package of the UseCase? (it will be placed inside usecase package)',
         validate: function (input) {
           if (/^([a-z_]{1}[a-z0-9_]*(\.[a-z_]{1}[a-z0-9_]*)*)$/.test(input)) return true;
           return 'The package name you have provided is not a valid Java package name.';
@@ -74,6 +74,7 @@ module.exports = ActivityGenerator.extend({
     this.prompt(prompts, function (props) {
       this.useCaseName = props.name;
       this.useCasePackageName = props.useCasePackageName;
+      this.interface = props.interface;
       done();
     }.bind(this));
   },
