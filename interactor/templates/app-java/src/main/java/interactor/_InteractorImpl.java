@@ -7,7 +7,6 @@ import javax.inject.Inject;
 
 public class <%= interactorName %>InteractorImpl extends BaseInteractor implements <%= interactorName %>Interactor {
 
-    @Inject
     public <%= interactorName %>Interactor(ThreadExecutor executor) {
         super(executor);
     }

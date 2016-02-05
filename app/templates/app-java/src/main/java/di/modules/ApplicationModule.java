@@ -10,6 +10,7 @@ import com.google.gson.Gson;
 <% if (events == 'eventbus') { %>import de.greenrobot.event.EventBus;<% } %>
 import dagger.Module;
 import dagger.Provides;
+import retrofit2.Retrofit;
 import <%= appPackage %>.application.App;
 import <%= appPackage %>.di.ForApplication;
 import <%= appPackage %>.storage.Storage;

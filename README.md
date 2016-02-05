@@ -56,22 +56,28 @@ Some of them are mandatory, but can be optional soon. If you have any questions,
   * Create a Fragment (optional)
   * For all cases, create the presenter
   * Inject the presenter into Activity / Fragment
-  * Create a View interface for communication between Presenter > View
+  * Create a View interface for communication between Presenter -> View
 
 - Create a new Entity
-  * It will create a model (AutoParcel), an Entity class for REST / DB communication, and a converter to change from Entity <> Model class.
+  * It will create a model (AutoParcel), an Entity class for REST / DB communication, and a converter to parse from Entity <- -> Model class.
 
 - Create a Interactor
   * Create a base interactor.
+  * Use with or without Interface
+  * Interface use @Provides in ApplicationModule
 
 - Create a UseCase
   * Same as Interactor, but different name =)
   * It equal to Interactor generation, future changes proof.
+  * Use with or without Interface
+  * Interface use @Provides in ApplicationModule
 
 - Create a repository
-  * Create a repository layer (To manage calls to Remote / Local without exposing them to Interactors / UseCases)
+  * Create a repository layer (To manage calls to Remote / Local Repository without exposing them to Interactors / UseCases)
   * Can create a RemoteRepository class (for REST)
   * Can create a LocalRepository class (for local DB)
+  * Use with or without Interface
+  * Interface use @Provides in ApplicationModule
 
 - Create a Push architecture:
   * Create the classes to handle push notifications like this [article](https://medium.com/@deividi/a-good-way-to-handle-incoming-notifications-in-android-dc64c29041a5)
@@ -140,6 +146,7 @@ yo android-hipster:push
 # Special THANKS to:
 
 [JHipster](https://github.com/jhipster/generator-jhipster) that inspired me and helped in development!!!
+
 [Android Kickstarter](https://github.com/cristhianescobar/generator-android-starter/) another inspiration for Environment classes and Mixpanel.
 
 

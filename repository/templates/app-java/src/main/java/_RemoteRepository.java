@@ -12,7 +12,7 @@ public class <%= repositoryName %>RemoteRepository {
 
     private final <%= repositoryName %>Service service;
 
-    @Inject
+    <% if (interface == false) { %>@Inject<% } %>
     public <%= repositoryName %>RemoteRepository(Retrofit retrofit) {
         this.service = retrofit.create(<%= repositoryName %>Service.class);
     }

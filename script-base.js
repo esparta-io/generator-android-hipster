@@ -70,6 +70,33 @@ Generator.prototype.updateApplicationModuleToProvide = function (name, basePath,
     }
 };
 
+Generator.prototype.updateApplicationModuleToRepository = function (name, basePath, packageName, remote, local) {
+    try {
+        var fullPath = 'app/src/main/java/' +basePath+ '/di/modules/ApplicationModule.java';
+        jhipsterUtils.rewriteFile({
+            file: fullPath,
+            needle: 'android-hipster-needle-module-provides-method',
+            splicable: [
+                    '@Provides',
+                    '@Singleton',
+                    name + 'Repository' + ' provide' + name + 'Repository' + '(' + (remote? 'Retrofit retrofit' : '') + ') {',
+                    '   return new ' + name + 'Repository' + 'Impl('+ (remote ? ('new ' + name+'RemoteRepository(retrofit)') : '') + ((remote && local) ?  ', ' : '') + (local ? ('new ' + name+'LocalRepository()') : '')+');',
+                    '}'
+            ]
+        });
+        jhipsterUtils.rewriteFile({
+            file: fullPath,
+            needle: 'android-hipster-needle-module-provides-import',
+            splicable: [
+                    'import ' + packageName + '.*;',
+            ]
+        });
+    } catch (e) {
+        this.log(chalk.yellow('\nUnable to find ') + fullPath + chalk.yellow(' or missing required android-needle. Reference to ') + name + ' ' + chalk.yellow('not added.\n'));
+    }
+};
+
+
 Generator.prototype.provideInComponent = function (name, basePath, packageName) {
     try {
         var fullPath = 'app/src/main/java/' +basePath+ '/di/components/ApplicationComponent.java';

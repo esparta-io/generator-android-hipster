@@ -80,6 +80,12 @@ module.exports = ActivityGenerator.extend({
         name: 'service',
         message: 'Create a simple Retorfit Service inside RemoteRepository?',
         default: true
+      },
+      {
+        type: 'confirm',
+        name: 'interface',
+        message: 'Create interface for Repository?',
+        default: false
       }
 
     ];
@@ -88,6 +94,7 @@ module.exports = ActivityGenerator.extend({
       this.repositoryName = props.name;
       this.repositoryPackageName = props.packageName;
       this.remoteLocal = props.remoteLocal;
+      this.interface = props.interface;
       this.service = props.service;
 
       done();
@@ -118,8 +125,17 @@ module.exports = ActivityGenerator.extend({
 
       var ext = this.language == 'java' ? ".java" : ".kt";
 
-      this.template(appFolder + '/src/main/java/_Repository' + ext,
-        'app/src/main/java/' + packageDir + '/domain/repository/' + dotRepositoryPackageName + '/' + this.repositoryName + 'Repository' + ext, this, {});
+      if (this.interface == false) {
+          this.template(appFolder + '/src/main/java/_Repository' + ext,
+          'app/src/main/java/' + packageDir + '/domain/repository/' + dotRepositoryPackageName + '/' + this.repositoryName + 'Repository' + ext, this, {});
+      } else {
+        this.template(appFolder + '/src/main/java/_RepositoryInterface' + ext,
+          'app/src/main/java/' + packageDir + '/domain/repository/' + dotRepositoryPackageName + '/' + this.repositoryName + 'Repository' + ext, this, {});
+        this.template(appFolder + '/src/main/java/_RepositoryImpl' + ext,
+          'app/src/main/java/' + packageDir + '/domain/repository/' + dotRepositoryPackageName + '/' + this.repositoryName + 'RepositoryImpl' + ext, this, {});
+        this.provideInComponent(this.useCaseName, packageDir, this.appPackage+'.domain.repository.'+this.repositoryPackageName);
+        this.updateApplicationModuleToRepository(this.repositoryName, packageDir, this.appPackage+'.domain.repository.'+this.repositoryPackageName, this.remoteLocal.indexOf('remote') >= 0, this.remoteLocal.indexOf('local') >= 0);
+      }
 
       if (this.remoteLocal.indexOf('local') >= 0) {
         this.template(appFolder + '/src/main/java/_LocalRepository' + ext,
@@ -130,6 +146,8 @@ module.exports = ActivityGenerator.extend({
         this.template(appFolder + '/src/main/java/_RemoteRepository' + ext,
           'app/src/main/java/' + packageDir + '/domain/repository/' + dotRepositoryPackageName + '/' + this.repositoryName + 'RemoteRepository' + ext, this, {});
       }
+
+
 
     },
 
