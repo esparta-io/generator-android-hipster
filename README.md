@@ -12,6 +12,7 @@ Stack:
 - [RxJava](https://github.com/ReactiveX/RxJava)
 - [RxAndroid](https://github.com/ReactiveX/RxAndroid)
 - MVP
+- [Nucleus](https://github.com/konmik/nucleus)
 - Interactors / UseCases
 - Repositories
 - Flavors like used in [u2020](https://github.com/JakeWharton/u2020)
