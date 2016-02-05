@@ -1,7 +1,7 @@
 # generator-android-hipster
 > Android generator based on MVP, Dagger2, RxJava, Java/Kotlin Stack and usefull libraries for Android
 
-## Advice: Beta stage, currently kotlin generation is broken... I'm working on full Java code generation and after that I will migrate code to kotlin.
+### Advice: Kotlin generation is broken... I'm working on full Java code generation and after that I will migrate code to kotlin.
 
 # How it works?
 
