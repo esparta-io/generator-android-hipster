@@ -26,7 +26,7 @@ Stack:
 - [ButterKnife](http://jakewharton.github.io/butterknife/)
 - [Anko](https://github.com/Kotlin/anko) (kotlin)
 - [Retrolambda](https://github.com/orfjackal/retrolambda) (Java)
-- [JodaTime](http://www.joda.org/joda-time/) / [Jodamoney](http://www.joda.org/joda-money/)
+- [JodaTimeAndroid](https://github.com/dlew/joda-time-android) / [Jodamoney](http://www.joda.org/joda-money/)
 - [Gson](https://github.com/google/gson)
 - [MixPanel](https://mixpanel.com/help/reference/android)
 - [Storage](https://github.com/cavarzan/gson-preferences-storage) in SharedPreferences using Gson
