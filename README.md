@@ -8,37 +8,37 @@
 It provides a generator to create and maintain a android application based on the latests frameworks and patterns used by the community.
 
 Stack:
-- Java / Kotlin
-- RxJava
-- RxAndroid
+- Java / [Kotlin](https://kotlinlang.org/)
+- [RxJava](https://github.com/ReactiveX/RxJava)
+- [RxAndroid](https://github.com/ReactiveX/RxAndroid)
 - MVP
 - Interactors / UseCases
 - Repositories
-- Flavors like used in u2020
-- Dagger2
-- Event bus systems (EventBus / Otto)
-- Stetho
-- Retrofit / OkHttp
-- Timber
-- Image Loaders (Glide / Picasso)
-- Google Play Services
+- Flavors like used in [u2020](https://github.com/JakeWharton/u2020)
+- [Dagger2](http://google.github.io/dagger/)
+- Event bus systems ([EventBus](https://github.com/greenrobot/EventBus) / [Otto](http://square.github.io/otto/))
+- [Stetho](http://facebook.github.io/stetho/)
+- [Retrofit](http://square.github.io/retrofit/) / [OkHttp](http://square.github.io/okhttp/)
+- [Timber](https://github.com/JakeWharton/timber)
+- Image Loaders ([Glide](https://github.com/bumptech/glide) / [Picasso](http://square.github.io/picasso/))
+- [Google Play Services](https://developers.google.com/android/guides/overview)
 - Push notifications
-- ButterKnife
-- Anko (kotlin)
-- Retrolambda (Java)
-- JodaTime / jodamoney
-- Gson
-- MixPanel
-- Storage in SharedPreferences using Gson
-- PrintView
-- Calligraphy
-- AutoValue / AutoParcel
-- Guava Optionals (source included)
+- [ButterKnife](http://jakewharton.github.io/butterknife/)
+- [Anko](https://github.com/Kotlin/anko) (kotlin)
+- [Retrolambda](https://github.com/orfjackal/retrolambda) (Java)
+- [JodaTime](http://www.joda.org/joda-time/) / [Jodamoney](http://www.joda.org/joda-money/)
+- [Gson](https://github.com/google/gson)
+- [MixPanel](https://mixpanel.com/help/reference/android)
+- [Storage](https://github.com/cavarzan/gson-preferences-storage) in SharedPreferences using Gson
+- [PrintView](https://github.com/johnkil/Print)
+- [Calligraphy](https://github.com/chrisjenx/Calligraphy)
+- [AutoValue](https://github.com/google/auto/tree/master/value) / [AutoParcel](https://github.com/frankiesardo/auto-parcel)
+- [Guava](https://github.com/google/guava) Optionals (source included - just optionals)
 
 Yet to come:
-- RxLifeCycle
-- Hank / RxPreferences
-- Dexter / RxPermissions
+- [RxLifeCycle](https://github.com/trello/RxLifecycle)
+- [Hawk](https://github.com/orhanobut/hawk) / [RxPreferences](https://github.com/f2prateek/rx-preferences)
+- [Dexter](https://github.com/Karumi/Dexter) / [RxPermissions](https://github.com/tbruyelle/RxPermissions)
 - DB implementations (I usually work with ORMLite, but it will be awesome to create a multi db options to use ORMLite, DBFlow, Storio, Realm and etc..)
 - JNI support
 - ???
@@ -51,33 +51,33 @@ Some of them are mandatory, but can be optional soon. If you have any questions,
 ## What you can do after create a project:
 
 - Create a new Activity
-  * Create new Activity (including resources and `AndroidManifest.xml` update)
-  * Create a new Dagger2 Component / Module or use the ApplicationComponent
+  * Create new `Activity` (including resources and `AndroidManifest.xml` update)
+  * Create a new Dagger2 Component / Module or use the `ApplicationComponent`
   * Create a Fragment (optional)
   * For all cases, create the presenter
   * Inject the presenter into Activity / Fragment
-  * Create a View interface for communication between Presenter -> View
+  * Create a View interface for communication between `Presenter` -> `View`
 
 - Create a new Entity
-  * It will create a model (AutoParcel), an Entity class for REST / DB communication, and a converter to parse from Entity <- -> Model class.
+  * It will create a model (`AutoParcel`), an Entity class for REST / DB communication, and a converter to parse from `Entity` <- -> `Model` class.
 
 - Create a Interactor
-  * Create a base interactor.
+  * Create a base `interactor`.
   * Use with or without Interface
-  * Interface use @Provides in ApplicationModule
+  * Interface use @Provides in `ApplicationModule`
 
 - Create a UseCase
-  * Same as Interactor, but different name =)
-  * It equal to Interactor generation, future changes proof.
+  * Same as `Interactor`, but different name =)
+  * It equal to `Interactor` generation, future changes proof.
   * Use with or without Interface
-  * Interface use @Provides in ApplicationModule
+  * Interface use @Provides in `ApplicationModule`
 
 - Create a repository
   * Create a repository layer (To manage calls to Remote / Local Repository without exposing them to Interactors / UseCases)
-  * Can create a RemoteRepository class (for REST)
-  * Can create a LocalRepository class (for local DB)
+  * Can create a `RemoteRepository` class (for REST)
+  * Can create a `LocalRepository` class (for local DB)
   * Use with or without Interface
-  * Interface use @Provides in ApplicationModule
+  * Interface use @Provides in `ApplicationModule`
 
 - Create a Push architecture:
   * Create the classes to handle push notifications like this [article](https://medium.com/@deividi/a-good-way-to-handle-incoming-notifications-in-android-dc64c29041a5)
@@ -145,7 +145,7 @@ yo android-hipster:push
 
 # Special THANKS to:
 
-[JHipster](https://github.com/jhipster/generator-jhipster) that inspired me and helped in development!!!
+[JHipster](https://github.com/jhipster/generator-jhipster) that inspired to develop!
 
 [Android Kickstarter](https://github.com/cristhianescobar/generator-android-starter/) another inspiration for Environment classes and Mixpanel.
 
