@@ -1,11 +1,13 @@
 package <%= appPackage %>.ui.base;
 
+import <%= appPackage %>.application.App;
 import android.os.Bundle;
 import android.content.Context;
 import android.support.annotation.CallSuper;
 <% if (nucleus == true) { %>import nucleus.view.NucleusAppCompatActivity;<% } else { %>import android.support.v7.app.AppCompatActivity;<% } %>
 <% if (butterknife == true) { %>import butterknife.Bind;
 import butterknife.ButterKnife; <% } %>
+import com.squareup.leakcanary.RefWatcher;
 <% if (calligraphy == true) { %>import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;<% } %>
 
 public abstract class BaseActivity<P extends BasePresenter> extends <% if (nucleus == true) { %>NucleusAppCompatActivity<P><% } else { %>AppCompatActivity;<% } %> {
@@ -29,6 +31,8 @@ public abstract class BaseActivity<P extends BasePresenter> extends <% if (nucle
     public void onDestroy() {
         <% if (butterknife == true) { %>ButterKnife.unbind(this); <% } %>
         super.onDestroy();
+        RefWatcher refWatcher = App.getRefWatcher();
+        refWatcher.watch(this);
     }
 
     <% if (calligraphy == true) { %>

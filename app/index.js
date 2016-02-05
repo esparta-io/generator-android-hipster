@@ -49,18 +49,6 @@ module.exports = AppGenerator.extend({
                 store: true
             },
             {
-                name: 'targetSdk',
-                message: 'What Android SDK will you be targeting?',
-                store: true,
-                default: 23
-            },
-            {
-                name: 'minSdk',
-                message: 'What is the minimum Android SDK you wish to support?',
-                store: true,
-                default: 15
-            },
-            {
                 type: 'list',
                 name: 'language',
                 message: 'What language would you like to use? ',
@@ -177,6 +165,18 @@ module.exports = AppGenerator.extend({
                 name: 'autoparcel',
                 message: 'Would you like to use AutoParcel?',
                 default: true
+            },
+            {
+                name: 'targetSdk',
+                message: 'What Android SDK will you be targeting?',
+                store: true,
+                default: 23
+            },
+            {
+                name: 'minSdk',
+                message: 'What is the minimum Android SDK you wish to support?',
+                store: true,
+                default: 15
             },
             {
                 type: 'checkbox',
