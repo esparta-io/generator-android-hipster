@@ -428,6 +428,9 @@
   *;
 }
 
+-dontwarn com.mixpanel.**
+
+
 -dontwarn javax.annotation.**
 -dontwarn javax.lang.model.**
 -dontwarn javax.tools.**

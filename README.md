@@ -150,6 +150,7 @@ yo android-hipster:push
 
 [Android Kickstarter](https://github.com/cristhianescobar/generator-android-starter/) another inspiration for Environment classes and Mixpanel.
 
+[Agivis Web & Mobile](http://www.agivis.com.br)
 
 ## License
 
