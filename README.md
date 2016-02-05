@@ -40,6 +40,7 @@ Yet to come:
 - Hank / RxPreferences
 - Dexter / RxPermissions
 - DB implementations (I usually work with ORMLite, but it will be awesome to create a multi db options to use ORMLite, DBFlow, Storio, Realm and etc..)
+- JNI support
 - ???
 
 Some of these technologies are optional, and you can choose what you want to use answering the questions when you create the project.

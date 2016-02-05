@@ -61,6 +61,12 @@ module.exports = ActivityGenerator.extend({
         },
         default: defaultName.toLowerCase(),
         store: true
+      },
+      {
+        type: 'confirm',
+        name: 'interface',
+        message: 'Create interface for UseCase?',
+        default: false
       }
 
     ];
@@ -84,7 +90,7 @@ module.exports = ActivityGenerator.extend({
 
     app: function () {
 
-      var dotActivityPackageName = this.useCasePackageName.replace(/\./g, '/').replace(this.appPackage, '');
+      var dotPackageName = this.useCasePackageName.replace(/\./g, '/').replace(this.appPackage, '');
       var packageDir = this.appPackage.replace(/\./g, '/');
 
       var appFolder;
@@ -96,8 +102,17 @@ module.exports = ActivityGenerator.extend({
 
       var ext = this.language == 'java' ? ".java" : ".kt";
 
-      this.template(appFolder + '/src/main/java/usecase/_UseCase' + ext,
-        'app/src/main/java/' + packageDir + '/domain/usecases/' + dotActivityPackageName + '/' + this.useCaseName + 'UseCase' + ext, this, {});
+      if (this.interface == false) {
+          this.template(appFolder + '/src/main/java/usecase/_UseCase' + ext,
+          'app/src/main/java/' + packageDir + '/domain/usecases/' + dotPackageName + '/' + this.useCaseName + 'UseCase' + ext, this, {});
+      } else {
+        this.template(appFolder + '/src/main/java/usecase/_UseCaseInterface' + ext,
+          'app/src/main/java/' + packageDir + '/domain/usecases/' + dotPackageName + '/' + this.useCaseName + 'UseCase' + ext, this, {});
+        this.template(appFolder + '/src/main/java/usecase/_UseCaseImpl' + ext,
+          'app/src/main/java/' + packageDir + '/domain/usecases/' + dotPackageName + '/' + this.useCaseName + 'UseCaseImpl' + ext, this, {});
+        this.provideInComponent(this.useCaseName, packageDir, this.appPackage+'.domain.usecases.'+this.useCasePackageName);
+        this.updateApplicationModuleToProvide(this.useCaseName, packageDir, this.appPackage+'.domain.usecases.'+this.useCasePackageName, 'UseCase');
+      }
 
     },
 

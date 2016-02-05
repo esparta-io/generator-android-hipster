@@ -16,6 +16,8 @@ import <%= appPackage %>.storage.Storage;
 import <%= appPackage %>.domain.executors.JobExecutor;
 import <%= appPackage %>.domain.executors.ThreadExecutor;
 
+// android-hipster-needle-module-provides-import
+
 @Module
 public class ApplicationModule {
 
@@ -62,5 +64,8 @@ public class ApplicationModule {
     EventBus provideBus() {
         return EventBus.getDefault();
     }<% } %>
+
+
+    // android-hipster-needle-module-provides-method
 
 }

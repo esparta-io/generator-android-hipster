@@ -61,12 +61,19 @@ module.exports = ActivityGenerator.extend({
         },
         default: defaultName.toLowerCase(),
         store: true
+      },
+      {
+        type: 'confirm',
+        name: 'interface',
+        message: 'Create interface for Interactor?',
+        default: false
       }
 
     ];
 
     this.prompt(prompts, function (props) {
       this.interactorName = props.name;
+      this.interface = props.interface;
       this.interactorPackageName = props.interactorPackageName;
       done();
     }.bind(this));
@@ -96,8 +103,18 @@ module.exports = ActivityGenerator.extend({
 
       var ext = this.language == 'java' ? ".java" : ".kt";
 
-      this.template(appFolder + '/src/main/java/interactor/_Interactor' + ext,
-        'app/src/main/java/' + packageDir + '/domain/interactors/' + dotPackageName + '/' + this.interactorName + 'Interactor' + ext, this, {});
+      if (this.interface == false) {
+        this.template(appFolder + '/src/main/java/interactor/_Interactor' + ext,
+          'app/src/main/java/' + packageDir + '/domain/interactors/' + dotPackageName + '/' + this.interactorName + 'Interactor' + ext, this, {});
+      } else {
+        this.template(appFolder + '/src/main/java/interactor/_InteractorInterface' + ext,
+          'app/src/main/java/' + packageDir + '/domain/interactors/' + dotPackageName + '/' + this.interactorName + 'Interactor' + ext, this, {});
+        this.template(appFolder + '/src/main/java/interactor/_InteractorImpl' + ext,
+          'app/src/main/java/' + packageDir + '/domain/interactors/' + dotPackageName + '/' + this.interactorName + 'InteractorImpl' + ext, this, {});
+        this.provideInComponent(this.interactorName, packageDir, this.appPackage+'.domain.interactors.'+this.interactorPackageName);
+        this.updateApplicationModuleToProvide(this.interactorName, packageDir, this.appPackage+'.domain.interactors.'+this.interactorPackageName, 'Interactor');
+      }
+
 
     },
 

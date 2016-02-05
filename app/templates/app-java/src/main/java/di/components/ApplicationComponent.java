@@ -45,7 +45,7 @@ public interface ApplicationComponent {
 
     void inject(App app);
 
-  // android-hipster-needle-component-injection-method
+    // android-hipster-needle-component-injection-method
 
     final class Initializer {
           public static ApplicationComponent init(App app) {
