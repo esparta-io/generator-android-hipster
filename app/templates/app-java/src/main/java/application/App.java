@@ -10,16 +10,11 @@ import com.squareup.leakcanary.RefWatcher;
 <% if (jodatime == true) { %>import net.danlew.android.joda.JodaTimeAndroid; <% } %>
 <% if (printview == true) { %>import com.github.johnkil.print.PrintConfig; <% } %>
 
-import <%= appPackage %>.environment.EnvironmentModule;
 import <%= appPackage %>.environment.EnvironmentConfiguration;
 import <%= appPackage %>.R;
 import <%= appPackage %>.di.components.ApplicationComponent;
 import <%= appPackage %>.di.ForApplication;
 import <%= appPackage %>.di.components.DaggerApplicationComponent;
-import <%= appPackage %>.di.modules.AndroidModule;
-import <%= appPackage %>.di.modules.ApplicationModule;
-import <%= appPackage %>.environment.EnvironmentConfiguration;
-import <%= appPackage %>.util.gson.GsonModule;
 
 import javax.inject.Inject;
 

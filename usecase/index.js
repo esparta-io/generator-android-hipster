@@ -110,7 +110,7 @@ module.exports = ActivityGenerator.extend({
           'app/src/main/java/' + packageDir + '/domain/usecases/' + dotPackageName + '/' + this.useCaseName + 'UseCase' + ext, this, {});
         this.template(appFolder + '/src/main/java/usecase/_UseCaseImpl' + ext,
           'app/src/main/java/' + packageDir + '/domain/usecases/' + dotPackageName + '/' + this.useCaseName + 'UseCaseImpl' + ext, this, {});
-        this.provideInComponent(this.useCaseName, packageDir, this.appPackage+'.domain.usecases.'+this.useCasePackageName);
+        // this.provideInComponent(this.useCaseName, packageDir, this.appPackage+'.domain.usecases.'+this.useCasePackageName, "UseCase");
         this.updateApplicationModuleToProvide(this.useCaseName, packageDir, this.appPackage+'.domain.usecases.'+this.useCasePackageName, 'UseCase');
       }
 

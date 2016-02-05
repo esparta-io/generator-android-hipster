@@ -1,6 +1,7 @@
 package <%= appPackage %>.ui.base;
 
 import android.os.Bundle;
+import android.content.Context;
 import android.support.annotation.CallSuper;
 <% if (nucleus == true) { %>import nucleus.view.NucleusAppCompatActivity;<% } else { %>import android.support.v7.app.AppCompatActivity;<% } %>
 <% if (butterknife == true) { %>import butterknife.Bind;
@@ -15,9 +16,8 @@ public abstract class BaseActivity<P extends BasePresenter> extends <% if (nucle
         super.onCreate(savedInstanceState);
         setContentView(getLayoutResource());
         injectModule();
-
         <% if (butterknife == true) { %>ButterKnife.bind(this); <% } %>
-        <% if (nucleus == true) { %> setPresenterFactory(getPresenterFactory()); <% } %>
+        <% if (nucleus == true) { %>setPresenterFactory(getPresenterFactory()); <% } %>
     }
 
     protected abstract void injectModule();
@@ -27,7 +27,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends <% if (nucle
     @CallSuper
     @Override
     public void onDestroy() {
-    <% if (butterknife == true) { %>ButterKnife.unbind(this); <% } %>
+        <% if (butterknife == true) { %>ButterKnife.unbind(this); <% } %>
         super.onDestroy();
     }
 

@@ -6,15 +6,12 @@ import dagger.Component;
 import <%= appPackage %>.application.App;
 import <%= appPackage %>.util.gson.GsonModule;
 import <%= appPackage %>.environment.EnvironmentModule;
-import <%= appPackage %>.R;
-import <%= appPackage %>.di.components.ApplicationComponent;
 import <%= appPackage %>.di.ForApplication;
 import <%= appPackage %>.di.components.DaggerApplicationComponent;
 import <%= appPackage %>.di.modules.AndroidModule;
 import <%= appPackage %>.di.modules.ApplicationModule;
 import <%= appPackage %>.environment.EnvironmentConfiguration;
 import <%= appPackage %>.util.gson.GsonModule;
-
 
 import android.content.Context;
 

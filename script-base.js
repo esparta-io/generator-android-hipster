@@ -97,21 +97,21 @@ Generator.prototype.updateApplicationModuleToRepository = function (name, basePa
 };
 
 
-Generator.prototype.provideInComponent = function (name, basePath, packageName) {
+Generator.prototype.provideInComponent = function (name, basePath, packageName, type) {
     try {
         var fullPath = 'app/src/main/java/' +basePath+ '/di/components/ApplicationComponent.java';
         jhipsterUtils.rewriteFile({
             file: fullPath,
             needle: 'android-hipster-needle-component-injection-method',
             splicable: [
-                    name + ' provide'+name+'();'
+                    name + type+ ' provide'+name+type+'();'
             ]
         });
         jhipsterUtils.rewriteFile({
             file: fullPath,
             needle: 'android-hipster-needle-component-injection-import',
             splicable: [
-                    'import ' + packageName + '.'+name+';'
+                    'import ' + packageName + '.'+name+type+';'
             ]
         });
     } catch (e) {

@@ -14,7 +14,6 @@ import <%= appPackage %>.di.modules.<%= activityName %>Module;
 import <%= appPackage %>.application.App;
 import <%= appPackage %>.di.components.ApplicationComponent;
 <% } %>
-
 <% if (nucleus == true) { %>import nucleus.factory.PresenterFactory; <% } %>
 
 import javax.inject.Inject;
@@ -28,7 +27,7 @@ public class <%= activityName %>Activity extends BaseActivity<<%= activityName %
     <% if (componentType == 'createNew') { %><%= activityName %>Component component;<% } else { %>ApplicationComponent component;<% } %>
 
     protected void injectModule() {
-        <% if (componentType == 'useApplication') { %>component = App.graph.inject(this);<% } else { %>component = Dagger<%= activityName %>Component.builder().applicationComponent(App.graph).<%= activityName.toLowerCase() %>Module(new <%= activityName %>Module(this)).build();
+        <% if (componentType == 'useApplication') { %>component = App.graph.inject(this);<% } else { %>component = Dagger<%= activityName %>Component.builder().applicationComponent(App.graph).<%= activityName.charAt(0).toLowerCase()+activityName.slice(1) %>Module(new <%= activityName %>Module(this)).build();
         component.inject(this);<% } %>
     }
       <% if (nucleus == true) { %>

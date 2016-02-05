@@ -133,7 +133,7 @@ module.exports = ActivityGenerator.extend({
           'app/src/main/java/' + packageDir + '/domain/repository/' + dotRepositoryPackageName + '/' + this.repositoryName + 'Repository' + ext, this, {});
         this.template(appFolder + '/src/main/java/_RepositoryImpl' + ext,
           'app/src/main/java/' + packageDir + '/domain/repository/' + dotRepositoryPackageName + '/' + this.repositoryName + 'RepositoryImpl' + ext, this, {});
-        this.provideInComponent(this.useCaseName, packageDir, this.appPackage+'.domain.repository.'+this.repositoryPackageName);
+        /this.provideInComponent(this.repositoryName, packageDir, this.appPackage+'.domain.repository.'+this.repositoryPackageName, 'Repository');
         this.updateApplicationModuleToRepository(this.repositoryName, packageDir, this.appPackage+'.domain.repository.'+this.repositoryPackageName, this.remoteLocal.indexOf('remote') >= 0, this.remoteLocal.indexOf('local') >= 0);
       }
 

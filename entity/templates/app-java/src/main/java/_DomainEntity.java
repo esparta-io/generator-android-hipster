@@ -3,7 +3,6 @@ package <%= appPackage %>.model;
 import auto.parcel.AutoParcel;
 
 import <%= appPackage %>.util.gson.AutoGson;
-import auto.parcel.AutoParcel;
 
 @AutoParcel
 @AutoGson(autoValueClass = AutoParcel_<%= entityName %>.class)

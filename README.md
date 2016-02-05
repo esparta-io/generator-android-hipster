@@ -16,6 +16,7 @@ Stack:
 - Repositories
 - Flavors like used in [u2020](https://github.com/JakeWharton/u2020)
 - [Dagger2](http://google.github.io/dagger/)
+- Scoped dependencies
 - Event bus systems ([EventBus](https://github.com/greenrobot/EventBus) / [Otto](http://square.github.io/otto/))
 - [Stetho](http://facebook.github.io/stetho/)
 - [Retrofit](http://square.github.io/retrofit/) / [OkHttp](http://square.github.io/okhttp/)
@@ -87,7 +88,7 @@ Check this [article](https://medium.com/@dmilicic/a-detailed-guide-on-developing
 Any suggestions? [Please let me know](https://github.com/cavarzan/generator-android-hipster/issues)!
 
 ### Sample:
->yet to come
+> [Sample Project](https://github.com/cavarzan/android-hipster-sample)
 ---
 
 ## Installation

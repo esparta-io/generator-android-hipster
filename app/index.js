@@ -68,10 +68,10 @@ module.exports = AppGenerator.extend({
                     {
                         value: 'java',
                         name: 'Java (with Retrolambda)'
-                    },
-                    {
-                        value: 'kotlin',
-                        name: 'Kotlin'
+                    // },
+                    // {
+                        // value: 'kotlin',
+                        // name: 'Kotlin'
                     }
 
                 ],
@@ -79,21 +79,10 @@ module.exports = AppGenerator.extend({
             },
 
             {
-                type: 'list',
+                type: 'confirm',
                 name: 'butterknife',
                 message: 'Use ButterKnife? ',
-                choices: [
-                    {
-                        value: 'yes',
-                        name: 'Yes'
-                    },
-                    {
-                        value: 'no',
-                        name: 'No, I like the old way / I will use Anko (kotlin)'
-                    }
-
-                ],
-                default: 0
+                default: true
             },
 
             {
@@ -362,6 +351,7 @@ module.exports = AppGenerator.extend({
             this.template(appFolder + '/src/main/java/util/gson/GsonModule' + ext, 'app/src/main/java/' + packageDir + '/util/gson/GsonModule'+ext, this, {});
             this.template(appFolder + '/src/main/java/util/RxUtils' + ext, 'app/src/main/java/' + packageDir + '/util/RxUtils'+ext, this, {});
             this.template(appFolder + '/src/main/java/util/PermissionUtils' + ext, 'app/src/main/java/' + packageDir + '/util/PermissionUtils'+ext, this, {});
+            this.template(appFolder + '/src/main/java/util/RepositoryUtils' + ext, 'app/src/main/java/' + packageDir + '/util/RepositoryUtils'+ext, this, {});
 
             this.template(appFolder + '/src/main/java/util/google', 'app/src/main/java/' + packageDir + '/util/google', this, {});
 
