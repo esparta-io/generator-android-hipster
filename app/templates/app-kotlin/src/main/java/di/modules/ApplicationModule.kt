@@ -5,8 +5,7 @@ import android.content.Context
 
 import javax.inject.Singleton
 
-<% if (events == 'otto') { %>import com.squareup.otto.Bus<% } %>
-<% if (events == 'eventbus') { %>import de.greenrobot.event.EventBus<% } %>
+<% if (eventbus) { %>import org.greenrobot.event.EventBus<% } %>
 import dagger.Module
 import dagger.Provides
 import <%= appPackage %>.application.App
@@ -51,15 +50,7 @@ public class ApplicationModule(val application: App) {
     return restAdapter
   }
 
-  <% if (events == 'otto') { %>
-  @Provides
-  @Singleton
-  fun providesBus(): Bus {
-    return Bus()
-  }
-  <% } %>
-
-  <% if (events == 'eventbus') { %>
+  <% if (eventbus) { %>
   @Provides
   @Singleton
   fun provideBus(): EventBus {

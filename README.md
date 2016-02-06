@@ -115,6 +115,12 @@ yo android-hipster
 yo android-hipster:activity
 ```
 
+### Create a new fragment:
+
+```bash
+yo android-hipster:fragment
+```
+
 ### Create a new interactor:
 
 ```bash

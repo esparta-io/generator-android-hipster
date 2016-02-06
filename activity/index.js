@@ -5,6 +5,7 @@ var yosay = require('yosay');
 var mkdirp = require('mkdirp');
 var generators = require('yeoman-generator');
 var _ = require('lodash');
+var _s = require('underscore.string');
 var fileExists = require('file-exists');
 
 var scriptBase = require('../script-base');
@@ -93,7 +94,7 @@ module.exports = ActivityGenerator.extend({
       this.activityPackageName = props.activityPackageName;
       this.fragment = props.fragment;
       this.componentType = props.componentType;
-
+      this.usePresenter = true;
       done();
     }.bind(this));
   },
@@ -110,31 +111,9 @@ module.exports = ActivityGenerator.extend({
 
     app: function () {
 
-      var dotActivityPackageName = this.activityPackageName.replace(/\./g, '/').replace(this.appPackage, '');
+      var packageFolder = this.activityPackageName.replace(/\./g, '/').replace(this.appPackage, '');
       var packageDir = this.appPackage.replace(/\./g, '/');
-
-      var manifestFilePath = 'app/src/main/AndroidManifest.xml';
-
-      var resourceFilePath = 'app/src/main/res/values/strings.xml';
-
-      var manifest = new AndroidManifest().readFile(manifestFilePath);
-      manifest.activity('.ui.' + this.activityPackageName + '.' + this.activityName + 'Activity')
-        .attr('android:theme', '@style/' + this.activityName + 'Style')
-        .attr('android:label', '@string/' + this.activityName.toLowerCase() + '_name');
-
-      manifest.writeFile(manifestFilePath);
-
-      var resource = new AndroidResource().readFile(resourceFilePath);
-      resource.string(this.activityName.toLowerCase() + '_name').text(this.activityName+'HispterActivity');
-      resource.writeFile(resourceFilePath);
-
-      var stylesFilePath = 'app/src/main/res/values/styles.xml';
-      var styles = new AndroidResource().readFile(stylesFilePath);
-      styles.style(this.activityName + 'Style').attr('parent', 'AppTheme').text('');
-      styles.writeFile(stylesFilePath);
-
-      var styles21FilePath = 'app/src/main/res/values-v21/styles.xml';
-      styles.writeFile(styles21FilePath);
+      this.underscoreActivityName = _s.underscored(this.activityName);
 
       var appFolder;
       if (this.language == 'java') {
@@ -153,38 +132,61 @@ module.exports = ActivityGenerator.extend({
         } else {
           if (this.language == 'java') {
             this.addComponentInjection(this.activityName+'Activity', packageDir, this.appPackage+'.ui.'+this.activityPackageName)
-            if (fragment) {
+            if (this.fragment) {
               this.addComponentInjection(this.activityName+'Fragment', packageDir, this.appPackage+'.ui.'+this.activityPackageName)
             }
           } else {
             this.addComponentInjectionKotlin(this.activityName+'Activity', packageDir, this.appPackage+'.ui.'+this.activityPackageName)
-            if (fragment) {
+            if (this.fragment) {
               this.addComponentInjectionKotlin(this.activityName+'Fragment', packageDir, this.appPackage+'.ui.'+this.activityPackageName)
             }
           }
         }
 
       this.template(appFolder + '/src/main/java/ui/_Activity' + ext,
-        'app/src/main/java/' + packageDir + '/ui/' + dotActivityPackageName + '/' + this.activityName + 'Activity' + ext, this, {});
+        'app/src/main/java/' + packageDir + '/ui/' + packageFolder + '/' + this.activityName + 'Activity' + ext, this, {});
 
       if (this.fragment == true) {
         this.template(appFolder + '/src/main/java/ui/_Fragment' + ext,
-          'app/src/main/java/' + packageDir + '/ui/' + dotActivityPackageName + '/' + this.activityName + 'Fragment' + ext, this, {});
+          'app/src/main/java/' + packageDir + '/ui/' + packageFolder + '/' + this.activityName + 'Fragment' + ext, this, {});
       }
 
       this.template(appFolder + '/src/main/java/ui/_Presenter' + ext,
-        'app/src/main/java/' + packageDir + '/ui/' + dotActivityPackageName + '/' + this.activityName + 'Presenter' + ext, this, {});
+        'app/src/main/java/' + packageDir + '/ui/' + packageFolder + '/' + this.activityName + 'Presenter' + ext, this, {});
       this.template(appFolder + '/src/main/java/ui/_View' + ext,
-        'app/src/main/java/' + packageDir + '/ui/' + dotActivityPackageName + '/' + this.activityName + 'View' + ext, this, {});
+        'app/src/main/java/' + packageDir + '/ui/' + packageFolder + '/' + this.activityName + 'View' + ext, this, {});
 
 
       this.template('resources/res/layout/_activity.xml',
-        'app/src/main/res/layout/activity_' + this.activityName.toLowerCase() + '.xml', this, {});
+        'app/src/main/res/layout/activity_' + this.underscoreActivityName + '.xml', this, {});
 
       if (this.fragment == true) {
         this.template('resources/res/layout/_fragment.xml',
-          'app/src/main/res/layout/fragment_' + this.activityName.toLowerCase() + '.xml', this, {});
+          'app/src/main/res/layout/fragment_' + this.underscoreActivityName + '.xml', this, {});
       }
+
+      var manifestFilePath = 'app/src/main/AndroidManifest.xml';
+
+      var resourceFilePath = 'app/src/main/res/values/strings.xml';
+
+      var manifest = new AndroidManifest().readFile(manifestFilePath);
+      manifest.activity('.ui.' + this.activityPackageName + '.' + this.activityName + 'Activity')
+        .attr('android:theme', '@style/' + this.activityName + 'Style')
+        .attr('android:label', '@string/' + this.underscoreActivityName + '_name');
+
+      manifest.writeFile(manifestFilePath);
+
+      var resource = new AndroidResource().readFile(resourceFilePath);
+      resource.string(this.underscoreActivityName + '_name').text(this.activityName+'HispterActivity');
+      resource.writeFile(resourceFilePath);
+
+      var stylesFilePath = 'app/src/main/res/values/styles.xml';
+      var styles = new AndroidResource().readFile(stylesFilePath);
+      styles.style(this.activityName + 'Style').attr('parent', 'AppTheme').text('');
+      styles.writeFile(stylesFilePath);
+
+      var styles21FilePath = 'app/src/main/res/values-v21/styles.xml';
+      styles.writeFile(styles21FilePath);
     },
 
     install: function () {

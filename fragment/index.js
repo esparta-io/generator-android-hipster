@@ -5,6 +5,7 @@ var yosay = require('yosay');
 var mkdirp = require('mkdirp');
 var generators = require('yeoman-generator');
 var _ = require('lodash');
+var _s = require('underscore.string');
 var fileExists = require('file-exists');
 
 var scriptBase = require('../script-base');
@@ -40,7 +41,7 @@ module.exports = ActivityGenerator.extend({
 
     var prompts = [{
       name: 'name',
-      message: 'What are the name of your UseCase (Without UseCaseSuffix. Ex: Login (for a LoginUseCase)?',
+      message: 'What are the name of your Fragment? (Without FragmentSuffix. Ex: Login (for a LoginFragment)',
       store: true,
       validate: function (input) {
         if (/^([a-zA-Z0-9_]*)$/.test(input)) return true;
@@ -53,8 +54,8 @@ module.exports = ActivityGenerator.extend({
           defaultName = response.name;
           return true;
         },
-        name: 'useCasePackageName',
-        message: 'What is the package of the UseCase? (it will be placed inside usecase package)',
+        name: 'package',
+        message: 'What is the package of the Fragment? (it will be placed inside ui package)',
         validate: function (input) {
           if (/^([a-z_]{1}[a-z0-9_]*(\.[a-z_]{1}[a-z0-9_]*)*)$/.test(input)) return true;
           return 'The package name you have provided is not a valid Java package name.';
@@ -64,20 +65,37 @@ module.exports = ActivityGenerator.extend({
       },
       {
         type: 'confirm',
-        name: 'interface',
-        message: 'Create interface for UseCase?',
+        name: 'usePresenter',
+        message: 'Create custom Presenter?',
+        default: true
+      },
+      {
+        type: 'confirm',
+        name: 'activity',
+        message: 'Apply fragment to some activity?',
         default: false
+      },
+      {
+        when: function (response) {
+          return response.activity;
+        },
+        name: 'activityName',
+        message: 'What is the package of the Activity?',
+        store: true
       }
 
     ];
 
     this.prompt(prompts, function (props) {
-      this.useCaseName = props.name;
-      this.useCasePackageName = props.useCasePackageName;
-      this.interface = props.interface;
+      this.fragmentName = props.name;
+      this.fragmentPackageName = props.package;
+      this.activity = props.activity;
+      this.activityName = props.activityName;
+      this.usePresenter = props.usePresenter;
       done();
     }.bind(this));
   },
+
 
   configuring: {
     saveSettings: function () {
@@ -91,9 +109,10 @@ module.exports = ActivityGenerator.extend({
 
     app: function () {
 
-      this.useCaseName = _.capitalize(this.useCaseName)._replace('UseCase', '')
+      this.fragmentName = _.capitalize(this.fragmentName)._replace('Fragment', '');
+      this.activityName = _.capitalize(this.activityName)._replace('Activity', '');
 
-      var packageFolder = this.useCasePackageName.replace(/\./g, '/').replace(this.appPackage, '');
+      var packageFolder = this.appPackage.replace(/\./g, '/').replace(this.appPackage, '');
       var packageDir = this.appPackage.replace(/\./g, '/');
 
       var appFolder;
@@ -103,19 +122,30 @@ module.exports = ActivityGenerator.extend({
         appFolder = 'app-kotlin';
       }
 
+      this.underscoreFragmentName = _s.underscored(this.fragmentName);
+      this.entityClass = _s.capitalize(this.name);
+      console.log(this.entityClass);
+
       var ext = this.language == 'java' ? ".java" : ".kt";
 
-      if (this.interface == false) {
-          this.template(appFolder + '/src/main/java/usecase/_UseCase' + ext,
-          'app/src/main/java/' + packageDir + '/domain/usecases/' + packageFolder + '/' + this.useCaseName + 'UseCase' + ext, this, {});
+      if (shelljs.test('-f', appFolder + '/src/main/java' + packageDir + '/di/components/' + this.activityName + 'Component')) {
+          this.componentType = 'createNew';
+          this.addCustomComponentInjection(activityName + 'Component', this.fragmentName+'Fragment', packageDir, this.appPackage+'.ui.'+this.fragmentPackageName);
       } else {
-        this.template(appFolder + '/src/main/java/usecase/_UseCaseInterface' + ext,
-          'app/src/main/java/' + packageDir + '/domain/usecases/' + packageFolder + '/' + this.useCaseName + 'UseCase' + ext, this, {});
-        this.template(appFolder + '/src/main/java/usecase/_UseCaseImpl' + ext,
-          'app/src/main/java/' + packageDir + '/domain/usecases/' + packageFolder + '/' + this.useCaseName + 'UseCaseImpl' + ext, this, {});
-        this.provideInComponent(this.useCaseName, packageDir, this.appPackage+'.domain.usecases.'+this.useCasePackageName, "UseCase");
-        this.updateApplicationModuleToProvide(this.useCaseName, packageDir, this.appPackage+'.domain.usecases.'+this.useCasePackageName, 'UseCase');
+          this.componentType = 'useApplication';
+          this.addComponentInjection(this.fragmentName+'Fragment', packageDir, this.appPackage+'.ui.'+this.fragmentPackageName);
       }
+
+      this.template(appFolder + '/src/main/java/_Fragment' + ext,
+        'app/src/main/java/' + packageDir + '/ui/' + packageFolder + '/' + this.fragmentName + 'Fragment' + ext, this, {});
+
+      if (this.usePresenter) {
+        this.template(appFolder + '/src/main/java/_Presenter' + ext,
+          'app/src/main/java/' + packageDir + '/ui/' + packageFolder + '/' + this.fragmentName + 'Presenter' + ext, this, {});
+      }
+
+      this.template('resources/res/layout/_fragment.xml',
+        'app/src/main/res/layout/fragment_' + this.underscoreFragmentName + '.xml', this, {});
 
     },
 

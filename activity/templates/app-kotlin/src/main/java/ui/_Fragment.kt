@@ -13,7 +13,7 @@ class <%= activityName %>Fragment : BaseFragment<EmptyPresenter>() {
     }
 
     override fun getLayoutResource(): Int {
-        return R.layout.fragment_<%= activityName.toLowerCase() %>
+        return R.layout.fragment_<%= underscoreActivityName %>
     }
 
 }

@@ -4,7 +4,8 @@ var chalk = require('chalk');
 var yosay = require('yosay');
 var mkdirp = require('mkdirp');
 var generators = require('yeoman-generator');
-var _ = require('lodash');
+_ = require('lodash'),
+_s = require('underscore.string'),
 var fileExists = require('file-exists');
 
 var scriptBase = require('../script-base');
@@ -68,7 +69,7 @@ module.exports = ActivityGenerator.extend({
 
     app: function () {
 
-      var dotActivityPackageName = this.appPackage.replace(/\./g, '/').replace(this.appPackage, '');
+      var packageFolder = this.appPackage.replace(/\./g, '/').replace(this.appPackage, '');
       var packageDir = this.appPackage.replace(/\./g, '/');
 
       var appFolder;
@@ -77,6 +78,9 @@ module.exports = ActivityGenerator.extend({
       } else {
         appFolder = 'app-kotlin';
       }
+
+      this.entityClass = _s.capitalize(this.name);
+      console.log(this.entityClass);
 
       var ext = this.language == 'java' ? ".java" : ".kt";
 

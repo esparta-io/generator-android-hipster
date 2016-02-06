@@ -1,4 +1,4 @@
-package <%= appPackage %>.ui.<%= activityPackageName %>;
+package <%= appPackage %>.ui.<%= fragmentPackageName %>;
 
 <% if (componentType == 'createNew') { %>import <%= appPackage %>.di.ActivityScope;<% } %>
 import <%= appPackage %>.ui.base.BasePresenter;
@@ -7,10 +7,10 @@ import javax.inject.Inject;
 <% if (componentType == 'useApplication') { %>import javax.inject.Singleton;<% } %>
 
 <% if (componentType == 'createNew') { %>@ActivityScope<% } else { %>@Singleton<% } %>
-public class <%= activityName %>Presenter extends BasePresenter<<%= activityName %>View> {
+public class <%= fragmentName %>Presenter extends BasePresenter<<%= fragmentName %>View> {
 
     @Inject
-    public <%= activityName %>Presenter() {
+    public <%= fragmentName %>Presenter() {
 
     }
 

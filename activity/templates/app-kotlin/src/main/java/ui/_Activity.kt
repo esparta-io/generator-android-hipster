@@ -18,23 +18,23 @@ import javax.inject.Inject
 class <%= activityName %>Activity : BaseActivity<<%= activityName %>Presenter>(), <%= activityName %>View {
 
         @Inject
-        lateinit var <%= activityName.toLowerCase()  %>Presenter: <%= activityName %>Presenter
+        lateinit var <%= underscoreActivityName  %>Presenter: <%= activityName %>Presenter
 
         lateinit var component: <%= activityName %>Component
 
         override fun injectModule() {
-                component = Dagger<%= activityName %>Component.builder().applicationComponent(App.graph).<%= activityName.toLowerCase()  %>Module(<%= activityName %>Module(this)).build()
+                component = Dagger<%= activityName %>Component.builder().applicationComponent(App.graph).<%= underscoreActivityName  %>Module(<%= activityName %>Module(this)).build()
                 component.inject(this)
         }
 
-        <% if (nucleus == true) { %>override fun getPresenterFactory(): PresenterFactory<<%= activityName %>Presenter>? = PresenterFactory { <%= activityName.toLowerCase()  %>Presenter }<% } %>
+        <% if (nucleus == true) { %>override fun getPresenterFactory(): PresenterFactory<<%= activityName %>Presenter>? = PresenterFactory { <%= underscoreActivityName  %>Presenter }<% } %>
 
         override fun onCreate(savedInstanceState: Bundle?) {
                 super.onCreate(savedInstanceState)
         }
 
         override fun getLayoutResource(): Int {
-                return R.layout.activity_<%= activityName.toLowerCase()  %>
+                return R.layout.activity_<%= underscoreActivityName  %>
         }
 
 }

@@ -133,7 +133,7 @@
     @retrofit.http.* <methods>;
 }
 
--keepclassmembers class * extends de.greenrobot.event.util.ThrowableFailureEvent {
+-keepclassmembers class * extends org.greenrobot.event.util.ThrowableFailureEvent {
     public <init>(java.lang.Throwable);
 }
 
@@ -302,13 +302,13 @@
 }
 
 # Only required if you use AsyncExecutor
--keepclassmembers class * extends de.greenrobot.event.util.ThrowableFailureEvent {
+-keepclassmembers class * extends org.greenrobot.event.util.ThrowableFailureEvent {
     public <init>(java.lang.Throwable);
 }
 
 # Don't warn for missing support classes
--dontwarn de.greenrobot.event.util.*$Support
--dontwarn de.greenrobot.event.util.*$SupportManagerFragment
+-dontwarn org.greenrobot.event.util.*$Support
+-dontwarn org.greenrobot.event.util.*$SupportManagerFragment
 
 
 -keep class com.facebook.stetho.** { *; }

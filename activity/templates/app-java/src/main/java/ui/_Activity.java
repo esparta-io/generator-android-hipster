@@ -1,6 +1,10 @@
 package <%= appPackage %>.ui.<%= activityPackageName %>;
 
+import android.app.Activity;
 import android.os.Bundle;
+import android.content.Intent;
+import android.util.Pair;
+
 import <%= appPackage %>.di.ActivityScope;
 import <%= appPackage %>.di.HasComponent;
 import <%= appPackage %>.ui.base.BaseActivity;
@@ -18,34 +22,46 @@ import <%= appPackage %>.di.components.ApplicationComponent;
 
 import javax.inject.Inject;
 
-@ActivityScope
+<% if (componentType == 'createNew') { %>@ActivityScope<% } %>
 public class <%= activityName %>Activity extends BaseActivity<<%= activityName %>Presenter> implements <%= activityName %>View, HasComponent<<% if (componentType == 'createNew') { %><%= activityName %><% } else { %>Application<% } %>Component> {
 
     @Inject
-    <%= activityName %>Presenter <%= activityName.toLowerCase() %>Presenter;
+    <%= activityName %>Presenter <%= activityName.charAt(0).toLowerCase()+activityName.slice(1) %>Presenter;
 
     <% if (componentType == 'createNew') { %><%= activityName %>Component component;<% } else { %>ApplicationComponent component;<% } %>
 
     protected void injectModule() {
-        <% if (componentType == 'useApplication') { %>component = App.graph.inject(this);<% } else { %>component = Dagger<%= activityName %>Component.builder().applicationComponent(App.graph).<%= activityName.charAt(0).toLowerCase()+activityName.slice(1) %>Module(new <%= activityName %>Module(this)).build();
+        <% if (componentType == 'useApplication') { %>component = App.graph;
+        component.inject(this);<% } else { %>component = Dagger<%= activityName %>Component.builder().applicationComponent(App.graph).<%= activityName.charAt(0).toLowerCase()+activityName.slice(1) %>Module(new <%= activityName %>Module(this)).build();
         component.inject(this);<% } %>
     }
-      <% if (nucleus == true) { %>
+    <% if (nucleus == true) { %>
     public PresenterFactory<<%= activityName %>Presenter> getPresenterFactory() {
-        return () -> <%= activityName.toLowerCase() %>Presenter;
+        return () -> <%= activityName.charAt(0).toLowerCase()+activityName.slice(1) %>Presenter;
     }<% } %>
 
-    public void onCreate(Bundle savedInstanceState ) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
     protected int getLayoutResource() {
-        return R.layout.activity_<%= activityName.toLowerCase() %>;
+        return R.layout.activity_<%= underscoreActivityName %>;
     }
 
     @Override
     public <% if (componentType == 'createNew') { %><%= activityName %><% } else { %>Application<% } %>Component getComponent() {
         return component;
+    }
+
+    public static void launch(Activity activity, boolean finish, Pair<Integer, Integer> animation) {
+        Intent intent = new Intent(activity, <%= activityName %>Activity.class);
+        activity.startActivity(intent);
+        if (finish) {
+            activity.finish();
+        }
+        if (animation != null) {
+            activity.overridePendingTransition(animation.first, animation.second);
+        }
     }
 
 }

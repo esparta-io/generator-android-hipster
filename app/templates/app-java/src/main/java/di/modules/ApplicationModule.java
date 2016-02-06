@@ -6,8 +6,7 @@ import android.content.SharedPreferences;
 
 import javax.inject.Singleton;
 import com.google.gson.Gson;
-<% if (events == 'otto') { %>import com.squareup.otto.Bus;<% } %>
-<% if (events == 'eventbus') { %>import de.greenrobot.event.EventBus;<% } %>
+<% if (eventbus) { %>import org.greenrobot.event.EventBus;<% } %>
 import dagger.Module;
 import dagger.Provides;
 import retrofit2.Retrofit;
@@ -54,13 +53,7 @@ public class ApplicationModule {
         return new Storage(preferences, gson);
     }
 
-    <% if (events == 'otto') { %>@Provides
-    @Singleton
-    Bus provideBus() {
-        return new Bus();
-    }<% } %>
-
-    <% if (events == 'eventbus') { %>@Provides
+    <% if (eventbus) { %>@Provides
     @Singleton
     EventBus provideBus() {
         return EventBus.getDefault();
