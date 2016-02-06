@@ -1,8 +1,6 @@
 # generator-android-hipster
 > Android generator based on MVP, Dagger2, RxJava, Java/Kotlin Stack and usefull libraries for Android
 
-### Advice: Kotlin generation is broken... I'm working on full Java code generation and after that I will migrate code to kotlin.
-
 # How it works?
 
 It provides a generator to create and maintain a android application based on the latests frameworks and patterns used by the community.
@@ -28,7 +26,7 @@ Stack:
 - [ButterKnife](http://jakewharton.github.io/butterknife/)
 - [Anko](https://github.com/Kotlin/anko) (kotlin)
 - [Retrolambda](https://github.com/orfjackal/retrolambda) (Java)
-- [JodaTime](http://www.joda.org/joda-time/) / [Jodamoney](http://www.joda.org/joda-money/)
+- [JodaTimeAndroid](https://github.com/dlew/joda-time-android) / [Jodamoney](http://www.joda.org/joda-money/)
 - [Gson](https://github.com/google/gson)
 - [MixPanel](https://mixpanel.com/help/reference/android)
 - [Storage](https://github.com/cavarzan/gson-preferences-storage) in SharedPreferences using Gson
@@ -150,6 +148,8 @@ yo android-hipster:entity
 ```bash
 yo android-hipster:push
 ```
+### Advice: Kotlin generation is broken... I'm working on full Java code generation and after that I will migrate code to kotlin.
+
 
 # Special THANKS to:
 
