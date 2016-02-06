@@ -16,7 +16,7 @@ import <%= appPackage %>.ui.base.EmptyPresenter;
 import <%= appPackage %>.R;
 
 
-public class <%= activityName %>Fragment extends BaseFragment<EmptyPresenter> {
+public class <%= activityName %>Fragment extends BaseFragment<EmptyPresenter>  {
 
     @Inject
     EmptyPresenter emptyPresenter;

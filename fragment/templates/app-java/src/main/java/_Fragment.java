@@ -9,7 +9,7 @@ import <%= appPackage %>.ui.base.BaseFragment;
 import <%= appPackage %>.R;
 
 
-public class <%= fragmentName %>Fragment extends BaseFragment<<% if (usePresenter) { %><%= fragmentName %><% } else { %>Empty<% } %>Presenter> implements <%= fragmentName %>View {
+public class <%= fragmentName %>Fragment extends BaseFragment<<% if (usePresenter) { %><%= fragmentName %><% } else { %>Empty<% } %>Presenter> <% if (usePresenter) { %> implements <%= fragmentName %>View<% } %> {
 
     @Inject
     <% if (usePresenter) { %><%= fragmentName %><% } else { %>Empty<% } %>Presenter <% if (usePresenter) { %><%= fragmentName.charAt(0).toLowerCase()+fragmentName.slice(1) %><% } else { %>empty<% } %>Presenter;
