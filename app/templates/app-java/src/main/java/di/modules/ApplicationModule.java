@@ -6,7 +6,7 @@ import android.content.SharedPreferences;
 
 import javax.inject.Singleton;
 import com.google.gson.Gson;
-<% if (eventbus) { %>import org.greenrobot.event.EventBus;<% } %>
+<% if (eventbus) { %>import org.greenrobot.eventbus.EventBus;<% } %>
 import dagger.Module;
 import dagger.Provides;
 import retrofit2.Retrofit;
