@@ -17,9 +17,10 @@ public class MainFragment extends BaseFragment<EmptyPresenter> {
         return R.layout.fragment_main;
     }
 
-    @Override
+    <% if (nucleus == false) { %>@Override
     protected EmptyPresenter getPresenter() {
         return new EmptyPresenter();
-    }
+    }<% } %>
+
 
 }

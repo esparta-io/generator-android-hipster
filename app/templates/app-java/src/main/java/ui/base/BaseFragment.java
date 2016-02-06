@@ -73,4 +73,6 @@ public abstract class BaseFragment<P extends BasePresenter> extends <% if (nucle
 
     protected abstract int getLayoutResource();
 
+    <% if (nucleus == false) { %>protected abstract P getPresenter();<% } %>
+
 }
