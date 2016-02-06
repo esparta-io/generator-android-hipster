@@ -2,6 +2,8 @@ package <%= appPackage %>.ui.<%= fragmentPackageName %>;
 
 import android.support.v4.app.Fragment;
 
+import javax.inject.Inject;
+
 <% if (componentType == 'createNew') { %>import <%= appPackage %>.di.components.<%= activityName %>Component;<% } else if (componentType == 'useApplication') { %>import <%= appPackage %>.application.App;<% } %>
 <% if (usePresenter == false) { %>import <%= appPackage %>.ui.base.EmptyPresenter;<% } %>
 <% if (nucleus == true) { %>import nucleus.factory.PresenterFactory; <% } %>

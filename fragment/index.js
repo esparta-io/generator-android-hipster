@@ -7,7 +7,7 @@ var generators = require('yeoman-generator');
 var _ = require('lodash');
 var _s = require('underscore.string');
 var fileExists = require('file-exists');
-
+var shelljs = require('shelljs');
 var scriptBase = require('../script-base');
 var util = require('util');
 
@@ -109,10 +109,10 @@ module.exports = ActivityGenerator.extend({
 
     app: function () {
 
-      this.fragmentName = _.capitalize(this.fragmentName)._replace('Fragment', '');
-      this.activityName = _.capitalize(this.activityName)._replace('Activity', '');
+      this.fragmentName = _.capitalize(this.fragmentName).replace('Fragment', '');
+      this.activityName = _.capitalize(this.activityName).replace('Activity', '');
 
-      var packageFolder = this.appPackage.replace(/\./g, '/').replace(this.appPackage, '');
+      var packageFolder = this.fragmentPackageName.replace(/\./g, '/').replace(this.appPackage, '');
       var packageDir = this.appPackage.replace(/\./g, '/');
 
       var appFolder;
@@ -128,9 +128,9 @@ module.exports = ActivityGenerator.extend({
 
       var ext = this.language == 'java' ? ".java" : ".kt";
 
-      if (shelljs.test('-f', appFolder + '/src/main/java' + packageDir + '/di/components/' + this.activityName + 'Component')) {
+      if (shelljs.test('-f', 'app/src/main/java/' + packageDir + '/di/components/' + this.activityName + 'Component' + ext)) {
           this.componentType = 'createNew';
-          this.addCustomComponentInjection(activityName + 'Component', this.fragmentName+'Fragment', packageDir, this.appPackage+'.ui.'+this.fragmentPackageName);
+          this.addCustomComponentInjection(this.activityName + 'Component', this.fragmentName+'Fragment', packageDir, this.appPackage+'.ui.'+this.fragmentPackageName);
       } else {
           this.componentType = 'useApplication';
           this.addComponentInjection(this.fragmentName+'Fragment', packageDir, this.appPackage+'.ui.'+this.fragmentPackageName);
@@ -142,6 +142,8 @@ module.exports = ActivityGenerator.extend({
       if (this.usePresenter) {
         this.template(appFolder + '/src/main/java/_Presenter' + ext,
           'app/src/main/java/' + packageDir + '/ui/' + packageFolder + '/' + this.fragmentName + 'Presenter' + ext, this, {});
+        this.template(appFolder + '/src/main/java/_View' + ext,
+          'app/src/main/java/' + packageDir + '/ui/' + packageFolder + '/' + this.fragmentName + 'View' + ext, this, {});
       }
 
       this.template('resources/res/layout/_fragment.xml',
