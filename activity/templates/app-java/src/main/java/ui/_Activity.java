@@ -53,6 +53,12 @@ public class <%= activityName %>Activity extends BaseActivity<<%= activityName %
         return component;
     }
 
+    <% if (nucleus == false) { %>
+    @Override
+    protected <%= activityName %>Presenter getPresenter() {
+        return <%= activityName %>Presenter;
+    }<% } %>
+
     public static void launch(Activity activity, boolean finish, Pair<Integer, Integer> animation) {
         Intent intent = new Intent(activity, <%= activityName %>Activity.class);
         activity.startActivity(intent);

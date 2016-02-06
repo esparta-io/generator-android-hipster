@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 <% if (butterknife == true) { %>import butterknife.Bind;
 import butterknife.ButterKnife; <% } %>
 
-public abstract class BaseFragment<P extends BasePresenter> extends <% if (nucleus == true) { %>NucleusSupportFragment<P><% } else { %>Fragment;<% } %> {
+public abstract class BaseFragment<P extends BasePresenter> extends <% if (nucleus == true) { %>NucleusSupportFragment<P><% } else { %>Fragment<% } %> {
 
     @CallSuper
     @Override
@@ -24,20 +24,35 @@ public abstract class BaseFragment<P extends BasePresenter> extends <% if (nucle
         return rootView;
     }
 
+    @CallSuper
     @Override
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
         inject();
-
         <% if (nucleus == true) { %>setPresenterFactory(getPresenterFactory());<% } %>
     }
 
     @CallSuper
     @Override
+    public void onResume() {
+        super.onResume();
+        <% if (nucleus == false) { %>getPresenter().onTakeView(this);<% } %>
+    }
+
+    @CallSuper
+    @Override
+    public void onPause() {
+        super.onPause();
+        <% if (nucleus == false) { %>getPresenter().onDropView();<% } %>
+    }
+
+    @CallSuper
+    @Override
     public void onDestroyView() {
-      <% if (butterknife == true) { %>ButterKnife.unbind(this); <% } %>
-          super.onDestroyView();
-      }
+        <% if (butterknife == true) { %>ButterKnife.unbind(this); <% } %>
+        super.onDestroyView();
+        <% if (nucleus == false) { %>getPresenter().onDestroy();<% } %>
+    }
 
     public BaseActivity getBaseActivity() {
         return (BaseActivity) getActivity();

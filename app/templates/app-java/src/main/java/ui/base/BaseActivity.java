@@ -10,7 +10,7 @@ import butterknife.ButterKnife; <% } %>
 import com.squareup.leakcanary.RefWatcher;
 <% if (calligraphy == true) { %>import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;<% } %>
 
-public abstract class BaseActivity<P extends BasePresenter> extends <% if (nucleus == true) { %>NucleusAppCompatActivity<P><% } else { %>AppCompatActivity;<% } %> {
+public abstract class BaseActivity<P extends BasePresenter> extends <% if (nucleus == true) { %>NucleusAppCompatActivity<P><% } else { %>AppCompatActivity<% } %> {
 
     @CallSuper
     @Override
@@ -19,7 +19,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends <% if (nucle
         setContentView(getLayoutResource());
         injectModule();
         <% if (butterknife == true) { %>ButterKnife.bind(this); <% } %>
-        <% if (nucleus == true) { %>setPresenterFactory(getPresenterFactory()); <% } %>
+        <% if (nucleus == true) { %>setPresenterFactory(getPresenterFactory()); <% } else { %>getPresenter().onDestroy();<% } %>
     }
 
     protected abstract void injectModule();
@@ -36,9 +36,28 @@ public abstract class BaseActivity<P extends BasePresenter> extends <% if (nucle
     }
 
     <% if (calligraphy == true) { %>
+    @CallSuper
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
+    <% } %>
+
+    <% if (nucleus == false) { %>
+    @CallSuper
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getPresenter().onTakeView(this);
+    }
+
+    @CallSuper
+    @Override
+    protected void onPause()
+        super.onPause();
+        getPresenter().onDropView();
+    }
+
+    protected abstract P getPresenter();
     <% } %>
 }
