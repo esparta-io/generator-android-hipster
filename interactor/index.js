@@ -85,7 +85,7 @@ module.exports = ActivityGenerator.extend({
     projectfiles: function () {},
 
     app: function () {
-      this.interactorName = _.capitalize(this.interactorName)._replace('Interactor', '')
+      this.interactorName = _.capitalize(this.interactorName).replace('Interactor', '');
 
       var packageFolder = this.interactorPackageName.replace(/\./g, '/').replace(this.appPackage, '')
       var appDir = this.appPackage.replace(/\./g, '/')

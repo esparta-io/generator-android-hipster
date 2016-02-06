@@ -108,7 +108,7 @@ module.exports = ActivityGenerator.extend({
 
     app: function () {
 
-      this.repositoryName = _.capitalize(this.repositoryName)._replace('Repository', '')
+      this.repositoryName = _.capitalize(this.repositoryName).replace('Repository', '');
 
       var packageFolder = this.repositoryPackageName.replace(/\./g, '/').replace(this.appPackage, '')
       var packageDir = this.appPackage.replace(/\./g, '/')

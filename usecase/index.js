@@ -91,7 +91,8 @@ module.exports = ActivityGenerator.extend({
 
     app: function () {
 
-      this.useCaseName = _.capitalize(this.useCaseName)._replace('UseCase', '')
+
+      this.useCaseName = _.capitalize(this.useCaseName).replace('UseCase', '');
 
       var packageFolder = this.useCasePackageName.replace(/\./g, '/').replace(this.appPackage, '');
       var packageDir = this.appPackage.replace(/\./g, '/');

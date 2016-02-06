@@ -4,8 +4,8 @@ var chalk = require('chalk');
 var yosay = require('yosay');
 var mkdirp = require('mkdirp');
 var generators = require('yeoman-generator');
-_ = require('lodash'),
-_s = require('underscore.string'),
+var _ = require('lodash');
+var _s = require('underscore.string');
 var fileExists = require('file-exists');
 
 var scriptBase = require('../script-base');
