@@ -1,6 +1,10 @@
 # generator-android-hipster
 > Android generator based on MVP, Dagger2, RxJava, Java/Kotlin Stack and usefull libraries for Android
 
+> Latest version: 0.0.13
+> Update with `npm update generator-android-hipster`
+> Info with `npm info generator-android-hipster`
+
 # How it works?
 
 It provides a generator to create and maintain a android application based on the latests frameworks and patterns used by the community.

@@ -8,10 +8,7 @@ import <%= appPackage %>.ui.base.BaseActivity;
 import <%= appPackage %>.R;
 import <%= appPackage %>.application.App;
 import <%= appPackage %>.di.components.DaggerMainComponent;
-import <%= appPackage %>.di.components.MainComponent;
 import <%= appPackage %>.di.modules.MainModule;
-
-import android.os.Bundle;
 
 <% if (nucleus == true) { %>import nucleus.factory.PresenterFactory; <% } %>
 
