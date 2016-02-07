@@ -224,6 +224,54 @@ Generator.prototype.addGradleDependency = function (scope, group, name, version,
     }
 };
 
+Generator.prototype.addGradleParentDependency = function (scope, group, name, version, update) {
+    try {
+        var fullPath = 'build.gradle';
+        if (update) {
+          jhipsterUtils.rewriteReplace({
+              file: fullPath,
+              needle: scope + ' "' + group + ':' + name,
+              splicable: [
+                  scope + ' "' + group + ':' + name + ':' + version + '"'
+              ]
+          });
+          this.log(chalk.green('updated dependency: ' + scope + ' "' + group + ':' + name + ':' + version + '"'));
+        } else {
+          jhipsterUtils.rewriteFile({
+              file: fullPath,
+              needle: 'android-hipster-needle-gradle-dependency',
+              splicable: [
+                  scope + ' "' + group + ':' + name + ':' + version + '"'
+              ]
+          });
+          this.log(chalk.green('added dependency: ' + scope + ' "' + group + ':' + name + ':' + version + '"'));
+        }
+
+    } catch (e) {
+        this.log(e);
+        this.log(chalk.yellow('\nUnable to find ') + fullPath + chalk.yellow(' or missing required jhipster-needle. Reference to ') + group + ':' + name + ':' + version + chalk.yellow(' not added.\n'));
+    }
+};
+
+Generator.prototype.addGradleFieldDependency = function (type, value, update) {
+    try {
+        var fullPath = 'app/build.gradle';
+          jhipsterUtils.rewriteReplace({
+              file: fullPath,
+              needle: type,
+              splicable: [
+                  type + ' ' + value
+              ]
+          });
+          this.log(chalk.green('updated field: ' + type + ' "' + value ));
+
+
+    } catch (e) {
+        this.log(e);
+        this.log(chalk.yellow('\nUnable to find ') + fullPath + chalk.yellow(' or missing required jhipster-needle. Reference to ') + type + ':' + value  + chalk.yellow(' not added.\n'));
+    }
+};
+
 
 
 /**

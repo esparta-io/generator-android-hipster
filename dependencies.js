@@ -27,8 +27,12 @@ Generator.prototype.installGradleDependencies = function (config, update) {
   }
   var ext = config.language == 'java' ? '.java' : '.kt';
 
-  // this.updateGradleClasspathDependency('2.0.0-alpha9');
-  // this.updateGradleBuildToolsVersion('23.0.2');
+
+  this.addGradleParentDependency('classpath', 'com.android.tools.build', 'gradle', '2.0.0-alpha9', update);
+  this.addGradleParentDependency('classpath', 'com.neenbedankt.gradle.plugins', 'android-apt', '1.8', update);
+  this.addGradleParentDependency('classpath', 'me.tatarka', 'gradle-retrolambda', '3.2.3', update);
+  this.addGradleFieldDependency('buildToolsVersion', '"23.0.2"', update);
+
 
 if (config.language == 'kotlin') {
   this.addGradleDependency('compile', 'io.reactivex', 'rxkotlin', '0.30.1', update);
