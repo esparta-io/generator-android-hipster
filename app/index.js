@@ -5,10 +5,10 @@ var yosay = require('yosay')
 var mkdirp = require('mkdirp')
 var generators = require('yeoman-generator')
 var _ = require('lodash')
-var fileExists = require('file-exists')
+var fileExists = require('file-exists');
 
-var scriptBase = require('../script-base')
-var util = require('util')
+var scriptBase = require('../script-base');
+var util = require('util');
 
 var AndroidManifest = require('androidmanifest')
 var AndroidResource = require('../androidresources')
@@ -64,14 +64,6 @@ module.exports = AppGenerator.extend({
         ],
         default: 0
       },
-
-      {
-        type: 'confirm',
-        name: 'butterknife',
-        message: 'Use ButterKnife? ',
-        default: true
-      },
-
       {
         type: 'list',
         name: 'image',
@@ -84,10 +76,35 @@ module.exports = AppGenerator.extend({
           {
             value: 'picasso',
             name: 'Picasso'
+          },
+          {
+            value: 'none',
+            name: 'None'
           }
-
         ],
-        default: 0
+        default: 'glide'
+      },
+      {
+        type: 'list',
+        name: 'mvp',
+        message: 'What MVP do you want to use? ',
+        choices: [
+          {
+            value: 'embeed',
+            name: 'Embeed MVP (No Lib)'
+          },
+          {
+            value: 'nucleus',
+            name: 'Nucleus MVP'
+          }
+        ],
+        default: 'nucleus'
+      },
+      {
+        type: 'confirm',
+        name: 'butterknife',
+        message: 'Use ButterKnife? ',
+        default: true
       },
       {
         type: 'confirm',
@@ -203,7 +220,6 @@ module.exports = AppGenerator.extend({
       this.timber = props.timber
       this.jodatime = props.jodatime
       this.jodamoney = props.jodamoney
-      this.nucleus = props.nucleus
       this.butterknife = props.butterknife
       this.appPackage = props.package
       this.androidTargetSdkVersion = props.targetSdk
@@ -215,6 +231,9 @@ module.exports = AppGenerator.extend({
       this.printview = props.printview
       this.autoparcel = true; // Yeap, need to be true at this time
       // this.autoparcel = props.autoparcel
+      this.mvp = props.mvp;
+      this.nucleus = props.mvp == 'nucleus';
+
 
       done()
     }.bind(this))
@@ -222,10 +241,27 @@ module.exports = AppGenerator.extend({
 
   configuring: {
     saveSettings: function () {
-      this.config.set('appPackage', this.appPackage)
-      this.config.set('appName', this.appName)
-      this.config.set('language', this.language)
-      this.config.set('nucleus', this.nucleus)
+      this.config.set('appPackage', this.appPackage);
+      this.config.set('appName', this.appName);
+      this.config.set('language', this.language);
+      this.config.set('nucleus', this.nucleus);
+      this.config.set('mvp', this.mvp);
+      this.config.set('imageLib', this.imageLib);
+      this.config.set('eventbus', this.eventbus);
+      this.config.set('mixpanel', this.mixpanel);
+      this.config.set('timber', this.timber);
+      this.config.set('jodatime', this.jodatime);
+      this.config.set('jodamoney', this.jodamoney);
+      this.config.set('butterknife', this.butterknife);
+      this.config.set('androidTargetSdkVersion', this.androidTargetSdkVersion);
+      this.config.set('minSdk', this.androidMinSdkVersion);
+      this.config.set('calligraphy', this.calligraphy);
+      this.config.set('playServices', this.playServices);
+      this.config.set('stetho', this.stetho);
+      this.config.set('printview', this.printview);
+      this.config.set('autoparcel', this.autoparcel);
+      this.config.set('mvp', this.mvp);
+      this.config.set('nucleus', this.mvp == 'nucleus');
     }
   },
 
@@ -352,124 +388,6 @@ module.exports = AppGenerator.extend({
     },
   },
   install: function () {
-    if (this.language == 'kotlin') {
-      this.addGradleDependency('compile', 'io.reactivex', 'rxkotlin', '0.30.1')
-      this.addGradleDependency('compile', 'org.jetbrains.kotlin', 'kotlin-stdlib', '1.0.0-beta-4584')
-      this.addGradleDependency('compile', 'org.jetbrains.anko', 'anko-sdk15', '0.8.1')
-      this.addGradleDependency('compile', 'org.jetbrains.anko', 'anko-support-v4', '0.8.1')
-      this.addGradleDependency('kapt', 'com.google.dagger', 'dagger-compiler', '2.0.2')
-      this.addGradleDependency('compile', 'io.reactivex', 'rxkotlin', '0.30.1')
-      if (this.butterknife == true) {
-        this.addGradleDependency('kapt', 'com.jakewharton', 'butterknife', '7.0.1')
-      }
-    } else {
-      this.addGradleDependency('retrolambdaConfig', 'net.orfjackal.retrolambda', 'retrolambda', '2.1.0')
-      this.addGradleDependency('apt', 'com.google.dagger', 'dagger-compiler', '2.0.2')
-    }
-
-    if (this.nucleus) {
-      this.addGradleDependency('compile', 'info.android15.nucleus', 'nucleus', '2.0.5')
-      this.addGradleDependency('compile', 'info.android15.nucleus', 'nucleus-support-v4', '2.0.5')
-      this.addGradleDependency('compile', 'info.android15.nucleus', 'nucleus-support-v7', '2.0.5')
-    }
-
-    if (this.butterknife) {
-      this.addGradleDependency('compile', 'com.jakewharton', 'butterknife', '7.0.1')
-    }
-
-    if (this.eventbus) {
-      this.addGradleDependency('compile', 'org.greenrobot', 'eventbus', '3.0.0')
-    }
-
-    if (this.imageLib == 'glide') {
-      this.addGradleDependency('compile', 'com.github.bumptech.glide', 'glide', '3.6.1')
-    }
-
-    if (this.imageLib == 'picasso') {
-      this.addGradleDependency('compile', 'com.squareup.picasso', 'picasso', '2.5.2')
-    }
-
-    if (this.calligraphy == true) {
-      this.addGradleDependency('compile', 'uk.co.chrisjenx', 'calligraphy', '2.1.0')
-    }
-
-    if (this.timber == true) {
-      this.addGradleDependency('compile', 'com.jakewharton.timber', 'timber', '3.1.0')
-    }
-    if (this.jodatime == true) {
-      this.addGradleDependency('compile', 'net.danlew', 'android.joda', '2.8.2')
-    }
-
-    if (this.jodamoney == true) {
-      this.addGradleDependency('compile', 'org.joda', 'joda-money', '0.10.0')
-    }
-
-    if (this.printview == true) {
-      this.addGradleDependency('compile', 'com.github.johnkil.print', 'print', '1.3.1')
-    }
-
-    if (this.mixpanel == true) {
-      this.addGradleDependency('compile', 'com.mixpanel.android', 'mixpanel-android', '4.6.4');}
-
-    if (this.stetho) {
-      this.addGradleDependency('compile', 'com.facebook.stetho', 'stetho', '1.2.0')
-      this.addGradleDependency('compile', 'com.facebook.stetho', 'stetho-okhttp', '1.2.0')
-    }
-
-    if (this.autoparcel) {
-      this.addGradleDependency('compile', 'com.github.frankiesardo', 'auto-parcel', '0.3.1')
-      if (this.language == 'java') {
-        this.addGradleDependency('apt', 'com.github.frankiesardo', 'auto-parcel-processor', '0.3.1')
-      } else {
-        this.addGradleDependency('kapt', 'com.github.frankiesardo', 'auto-parcel-processor', '0.3.1')
-      }
-    }
-
-    if (this.playServices.length > 0) {
-      this.addGradleDependency('compile', 'com.google.android.gms', 'play-services-base', '8.4.0')
-
-      if (this.playServices.indexOf('plus') != -1)
-        this.addGradleDependency('compile', 'com.google.android.gms', 'play-services-plus', '8.4.0')
-      if (this.playServices.indexOf('auth') != -1)
-        this.addGradleDependency('compile', 'com.google.android.gms', 'play-services-auth', '8.4.0')
-      if (this.playServices.indexOf('identity') != -1)
-        this.addGradleDependency('compile', 'com.google.android.gms', 'play-services-identity', '8.4.0')
-      if (this.playServices.indexOf('appindexing') != -1)
-        this.addGradleDependency('compile', 'com.google.android.gms', 'play-services-appindexing', '8.4.0')
-      if (this.playServices.indexOf('appinvite') != -1)
-        this.addGradleDependency('compile', 'com.google.android.gms', 'play-services-appinvite', '8.4.0')
-      if (this.playServices.indexOf('analytics') != -1)
-        this.addGradleDependency('compile', 'com.google.android.gms', 'play-services-analytics', '8.4.0')
-      if (this.playServices.indexOf('cast') != -1)
-        this.addGradleDependency('compile', 'com.google.android.gms', 'play-services-cast', '8.4.0')
-      if (this.playServices.indexOf('gcm') != -1)
-
-        this.addGradleDependency('compile', 'com.google.android.gms', 'play-services-gcm', '8.4.0')
-      if (this.playServices.indexOf('drive') != -1)
-        this.addGradleDependency('compile', 'com.google.android.gms', 'play-services-drive', '8.4.0')
-      if (this.playServices.indexOf('fitness') != -1)
-        this.addGradleDependency('compile', 'com.google.android.gms', 'play-services-fitness', '8.4.0')
-      if (this.playServices.indexOf('location') != -1)
-        this.addGradleDependency('compile', 'com.google.android.gms', 'play-services-location', '8.4.0')
-      if (this.playServices.indexOf('maps') != -1)
-        this.addGradleDependency('compile', 'com.google.android.gms', 'play-services-maps', '8.4.0')
-      if (this.playServices.indexOf('ads') != -1)
-        this.addGradleDependency('compile', 'com.google.android.gms', 'play-services-ads', '8.4.0')
-      if (this.playServices.indexOf('vision') != -1)
-        this.addGradleDependency('compile', 'com.google.android.gms', 'play-services-vision', '8.4.0')
-      if (this.playServices.indexOf('nearby') != -1)
-        this.addGradleDependency('compile', 'com.google.android.gms', 'play-services-nearby', '8.4.0')
-      if (this.playServices.indexOf('panorama') != -1)
-        this.addGradleDependency('compile', 'com.google.android.gms', 'play-services-panorama', '8.4.0')
-      if (this.playServices.indexOf('games') != -1)
-        this.addGradleDependency('compile', 'com.google.android.gms', 'play-services-games', '8.4.0')
-      if (this.playServices.indexOf('wearable') != -1)
-        this.addGradleDependency('compile', 'com.google.android.gms', 'play-services-wearable', '8.4.0')
-      if (this.playServices.indexOf('safetynet') != -1)
-        this.addGradleDependency('compile', 'com.google.android.gms', 'play-services-safetynet', '8.4.0')
-      if (this.playServices.indexOf('wallet') != -1)
-        this.addGradleDependency('compile', 'com.google.android.gms', 'play-services-wallet', '8.4.0')
-
-    }
+    this.installDependencies(this, false);
   }
 })

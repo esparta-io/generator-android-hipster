@@ -21,6 +21,7 @@ function Generator() {
 util.inherits(Generator, yeoman.Base);
 
 
+
 Generator.prototype.addComponentInjection = function (name, basePath, packageName) {
     try {
         var fullPath = 'app/src/main/java/' +basePath+ '/di/components/ApplicationComponent.java';
@@ -194,16 +195,29 @@ Generator.prototype.addGradlePlugin = function (group, name, version) {
  * @param {name} maven ArtifactId
  * @param {version} explicit version number
  */
-Generator.prototype.addGradleDependency = function (scope, group, name, version) {
+Generator.prototype.addGradleDependency = function (scope, group, name, version, update) {
     try {
         var fullPath = 'app/build.gradle';
-        jhipsterUtils.rewriteFile({
-            file: fullPath,
-            needle: 'android-hipster-needle-gradle-dependency',
-            splicable: [
-                scope + ' "' + group + ':' + name + ':' + version + '"'
-            ]
-        });
+        if (update) {
+          jhipsterUtils.rewriteReplace({
+              file: fullPath,
+              needle: scope + ' "' + group + ':' + name,
+              splicable: [
+                  scope + ' "' + group + ':' + name + ':' + version + '"'
+              ]
+          });
+          this.log(chalk.green('updated dependency: ' + scope + ' "' + group + ':' + name + ':' + version + '"'));
+        } else {
+          jhipsterUtils.rewriteFile({
+              file: fullPath,
+              needle: 'android-hipster-needle-gradle-dependency',
+              splicable: [
+                  scope + ' "' + group + ':' + name + ':' + version + '"'
+              ]
+          });
+          this.log(chalk.green('added dependency: ' + scope + ' "' + group + ':' + name + ':' + version + '"'));
+        }
+
     } catch (e) {
         this.log(e);
         this.log(chalk.yellow('\nUnable to find ') + fullPath + chalk.yellow(' or missing required jhipster-needle. Reference to ') + group + ':' + name + ':' + version + chalk.yellow(' not added.\n'));
@@ -302,6 +316,20 @@ Generator.prototype.copyJs = function (source, dest, _this, _opt, template) {
 Generator.prototype.rewriteFile = function(filePath, needle, content) {
     try {
         jhipsterUtils.rewriteFile({
+            file: filePath,
+            needle: needle,
+            splicable: [
+              content
+            ]
+        });
+    } catch (e) {
+        this.log(chalk.yellow('\nUnable to find ') + filePath + chalk.yellow(' or missing required needle. File rewrite failed.\n'));
+    }
+};
+
+Generator.prototype.rewriteReplace = function(filePath, needle, content) {
+    try {
+        jhipsterUtils.rewriteReplace({
             file: filePath,
             needle: needle,
             splicable: [

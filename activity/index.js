@@ -27,6 +27,7 @@ module.exports = ActivityGenerator.extend({
       this.language = this.config.get('language');
       this.appPackage = this.config.get('appPackage');
       this.nucleus = this.config.get('nucleus');
+
     }
   },
   prompting: function () {

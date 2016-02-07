@@ -8,6 +8,7 @@ var path = require('path'),
 
 module.exports = {
     rewrite: rewrite,
+    rewriteReplace:rewriteReplace,
     rewriteFile: rewriteFile,
     replaceContent: replaceContent,
     classify: classify,
@@ -15,6 +16,15 @@ module.exports = {
     copyWebResource: copyWebResource
 };
 
+function rewriteReplace(args) {
+    args.path = args.path || process.cwd();
+    var fullPath = path.join(args.path, args.file);
+
+    args.haystack = fs.readFileSync(fullPath, 'utf8');
+    var body = rewriteReplaceFile(args);
+
+    fs.writeFileSync(fullPath, body);
+}
 function rewriteFile(args) {
     args.path = args.path || process.cwd();
     var fullPath = path.join(args.path, args.file);
@@ -24,6 +34,7 @@ function rewriteFile(args) {
 
     fs.writeFileSync(fullPath, body);
 }
+
 
 function replaceContent(args) {
     args.path = args.path || process.cwd();
@@ -40,11 +51,50 @@ function escapeRegExp(str) {
     return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&');
 }
 
+function rewriteReplaceFile(args) {
+
+    // check if splicable is already in the body text
+    var re = new RegExp(args.splicable.map(function(line) {
+      return '\s*' + escapeRegExp(line);
+    }).join('\n'));
+
+
+    if (re.test(args.haystack)) {
+        return args.haystack;
+    }
+
+    var lines = args.haystack.split('\n');
+
+    var otherwiseLineIndex = -1;
+    lines.forEach(function(line, i) {
+        if (line.indexOf(args.needle) !== -1) {
+            otherwiseLineIndex = i;
+        }
+    });
+
+    var spaces = 0;
+    while (lines[otherwiseLineIndex].charAt(spaces) === ' ') {
+        spaces += 1;
+    }
+
+    var spaceStr = '';
+    while ((spaces -= 1) >= 0) {
+        spaceStr += ' ';
+    }
+
+    lines[otherwiseLineIndex] = args.splicable.map(function(line) {
+        return spaceStr + line;
+    }).join('\n');
+
+    return lines.join('\n');
+}
+
 function rewrite(args) {
     // check if splicable is already in the body text
     var re = new RegExp(args.splicable.map(function(line) {
         return '\s*' + escapeRegExp(line);
     }).join('\n'));
+
 
     if (re.test(args.haystack)) {
         return args.haystack;
@@ -73,7 +123,7 @@ function rewrite(args) {
         return spaceStr + line;
     }).join('\n'));
 
-    return lines.join('\n');
+    return lines.join('\n\n');
 }
 
 // _.classify uses _.titleize which lowercase the string,
