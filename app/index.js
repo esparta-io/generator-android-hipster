@@ -87,12 +87,12 @@ module.exports = AppGenerator.extend({
                 message: 'What MVP do you want to use? ',
                 choices: [
                     {
-                        value: 'embeed',
-                        name: 'Embeed MVP (No Lib)'
-                    },
-                    {
                         value: 'nucleus',
                         name: 'Nucleus MVP'
+                    },
+                    {
+                        value: 'embeed',
+                        name: 'Embeed MVP (No Lib)'
                     }
                 ],
                 default: 'nucleus'
@@ -376,13 +376,15 @@ module.exports = AppGenerator.extend({
             this.directory('resources/res', 'app/src/main/res');
 
             this.template('resources/_AndroidManifest.xml', 'app/src/main/AndroidManifest.xml', this, {});
-            this.template('../../dependencies.json', 'dependencies.json', this, {});
+            this.template('../../dependencies.json', 'dependencies.json', this, {}).on('end', function() {
+                this.installGradleDependencies(this, false);
+            });
 
             mkdirp('app/src/debug');
 
         }
     },
     install: function () {
-        this.installGradleDependencies(this, false);
+
     }
 });

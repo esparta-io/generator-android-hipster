@@ -20,22 +20,22 @@ module.exports = ActivityGenerator.extend({
             this.language = this.config.get('language');
             this.appPackage = this.config.get('appPackage');
 
-            this.nucleus = this.config.get('nucleus');
-            this.mvp = this.config.get('mvp');
-            this.imageLib = this.config.get('imageLib');
-            this.eventbus = this.config.get('eventbus');
-            this.mixpanel = this.config.get('mixpanel');
-            this.timber = this.config.get('timber');
-            this.jodatime = this.config.get('jodatime');
-            this.jodamoney = this.config.get('jodamoney');
-            this.butterknife = this.config.get('butterknife');
+            this.nucleus = this.config.get('nucleus') || true;
+            this.mvp = this.config.get('mvp') || 'nucleus';
+            this.imageLib = this.config.get('imageLib') || 'glide';
+            this.eventbus = this.config.get('eventbus') || true;
+            this.mixpanel = this.config.get('mixpanel') || true;
+            this.timber = this.config.get('timber') || true;
+            this.jodatime = this.config.get('jodatime') || true;
+            this.jodamoney = this.config.get('jodamoney') || true;
+            this.butterknife = this.config.get('butterknife') || true;
             this.androidTargetSdkVersion = this.config.get('androidTargetSdkVersion');
             this.minSdk = this.config.get('minSdk');
-            this.calligraphy = this.config.get('calligraphy');
-            this.playServices = this.config.get('playServices');
-            this.stetho = this.config.get('stetho');
-            this.printview = this.config.get('printview');
-            this.autoparcel = this.config.get('autoparcel')
+            this.calligraphy = this.config.get('calligraphy') || true;
+            this.playServices = this.config.get('playServices') || [];
+            this.stetho = this.config.get('stetho') || true;
+            this.printview = this.config.get('printview') || true;
+            this.autoparcel = this.config.get('autoparcel') || true;
         }
     },
     prompting: function () {
@@ -46,7 +46,7 @@ module.exports = ActivityGenerator.extend({
         ));
 
         this.prompt([], function (props) {
-            done()
+            done();
         }.bind(this))
     },
 
@@ -57,15 +57,17 @@ module.exports = ActivityGenerator.extend({
 
     writing: {
         projectfiles: function () {
+            this.template('../../dependencies.json', 'dependencies.json', this, {}).on('end', function() {
+                this.installGradleDependencies(this, true);
+            });
         },
 
         app: function () {
-            this.installGradleDependencies(this, true);
-
-        },
-
-        install: function () {
-            // this.installDependencies()
         }
+    },
+
+    install: function () {
+
     }
-});
+})
+;

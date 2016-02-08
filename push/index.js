@@ -135,6 +135,19 @@ module.exports = ActivityGenerator.extend({
                 this.addComponentInjectionKotlin('PushServiceListener', packageDir, this.appPackage + '.services.push');
                 this.addComponentInjectionKotlin('PushIntentService', packageDir, this.appPackage + '.services.push')
             }
+
+
+            this.template('../../dependencies.json', 'dependencies.json', this, {}).on('end', function () {
+                this.playServices = this.config.get('playServices');
+                if (this.playServices == undefined) {
+                    this.playServices = ['base'];
+                }
+                if (this.playServices.indexOf('gcm') == -1) {
+                    this.playServices.push('gcm');
+                }
+                this.config.set('playServices', this.playServices);
+                this.installGradleDependencies(this, true);
+            });
         },
 
         install: function () {

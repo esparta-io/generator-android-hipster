@@ -89,6 +89,7 @@ function rewriteReplaceFile(args) {
     var lines = args.haystack.split('\n');
 
     var otherwiseLineIndex = -1;
+    console.log(needle, lines[otherwiseLineIndex]);
     lines.forEach(function (line, i) {
         if (line.indexOf(args.needle) !== -1) {
             otherwiseLineIndex = i;
@@ -124,14 +125,17 @@ function rewriteReplaceFileMultiple(args) {
             }
         });
 
+        var isNew = false;
         if (lines[otherwiseLineIndex] == undefined) {
             // dont have the dependency, added now...
             var needle = 'android-hipster-needle-gradle-dependency';
             lines.forEach(function (line, i) {
                 if (line.indexOf(needle) !== -1) {
                     otherwiseLineIndex = i;
+                    isNew = true;
                 }
             });
+
         }
 
         var spaces = 0;
@@ -143,10 +147,16 @@ function rewriteReplaceFileMultiple(args) {
         while ((spaces -= 1) >= 0) {
             spaceStr += ' ';
         }
+
         var dep = args.dependencies[i].scope + ' "' + args.dependencies[i].group + ':' + args.dependencies[i].name + ':' + args.dependencies[i].version + '"';
         console.log('updated:', dep);
 
-        lines[otherwiseLineIndex] = spaceStr + (dep);
+        if (isNew) {
+            lines.splice(otherwiseLineIndex, 0, spaceStr + args.dependencies[i].scope + ' "' + args.dependencies[i].group + ':' + args.dependencies[i].name + ':' + args.dependencies[i].version + '"').join('\n');
+        } else {
+            lines[otherwiseLineIndex] = spaceStr + (dep);
+        }
+
     }
 
 
@@ -177,8 +187,7 @@ function rewriteMultiple(args) {
         }
 
         var dep = args.dependencies[i].scope + ' "' + args.dependencies[i].group + ':' + args.dependencies[i].name + ':' + args.dependencies[i].version + '"';
-        console.log('updated:', dep);
-        this.log(chalk.green('updated : ', dep));
+        console.log('added:', dep);
 
         lines.splice(otherwiseLineIndex, 0, spaceStr + args.dependencies[i].scope + ' "' + args.dependencies[i].group + ':' + args.dependencies[i].name + ':' + args.dependencies[i].version + '"').join('\n');
     }

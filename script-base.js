@@ -89,7 +89,7 @@ Generator.prototype.installGradleDependencies = function (config, update) {
                     if (config.playServices == undefined || config.playServices.length == 0) {
                         toRemove.push(gradleDependencies[i]);
                     } else if (config.playServices != undefined && config.playServices.length > 0) {
-                        if (config.playServices.indexOf(gradleDependencies[i].name.replace('play-services-', '')) == -1) {
+                        if (config.playServices.indexOf(gradleDependencies[i].name.replace('play-services-', '')) == -1 && gradleDependencies[i].name != 'play-services-base') {
                             toRemove.push(gradleDependencies[i]);
                         }
                     }
