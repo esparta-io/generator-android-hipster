@@ -11,9 +11,6 @@ var shelljs = require('shelljs');
 var scriptBase = require('../script-base');
 var util = require('util');
 
-var AndroidManifest = require('androidmanifest');
-var AndroidResource = require('../androidresources');
-
 var ActivityGenerator = generators.Base.extend({});
 
 util.inherits(ActivityGenerator, scriptBase);
@@ -149,7 +146,6 @@ module.exports = ActivityGenerator.extend({
         },
 
         install: function () {
-            // this.installDependencies()
         }
     }
 });

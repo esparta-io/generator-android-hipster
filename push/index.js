@@ -4,15 +4,11 @@ var chalk = require('chalk');
 var yosay = require('yosay');
 var mkdirp = require('mkdirp');
 var generators = require('yeoman-generator');
-var _ = require('lodash');
-var fileExists = require('file-exists');
 
 var scriptBase = require('../script-base');
 var util = require('util');
 
-
 var AndroidManifest = require('androidmanifest');
-var AndroidResource = require('../androidresources');
 
 var ActivityGenerator = generators.Base.extend({});
 
@@ -34,9 +30,6 @@ module.exports = ActivityGenerator.extend({
         this.log(yosay(
             'Welcome to the ' + chalk.red('Android Hispter') + ' generator!'
         ));
-
-        var defaultAppBaseName = 'Sample';
-        var defaultName = '';
 
         var prompts = [
             {
@@ -145,7 +138,6 @@ module.exports = ActivityGenerator.extend({
         },
 
         install: function () {
-            //this.installDependencies();
         }
     }
 });

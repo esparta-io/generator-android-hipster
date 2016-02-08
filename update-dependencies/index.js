@@ -3,23 +3,15 @@ var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
 var yosay = require('yosay');
 var mkdirp = require('mkdirp');
-var jsons = require('read-json');
 
 var generators = require('yeoman-generator');
-var _ = require('lodash');
-var fileExists = require('file-exists');
 
 var scriptBase = require('../script-base');
-var dependencies = require('../dependencies');
 var util = require('util');
-
-var AndroidManifest = require('androidmanifest');
-var AndroidResource = require('../androidresources');
 
 var ActivityGenerator = generators.Base.extend({});
 
 util.inherits(ActivityGenerator, scriptBase);
-util.inherits(ActivityGenerator, dependencies);
 
 module.exports = ActivityGenerator.extend({
     initializing: {

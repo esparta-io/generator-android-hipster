@@ -6,14 +6,9 @@ var mkdirp = require('mkdirp');
 var generators = require('yeoman-generator');
 var _ = require('lodash');
 var _s = require('underscore.string');
-var fileExists = require('file-exists');
 var shelljs = require('shelljs');
 var scriptBase = require('../script-base');
 var util = require('util');
-
-
-var AndroidManifest = require('androidmanifest');
-var AndroidResource = require('../androidresources');
 
 var ActivityGenerator = generators.Base.extend({});
 

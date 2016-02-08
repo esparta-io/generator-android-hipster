@@ -5,13 +5,9 @@ var yosay = require('yosay');
 var mkdirp = require('mkdirp');
 var generators = require('yeoman-generator');
 var _ = require('lodash');
-var fileExists = require('file-exists');
 
 var scriptBase = require('../script-base');
 var util = require('util');
-
-var AndroidManifest = require('androidmanifest');
-var AndroidResource = require('../androidresources');
 
 var ActivityGenerator = generators.Base.extend({});
 

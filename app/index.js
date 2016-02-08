@@ -4,20 +4,15 @@ var chalk = require('chalk');
 var yosay = require('yosay');
 var mkdirp = require('mkdirp');
 var generators = require('yeoman-generator');
-var _ = require('lodash');
-var fileExists = require('file-exists');
 
 var scriptBase = require('../script-base');
-var dependencies = require('../dependencies');
 var util = require('util');
 
 var AndroidManifest = require('androidmanifest');
-var AndroidResource = require('../androidresources');
 
 var AppGenerator = generators.Base.extend({});
 
 util.inherits(AppGenerator, scriptBase);
-util.inherits(AppGenerator, dependencies);
 
 module.exports = AppGenerator.extend({
     prompting: function () {
@@ -230,7 +225,7 @@ module.exports = AppGenerator.extend({
             this.autoparcel = true; // Yeap, need to be true at this time
             // this.autoparcel = props.autoparcel
             this.mvp = props.mvp;
-            this.mvpembeed= props.mvp == 'embeed';
+            this.mvpembeed = props.mvp == 'embeed';
             this.nucleus = props.mvp == 'nucleus';
 
 

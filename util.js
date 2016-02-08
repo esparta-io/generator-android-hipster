@@ -137,7 +137,10 @@ function rewriteReplaceFileMultiple(args) {
         while ((spaces -= 1) >= 0) {
             spaceStr += ' ';
         }
-        lines[otherwiseLineIndex] = spaceStr + (args.dependencies[i].scope + ' "' + args.dependencies[i].group + ':' + args.dependencies[i].name + ':' + args.dependencies[i].version + '"' );
+        var dep = args.dependencies[i].scope + ' "' + args.dependencies[i].group + ':' + args.dependencies[i].name + ':' + args.dependencies[i].version + '"';
+        console.log('updated:', dep);
+
+        lines[otherwiseLineIndex] = spaceStr + (dep);
     }
 
 
@@ -166,6 +169,10 @@ function rewriteMultiple(args) {
         while ((spaces -= 1) >= 0) {
             spaceStr += ' ';
         }
+
+        var dep = args.dependencies[i].scope + ' "' + args.dependencies[i].group + ':' + args.dependencies[i].name + ':' + args.dependencies[i].version + '"';
+        console.log('updated:', dep);
+        this.log(chalk.green('updated : ', dep));
 
         lines.splice(otherwiseLineIndex, 0, spaceStr + args.dependencies[i].scope + ' "' + args.dependencies[i].group + ':' + args.dependencies[i].name + ':' + args.dependencies[i].version + '"').join('\n');
     }
