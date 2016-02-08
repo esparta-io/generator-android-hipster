@@ -20,7 +20,144 @@ function Generator() {
 
 util.inherits(Generator, yeoman.Base);
 
+Generator.prototype.installGradleDependencies = function (config, update) {
+    var appFolder;
+    if (config.language == 'java') {
+        appFolder = 'app-java';
+    } else {
+        appFolder = 'app-kotlin';
+    }
+    var ext = config.language == 'java' ? '.java' : '.kt';
 
+
+    this.addGradleParentDependency('classpath', 'com.android.tools.build', 'gradle', '2.0.0-alpha9', update);
+    this.addGradleParentDependency('classpath', 'com.neenbedankt.gradle.plugins', 'android-apt', '1.8', update);
+    this.addGradleParentDependency('classpath', 'me.tatarka', 'gradle-retrolambda', '3.2.3', update);
+    this.addGradleFieldDependency('buildToolsVersion', '"23.0.2"', update);
+
+
+    if (config.language == 'kotlin') {
+        this.addGradleDependency('compile', 'io.reactivex', 'rxkotlin', '0.30.1', update);
+        this.addGradleDependency('compile', 'org.jetbrains.kotlin', 'kotlin-stdlib', '1.0.0-beta-4584', update);
+        this.addGradleDependency('compile', 'org.jetbrains.anko', 'anko-sdk15', '0.8.1', update);
+        this.addGradleDependency('compile', 'org.jetbrains.anko', 'anko-support-v4', '0.8.1', update);
+        this.addGradleDependency('kapt', 'com.google.dagger', 'dagger-compiler', '2.0.2', update);
+        this.addGradleDependency('compile', 'io.reactivex', 'rxkotlin', '0.30.1', update);
+        if (config.butterknife == true) {
+            this.addGradleDependency('kapt', 'com.jakewharton', 'butterknife', '7.0.1', update);
+        }
+    } else {
+        this.addGradleDependency('retrolambdaConfig', 'net.orfjackal.retrolambda', 'retrolambda', '2.1.0', update);
+        this.addGradleDependency('apt', 'com.google.dagger', 'dagger-compiler', '2.0.2', update);
+    }
+
+    if (config.nucleus) {
+        this.addGradleDependency('compile', 'info.android15.nucleus', 'nucleus', '2.0.5', update);
+        this.addGradleDependency('compile', 'info.android15.nucleus', 'nucleus-support-v4', '2.0.5', update);
+        this.addGradleDependency('compile', 'info.android15.nucleus', 'nucleus-support-v7', '2.0.5', update);
+    }
+
+    if (config.butterknife) {
+        this.addGradleDependency('compile', 'com.jakewharton', 'butterknife', '7.0.1', update);
+    }
+
+    if (config.eventbus) {
+        this.addGradleDependency('compile', 'org.greenrobot', 'eventbus', '3.0.0', update);
+    }
+
+    if (config.imageLib == 'glide') {
+        this.addGradleDependency('compile', 'com.github.bumptech.glide', 'glide', '3.6.1', update);
+    }
+
+    if (config.imageLib == 'picasso') {
+        this.addGradleDependency('compile', 'com.squareup.picasso', 'picasso', '2.5.2', update);
+    }
+
+    if (config.calligraphy == true) {
+        this.addGradleDependency('compile', 'uk.co.chrisjenx', 'calligraphy', '2.1.0', update);
+    }
+
+    if (config.timber == true) {
+        this.addGradleDependency('compile', 'com.jakewharton.timber', 'timber', '3.1.0', update);
+    }
+
+    if (config.jodatime == true) {
+        this.addGradleDependency('compile', 'net.danlew', 'android.joda', '2.8.2', update);
+    }
+
+    if (config.jodamoney == true) {
+        this.addGradleDependency('compile', 'org.joda', 'joda-money', '0.10.0', update);
+    }
+
+    if (config.printview == true) {
+        this.addGradleDependency('compile', 'com.github.johnkil.print', 'print', '1.3.1', update);
+    }
+
+    if (config.mixpanel == true) {
+        this.addGradleDependency('compile', 'com.mixpanel.android', 'mixpanel-android', '4.6.4', update);
+    }
+
+    if (config.stetho) {
+        this.addGradleDependency('compile', 'com.facebook.stetho', 'stetho', '1.2.0', update);
+        this.addGradleDependency('compile', 'com.facebook.stetho', 'stetho-okhttp', '1.2.0', update);
+    }
+
+    if (config.autoparcel) {
+        this.addGradleDependency('compile', 'com.github.frankiesardo', 'auto-parcel', '0.3.1', update);
+        if (this.language == 'java') {
+            this.addGradleDependency('apt', 'com.github.frankiesardo', 'auto-parcel-processor', '0.3.1', update);
+        } else {
+            this.addGradleDependency('kapt', 'com.github.frankiesardo', 'auto-parcel-processor', '0.3.1', update)
+        }
+    }
+
+    var googlePlayVersion = '8.4.0';
+
+    if (config.playServices && config.playServices.length > 0) {
+        this.addGradleDependency('compile', 'com.google.android.gms', 'play-services-base', googlePlayVersion, update);
+
+        if (config.playServices.indexOf('plus') != -1)
+            this.addGradleDependency('compile', 'com.google.android.gms', 'play-services-plus', googlePlayVersion, update);
+        if (config.playServices.indexOf('auth') != -1)
+            this.addGradleDependency('compile', 'com.google.android.gms', 'play-services-auth', googlePlayVersion, update);
+        if (config.playServices.indexOf('identity') != -1)
+            this.addGradleDependency('compile', 'com.google.android.gms', 'play-services-identity', googlePlayVersion, update);
+        if (config.playServices.indexOf('appindexing') != -1)
+            this.addGradleDependency('compile', 'com.google.android.gms', 'play-services-appindexing', googlePlayVersion, update);
+        if (config.playServices.indexOf('appinvite') != -1)
+            this.addGradleDependency('compile', 'com.google.android.gms', 'play-services-appinvite', googlePlayVersion, update);
+        if (config.playServices.indexOf('analytics') != -1)
+            this.addGradleDependency('compile', 'com.google.android.gms', 'play-services-analytics', googlePlayVersion, update);
+        if (config.playServices.indexOf('cast') != -1)
+            this.addGradleDependency('compile', 'com.google.android.gms', 'play-services-cast', googlePlayVersion, update);
+        if (config.playServices.indexOf('gcm') != -1)
+            this.addGradleDependency('compile', 'com.google.android.gms', 'play-services-gcm', googlePlayVersion, update);
+        if (config.playServices.indexOf('drive') != -1)
+            this.addGradleDependency('compile', 'com.google.android.gms', 'play-services-drive', googlePlayVersion, update);
+        if (config.playServices.indexOf('fitness') != -1)
+            this.addGradleDependency('compile', 'com.google.android.gms', 'play-services-fitness', googlePlayVersion, update);
+        if (config.playServices.indexOf('location') != -1)
+            this.addGradleDependency('compile', 'com.google.android.gms', 'play-services-location', googlePlayVersion, update);
+        if (config.playServices.indexOf('maps') != -1)
+            this.addGradleDependency('compile', 'com.google.android.gms', 'play-services-maps', googlePlayVersion, update);
+        if (config.playServices.indexOf('ads') != -1)
+            this.addGradleDependency('compile', 'com.google.android.gms', 'play-services-ads', googlePlayVersion, update);
+        if (config.playServices.indexOf('vision') != -1)
+            this.addGradleDependency('compile', 'com.google.android.gms', 'play-services-vision', googlePlayVersion, update);
+        if (config.playServices.indexOf('nearby') != -1)
+            this.addGradleDependency('compile', 'com.google.android.gms', 'play-services-nearby', googlePlayVersion, update);
+        if (config.playServices.indexOf('panorama') != -1)
+            this.addGradleDependency('compile', 'com.google.android.gms', 'play-services-panorama', googlePlayVersion, update);
+        if (config.playServices.indexOf('games') != -1)
+            this.addGradleDependency('compile', 'com.google.android.gms', 'play-services-games', googlePlayVersion, update);
+        if (config.playServices.indexOf('wearable') != -1)
+            this.addGradleDependency('compile', 'com.google.android.gms', 'play-services-wearable', googlePlayVersion, update);
+        if (config.playServices.indexOf('safetynet') != -1)
+            this.addGradleDependency('compile', 'com.google.android.gms', 'play-services-safetynet', googlePlayVersion, update);
+        if (config.playServices.indexOf('wallet') != -1)
+            this.addGradleDependency('compile', 'com.google.android.gms', 'play-services-wallet', googlePlayVersion, update);
+    }
+};
 
 Generator.prototype.addComponentInjection = function (name, basePath, packageName) {
     try {
@@ -206,7 +343,7 @@ Generator.prototype.addGradleDependency = function (scope, group, name, version,
                   scope + ' "' + group + ':' + name + ':' + version + '"'
               ]
           });
-          this.log(chalk.green('updated dependency: ' + scope + ' "' + group + ':' + name + ':' + version + '"'));
+          //this.log(chalk.green('updated dependency: ' + scope + ' "' + group + ':' + name + ':' + version + '"'));
         } else {
           jhipsterUtils.rewriteFile({
               file: fullPath,
@@ -215,12 +352,53 @@ Generator.prototype.addGradleDependency = function (scope, group, name, version,
                   scope + ' "' + group + ':' + name + ':' + version + '"'
               ]
           });
-          this.log(chalk.green('added dependency: ' + scope + ' "' + group + ':' + name + ':' + version + '"'));
+          //this.log(chalk.green('added dependency: ' + scope + ' "' + group + ':' + name + ':' + version + '"'));
         }
+    } catch (e) {
+        this.log(chalk.yellow('\nUnable to find ') + fullPath + chalk.yellow(' or missing required jhipster-needle. Reference to ') + group + ':' + name + ':' + version + chalk.yellow(' not added.\n'));
+    }
+};
 
+Generator.prototype.addMultipleGradleDependency = function (dependencies, update) {
+    try {
+        var fullPath = 'app/build.gradle';
+        if (update) {
+            jhipsterUtils.rewriteReplaceMultiple({
+                file: fullPath,
+                dependencies : dependencies
+            });
+            //this.log(chalk.green('updated dependency: ' + scope + ' "' + group + ':' + name + ':' + version + '"'));
+        } else {
+            jhipsterUtils.rewriteFileMultiple({
+                file: fullPath,
+                dependencies : dependencies
+            });
+            //this.log(chalk.green('added dependency: ' + scope + ' "' + group + ':' + name + ':' + version + '"'));
+        }
     } catch (e) {
         this.log(e);
-        this.log(chalk.yellow('\nUnable to find ') + fullPath + chalk.yellow(' or missing required jhipster-needle. Reference to ') + group + ':' + name + ':' + version + chalk.yellow(' not added.\n'));
+    }
+};
+
+Generator.prototype.addMultipleParentGradleDependency = function (dependencies, update) {
+    try {
+        var fullPath = 'build.gradle';
+        if (update) {
+            jhipsterUtils.rewriteReplaceMultiple({
+                file: fullPath,
+                dependencies : dependencies
+            });
+            //this.log(chalk.green('updated dependency: ' + scope + ' "' + group + ':' + name + ':' + version + '"'));
+        } else {
+
+            jhipsterUtils.rewriteFileMultiple({
+                file: fullPath,
+                dependencies : dependencies
+            });
+            //this.log(chalk.green('added dependency: ' + scope + ' "' + group + ':' + name + ':' + version + '"'));
+        }
+    } catch (e) {
+        this.log(e);
     }
 };
 
@@ -235,7 +413,7 @@ Generator.prototype.addGradleParentDependency = function (scope, group, name, ve
                   scope + ' "' + group + ':' + name + ':' + version + '"'
               ]
           });
-          this.log(chalk.green('updated dependency: ' + scope + ' "' + group + ':' + name + ':' + version + '"'));
+          //this.log(chalk.green('updated dependency: ' + scope + ' "' + group + ':' + name + ':' + version + '"'));
         } else {
           jhipsterUtils.rewriteFile({
               file: fullPath,
@@ -244,7 +422,7 @@ Generator.prototype.addGradleParentDependency = function (scope, group, name, ve
                   scope + ' "' + group + ':' + name + ':' + version + '"'
               ]
           });
-          this.log(chalk.green('added dependency: ' + scope + ' "' + group + ':' + name + ':' + version + '"'));
+          //this.log(chalk.green('added dependency: ' + scope + ' "' + group + ':' + name + ':' + version + '"'));
         }
 
     } catch (e) {
