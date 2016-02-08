@@ -6,19 +6,22 @@
         "scope": "classpath",
         "group": "me.tatarka",
         "name": "gradle-retrolambda",
-        "version": "3.2.3"
+        "version": "3.2.3",
+        "lang": "java"
       },
       {
         "scope": "classpath",
         "group": "com.android.tools.build",
         "name": "gradle",
-        "version": "2.0.0-alpha9"
+        "version": "2.0.0-alpha9",
+        "lang": "all"
       },
       {
         "scope": "classpath",
         "group": "com.neenbedankt.gradle.plugins",
         "name": "android-apt",
-        "version": "1.0"
+        "version": "1.0",
+        "lang": "java"
       }
     ]
   },

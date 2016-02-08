@@ -125,7 +125,13 @@ function rewriteReplaceFileMultiple(args) {
         });
 
         if (lines[otherwiseLineIndex] == undefined) {
-            console.log(needle);
+            // dont have the dependency, added now...
+            var needle = 'android-hipster-needle-gradle-dependency';
+            lines.forEach(function (line, i) {
+                if (line.indexOf(needle) !== -1) {
+                    otherwiseLineIndex = i;
+                }
+            });
         }
 
         var spaces = 0;

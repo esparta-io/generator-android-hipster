@@ -23,9 +23,25 @@ util.inherits(Generator, yeoman.Base);
 Generator.prototype.installGradleDependencies = function (config, update) {
 
     var dependencies = this.fs.readJSON('dependencies.json');
+
     this.addGradleFieldDependency('buildToolsVersion', '"23.0.2"', update);
 
-    this.addMultipleParentGradleDependency(dependencies[0].dependencies, update);
+    var parent = [];
+    for (var i = 0; i < dependencies[0].dependencies.length; i++) {
+
+        if (dependencies[0].dependencies[i].lang == 'all') {
+            parent.push(dependencies[0].dependencies[i]);
+        }
+        if (dependencies[0].dependencies[i].lang == 'java' && config.language == 'java') {
+            parent.push(dependencies[0].dependencies[i]);
+        }
+        if (dependencies[0].dependencies[i].lang == 'kotlin' && config.language == 'kotlin') {
+            parent.push(dependencies[0].dependencies[i]);
+        }
+
+    }
+
+    this.addMultipleParentGradleDependency(parent, update);
 
     var gradle = dependencies[1].dependencies;
 
