@@ -53,7 +53,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends <% if (nucle
 
     @CallSuper
     @Override
-    protected void onPause()
+    protected void onPause() {
         super.onPause();
         getPresenter().onDropView();
     }

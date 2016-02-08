@@ -1,11 +1,14 @@
 # generator-android-hipster
 > Android generator based on MVP, Dagger2, RxJava, Java/Kotlin Stack and usefull libraries for Android
 
-> Latest version: 0.0.14
+> Latest version: 0.1.0
 
 > Update with `npm update generator-android-hipster`
 
 > Info with `npm info generator-android-hipster`
+
+
+---
 
 # How it works?
 
@@ -88,6 +91,9 @@ Some of them are mandatory, but can be optional soon. If you have any questions,
 - Create a Push architecture:
   * Create the classes to handle push notifications like this [article](https://medium.com/@deividi/a-good-way-to-handle-incoming-notifications-in-android-dc64c29041a5)
 
+- Update gradle dependencies
+  * Update gradle dependencies to latest stable versions with just one command.
+
 Check this [article](https://medium.com/@dmilicic/a-detailed-guide-on-developing-android-apps-using-the-clean-architecture-pattern-d38d71e94029#.ucymv1rr1)
 
 Any suggestions? [Please let me know](https://github.com/cavarzan/generator-android-hipster/issues)!
@@ -111,6 +117,12 @@ npm install -g generator-android-hipster
 
 ```bash
 yo android-hipster
+```
+
+### Update gradle dependencies:
+
+```bash
+yo android-hipster:update-dependencies
 ```
 
 ### Create a new activity:

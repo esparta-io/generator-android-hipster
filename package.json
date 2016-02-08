@@ -1,6 +1,6 @@
 {
   "name": "generator-android-hipster",
-  "version": "0.0.14",
+  "version": "0.1.0",
   "description": "Android generator based on MVP, Dagger2, RxJava, Java/Kotlin Stack and usefull libraries for Android",
   "homepage": "https://github.com/cavarzan/generator-android-hipster",
   "author": {
@@ -26,6 +26,7 @@
     "mkdirp": "^0.5.1",
     "mocha": "^2.3.4",
     "pixl-xml": "^1.0.4",
+    "read-json": "^1.0.0",
     "yeoman-generator": "^0.21.1",
     "yosay": "^1.0.2"
   },

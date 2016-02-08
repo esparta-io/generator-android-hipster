@@ -20,22 +20,115 @@ function Generator() {
 
 util.inherits(Generator, yeoman.Base);
 
+Generator.prototype.installGradleDependencies = function (config, update) {
+
+    var dependencies = this.fs.readJSON('dependencies.json');
+
+    this.addGradleFieldDependency('buildToolsVersion', '"23.0.2"', update);
+
+    var parent = [];
+    for (var i = 0; i < dependencies[0].dependencies.length; i++) {
+
+        if (dependencies[0].dependencies[i].lang == 'all') {
+            parent.push(dependencies[0].dependencies[i]);
+        }
+        if (dependencies[0].dependencies[i].lang == 'java' && config.language == 'java') {
+            parent.push(dependencies[0].dependencies[i]);
+        }
+        if (dependencies[0].dependencies[i].lang == 'kotlin' && config.language == 'kotlin') {
+            parent.push(dependencies[0].dependencies[i]);
+        }
+
+    }
+
+    this.addMultipleParentGradleDependency(parent, update);
+
+    var gradle = dependencies[1].dependencies;
+
+    var gradleDependencies = [];
+
+    for (var i = 0; i < gradle.length; i++) {
+
+        if (gradle[i].lang == 'all') {
+            gradleDependencies.push(gradle[i]);
+        }
+        if (gradle[i].lang == 'java' && config.language == 'java') {
+            gradleDependencies.push(gradle[i]);
+        }
+        if (gradle[i].lang == 'kotlin' && config.language == 'kotlin') {
+            gradleDependencies.push(gradle[i]);
+        }
+
+    }
+
+    if (!update) {
+        var toRemove = [];
+        for (var i = 0; i < gradleDependencies.length; i++) {
+            if (gradleDependencies[i].selection != undefined) {
+                if (gradleDependencies[i].selection == 'playServices') {
+                    if (config.playServices == undefined || config.playServices.length == 0) {
+                        toRemove.push(gradleDependencies[i]);
+                    } else if (config.playServices != undefined && config.playServices.length > 0) {
+                        if (config.playServices.indexOf(gradleDependencies[i].name.replace('play-services-', '')) == -1) {
+                            toRemove.push(gradleDependencies[i]);
+                        }
+                    }
+                } else if (config[gradleDependencies[i].selection] == undefined || config[gradleDependencies[i].selection] == false) {
+                    toRemove.push(gradleDependencies[i]);
+                }
+            }
+        }
+        for (var i = 0; i < toRemove.length; i++) {
+            gradleDependencies.splice(gradleDependencies.indexOf(toRemove[i]), 1);
+        }
+    } else {
+        var toRemove = [];
+        for (var i = 0; i < gradleDependencies.length; i++) {
+            if (gradleDependencies[i].selection != undefined) {
+                if (gradleDependencies[i].selection == 'playServices') {
+                    if (config.playServices == undefined || config.playServices.length == 0) {
+                        toRemove.push(gradleDependencies[i]);
+                    } else if (config.playServices != undefined && config.playServices.length > 0) {
+                        if (config.playServices.indexOf(gradleDependencies[i].name.replace('play-services-', '')) == -1 && gradleDependencies[i].name != 'play-services-base') {
+                            toRemove.push(gradleDependencies[i]);
+                        }
+                    }
+                } else if (config[gradleDependencies[i].selection] == undefined || config[gradleDependencies[i].selection] == false) {
+                    toRemove.push(gradleDependencies[i]);
+                }
+            } else {
+                if (gradleDependencies[i].selection == undefined) {
+
+                } else if (config[gradleDependencies[i].selection] == undefined || config[gradleDependencies[i].selection] == false) {
+                    toRemove.push(gradleDependencies[i]);
+                }
+            }
+        }
+        for (var i = 0; i < toRemove.length; i++) {
+            gradleDependencies.splice(gradleDependencies.indexOf(toRemove[i]), 1);
+        }
+    }
+
+    this.addMultipleGradleDependency(gradleDependencies, update);
+};
+
+
 
 Generator.prototype.addComponentInjection = function (name, basePath, packageName) {
     try {
-        var fullPath = 'app/src/main/java/' +basePath+ '/di/components/ApplicationComponent.java';
+        var fullPath = 'app/src/main/java/' + basePath + '/di/components/ApplicationComponent.java';
         jhipsterUtils.rewriteFile({
             file: fullPath,
             needle: 'android-hipster-needle-component-injection-method',
             splicable: [
-                    'void inject('+name+' '+name.charAt(0).toLowerCase()+name.slice(1)+');'
+                'void inject(' + name + ' ' + name.charAt(0).toLowerCase() + name.slice(1) + ');'
             ]
         });
         jhipsterUtils.rewriteFile({
             file: fullPath,
             needle: 'android-hipster-needle-component-injection-import',
             splicable: [
-                    'import ' + packageName + '.'+name+';'
+                'import ' + packageName + '.' + name + ';'
             ]
         });
     } catch (e) {
@@ -45,19 +138,19 @@ Generator.prototype.addComponentInjection = function (name, basePath, packageNam
 
 Generator.prototype.addCustomComponentInjection = function (component, name, basePath, packageName) {
     try {
-        var fullPath = 'app/src/main/java/' +basePath+ '/di/components/'+component+'.java';
+        var fullPath = 'app/src/main/java/' + basePath + '/di/components/' + component + '.java';
         jhipsterUtils.rewriteFile({
             file: fullPath,
             needle: 'android-hipster-needle-component-injection-method',
             splicable: [
-                    'void inject('+name+' '+name.charAt(0).toLowerCase()+name.slice(1)+');'
+                'void inject(' + name + ' ' + name.charAt(0).toLowerCase() + name.slice(1) + ');'
             ]
         });
         jhipsterUtils.rewriteFile({
             file: fullPath,
             needle: 'android-hipster-needle-component-injection-import',
             splicable: [
-                    'import ' + packageName + '.'+name+';'
+                'import ' + packageName + '.' + name + ';'
             ]
         });
     } catch (e) {
@@ -67,24 +160,24 @@ Generator.prototype.addCustomComponentInjection = function (component, name, bas
 
 Generator.prototype.updateApplicationModuleToProvide = function (name, basePath, packageName, type) {
     try {
-        var fullPath = 'app/src/main/java/' +basePath+ '/di/modules/ApplicationModule.java';
+        var fullPath = 'app/src/main/java/' + basePath + '/di/modules/ApplicationModule.java';
         jhipsterUtils.rewriteFile({
             file: fullPath,
             needle: 'android-hipster-needle-module-provides-method',
             splicable: [
-                    '@Provides',
-                    '@Singleton',
-                    name + type + ' provide' + name + type + '(ThreadExecutor executor) {',
-                    '   return new ' + name + type + 'Impl(executor);',
-                    '}'
+                '@Provides',
+                '@Singleton',
+                name + type + ' provide' + name + type + '(ThreadExecutor executor) {',
+                '   return new ' + name + type + 'Impl(executor);',
+                '}'
             ]
         });
         jhipsterUtils.rewriteFile({
             file: fullPath,
             needle: 'android-hipster-needle-module-provides-import',
             splicable: [
-                    'import ' + packageName + '.'+name+type+';',
-                    'import ' + packageName + '.'+name+type+'Impl;'
+                'import ' + packageName + '.' + name + type + ';',
+                'import ' + packageName + '.' + name + type + 'Impl;'
             ]
         });
     } catch (e) {
@@ -94,23 +187,23 @@ Generator.prototype.updateApplicationModuleToProvide = function (name, basePath,
 
 Generator.prototype.updateApplicationModuleToRepository = function (name, basePath, packageName, remote, local) {
     try {
-        var fullPath = 'app/src/main/java/' +basePath+ '/di/modules/ApplicationModule.java';
+        var fullPath = 'app/src/main/java/' + basePath + '/di/modules/ApplicationModule.java';
         jhipsterUtils.rewriteFile({
             file: fullPath,
             needle: 'android-hipster-needle-module-provides-method',
             splicable: [
-                    '@Provides',
-                    '@Singleton',
-                    name + 'Repository' + ' provide' + name + 'Repository' + '(' + (remote? 'Retrofit retrofit' : '') + ') {',
-                    '   return new ' + name + 'Repository' + 'Impl('+ (remote ? ('new ' + name+'RemoteRepository(retrofit)') : '') + ((remote && local) ?  ', ' : '') + (local ? ('new ' + name+'LocalRepository()') : '')+');',
-                    '}'
+                '@Provides',
+                '@Singleton',
+                name + 'Repository' + ' provide' + name + 'Repository' + '(' + (remote ? 'Retrofit retrofit' : '') + ') {',
+                '   return new ' + name + 'Repository' + 'Impl(' + (remote ? ('new ' + name + 'RemoteRepository(retrofit)') : '') + ((remote && local) ? ', ' : '') + (local ? ('new ' + name + 'LocalRepository()') : '') + ');',
+                '}'
             ]
         });
         jhipsterUtils.rewriteFile({
             file: fullPath,
             needle: 'android-hipster-needle-module-provides-import',
             splicable: [
-                    'import ' + packageName + '.*;',
+                'import ' + packageName + '.*;',
             ]
         });
     } catch (e) {
@@ -121,19 +214,19 @@ Generator.prototype.updateApplicationModuleToRepository = function (name, basePa
 
 Generator.prototype.provideInComponent = function (name, basePath, packageName, type) {
     try {
-        var fullPath = 'app/src/main/java/' +basePath+ '/di/components/ApplicationComponent.java';
+        var fullPath = 'app/src/main/java/' + basePath + '/di/components/ApplicationComponent.java';
         jhipsterUtils.rewriteFile({
             file: fullPath,
             needle: 'android-hipster-needle-component-injection-method',
             splicable: [
-                    name + type+ ' provide'+name+type+'();'
+                name + type + ' provide' + name + type + '();'
             ]
         });
         jhipsterUtils.rewriteFile({
             file: fullPath,
             needle: 'android-hipster-needle-component-injection-import',
             splicable: [
-                    'import ' + packageName + '.'+name+type+';'
+                'import ' + packageName + '.' + name + type + ';'
             ]
         });
     } catch (e) {
@@ -143,19 +236,19 @@ Generator.prototype.provideInComponent = function (name, basePath, packageName, 
 
 Generator.prototype.addComponentInjectionKotlin = function (name, basePath, packageName) {
     try {
-        var fullPath = 'app/src/main/java/' +basePath+ '/di/components/ApplicationComponent.kt';
+        var fullPath = 'app/src/main/java/' + basePath + '/di/components/ApplicationComponent.kt';
         jhipsterUtils.rewriteFile({
             file: fullPath,
             needle: 'android-hipster-needle-component-injection-method',
             splicable: [
-                    'fun inject('+name.charAt(0).toLowerCase()+name.slice(1)+' : '+name+')'
+                'fun inject(' + name.charAt(0).toLowerCase() + name.slice(1) + ' : ' + name + ')'
             ]
         });
         jhipsterUtils.rewriteFile({
             file: fullPath,
             needle: 'android-hipster-needle-component-injection-import',
             splicable: [
-                    'import ' + packageName + '.'+name+''
+                'import ' + packageName + '.' + name + ''
             ]
         });
     } catch (e) {
@@ -194,22 +287,123 @@ Generator.prototype.addGradlePlugin = function (group, name, version) {
  * @param {name} maven ArtifactId
  * @param {version} explicit version number
  */
-Generator.prototype.addGradleDependency = function (scope, group, name, version) {
+Generator.prototype.addGradleDependency = function (scope, group, name, version, update) {
     try {
         var fullPath = 'app/build.gradle';
-        jhipsterUtils.rewriteFile({
-            file: fullPath,
-            needle: 'android-hipster-needle-gradle-dependency',
-            splicable: [
-                scope + ' "' + group + ':' + name + ':' + version + '"'
-            ]
-        });
+        if (update) {
+            jhipsterUtils.rewriteReplace({
+                file: fullPath,
+                needle: scope + ' "' + group + ':' + name,
+                splicable: [
+                    scope + ' "' + group + ':' + name + ':' + version + '"'
+                ]
+            });
+            //this.log(chalk.green('updated dependency: ' + scope + ' "' + group + ':' + name + ':' + version + '"'));
+        } else {
+            jhipsterUtils.rewriteFile({
+                file: fullPath,
+                needle: 'android-hipster-needle-gradle-dependency',
+                splicable: [
+                    scope + ' "' + group + ':' + name + ':' + version + '"'
+                ]
+            });
+            //this.log(chalk.green('added dependency: ' + scope + ' "' + group + ':' + name + ':' + version + '"'));
+        }
+    } catch (e) {
+        this.log(chalk.yellow('\nUnable to find ') + fullPath + chalk.yellow(' or missing required jhipster-needle. Reference to ') + group + ':' + name + ':' + version + chalk.yellow(' not added.\n'));
+    }
+};
+
+Generator.prototype.addMultipleGradleDependency = function (dependencies, update) {
+    try {
+        var fullPath = 'app/build.gradle';
+        if (update) {
+            jhipsterUtils.rewriteReplaceMultiple({
+                file: fullPath,
+                dependencies: dependencies
+            });
+            //this.log(chalk.green('updated dependency: ' + scope + ' "' + group + ':' + name + ':' + version + '"'));
+        } else {
+            jhipsterUtils.rewriteFileMultiple({
+                file: fullPath,
+                dependencies: dependencies
+            });
+            //this.log(chalk.green('added dependency: ' + scope + ' "' + group + ':' + name + ':' + version + '"'));
+        }
+    } catch (e) {
+        this.log(e);
+    }
+};
+
+Generator.prototype.addMultipleParentGradleDependency = function (dependencies, update) {
+    try {
+        var fullPath = 'build.gradle';
+        if (update) {
+            jhipsterUtils.rewriteReplaceMultiple({
+                file: fullPath,
+                dependencies: dependencies
+            });
+            //this.log(chalk.green('updated dependency: ' + scope + ' "' + group + ':' + name + ':' + version + '"'));
+        } else {
+
+            jhipsterUtils.rewriteFileMultiple({
+                file: fullPath,
+                dependencies: dependencies
+            });
+            //this.log(chalk.green('added dependency: ' + scope + ' "' + group + ':' + name + ':' + version + '"'));
+        }
+    } catch (e) {
+        this.log(e);
+    }
+};
+
+Generator.prototype.addGradleParentDependency = function (scope, group, name, version, update) {
+    try {
+        var fullPath = 'build.gradle';
+        if (update) {
+            jhipsterUtils.rewriteReplace({
+                file: fullPath,
+                needle: scope + ' "' + group + ':' + name,
+                splicable: [
+                    scope + ' "' + group + ':' + name + ':' + version + '"'
+                ]
+            });
+            //this.log(chalk.green('updated dependency: ' + scope + ' "' + group + ':' + name + ':' + version + '"'));
+        } else {
+            jhipsterUtils.rewriteFile({
+                file: fullPath,
+                needle: 'android-hipster-needle-gradle-dependency',
+                splicable: [
+                    scope + ' "' + group + ':' + name + ':' + version + '"'
+                ]
+            });
+            //this.log(chalk.green('added dependency: ' + scope + ' "' + group + ':' + name + ':' + version + '"'));
+        }
+
     } catch (e) {
         this.log(e);
         this.log(chalk.yellow('\nUnable to find ') + fullPath + chalk.yellow(' or missing required jhipster-needle. Reference to ') + group + ':' + name + ':' + version + chalk.yellow(' not added.\n'));
     }
 };
 
+Generator.prototype.addGradleFieldDependency = function (type, value, update) {
+    try {
+        var fullPath = 'app/build.gradle';
+        jhipsterUtils.rewriteReplace({
+            file: fullPath,
+            needle: type,
+            splicable: [
+                type + ' ' + value
+            ]
+        });
+        this.log(chalk.green('updated field: ' + type + ' "' + value));
+
+
+    } catch (e) {
+        this.log(e);
+        this.log(chalk.yellow('\nUnable to find ') + fullPath + chalk.yellow(' or missing required jhipster-needle. Reference to ') + type + ':' + value + chalk.yellow(' not added.\n'));
+    }
+};
 
 
 /**
@@ -224,7 +418,7 @@ Generator.prototype.applyFromGradleScript = function (name) {
             file: fullPath,
             needle: 'jhipster-needle-gradle-apply-from',
             splicable: [
-                    'apply from: \'' + name + '.gradle\''
+                'apply from: \'' + name + '.gradle\''
             ]
         });
     } catch (e) {
@@ -247,7 +441,7 @@ Generator.prototype.copyTemplate = function (source, dest, action, _this, _opt, 
 
     _this = _this !== undefined ? _this : this;
     _opt = _opt !== undefined ? _opt : {};
-    switch(action) {
+    switch (action) {
         case 'stripHtml' :
             var regex = '( translate\="([a-zA-Z0-9](\.)?)+")|( translate-values\="\{([a-zA-Z]|\d|\:|\{|\}|\[|\]|\-|\'|\s|\.)*?\}")';
             //looks for something like translate="foo.bar.message" and translate-values="{foo: '{{ foo.bar }}'}"
@@ -299,13 +493,27 @@ Generator.prototype.copyJs = function (source, dest, _this, _opt, template) {
  * @param {needle} needle to look for where content will be inserted
  * @param {content} content to be written
  */
-Generator.prototype.rewriteFile = function(filePath, needle, content) {
+Generator.prototype.rewriteFile = function (filePath, needle, content) {
     try {
         jhipsterUtils.rewriteFile({
             file: filePath,
             needle: needle,
             splicable: [
-              content
+                content
+            ]
+        });
+    } catch (e) {
+        this.log(chalk.yellow('\nUnable to find ') + filePath + chalk.yellow(' or missing required needle. File rewrite failed.\n'));
+    }
+};
+
+Generator.prototype.rewriteReplace = function (filePath, needle, content) {
+    try {
+        jhipsterUtils.rewriteReplace({
+            file: filePath,
+            needle: needle,
+            splicable: [
+                content
             ]
         });
     } catch (e) {
@@ -321,7 +529,7 @@ Generator.prototype.rewriteFile = function(filePath, needle, content) {
  * @param {content} content to be written
  * @param {regex} true if pattern is regex
  */
-Generator.prototype.replaceContent = function(filePath, pattern, content, regex) {
+Generator.prototype.replaceContent = function (filePath, pattern, content, regex) {
     try {
         jhipsterUtils.replaceContent({
             file: filePath,
@@ -343,20 +551,20 @@ Generator.prototype.replaceContent = function(filePath, pattern, content, regex)
  * @param {callbackSubGenerator}[optional] sub generator to invoke, if this is not given the module's main generator will be called, i.e app
  * @param {description}[optional] description of the generator
  */
-Generator.prototype.registerModule = function(npmPackageName, hookFor, hookType, callbackSubGenerator, description) {
+Generator.prototype.registerModule = function (npmPackageName, hookFor, hookType, callbackSubGenerator, description) {
     try {
         var modules;
         var error, duplicate;
-        var moduleName = _s.humanize(npmPackageName.replace('generator-jhipster-',''));
-        var generatorName = npmPackageName.replace('generator-','');
-        var generatorCallback = generatorName + ':' + (callbackSubGenerator ? callbackSubGenerator : 'app') ;
+        var moduleName = _s.humanize(npmPackageName.replace('generator-jhipster-', ''));
+        var generatorName = npmPackageName.replace('generator-', '');
+        var generatorCallback = generatorName + ':' + (callbackSubGenerator ? callbackSubGenerator : 'app');
         var moduleConfig = {
-            name : moduleName + ' generator',
-            npmPackageName : npmPackageName,
-            description : description ? description : 'A JHipster module to generate ' + moduleName,
-            hookFor : hookFor,
-            hookType : hookType,
-            generatorCallback : generatorCallback
+            name: moduleName + ' generator',
+            npmPackageName: npmPackageName,
+            description: description ? description : 'A JHipster module to generate ' + moduleName,
+            hookFor: hookFor,
+            hookType: hookType,
+            generatorCallback: generatorCallback
         }
         if (shelljs.test('-f', MODULES_HOOK_FILE)) {
             // file is present append to it
@@ -371,7 +579,7 @@ Generator.prototype.registerModule = function(npmPackageName, hookFor, hookType,
             // file not present create it and add config to it
             modules = [];
         }
-        if(!error && !duplicate) {
+        if (!error && !duplicate) {
             modules.push(moduleConfig);
             this.fs.writeJSON(MODULES_HOOK_FILE, modules, null, 4);
         }
@@ -387,7 +595,7 @@ Generator.prototype.registerModule = function(npmPackageName, hookFor, hookType,
  * @param {key} key to be added or updated
  * @param {value} value to be added
  */
-Generator.prototype.updateEntityConfig = function(file, key, value) {
+Generator.prototype.updateEntityConfig = function (file, key, value) {
 
     try {
         var entityJson = this.fs.readJSON(file);
@@ -402,7 +610,7 @@ Generator.prototype.updateEntityConfig = function(file, key, value) {
 /**
  * get the module hooks config json
  */
-Generator.prototype.getModuleHooks = function() {
+Generator.prototype.getModuleHooks = function () {
     var modulesConfig = [];
     try {
         if (shelljs.test('-f', MODULES_HOOK_FILE)) {
@@ -415,14 +623,14 @@ Generator.prototype.getModuleHooks = function() {
     return modulesConfig;
 }
 
-Generator.prototype.removefile = function(file) {
+Generator.prototype.removefile = function (file) {
     if (shelljs.test('-f', file)) {
         this.log('Removing the file - ' + file);
         shelljs.rm(file);
     }
 }
 
-Generator.prototype.removefolder = function(folder) {
+Generator.prototype.removefolder = function (folder) {
     if (shelljs.test('-d', folder)) {
         this.log('Removing the folder - ' + folder)
         shelljs.rm("-rf", folder);

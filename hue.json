@@ -1,0 +1,8 @@
+[
+  {
+    "scope" : "compile",
+    "group" : "com.jakewharton",
+    "name" : "butterknife",
+    "version" : "7.0.1"
+  }
+]

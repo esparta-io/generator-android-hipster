@@ -30,6 +30,15 @@ public class <%= activityName %>Fragment extends BaseFragment<EmptyPresenter>  {
     public PresenterFactory<EmptyPresenter> getPresenterFactory() {
         return () -> emptyPresenter;
     }<% } %>
+    <% if (nucleus == true) { %>
+    public PresenterFactory<EmptyPresenter> getPresenterFactory() {
+        return () -> emptyPresenter;
+    }<% } else { %>
+    @Override
+    protected EmptyPresenter getPresenter() {
+        return emptyPresenter;
+    }<% } %>
+
 
     @Override
     protected int getLayoutResource() {

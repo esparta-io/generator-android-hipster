@@ -1,0 +1,402 @@
+[
+  {
+    "type": "parent",
+    "dependencies": [
+      {
+        "scope": "classpath",
+        "group": "me.tatarka",
+        "name": "gradle-retrolambda",
+        "version": "3.2.3",
+        "lang": "java"
+      },
+      {
+        "scope": "classpath",
+        "group": "com.android.tools.build",
+        "name": "gradle",
+        "version": "2.0.0-beta2",
+        "lang": "all"
+      },
+      {
+        "scope": "classpath",
+        "group": "com.neenbedankt.gradle.plugins",
+        "name": "android-apt",
+        "version": "1.8",
+        "lang": "java"
+      }
+    ]
+  },
+  {
+    "type": "gradle",
+    "dependencies": [
+      {
+        "scope": "compile",
+        "group": "io.reactivex",
+        "name": "rxkotlin",
+        "version": "0.10.1",
+        "lang": "kotlin"
+      },
+      {
+        "scope": "compile",
+        "group": "org.jetbrains.kotlin",
+        "name": "kotlin-stdlib",
+        "version": "1.0.0-beta-4584",
+        "lang": "kotlin"
+      },
+      {
+        "scope": "compile",
+        "group": "org.jetbrains.anko",
+        "name": "anko-sdk15",
+        "version": "0.8.1",
+        "lang": "kotlin"
+      },
+      {
+        "scope": "compile",
+        "group": "org.jetbrains.anko",
+        "name": "anko-support-v4",
+        "version": "0.8.1",
+        "lang": "kotlin"
+      },
+      {
+        "scope": "kapt",
+        "group": "com.google.dagger",
+        "name": "dagger-compiler",
+        "version": "2.0.2",
+        "lang": "kotlin"
+      },
+      {
+        "scope": "kapt",
+        "group": "com.jakewharton",
+        "name": "butterknife",
+        "version": "7.0.1",
+        "lang": "kotlin",
+        "selection": "butterknife"
+      },
+      {
+        "scope": "retrolambdaConfig",
+        "group": "net.orfjackal.retrolambda",
+        "name": "retrolambda",
+        "version": "2.1.0",
+        "lang": "java"
+      },
+      {
+        "scope": "apt",
+        "group": "com.google.dagger",
+        "name": "dagger-compiler",
+        "version": "2.0.2",
+        "lang": "java"
+      },
+      {
+        "scope": "compile",
+        "group": "info.android15.nucleus",
+        "name": "nucleus",
+        "version": "2.0.5",
+        "lang": "all",
+        "selection": "nucleus"
+      },
+      {
+        "scope": "compile",
+        "group": "info.android15.nucleus",
+        "name": "nucleus-support-v4",
+        "version": "2.0.5",
+        "lang": "all",
+        "selection": "nucleus"
+      },
+      {
+        "scope": "compile",
+        "group": "info.android15.nucleus",
+        "name": "nucleus-support-v7",
+        "version": "2.0.5",
+        "lang": "all",
+        "selection": "nucleus"
+      },
+      {
+        "scope": "compile",
+        "group": "com.jakewharton",
+        "name": "butterknife",
+        "version": "7.0.1",
+        "lang": "all",
+        "selection": "butterknife"
+      },
+      {
+        "scope": "compile",
+        "group": "org.greenrobot",
+        "name": "eventbus",
+        "version": "3.0.0",
+        "lang": "all",
+        "selection": "eventbus"
+      },
+      {
+        "scope": "compile",
+        "group": "com.github.bumptech.glide",
+        "name": "glide",
+        "version": "3.6.1",
+        "lang": "all",
+        "selection": "glide"
+      },
+      {
+        "scope": "compile",
+        "group": "com.squareup.picasso",
+        "name": "picasso",
+        "version": "2.5.2",
+        "lang": "all",
+        "selection": "picasso"
+      },
+      {
+        "scope": "compile",
+        "group": "uk.co.chrisjenx",
+        "name": "calligraphy",
+        "version": "2.1.0",
+        "lang": "all",
+        "selection": "calligraphy"
+      },
+      {
+        "scope": "compile",
+        "group": "com.jakewharton.timber",
+        "name": "timber",
+        "version": "3.1.0",
+        "lang": "all",
+        "selection": "timber"
+      },
+      {
+        "scope": "compile",
+        "group": "net.danlew",
+        "name": "android.joda",
+        "version": "2.8.2",
+        "lang": "all",
+        "selection": "jodatime"
+      },
+      {
+        "scope": "compile",
+        "group": "org.joda",
+        "name": "joda-money",
+        "version": "0.10.0",
+        "lang": "all",
+        "selection": "jodamoney"
+      },
+      {
+        "scope": "compile",
+        "group": "com.github.johnkil.print",
+        "name": "print",
+        "version": "1.3.1",
+        "lang": "all",
+        "selection" : "printview"
+      },
+      {
+        "scope": "compile",
+        "group": "com.mixpanel.android",
+        "name": "mixpanel-android",
+        "version": "4.6.4",
+        "lang": "all",
+        "selection" : "mixpanel"
+      },
+      {
+        "scope": "compile",
+        "group": "com.facebook.stetho",
+        "name": "stetho",
+        "version": "1.2.0",
+        "lang": "all",
+        "selection" : "stetho"
+      },
+      {
+        "scope": "compile",
+        "group": "com.facebook.stetho",
+        "name": "stetho-okhttp",
+        "version": "1.2.0",
+        "lang": "all",
+        "selection" : "stetho"
+      },
+      {
+        "scope": "compile",
+        "group": "com.github.frankiesardo",
+        "name": "auto-parcel",
+        "version": "0.3.1",
+        "lang": "all",
+        "selection" : "autoparcel"
+      },
+      {
+        "scope": "apt",
+        "group": "com.github.frankiesardo",
+        "name": "auto-parcel-processor",
+        "version": "0.3.1",
+        "lang": "java",
+        "selection" : "autoparcel"
+      },
+      {
+        "scope": "kapt",
+        "group": "com.github.frankiesardo",
+        "name": "auto-parcel-processor",
+        "version": "0.3.1",
+        "lang": "kotlin",
+        "selection" : "autoparcel"
+      },
+      {
+        "scope": "compile",
+        "group": "com.google.android.gms",
+        "name": "play-services-base",
+        "version": "8.4.0",
+        "lang": "all",
+        "selection" : "playServices"
+      },
+      {
+        "scope": "compile",
+        "group": "com.google.android.gms",
+        "name": "play-services-plus",
+        "version": "8.4.0",
+        "lang": "all",
+        "selection" : "playServices"
+      },
+      {
+        "scope": "compile",
+        "group": "com.google.android.gms",
+        "name": "play-services-auth",
+        "version": "8.4.0",
+        "lang": "all",
+        "selection" : "playServices"
+      },
+      {
+        "scope": "compile",
+        "group": "com.google.android.gms",
+        "name": "play-services-appinvite",
+        "version": "8.4.0",
+        "lang": "all",
+        "selection" : "playServices"
+      },
+      {
+        "scope": "compile",
+        "group": "com.google.android.gms",
+        "name": "play-services-appindexing",
+        "version": "8.4.0",
+        "lang": "all",
+        "selection" : "playServices"
+      },
+      {
+        "scope": "compile",
+        "group": "com.google.android.gms",
+        "name": "play-services-identity",
+        "version": "8.4.0",
+        "lang": "all",
+        "selection" : "playServices"
+      },
+      {
+        "scope": "compile",
+        "group": "com.google.android.gms",
+        "name": "play-services-location",
+        "version": "8.4.0",
+        "lang": "all",
+        "selection" : "playServices"
+      },
+      {
+        "scope": "compile",
+        "group": "com.google.android.gms",
+        "name": "play-services-fitness",
+        "version": "8.4.0",
+        "lang": "all",
+        "selection" : "playServices"
+      },
+      {
+        "scope": "compile",
+        "group": "com.google.android.gms",
+        "name": "play-services-drive",
+        "version": "8.4.0",
+        "lang": "all",
+        "selection" : "playServices"
+      },
+      {
+        "scope": "compile",
+        "group": "com.google.android.gms",
+        "name": "play-services-gcm",
+        "version": "8.4.0",
+        "lang": "all",
+        "selection" : "playServices"
+      },
+      {
+        "scope": "compile",
+        "group": "com.google.android.gms",
+        "name": "play-services-cast",
+        "version": "8.4.0",
+        "lang": "all",
+        "selection" : "playServices"
+      },
+      {
+        "scope": "compile",
+        "group": "com.google.android.gms",
+        "name": "play-services-analytics",
+        "version": "8.4.0",
+        "lang": "all",
+        "selection" : "playServices"
+      },
+      {
+        "scope": "compile",
+        "group": "com.google.android.gms",
+        "name": "play-services-maps",
+        "version": "8.4.0",
+        "lang": "all",
+        "selection" : "playServices"
+      },
+      {
+        "scope": "compile",
+        "group": "com.google.android.gms",
+        "name": "play-services-ads",
+        "version": "8.4.0",
+        "lang": "all",
+        "selection" : "playServices"
+      },
+      {
+        "scope": "compile",
+        "group": "com.google.android.gms",
+        "name": "play-services-vision",
+        "version": "8.4.0",
+        "lang": "all",
+        "selection" : "playServices"
+      },
+      {
+        "scope": "compile",
+        "group": "com.google.android.gms",
+        "name": "play-services-nearby",
+        "version": "8.4.0",
+        "lang": "all",
+        "selection" : "playServices"
+      },
+      {
+        "scope": "compile",
+        "group": "com.google.android.gms",
+        "name": "play-services-panorama",
+        "version": "8.4.0",
+        "lang": "all",
+        "selection" : "playServices"
+      },
+      {
+        "scope": "compile",
+        "group": "com.google.android.gms",
+        "name": "play-services-games",
+        "version": "8.4.0",
+        "lang": "all",
+        "selection" : "playServices"
+      },
+      {
+        "scope": "compile",
+        "group": "com.google.android.gms",
+        "name": "play-services-safetynet",
+        "version": "8.4.0",
+        "lang": "all",
+        "selection" : "playServices"
+      },
+      {
+        "scope": "compile",
+        "group": "com.google.android.gms",
+        "name": "play-services-wearable",
+        "version": "8.4.0",
+        "lang": "all",
+        "selection" : "playServices"
+      },
+      {
+        "scope": "compile",
+        "group": "com.google.android.gms",
+        "name": "play-services-wallet",
+        "version": "8.4.0",
+        "lang": "all",
+        "selection" : "playServices"
+      }
+    ]
+  }
+]
