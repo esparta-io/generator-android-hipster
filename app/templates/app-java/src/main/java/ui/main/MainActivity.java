@@ -29,6 +29,10 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainVie
       <% if (nucleus == true) { %>
     public PresenterFactory<MainPresenter> getPresenterFactory() {
         return () -> mainPresenter;
+    }<% } else { %>
+    @Override
+    protected MainPresenter getPresenter() {
+        return mainPresenter;
     }<% } %>
 
     public void onCreate(Bundle savedInstanceState ) {
