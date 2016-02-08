@@ -24,6 +24,10 @@ public class <%= fragmentName %>Fragment extends BaseFragment<<% if (usePresente
     <% if (nucleus == true) { %>
     public PresenterFactory<<% if (usePresenter) { %><%= fragmentName %><% } else { %>Empty<% } %>Presenter> getPresenterFactory() {
         return () -> <% if (usePresenter) { %><%= fragmentName.charAt(0).toLowerCase()+fragmentName.slice(1) %><% } else { %>empty<% } %>Presenter;
+    }<% } else { %>
+    @Override
+    protected <%= fragmentName %>Presenter getPresenter() {
+        return <% if (usePresenter) { %><%= fragmentName.charAt(0).toLowerCase()+fragmentName.slice(1) %><% } else { %>empty<% } %>Presenter;
     }<% } %>
 
     @Override

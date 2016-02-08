@@ -56,7 +56,7 @@ public class <%= activityName %>Activity extends BaseActivity<<%= activityName %
     <% if (nucleus == false) { %>
     @Override
     protected <%= activityName %>Presenter getPresenter() {
-        return <%= activityName %>Presenter;
+        return <%= activityName.charAt(0).toLowerCase()+activityName.slice(1) %>Presenter;
     }<% } %>
 
     public static void launch(Activity activity, boolean finish, Pair<Integer, Integer> animation) {
