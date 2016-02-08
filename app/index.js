@@ -15,25 +15,64 @@ var AppGenerator = generators.Base.extend({});
 util.inherits(AppGenerator, scriptBase);
 
 module.exports = AppGenerator.extend({
+    initializing: {
+        setupVars: function () {
+            this.baseName = this.config.get('appName');
+            console.log(this.baseName);
+            this.jhipsterVersion = this.config.get('jhipsterVersion');
+            this.testFrameworks = this.config.get('testFrameworks');
+
+            var configFound = this.baseName != null;
+            if (configFound) {
+                this.existingProject = true;
+            }
+
+            this.appName = this.config.get('appName');
+            this.language = this.config.get('language');
+            this.appPackage = this.config.get('appPackage');
+
+            this.nucleus = this.config.get('nucleus') || true;
+            this.mvp = this.config.get('mvp') || 'nucleus';
+            this.imageLib = this.config.get('imageLib') || 'glide';
+            this.eventbus = this.config.get('eventbus') || true;
+            this.mixpanel = this.config.get('mixpanel') || true;
+            this.timber = this.config.get('timber') || true;
+            this.jodatime = this.config.get('jodatime') || true;
+            this.jodamoney = this.config.get('jodamoney') || true;
+            this.butterknife = this.config.get('butterknife') || true;
+            this.androidTargetSdkVersion = this.config.get('androidTargetSdkVersion');
+            this.androidMinSdkVersion = this.config.get('minSdk');
+            this.calligraphy = this.config.get('calligraphy') || true;
+            this.playServices = this.config.get('playServices') || [];
+            this.stetho = this.config.get('stetho') || true;
+            this.printview = this.config.get('printview') || true;
+            this.autoparcel = this.config.get('autoparcel') || true;
+        }
+    },
     prompting: function () {
         var done = this.async();
 
+        if (this.existingProject) {
+            done();
+            return;
+        }
         this.log(yosay(
             'Welcome to the ' + chalk.red('Android Hispter') + ' generator!'
         ));
 
         var defaultAppBaseName = 'android.hipster';
 
-        var prompts = [{
-            name: 'name',
-            message: 'What are the name of your app?',
-            store: true,
-            validate: function (input) {
-                if (/^([a-zA-Z0-9_]*)$/.test(input)) return true;
-                return 'Your application name cannot contain special characters or a blank space, using the default name instead : ' + defaultAppBaseName
+        var prompts = [
+            {
+                name: 'name',
+                message: 'What are the name of your app?',
+                store: true,
+                validate: function (input) {
+                    if (/^([a-zA-Z0-9_]*)$/.test(input)) return true;
+                    return 'Your application name cannot contain special characters or a blank space, using the default name instead : ' + defaultAppBaseName
+                },
+                default: this.defaultAppBaseName
             },
-            default: this.defaultAppBaseName
-        },
             {
                 name: 'package',
                 message: 'What is the package name of the app?',
@@ -235,6 +274,9 @@ module.exports = AppGenerator.extend({
 
     configuring: {
         saveSettings: function () {
+            if (this.existingProject) {
+                return;
+            }
             this.config.set('appPackage', this.appPackage);
             this.config.set('appName', this.appName);
             this.config.set('language', this.language);
@@ -259,6 +301,7 @@ module.exports = AppGenerator.extend({
         }
     },
 
+
     writing: {
         projectfiles: function () {
             this.copy('gitignore', '.gitignore');
@@ -277,12 +320,12 @@ module.exports = AppGenerator.extend({
         },
 
         app: function () {
+
             var packageDir = this.appPackage.replace(/\./g, '/');
 
             mkdirp('app');
             mkdirp('app/libs');
 
-            var i = 0;
             var appFolder;
             if (this.language == 'java') {
                 appFolder = 'app-java'
@@ -376,7 +419,7 @@ module.exports = AppGenerator.extend({
             this.directory('resources/res', 'app/src/main/res');
 
             this.template('resources/_AndroidManifest.xml', 'app/src/main/AndroidManifest.xml', this, {});
-            this.template('../../dependencies.json', 'dependencies.json', this, {}).on('end', function() {
+            this.template('../../dependencies.json', 'dependencies.json', this, {}).on('end', function () {
                 this.installGradleDependencies(this, false);
             });
 

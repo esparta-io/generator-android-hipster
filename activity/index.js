@@ -36,7 +36,7 @@ module.exports = ActivityGenerator.extend({
         ));
 
         var defaultAppBaseName = 'Sample';
-        var defaultName = '';
+        var defaultName = 'sample';
 
         var prompts = [{
             name: 'name',
@@ -46,7 +46,7 @@ module.exports = ActivityGenerator.extend({
                 if (/^([a-zA-Z0-9_]*)$/.test(input)) return true;
                 return 'Your activity name cannot contain special characters or a blank space, using the default name instead : ' + defaultAppBaseName;
             },
-            default: this.defaultAppBaseName
+            default: defaultAppBaseName
         },
             {
                 when: function (response) {
