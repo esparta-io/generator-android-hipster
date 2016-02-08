@@ -26,7 +26,7 @@ public class <%= fragmentName %>Fragment extends BaseFragment<<% if (usePresente
         return () -> <% if (usePresenter) { %><%= fragmentName.charAt(0).toLowerCase()+fragmentName.slice(1) %><% } else { %>empty<% } %>Presenter;
     }<% } else { %>
     @Override
-    protected <%= fragmentName %>Presenter getPresenter() {
+    protected <% if (usePresenter) { %><%= fragmentName %><% } else { %>Empty<% } %>Presenter getPresenter() {
         return <% if (usePresenter) { %><%= fragmentName.charAt(0).toLowerCase()+fragmentName.slice(1) %><% } else { %>empty<% } %>Presenter;
     }<% } %>
 
