@@ -20,7 +20,6 @@ public abstract class BaseFragment<P extends BasePresenter> extends <% if (nucle
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(getLayoutResource(), container, false);
         <% if (butterknife == true) { %>ButterKnife.bind(this, rootView);<% } %>
-
         return rootView;
     }
 

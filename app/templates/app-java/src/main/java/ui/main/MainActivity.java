@@ -26,7 +26,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainVie
         component = DaggerMainComponent.builder().applicationComponent(App.graph).mainModule(new MainModule(this)).build();
         component.inject(this);
     }
-      <% if (nucleus == true) { %>
+
+    <% if (nucleus == true) { %>
     public PresenterFactory<MainPresenter> getPresenterFactory() {
         return () -> mainPresenter;
     }<% } else { %>

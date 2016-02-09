@@ -14,12 +14,12 @@ import com.google.gson.JsonSerializer
 
 class DateTimeTypeConverter : JsonSerializer<DateTime>, JsonDeserializer<DateTime> {
 
-  override fun serialize(src: DateTime, srcType: Type, context: JsonSerializationContext): JsonElement {
-    return JsonPrimitive(src.toString())
-  }
+    override fun serialize(src: DateTime, srcType: Type, context: JsonSerializationContext): JsonElement {
+        return JsonPrimitive(src.toString())
+    }
 
-  @Throws(JsonParseException::class)
-  override fun deserialize(json: JsonElement, type: Type, context: JsonDeserializationContext): DateTime {
-    return DateTime(json.asString)
-  }
+    @Throws(JsonParseException::class)
+    override fun deserialize(json: JsonElement, type: Type, context: JsonDeserializationContext): DateTime {
+        return DateTime(json.asString)
+    }
 }

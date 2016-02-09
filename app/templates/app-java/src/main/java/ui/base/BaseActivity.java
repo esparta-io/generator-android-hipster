@@ -35,13 +35,12 @@ public abstract class BaseActivity<P extends BasePresenter> extends <% if (nucle
         refWatcher.watch(this);
     }
 
-    <% if (calligraphy == true) { %>
-    @CallSuper
+    <% if (calligraphy == true) { %>@CallSuper
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
-    }
-    <% } %>
+    }<% } %>
+
 
     <% if (nucleus == false) { %>
     @CallSuper

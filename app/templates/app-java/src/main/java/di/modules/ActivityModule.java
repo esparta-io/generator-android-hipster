@@ -1,22 +1,19 @@
-package  <%= appPackage %>.di.modules;
+package <%= appPackage %>.di.modules
 
-import dagger.Module;
-import dagger.Provides;
-import  <%= appPackage %>.di.ActivityScope;
-import  <%= appPackage %>.ui.base.BaseActivity;
+import dagger.Module
+import dagger.Provides
+import <%= appPackage %>.di.ActivityScope
+import <%= appPackage %>.ui.base.BaseActivity
+import <%= appPackage %>.ui.base.BasePresenter
+import <%= appPackage %>.ui.base.PresenterView
 
 @ActivityScope
 @Module
-public class ActivityModule {
-
-    protected BaseActivity activity;
-
-    public ActivityModule(BaseActivity activity) {
-        this.activity = activity;
-    }
+open class ActivityModule(protected var activity:BaseActivity<BasePresenter<PresenterView>>){
 
     @Provides
-    protected BaseActivity activity() {
-        return activity;
+    protected fun activity():BaseActivity<BasePresenter<PresenterView>>{
+        return activity
     }
+
 }
