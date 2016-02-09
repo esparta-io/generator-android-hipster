@@ -42,7 +42,7 @@ module.exports = ActivityGenerator.extend({
         var done = this.async();
 
         this.log(yosay(
-            'Welcome to the ' + chalk.red('Android Hispter') + ' generator!'
+            'Welcome to the ' + chalk.red('Android Hipster') + ' generator!'
         ));
 
         this.prompt([], function (props) {

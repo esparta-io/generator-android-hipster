@@ -57,7 +57,7 @@ module.exports = AppGenerator.extend({
             return;
         }
         this.log(yosay(
-            'Welcome to the ' + chalk.red('Android Hispter') + ' generator!'
+            'Welcome to the ' + chalk.red('Android Hipster') + ' generator!'
         ));
 
         var defaultAppBaseName = 'android.hipster';

@@ -32,7 +32,7 @@ module.exports = ActivityGenerator.extend({
         var done = this.async();
 
         this.log(yosay(
-            'Welcome to the ' + chalk.red('Android Hispter') + ' generator!'
+            'Welcome to the ' + chalk.red('Android Hipster') + ' generator!'
         ));
 
         var defaultAppBaseName = 'Sample';
@@ -176,7 +176,7 @@ module.exports = ActivityGenerator.extend({
             manifest.writeFile(manifestFilePath);
 
             var resource = new AndroidResource().readFile(resourceFilePath);
-            resource.string(this.underscoreActivityName + '_name').text(this.activityName + 'HispterActivity');
+            resource.string(this.underscoreActivityName + '_name').text(this.activityName + 'HipsterActivity');
             resource.writeFile(resourceFilePath);
 
             var stylesFilePath = 'app/src/main/res/values/styles.xml';
