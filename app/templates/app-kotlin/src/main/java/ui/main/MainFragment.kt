@@ -8,7 +8,7 @@ import <%= appPackage %>.R
 
 class MainFragment : BaseFragment<EmptyPresenter>() {
 
-    override protected fun inject() {
+    override fun inject() {
         getComponent(MainComponent::class.java).inject(this)
     }
 

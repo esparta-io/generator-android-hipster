@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
-<% if (language == 'kotlin') { %>apply plugin: 'kotlin-android'<% } %>
+<% if (language == 'kotlin') { %>apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'<% } %>
 <% if (language == 'java') { %>apply plugin: "me.tatarka.retrolambda"
 apply plugin: "com.neenbedankt.android-apt"<% } %>
 
@@ -121,12 +122,12 @@ dependencies {
 
 }
 
-<% if (language == 'kotlin') { %> buildscript {
+<% if (language == 'kotlin') { %>buildscript {
 
     repositories {
-      mavenCentral()
+        mavenCentral()
         jcenter()
-      }
+    }
     dependencies {
         // android-hipster-needle-gradle-parent-dependency
     }

@@ -15,16 +15,16 @@ import <%= appPackage %>.di.modules.MainModule
 import javax.inject.Inject
 
 @ActivityScope
-class MainActivity : BaseActivity<MainPresenter>(), MainView {
+class MainActivity : BaseActivity<MainPresenter>(), MainView, HasComponent<MainComponent>{
 
     @Inject
     lateinit var mainPresenter: MainPresenter
 
-    lateinit var component: MainComponent
+    lateinit var mainComponent: MainComponent
 
     override fun injectModule() {
-        component = DaggerMainComponent.builder().applicationComponent(App.graph).mainModule(MainModule(this)).build()
-        component.inject(this)
+        mainComponent = DaggerMainComponent.builder().applicationComponent(App.graph).mainModule(MainModule(this)).build()
+        mainComponent.inject(this)
     }
 
     <% if (nucleus == true) { %>override fun getPresenterFactory(): PresenterFactory<MainPresenter>? = PresenterFactory { mainPresenter }<% } else { %>
@@ -41,6 +41,6 @@ class MainActivity : BaseActivity<MainPresenter>(), MainView {
     }
 
     override fun getComponent(): MainComponent {
-        return component
+        return mainComponent
     }
 }

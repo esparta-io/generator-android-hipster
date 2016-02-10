@@ -27,14 +27,14 @@
         "scope": "classpath",
         "group": "org.jetbrains.kotlin",
         "name": "kotlin-android-extensions",
-        "version": "",
+        "version": "1.0.0-rc-1036",
         "lang": "kotlin"
       },
       {
         "scope": "classpath",
         "group": "org.jetbrains.kotlin",
         "name": "kotlin-gradle-plugin",
-        "version": "",
+        "version": "1.0.0-rc-1036",
         "lang": "kotlin"
       }
     ]
@@ -115,14 +115,14 @@
       {
         "scope": "compile",
         "group": "com.android.support",
-        "name": "appcompat-v7",
+        "name": "support-v4",
         "version": "23.1.1",
         "lang": "all"
       },
       {
         "scope": "compile",
         "group": "com.android.support",
-        "name": "support-v4",
+        "name": "appcompat-v7",
         "version": "23.1.1",
         "lang": "all"
       },
@@ -158,28 +158,35 @@
         "scope": "compile",
         "group": "io.reactivex",
         "name": "rxkotlin",
-        "version": "0.10.1",
+        "version": "0.40.1",
         "lang": "kotlin"
       },
       {
         "scope": "compile",
         "group": "org.jetbrains.kotlin",
         "name": "kotlin-stdlib",
-        "version": "1.0.0-beta-4584",
+        "version": "1.0.0-rc-1036",
         "lang": "kotlin"
       },
       {
         "scope": "compile",
         "group": "org.jetbrains.anko",
         "name": "anko-sdk15",
-        "version": "0.8.1",
+        "version": "0.8.2",
         "lang": "kotlin"
       },
       {
         "scope": "compile",
         "group": "org.jetbrains.anko",
         "name": "anko-support-v4",
-        "version": "0.8.1",
+        "version": "0.8.2",
+        "lang": "kotlin"
+      },
+      {
+        "scope": "compile",
+        "group": "org.jetbrains.anko",
+        "name": "anko-appcompat-v7",
+        "version": "0.8.2",
         "lang": "kotlin"
       },
       {
@@ -226,8 +233,7 @@
         "version": "2.0.5",
         "lang": "all",
         "selection": "nucleus"
-      },
-      {
+      },{
         "scope": "compile",
         "group": "info.android15.nucleus",
         "name": "nucleus-support-v7",

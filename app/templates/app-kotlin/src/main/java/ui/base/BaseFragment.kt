@@ -13,7 +13,7 @@ import android.view.ViewGroup
 <% if (butterknife == true) { %>import butterknife.Bind
 import butterknife.ButterKnife <% } %>
 
-public abstract class BaseFragment<P : BasePresenter<*>> : <% if (nucleus == true) { %>NucleusSupportFragment<P><% } else { %>Fragment;<% } %>() {
+abstract class BaseFragment<P : BasePresenter<*>> : <% if (nucleus == true) { %>NucleusSupportFragment<P><% } else { %>Fragment;<% } %>() {
 
     @CallSuper
     override fun onCreateView(inflater : LayoutInflater?, container : ViewGroup?, savedInstanceState : Bundle?) : View  {
@@ -22,7 +22,7 @@ public abstract class BaseFragment<P : BasePresenter<*>> : <% if (nucleus == tru
         return rootView;
     }
 
-    override public fun onCreate(bundle: Bundle? ) {
+    override fun onCreate(bundle: Bundle? ) {
         super.onCreate(bundle);
         inject();
         <% if (nucleus == true) { %>presenterFactory = presenterFactory<% } %>
@@ -49,7 +49,7 @@ public abstract class BaseFragment<P : BasePresenter<*>> : <% if (nucleus == tru
         <% if (nucleus == false) { %>presenter.onDestroy()<% } %>
     }
 
-    public fun getBaseActivity() : BaseActivity<*> {
+    fun getBaseActivity() : BaseActivity<*> {
         return activity as BaseActivity<*>;
     }
 
@@ -59,7 +59,7 @@ public abstract class BaseFragment<P : BasePresenter<*>> : <% if (nucleus == tru
     }
 
     protected fun <C> getComponent(componentType: Class<C>): C {
-        return componentType.cast((activity as HasComponent<*>).component)
+        return componentType.cast((activity as HasComponent<*>).getComponent())
     }
 
     protected abstract fun inject()

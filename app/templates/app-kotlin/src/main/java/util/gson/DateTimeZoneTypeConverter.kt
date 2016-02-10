@@ -12,7 +12,7 @@ import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 
-public class DateTimeZoneTypeConverter : JsonSerializer<DateTimeZone>, JsonDeserializer<DateTimeZone> {
+class DateTimeZoneTypeConverter : JsonSerializer<DateTimeZone>, JsonDeserializer<DateTimeZone> {
 
     override fun serialize(src: DateTimeZone, srcType: Type, context: JsonSerializationContext): JsonElement {
         return JsonPrimitive(src.id)

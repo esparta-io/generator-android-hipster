@@ -1,13 +1,11 @@
 package <%= appPackage %>.ui.base
 
-import android.os.Bundle
 import android.content.Context
+import android.os.Bundle
 import android.support.annotation.CallSuper
 import <%= appPackage %>.application.App
 <% if (nucleus == true) { %>import nucleus.view.NucleusAppCompatActivity<% } else { %>import android.support.v7.app.AppCompatActivity<% } %>
-<% if (butterknife == true) { %>import butterknife.Bind
-  import butterknife.ButterKnife <% } %>
-import com.squareup.leakcanary.RefWatcher
+<% if (butterknife == true) { %>import butterknife.ButterKnife <% } %>
 <% if (calligraphy == true) { %>import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper<% } %>
 
 abstract class BaseActivity<P : BasePresenter<*>?> : <% if (nucleus == true) { %>NucleusAppCompatActivity<P><% } else { %>AppCompatActivity<% } %>() {
@@ -18,7 +16,7 @@ abstract class BaseActivity<P : BasePresenter<*>?> : <% if (nucleus == true) { %
         setContentView(getLayoutResource())
         injectModule()
         <% if (butterknife == true) { %>ButterKnife.bind(this) <% } %>
-        <% if (nucleus == true) { %> presenterFactory = presenterFactory<% } %>
+        <% if (nucleus == true) { %>presenterFactory = presenterFactory<% } %>
     }
 
     protected abstract fun injectModule()
@@ -29,8 +27,7 @@ abstract class BaseActivity<P : BasePresenter<*>?> : <% if (nucleus == true) { %
     override fun onDestroy() {
         <% if (butterknife == true) { %>ButterKnife.unbind(this) <% } %>
         super.onDestroy()
-        val refWatcher = App.refWatcher
-        refWatcher?.watch(this)
+        App.refWatcher.watch(this)
     }
 
     <% if (calligraphy == true) { %>@CallSuper

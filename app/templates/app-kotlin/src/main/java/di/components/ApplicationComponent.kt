@@ -8,6 +8,7 @@ import <%= appPackage %>.di.ForApplication
 import <%= appPackage %>.di.modules.AndroidModule
 import <%= appPackage %>.di.modules.ApplicationModule
 import <%= appPackage %>.domain.executors.ThreadExecutor
+import <%= appPackage %>.di.components.DaggerApplicationComponent;
 import <%= appPackage %>.environment.EnvironmentModule
 import <%= appPackage %>.storage.Storage
 import <%= appPackage %>.util.gson.GsonModule
@@ -20,25 +21,25 @@ import javax.inject.Singleton
 @Component(modules = arrayOf(ApplicationModule::class, AndroidModule::class, GsonModule::class, EnvironmentModule::class))
 interface ApplicationComponent {
 
-  fun provideThreadExecutor(): ThreadExecutor
+    fun provideThreadExecutor(): ThreadExecutor
 
-  fun provideStorage(): Storage
+    fun provideStorage(): Storage
 
-  fun provideRetrofit(): Retrofit
+    fun provideRetrofit(): Retrofit
 
-  @ForApplication
-  fun provideContext(): Context
+    @ForApplication
+    fun provideContext(): Context
 
-  fun provideGson(): Gson
+    fun provideGson(): Gson
 
-  fun inject(app: App)
+    fun inject(app: App)
 
-  // android-hipster-needle-component-injection-method
+    // android-hipster-needle-component-injection-method
 
-  object Initializer {
-    fun init(app: App): ApplicationComponent {
-      return DaggerApplicationComponent.builder().androidModule(AndroidModule()).gsonModule(GsonModule()).applicationModule(ApplicationModule(app)).environmentModule(EnvironmentModule(app)).build()
+    object Initializer {
+        fun init(app: App): ApplicationComponent {
+            return DaggerApplicationComponent.builder().androidModule(AndroidModule()).gsonModule(GsonModule()).applicationModule(ApplicationModule(app)).environmentModule(EnvironmentModule(app)).build()
+        }
     }
-  }
 
 }

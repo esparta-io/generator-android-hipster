@@ -335,6 +335,7 @@ module.exports = AppGenerator.extend({
 
         app: function () {
 
+            console.log(this.stetho);
             var packageDir = this.appPackage.replace(/\./g, '/');
 
             mkdirp('app');

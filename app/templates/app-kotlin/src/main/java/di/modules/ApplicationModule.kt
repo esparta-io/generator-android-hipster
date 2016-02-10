@@ -5,7 +5,7 @@ import android.content.Context
 
 import javax.inject.Singleton
 
-<% if (eventbus) { %>import org.greenrobot.event.EventBus<% } %>
+<% if (eventbus) { %>import org.greenrobot.eventbus.EventBus<% } %>
 import dagger.Module
 import dagger.Provides
 import <%= appPackage %>.application.App
@@ -14,47 +14,40 @@ import <%= appPackage %>.BuildConfig
 import <%= appPackage %>.domain.executors.JobExecutor
 import <%= appPackage %>.domain.executors.ThreadExecutor
 
-import retrofit2.GsonConverterFactory
-import retrofit2.Retrofit
-
 @Module
-public class ApplicationModule(val application: App) {
+class ApplicationModule(val application: App) {
 
-  @ForApplication
-  @Provides
-  @Singleton
-  fun provideApplication(): Application {
-    return application
-  }
+    @ForApplication
+    @Provides
+    @Singleton
+    fun provideApplication(): Application {
+        return application
+    }
 
-  @ForApplication
-  @Provides
-  @Singleton
-  fun provideContext(): Context {
-    return application.applicationContext
-  }
+    @ForApplication
+    @Provides
+    @Singleton
+    fun provideContext(): Context {
+        return application.applicationContext
+    }
 
-  @Provides
-  @Singleton
-  fun provideThreadExecutor(): ThreadExecutor {
-    return JobExecutor();
-  }
+    @Provides
+    @Singleton
+    fun provideThreadExecutor(): ThreadExecutor {
+        return JobExecutor();
+    }
 
-  @Provides
-  @Singleton
-  fun provideRestAdapter(): Retrofit {
-    val restAdapter = Retrofit.Builder()
-      .baseUrl(BuildConfig.API_ENDPOINT)
-      .addConverterFactory(GsonConverterFactory.create())
-      .build();
-    return restAdapter
-  }
+    @Provides
+    @Singleton
+    fun provideStorage(gson: Gson, preferences: SharedPreferences): Storage {
+        return Storage(preferences, gson)
+    }
 
-  <% if (eventbus) { %>
-  @Provides
-  @Singleton
-  fun provideBus(): EventBus {
-    return EventBus.getDefault();
-  }
-  <% } %>
+    <% if (eventbus) { %>
+    @Provides
+    @Singleton
+    fun provideBus(): EventBus {
+        return EventBus.getDefault();
+    }
+    <% } %>
 }
