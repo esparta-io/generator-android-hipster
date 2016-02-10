@@ -32,24 +32,24 @@ public abstract class BaseFragment<P : BasePresenter<*>> : <% if (nucleus == tru
     @Override
     override fun onResume() {
         super.onResume()
-        <% if (nucleus == false) { %>presenter.onTakeView(this)<% } % >
+        <% if (nucleus == false) { %>presenter.onTakeView(this)<% } %>
     }
 
     @CallSuper
     @Override
     override fun onPause() {
         super.onPause()
-        <% if (nucleus == false) { %>presenter.onDropView()<% } % >
+        <% if (nucleus == false) { %>presenter.onDropView()<% } %>
     }
 
     @CallSuper
     override fun onDestroyView() {
-        <% if (butterknife == true) { %>ButterKnife.unbind(this) <% } %>
+        <% if (butterknife == true) { %>ButterKnife.unbind(this)<% } %>
         super.onDestroyView()
         <% if (nucleus == false) { %>presenter.onDestroy()<% } %>
     }
 
-    public fun getBaseActivity() : BaseActivity<*>  {
+    public fun getBaseActivity() : BaseActivity<*> {
         return activity as BaseActivity<*>;
     }
 
@@ -67,6 +67,5 @@ public abstract class BaseFragment<P : BasePresenter<*>> : <% if (nucleus == tru
     protected abstract fun getLayoutResource(): Int
 
     <% if (nucleus == false) { %>protected abstract fun getPresenter(): P<% } %>
-
 
 }

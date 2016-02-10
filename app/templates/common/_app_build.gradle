@@ -128,9 +128,6 @@ dependencies {
         jcenter()
       }
     dependencies {
-        // android-hipster-needle-gradle-dependency
-        classpath 'com.android.tools.build:gradle:2.0.0-alpha3'
-        classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlin_version"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        // android-hipster-needle-gradle-parent-dependency
     }
 }<% } %>

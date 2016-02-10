@@ -22,6 +22,20 @@
         "name": "android-apt",
         "version": "1.8",
         "lang": "java"
+      },
+      {
+        "scope": "classpath",
+        "group": "org.jetbrains.kotlin",
+        "name": "kotlin-android-extensions",
+        "version": "",
+        "lang": "kotlin"
+      },
+      {
+        "scope": "classpath",
+        "group": "org.jetbrains.kotlin",
+        "name": "kotlin-gradle-plugin",
+        "version": "",
+        "lang": "kotlin"
       }
     ]
   },
@@ -69,13 +83,15 @@
         "name": "retrofit",
         "version": "2.0.0-beta3",
         "lang": "all"
-      },{
+      },
+      {
         "scope": "compile",
         "group": "com.squareup.retrofit2",
         "name": "adapter-rxjava",
         "version": "2.0.0-beta3",
         "lang": "all"
-      },{
+      },
+      {
         "scope": "compile",
         "group": "com.squareup.retrofit2",
         "name": "converter-gson",
@@ -109,7 +125,8 @@
         "name": "support-v4",
         "version": "23.1.1",
         "lang": "all"
-      },{
+      },
+      {
         "scope": "compile",
         "group": "com.android.support",
         "name": "design",
@@ -288,7 +305,7 @@
         "name": "print",
         "version": "1.3.1",
         "lang": "all",
-        "selection" : "printview"
+        "selection": "printview"
       },
       {
         "scope": "compile",
@@ -296,7 +313,7 @@
         "name": "mixpanel-android",
         "version": "4.6.4",
         "lang": "all",
-        "selection" : "mixpanel"
+        "selection": "mixpanel"
       },
       {
         "scope": "compile",
@@ -304,7 +321,7 @@
         "name": "stetho",
         "version": "1.2.0",
         "lang": "all",
-        "selection" : "stetho"
+        "selection": "stetho"
       },
       {
         "scope": "compile",
@@ -312,15 +329,15 @@
         "name": "stetho-okhttp",
         "version": "1.2.0",
         "lang": "all",
-        "selection" : "stetho"
+        "selection": "stetho"
       },
       {
         "scope": "compile",
         "group": "com.github.frankiesardo",
         "name": "auto-parcel",
         "version": "0.3.1",
-        "lang": "all",
-        "selection" : "autoparcel"
+        "lang": "java",
+        "selection": "autoparcel"
       },
       {
         "scope": "apt",
@@ -328,15 +345,23 @@
         "name": "auto-parcel-processor",
         "version": "0.3.1",
         "lang": "java",
-        "selection" : "autoparcel"
+        "selection": "autoparcel"
+      },
+      {
+        "scope": "compile",
+        "group": "com.github.grandstaish.paperparcel",
+        "name": "paperparcel",
+        "version": "0.9.9",
+        "lang": "kotlin",
+        "selection": "paperparcel"
       },
       {
         "scope": "kapt",
-        "group": "com.github.frankiesardo",
-        "name": "auto-parcel-processor",
-        "version": "0.3.1",
+        "group": "com.github.grandstaish.paperparcel",
+        "name": "paperparcel",
+        "version": "0.9.9",
         "lang": "kotlin",
-        "selection" : "autoparcel"
+        "selection": "paperparcel"
       },
       {
         "scope": "compile",
@@ -344,7 +369,7 @@
         "name": "play-services-base",
         "version": "8.4.0",
         "lang": "all",
-        "selection" : "playServices"
+        "selection": "playServices"
       },
       {
         "scope": "compile",
@@ -352,7 +377,7 @@
         "name": "play-services-plus",
         "version": "8.4.0",
         "lang": "all",
-        "selection" : "playServices"
+        "selection": "playServices"
       },
       {
         "scope": "compile",
@@ -360,7 +385,7 @@
         "name": "play-services-auth",
         "version": "8.4.0",
         "lang": "all",
-        "selection" : "playServices"
+        "selection": "playServices"
       },
       {
         "scope": "compile",
@@ -368,7 +393,7 @@
         "name": "play-services-appinvite",
         "version": "8.4.0",
         "lang": "all",
-        "selection" : "playServices"
+        "selection": "playServices"
       },
       {
         "scope": "compile",
@@ -376,7 +401,7 @@
         "name": "play-services-appindexing",
         "version": "8.4.0",
         "lang": "all",
-        "selection" : "playServices"
+        "selection": "playServices"
       },
       {
         "scope": "compile",
@@ -384,7 +409,7 @@
         "name": "play-services-identity",
         "version": "8.4.0",
         "lang": "all",
-        "selection" : "playServices"
+        "selection": "playServices"
       },
       {
         "scope": "compile",
@@ -392,7 +417,7 @@
         "name": "play-services-location",
         "version": "8.4.0",
         "lang": "all",
-        "selection" : "playServices"
+        "selection": "playServices"
       },
       {
         "scope": "compile",
@@ -400,7 +425,7 @@
         "name": "play-services-fitness",
         "version": "8.4.0",
         "lang": "all",
-        "selection" : "playServices"
+        "selection": "playServices"
       },
       {
         "scope": "compile",
@@ -408,7 +433,7 @@
         "name": "play-services-drive",
         "version": "8.4.0",
         "lang": "all",
-        "selection" : "playServices"
+        "selection": "playServices"
       },
       {
         "scope": "compile",
@@ -416,7 +441,7 @@
         "name": "play-services-gcm",
         "version": "8.4.0",
         "lang": "all",
-        "selection" : "playServices"
+        "selection": "playServices"
       },
       {
         "scope": "compile",
@@ -424,7 +449,7 @@
         "name": "play-services-cast",
         "version": "8.4.0",
         "lang": "all",
-        "selection" : "playServices"
+        "selection": "playServices"
       },
       {
         "scope": "compile",
@@ -432,7 +457,7 @@
         "name": "play-services-analytics",
         "version": "8.4.0",
         "lang": "all",
-        "selection" : "playServices"
+        "selection": "playServices"
       },
       {
         "scope": "compile",
@@ -440,7 +465,7 @@
         "name": "play-services-maps",
         "version": "8.4.0",
         "lang": "all",
-        "selection" : "playServices"
+        "selection": "playServices"
       },
       {
         "scope": "compile",
@@ -448,7 +473,7 @@
         "name": "play-services-ads",
         "version": "8.4.0",
         "lang": "all",
-        "selection" : "playServices"
+        "selection": "playServices"
       },
       {
         "scope": "compile",
@@ -456,7 +481,7 @@
         "name": "play-services-vision",
         "version": "8.4.0",
         "lang": "all",
-        "selection" : "playServices"
+        "selection": "playServices"
       },
       {
         "scope": "compile",
@@ -464,7 +489,7 @@
         "name": "play-services-nearby",
         "version": "8.4.0",
         "lang": "all",
-        "selection" : "playServices"
+        "selection": "playServices"
       },
       {
         "scope": "compile",
@@ -472,7 +497,7 @@
         "name": "play-services-panorama",
         "version": "8.4.0",
         "lang": "all",
-        "selection" : "playServices"
+        "selection": "playServices"
       },
       {
         "scope": "compile",
@@ -480,7 +505,7 @@
         "name": "play-services-games",
         "version": "8.4.0",
         "lang": "all",
-        "selection" : "playServices"
+        "selection": "playServices"
       },
       {
         "scope": "compile",
@@ -488,7 +513,7 @@
         "name": "play-services-safetynet",
         "version": "8.4.0",
         "lang": "all",
-        "selection" : "playServices"
+        "selection": "playServices"
       },
       {
         "scope": "compile",
@@ -496,7 +521,7 @@
         "name": "play-services-wearable",
         "version": "8.4.0",
         "lang": "all",
-        "selection" : "playServices"
+        "selection": "playServices"
       },
       {
         "scope": "compile",
@@ -504,7 +529,7 @@
         "name": "play-services-wallet",
         "version": "8.4.0",
         "lang": "all",
-        "selection" : "playServices"
+        "selection": "playServices"
       }
     ]
   }

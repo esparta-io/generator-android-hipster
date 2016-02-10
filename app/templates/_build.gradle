@@ -5,8 +5,7 @@ buildscript {
     jcenter()
   }
   dependencies {
-
-    // android-hipster-needle-gradle-dependency
+    // android-hipster-needle-gradle-parent-dependency
   }
 }
 

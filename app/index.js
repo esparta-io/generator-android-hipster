@@ -91,10 +91,10 @@ module.exports = AppGenerator.extend({
                     {
                         value: 'java',
                         name: 'Java (with Retrolambda)'
-                        // },
-                        // {
-                        // value: 'kotlin',
-                        // name: 'Kotlin'
+                    },
+                    {
+                        value: 'kotlin',
+                        name: 'Kotlin'
                     }
 
                 ],
@@ -191,9 +191,21 @@ module.exports = AppGenerator.extend({
                 default: true
             },
             {
+                when: function (data) {
+                    return data.language == 'java';
+                },
                 type: 'confirm',
                 name: 'autoparcel',
                 message: 'Would you like to use AutoParcel?',
+                default: true
+            },
+            {
+                when: function (data) {
+                    return data.language == 'kotlin';
+                },
+                type: 'confirm',
+                name: 'paperparcel',
+                message: 'Would you like to use PaperParcel?',
                 default: true
             },
             {
@@ -259,6 +271,7 @@ module.exports = AppGenerator.extend({
             this.language = props.language;
             this.calligraphy = props.calligraphy;
             this.playServices = props.playServices;
+            this.paperparcel = props.paperparcel;
             this.stetho = props.stetho;
             this.printview = props.printview;
             this.autoparcel = true; // Yeap, need to be true at this time
@@ -287,6 +300,7 @@ module.exports = AppGenerator.extend({
             this.config.set('mixpanel', this.mixpanel);
             this.config.set('timber', this.timber);
             this.config.set('jodatime', this.jodatime);
+            this.config.set('paperparcel', this.paperparcel);
             this.config.set('jodamoney', this.jodamoney);
             this.config.set('butterknife', this.butterknife);
             this.config.set('androidTargetSdkVersion', this.androidTargetSdkVersion);
@@ -349,44 +363,32 @@ module.exports = AppGenerator.extend({
             this.template(appFolder + '/src/main/java/environment', 'app/src/productionRelease/java/' + packageDir + '/environment', this, {});
 
             this.template(appFolder + '/src/main/java/application', 'app/src/main/java/' + packageDir + '/application', this, {});
-
             this.template(appFolder + '/src/main/java/di', 'app/src/main/java/' + packageDir + '/di', this, {});
-
             this.template(appFolder + '/src/main/java/domain', 'app/src/main/java/' + packageDir + '/domain', this, {});
-
             if (this.language == 'kotlin') {
                 this.template(appFolder + '/src/main/java/extensions/ContextExtensions.kt', 'app/src/main/java/' + packageDir + '/extensions/ContextExtensions.kt', this, {});
                 if (this.nucleus == true) {
                     this.template(appFolder + '/src/main/java/extensions/PresenterExtensions.kt', 'app/src/main/java/' + packageDir + '/extensions/PresenterExtensions.kt', this, {})
                 }
             }
-
             this.template(appFolder + '/src/main/java/model', 'app/src/main/java/' + packageDir + '/model', this, {});
 
             var ext = this.language == 'java' ? '.java' : '.kt';
-
             this.template(appFolder + '/src/main/java/ui/base/BaseActivity' + ext, 'app/src/main/java/' + packageDir + '/ui/base/BaseActivity' + ext, this, {});
-
-            this.template(appFolder + '/src/main/java/ui/base/BaseFragment' + ext, 'app/src/main/java/' + packageDir + '/ui/base/BaseFragment' + ext, this, {});
-
             this.template(appFolder + '/src/main/java/ui/base/BasePresenter' + ext, 'app/src/main/java/' + packageDir + '/ui/base/BasePresenter' + ext, this, {});
-
+            this.template(appFolder + '/src/main/java/ui/base/BaseFragment' + ext, 'app/src/main/java/' + packageDir + '/ui/base/BaseFragment' + ext, this, {});
             this.template(appFolder + '/src/main/java/ui/base/EmptyPresenter' + ext, 'app/src/main/java/' + packageDir + '/ui/base/EmptyPresenter' + ext, this, {});
-
             this.template(appFolder + '/src/main/java/ui/base/PresenterView' + ext, 'app/src/main/java/' + packageDir + '/ui/base/PresenterView' + ext, this, {});
-
             this.template(appFolder + '/src/main/java/storage', 'app/src/main/java/' + packageDir + '/storage', this, {});
-
             if (this.nucleus == false) {
                 this.template(appFolder + '/src/main/java/ui/base/Presenter' + ext, 'app/src/main/java/' + packageDir + '/ui/base/Presenter' + ext, this, {})
             }
-
             if (this.timber) {
                 this.template(appFolder + '/src/main/java/util/logging', 'app/src/main/java/' + packageDir + '/util/logging', this, {})
             }
-            if (this.mixpanel) {
-                this.template(appFolder + '/src/main/java/util/analytics', 'app/src/main/java/' + packageDir + '/util/analytics', this, {})
-            }
+            //if (this.mixpanel) {
+            //    this.template(appFolder + '/src/main/java/util/analytics', 'app/src/main/java/' + packageDir + '/util/analytics', this, {})
+            //}
             if (this.jodatime) {
                 this.template(appFolder + '/src/main/java/util/gson/DateTimeTypeConverter' + ext, 'app/src/main/java/' + packageDir + '/util/gson/DateTimeTypeConverter' + ext, this, {});
                 this.template(appFolder + '/src/main/java/util/gson/DateTimeZoneTypeConverter' + ext, 'app/src/main/java/' + packageDir + '/util/gson/DateTimeZoneTypeConverter' + ext, this, {})
@@ -395,26 +397,22 @@ module.exports = AppGenerator.extend({
                 this.template(appFolder + '/src/main/java/util/gson/CurrencyUnitTypeConverter' + ext, 'app/src/main/java/' + packageDir + '/util/gson/CurrencyUnitTypeConverter' + ext, this, {});
                 this.template(appFolder + '/src/main/java/util/gson/MoneyTypeConverter' + ext, 'app/src/main/java/' + packageDir + '/util/gson/MoneyTypeConverter' + ext, this, {})
             }
-
             if (this.autoparcel && this.language == 'java') {
                 this.template(appFolder + '/src/main/java/util/gson/AutoGson' + ext, 'app/src/main/java/' + packageDir + '/util/gson/AutoGson' + ext, this, {});
                 this.template(appFolder + '/src/main/java/util/gson/AutoValueTypeAdapterFactory' + ext, 'app/src/main/java/' + packageDir + '/util/gson/AutoValueTypeAdapterFactory' + ext, this, {})
             }
-
             this.template(appFolder + '/src/main/java/util/gson/GsonModule' + ext, 'app/src/main/java/' + packageDir + '/util/gson/GsonModule' + ext, this, {});
             this.template(appFolder + '/src/main/java/util/PermissionUtils' + ext, 'app/src/main/java/' + packageDir + '/util/PermissionUtils' + ext, this, {});
 
             if (this.language == 'java') {
                 this.template(appFolder + '/src/main/java/util/RxUtils' + ext, 'app/src/main/java/' + packageDir + '/util/RxUtils' + ext, this, {});
                 this.template(appFolder + '/src/main/java/util/RepositoryUtils' + ext, 'app/src/main/java/' + packageDir + '/util/RepositoryUtils' + ext, this, {});
+                this.template(appFolder + '/src/main/java/util/google', 'app/src/main/java/' + packageDir + '/util/google', this, {});
             }
-
-            this.template(appFolder + '/src/main/java/util/google', 'app/src/main/java/' + packageDir + '/util/google', this, {});
 
             this.template(appFolder + '/src/main/java/ui/main', 'app/src/main/java/' + packageDir + '/ui/main', this, {});
 
             mkdirp('app/src/main/assets');
-
             mkdirp('app/src/main/res');
 
             this.directory('resources/assets', 'app/src/main/assets');

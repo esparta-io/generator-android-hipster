@@ -27,6 +27,7 @@ Generator.prototype.installGradleDependencies = function (config, update) {
     this.addGradleFieldDependency('buildToolsVersion', '"23.0.2"', update);
 
     var parent = [];
+    var parentKotlin = [];
     for (var i = 0; i < dependencies[0].dependencies.length; i++) {
 
         if (dependencies[0].dependencies[i].lang == 'all') {
@@ -36,12 +37,13 @@ Generator.prototype.installGradleDependencies = function (config, update) {
             parent.push(dependencies[0].dependencies[i]);
         }
         if (dependencies[0].dependencies[i].lang == 'kotlin' && config.language == 'kotlin') {
-            parent.push(dependencies[0].dependencies[i]);
+            parentKotlin.push(dependencies[0].dependencies[i]);
         }
 
     }
 
-    this.addMultipleParentGradleDependency(parent, update);
+    this.addMultipleParentGradleDependency(parent, update, 'build.gradle');
+    this.addMultipleParentGradleDependency(parentKotlin, update, 'app/build.gradle');
 
     var gradle = dependencies[1].dependencies;
 
@@ -335,20 +337,22 @@ Generator.prototype.addMultipleGradleDependency = function (dependencies, update
     }
 };
 
-Generator.prototype.addMultipleParentGradleDependency = function (dependencies, update) {
+Generator.prototype.addMultipleParentGradleDependency = function (dependencies, update, fullPath) {
     try {
-        var fullPath = 'build.gradle';
         if (update) {
             jhipsterUtils.rewriteReplaceMultiple({
                 file: fullPath,
-                dependencies: dependencies
+                dependencies: dependencies,
+                needle : 'android-hipster-needle-gradle-parent-dependency'
             });
             //this.log(chalk.green('updated dependency: ' + scope + ' "' + group + ':' + name + ':' + version + '"'));
         } else {
 
             jhipsterUtils.rewriteFileMultiple({
                 file: fullPath,
-                dependencies: dependencies
+                dependencies: dependencies,
+                needle : 'android-hipster-needle-gradle-parent-dependency'
+
             });
             //this.log(chalk.green('added dependency: ' + scope + ' "' + group + ':' + name + ':' + version + '"'));
         }
