@@ -109,8 +109,13 @@ module.exports = ActivityGenerator.extend({
                     'app/src/main/java/' + packageDir + '/domain/usecases/' + packageFolder + '/' + this.useCaseName + 'UseCase' + ext, this, {});
                 this.template(appFolder + '/src/main/java/usecase/_UseCaseImpl' + ext,
                     'app/src/main/java/' + packageDir + '/domain/usecases/' + packageFolder + '/' + this.useCaseName + 'UseCaseImpl' + ext, this, {});
-                this.provideInComponent(this.useCaseName, packageDir, this.appPackage + '.domain.usecases.' + this.useCasePackageName, "UseCase");
-                this.updateApplicationModuleToProvide(this.useCaseName, packageDir, this.appPackage + '.domain.usecases.' + this.useCasePackageName, 'UseCase');
+                if (this.language == 'java') {
+                    this.provideInComponent(this.useCaseName, packageDir, this.appPackage + '.domain.usecases.' + this.useCasePackageName, "UseCase");
+                    this.updateApplicationModuleToProvide(this.useCaseName, packageDir, this.appPackage + '.domain.usecases.' + this.useCasePackageName, 'UseCase');
+                } else {
+                    this.provideInComponentKotlin(this.useCaseName, packageDir, this.appPackage + '.domain.usecases.' + this.useCasePackageName, "UseCase");
+                    this.updateApplicationModuleToProvideKotlin(this.useCaseName, packageDir, this.appPackage + '.domain.usecases.' + this.useCasePackageName, 'UseCase');
+                }
             }
 
         },

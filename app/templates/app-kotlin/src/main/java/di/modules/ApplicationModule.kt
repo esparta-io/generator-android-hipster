@@ -14,6 +14,9 @@ import <%= appPackage %>.BuildConfig
 import <%= appPackage %>.domain.executors.JobExecutor
 import <%= appPackage %>.domain.executors.ThreadExecutor
 
+// android-hipster-needle-module-provides-import
+
+
 @Module
 class ApplicationModule(val application: App) {
 
@@ -50,4 +53,6 @@ class ApplicationModule(val application: App) {
         return EventBus.getDefault();
     }
     <% } %>
+
+    // android-hipster-needle-module-provides-method
 }

@@ -160,7 +160,7 @@ Generator.prototype.addCustomComponentInjection = function (component, name, bas
     }
 };
 
-Generator.prototype.updateApplicationModuleToProvide = function (name, basePath, packageName, type) {
+Generator.prototype.updateApplicationModuleToProvide = function (name, basePath, packageName, type, ext) {
     try {
         var fullPath = 'app/src/main/java/' + basePath + '/di/modules/ApplicationModule.java';
         jhipsterUtils.rewriteFile({
@@ -180,6 +180,33 @@ Generator.prototype.updateApplicationModuleToProvide = function (name, basePath,
             splicable: [
                 'import ' + packageName + '.' + name + type + ';',
                 'import ' + packageName + '.' + name + type + 'Impl;'
+            ]
+        });
+    } catch (e) {
+        this.log(chalk.yellow('\nUnable to find ') + fullPath + chalk.yellow(' or missing required android-needle. Reference to ') + name + ' ' + chalk.yellow('not added.\n'));
+    }
+};
+
+Generator.prototype.updateApplicationModuleToProvideKotlin = function (name, basePath, packageName, type) {
+    try {
+        var fullPath = 'app/src/main/java/' + basePath + '/di/modules/ApplicationModule.kt';
+        jhipsterUtils.rewriteFile({
+            file: fullPath,
+            needle: 'android-hipster-needle-module-provides-method',
+            splicable: [
+                '@Provides',
+                '@Singleton',
+                'fun provide' + name + type + '(executor: ThreadExecutor): '+name + type + ' {',
+                '   return ' + name + type + 'Impl(executor);',
+                '}'
+            ]
+        });
+        jhipsterUtils.rewriteFile({
+            file: fullPath,
+            needle: 'android-hipster-needle-module-provides-import',
+            splicable: [
+                'import ' + packageName + '.' + name + type + '',
+                'import ' + packageName + '.' + name + type + 'Impl'
             ]
         });
     } catch (e) {
@@ -229,6 +256,27 @@ Generator.prototype.provideInComponent = function (name, basePath, packageName, 
             needle: 'android-hipster-needle-component-injection-import',
             splicable: [
                 'import ' + packageName + '.' + name + type + ';'
+            ]
+        });
+    } catch (e) {
+        this.log(chalk.yellow('\nUnable to find ') + fullPath + chalk.yellow(' or missing required jhipster-needle. Reference to ') + name + ' ' + chalk.yellow('not added.\n'));
+    }
+};
+Generator.prototype.provideInComponentKotlin = function (name, basePath, packageName, type) {
+    try {
+        var fullPath = 'app/src/main/java/' + basePath + '/di/components/ApplicationComponent.kt';
+        jhipsterUtils.rewriteFile({
+            file: fullPath,
+            needle: 'android-hipster-needle-component-injection-method',
+            splicable: [
+                'fun provide' + name + type + '(): '+name + type
+            ]
+        });
+        jhipsterUtils.rewriteFile({
+            file: fullPath,
+            needle: 'android-hipster-needle-component-injection-import',
+            splicable: [
+                'import ' + packageName + '.' + name + type + ''
             ]
         });
     } catch (e) {
