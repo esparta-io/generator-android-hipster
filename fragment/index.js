@@ -119,7 +119,6 @@ module.exports = ActivityGenerator.extend({
 
             this.underscoreFragmentName = _s.underscored(this.fragmentName);
             this.entityClass = _s.capitalize(this.name);
-            console.log(this.entityClass);
 
             var ext = this.language == 'java' ? ".java" : ".kt";
 
