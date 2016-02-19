@@ -18,7 +18,7 @@ class <%= fragmentName %>Fragment : BaseFragment<<% if (usePresenter) { %><%= fr
 
     @Override
     protected void inject() {
-        <% if (componentType == 'createNew') { %>getComponent(<%= activityName %>Component.class).inject(this)<% } else { %>App.graph.inject(this)<% } %>
+        <% if (componentType == 'createNew') { %>getComponent(<%= activityName %>Component.class).inject(this)<% } else { %>App.get(context).getComponent().inject(this)<% } %>
     }
 
     <% if (nucleus == true) { %>

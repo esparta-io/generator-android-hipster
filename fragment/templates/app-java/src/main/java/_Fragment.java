@@ -18,7 +18,7 @@ public class <%= fragmentName %>Fragment extends BaseFragment<<% if (usePresente
 
     @Override
     protected void inject() {
-        <% if (componentType == 'createNew') { %>getComponent(<%= activityName %>Component.class).inject(this);<% } else { %>App.graph.inject(this);<% } %>
+        <% if (componentType == 'createNew') { %>getComponent(<%= activityName %>Component.class).inject(this);<% } else { %>App.get(getContext()).getComponent().inject(this);<% } %>
     }
 
     <% if (nucleus == true) { %>

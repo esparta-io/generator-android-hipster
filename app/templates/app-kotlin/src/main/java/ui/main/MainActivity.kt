@@ -23,7 +23,7 @@ class MainActivity : BaseActivity<MainPresenter>(), MainView, HasComponent<MainC
     lateinit var mainComponent: MainComponent
 
     override fun injectModule() {
-        mainComponent = DaggerMainComponent.builder().applicationComponent(App.graph).mainModule(MainModule(this)).build()
+        mainComponent = DaggerMainComponent.builder().applicationComponent(App.get(this).getComponent()).mainModule(MainModule(this)).build()
         mainComponent.inject(this)
     }
 

@@ -24,7 +24,7 @@ class <%= activityName %>Activity : BaseActivity<<%= activityName %>Presenter>()
     lateinit var component: <%= activityName %>Component
 
     override fun injectModule() {
-        component = Dagger<%= activityName %>Component.builder().applicationComponent(App.graph).<%= underscoreActivityName  %>Module(<%= activityName %>Module(this)).build()
+        component = Dagger<%= activityName %>Component.builder().applicationComponent(App.get(this).getComponent()).<%= underscoreActivityName  %>Module(<%= activityName %>Module(this)).build()
         component.inject(this)
     }
 

@@ -31,7 +31,7 @@ public class <%= activityName %>Activity extends BaseActivity<<%= activityName %
     <% if (componentType == 'createNew') { %><%= activityName %>Component component;<% } else { %>ApplicationComponent component;<% } %>
 
     protected void injectModule() {
-        <% if (componentType == 'useApplication') { %>component = App.graph;
+        <% if (componentType == 'useApplication') { %>component = App.get(this).getComponent();
         component.inject(this);<% } else { %>component = Dagger<%= activityName %>Component.builder().applicationComponent(App.get(this).getComponent()).<%= activityName.charAt(0).toLowerCase()+activityName.slice(1) %>Module(new <%= activityName %>Module(this)).build();
         component.inject(this);<% } %>
     }
