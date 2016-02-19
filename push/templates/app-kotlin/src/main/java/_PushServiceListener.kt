@@ -13,21 +13,20 @@ import com.google.gson.Gson;
 
 import javax.inject.Inject;
 
-public class PushServiceListener extends GcmListenerService {
+class PushServiceListener : GcmListenerService() {
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        App.graph.inject(this);
+    fun onCreate() {
+        super.onCreate()
+        App.get(this).component.inject(this)
     }
 
-    @Override
-    public void onMessageReceived(String from, Bundle data) {
-        IntentFilter filter = new IntentFilter();
-        filter.addAction("Events.PUSH");
-        Intent broadcast = new Intent();
-        broadcast.putExtras(data);
-        broadcast.setAction("Events.PUSH");
-        sendOrderedBroadcast(broadcast, null, null, null, Activity.RESULT_OK, null, data);
+    fun onMessageReceived(from: String, data: Bundle) {
+        val filter = IntentFilter()
+        filter.addAction("Events.PUSH")
+        val broadcast = Intent()
+        broadcast.putExtras(data)
+        broadcast.setAction("Events.PUSH")
+        sendOrderedBroadcast(broadcast, null, null, null, Activity.RESULT_OK, null, data)
     }
 }
+

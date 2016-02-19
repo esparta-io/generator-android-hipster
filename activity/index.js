@@ -74,10 +74,22 @@ module.exports = ActivityGenerator.extend({
                     {
                         value: 'useApplication',
                         name: 'Use the ApplicationComponent to inject this activity'
+                    },
+                    {
+                        value: 'useExistingComponent',
+                        name: 'Use the another existing component to inject this activity'
                     }
 
                 ],
                 default: 0
+            },
+            {
+                when: function (response) {
+                    return response.componentType == 'useExistingComponent';
+                },
+                name: 'useExistingComponentName',
+                message: 'What is the package of the existing Component?',
+                store: true
             },
             {
                 type: 'confirm',
@@ -128,7 +140,7 @@ module.exports = ActivityGenerator.extend({
                     'app/src/main/java/' + packageDir + '/di/components/' + this.activityName + 'Component' + ext, this, {});
                 this.template(appFolder + '/src/main/java/di/modules/_Module' + ext,
                     'app/src/main/java/' + packageDir + '/di/modules/' + this.activityName + 'Module' + ext, this, {});
-            } else {
+            } else if (this.componentType == 'useApplication') {
                 if (this.language == 'java') {
                     this.addComponentInjection(this.activityName + 'Activity', packageDir, this.appPackage + '.ui.' + this.activityPackageName);
                     if (this.fragment) {
@@ -138,6 +150,18 @@ module.exports = ActivityGenerator.extend({
                     this.addComponentInjectionKotlin(this.activityName + 'Activity', packageDir, this.appPackage + '.ui.' + this.activityPackageName);
                     if (this.fragment) {
                         this.addComponentInjectionKotlin(this.activityName + 'Fragment', packageDir, this.appPackage + '.ui.' + this.activityPackageName)
+                    }
+                }
+            } else {
+                if (this.language == 'java') {
+                    this.addComponentInjection(this.activityName + 'Activity', packageDir, this.appPackage + '.ui.' + this.activityPackageName, this.componentType);
+                    if (this.fragment) {
+                        this.addComponentInjection(this.activityName + 'Fragment', packageDir, this.appPackage + '.ui.' + this.activityPackageName, this.componentType);
+                    }
+                } else {
+                    this.addComponentInjectionKotlin(this.activityName + 'Activity', packageDir, this.appPackage + '.ui.' + this.activityPackageName, this.componentType);
+                    if (this.fragment) {
+                        this.addComponentInjectionKotlin(this.activityName + 'Fragment', packageDir, this.appPackage + '.ui.' + this.activityPackageName, this.componentType);
                     }
                 }
             }
@@ -184,8 +208,11 @@ module.exports = ActivityGenerator.extend({
             styles.style(this.activityName + 'Style').attr('parent', 'AppTheme').text('');
             styles.writeFile(stylesFilePath);
 
-            var styles21FilePath = 'app/src/main/res/values-v21/styles.xml';
-            styles.writeFile(styles21FilePath);
+            var stylesFilePath21 = 'app/src/main/res/values-v21/styles.xml';
+            var styles21 = new AndroidResource().readFile(stylesFilePath21);
+            styles21.style(this.activityName + 'Style').attr('parent', 'AppTheme').text('');
+            styles21.writeFile(stylesFilePath21);
+
         },
 
         install: function () {

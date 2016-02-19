@@ -22,9 +22,9 @@ import javax.inject.Inject;
 
 public class App extends Application {
 
-public static ApplicationComponent graph;
+    private ApplicationComponent graph;
 
-    private static RefWatcher refWatcher;
+    private RefWatcher refWatcher;
 
     @ForApplication
     @Inject
@@ -32,8 +32,6 @@ public static ApplicationComponent graph;
 
     @Inject
     EnvironmentConfiguration environmentConfiguration;
-
-    private static App instance = null;
 
     @Override
     protected void attachBaseContext(Context base) {
@@ -45,7 +43,6 @@ public static ApplicationComponent graph;
         super.onCreate();
 
         LeakCanary.install(this);
-        instance = this;
         refWatcher = LeakCanary.install(this);
 
         <% if (jodatime == true) { %>JodaTimeAndroid.init(this); <% } %>
@@ -58,15 +55,39 @@ public static ApplicationComponent graph;
 
     }
 
-    public ApplicationComponent createComponent() {
-        ApplicationComponent applicationComponent = ApplicationComponent.Initializer.init(this);
-
-        applicationComponent.inject(this);
-        return applicationComponent;
+    public RefWatcher getRefWatcher() {
+        if (refWatcher == null) {
+            refWatcher = LeakCanary.install(this);
+        }
+        return refWatcher;
     }
 
-    public static RefWatcher getRefWatcher() {
-       return refWatcher;
+    public static App get(Context context) {
+        return (App) context.getApplicationContext();
+    }
+
+    public ApplicationComponent getComponent() {
+        if (graph == null) {
+            createComponent();
+        }
+        return graph;
+    }
+
+    public ApplicationComponent createComponent() {
+        graph = ApplicationComponent.Initializer.init(this);
+        graph.inject(this);
+        return graph;
+    }
+
+    public void recreateComponents() {
+        graph = DaggerApplicationComponent.builder()
+                .androidModule(new AndroidModule())
+                .gsonModule(new GsonModule())
+                .applicationModule(new ApplicationModule(this))
+                .environmentModule(new EnvironmentModule(this))
+                .build();
+        graph.inject(this);
+        environmentConfiguration.configure();
     }
 
 

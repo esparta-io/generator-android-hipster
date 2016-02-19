@@ -116,9 +116,9 @@ Generator.prototype.installGradleDependencies = function (config, update) {
 
 
 
-Generator.prototype.addComponentInjection = function (name, basePath, packageName) {
+Generator.prototype.addComponentInjection = function (name, basePath, packageName, filename) {
     try {
-        var fullPath = 'app/src/main/java/' + basePath + '/di/components/ApplicationComponent.java';
+        var fullPath = 'app/src/main/java/' + basePath + '/di/components/' + (filename != undefined ? (filename + '.java') : 'ApplicationComponent.java');
         jhipsterUtils.rewriteFile({
             file: fullPath,
             needle: 'android-hipster-needle-component-injection-method',
@@ -284,9 +284,9 @@ Generator.prototype.provideInComponentKotlin = function (name, basePath, package
     }
 };
 
-Generator.prototype.addComponentInjectionKotlin = function (name, basePath, packageName) {
+Generator.prototype.addComponentInjectionKotlin = function (name, basePath, packageName, filename) {
     try {
-        var fullPath = 'app/src/main/java/' + basePath + '/di/components/ApplicationComponent.kt';
+        var fullPath = 'app/src/main/java/' + basePath + '/di/components/' + (filename != undefined ? (filename + '.kt') : 'ApplicationComponent.kt');
         jhipsterUtils.rewriteFile({
             file: fullPath,
             needle: 'android-hipster-needle-component-injection-method',

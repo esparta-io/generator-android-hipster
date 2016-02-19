@@ -441,3 +441,5 @@
 -keep class dagger.internal.** { *; }
 -keepclassmembers class * implements javax.annotation.processing.ProcessingEnvironment { *; }
 -keepclassmembers interface javax.annotation.processing.ProcessingEnvironment { *; }
+
+-dontwarn com.mixpanel.**

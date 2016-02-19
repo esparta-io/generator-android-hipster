@@ -5,7 +5,7 @@ import <%= appPackage %>.domain.interactors.base.BaseInteractor;
 
 import javax.inject.Inject;
 
-class <%= interactorName %>Interactor(executor: ThreadExecutor)  : BaseInteractor(executor)  {
+class <%= interactorName %>Interactor(executor: ThreadExecutor) : BaseInteractor(executor)  {
 
     fun invoke() {
         // TODO

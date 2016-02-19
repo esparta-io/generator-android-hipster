@@ -7,7 +7,7 @@ import com.google.gson.Gson;
 import java.io.IOException;
 import java.net.SocketTimeoutException;
 
-import retrofit2.Result;
+import retrofit2.adapter.rxjava.Result;
 import rx.Observable;
 import rx.Single;
 import rx.functions.Func1;

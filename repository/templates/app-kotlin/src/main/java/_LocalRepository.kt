@@ -1,10 +1,8 @@
-package <%= appPackage %>.domain.repository.<%= repositoryPackageName %>;
+package <%= appPackage %>.domain.repository.<%= repositoryPackageName %>
 
-import javax.inject.Inject;
+import javax.inject.Inject
 
-public class <%= repositoryName %>LocalRepository {
+class <%= repositoryName %>LocalRepository @Inject constructor() {
 
-    @Inject
-    public <%= repositoryName %>LocalRepository() { }
 
 }

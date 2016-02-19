@@ -23,7 +23,7 @@ public class PushIntentService extends IntentService {
     @Override
     public void onCreate() {
         super.onCreate();
-        App.graph.inject(this);
+        App.get(this).getComponent().inject(this);
     }
 
     @Override

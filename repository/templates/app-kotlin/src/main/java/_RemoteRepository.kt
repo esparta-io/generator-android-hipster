@@ -1,24 +1,25 @@
-package <%= appPackage %>.domain.repository.<%= repositoryPackageName %>;
+package <%= appPackage %>.domain.repository.<%= repositoryPackageName %>
 
-import javax.inject.Inject;
+import javax.inject.Inject
 
-import retrofit2.Result;
-import retrofit2.Retrofit;
-import retrofit2.http.GET;
+import retrofit2.Result
+import retrofit2.Retrofit
+import retrofit2.http.GET
 
-import rx.Observable;
+import rx.Observable
 
-public class <%= repositoryName %>RemoteRepository {
+public class <%= repositoryName %>RemoteRepository
+<% if (interface == false) { %>@Inject<% } %>
+constructor(retrofit: Retrofit) {
 
-    private final <%= repositoryName %>Service service;
+    val <%= repositoryName %>Service service;
 
-    <% if (interface == false) { %>@Inject<% } %>
-    public <%= repositoryName %>RemoteRepository(Retrofit retrofit) {
-        this.service = retrofit.create(<%= repositoryName %>Service.class);
+    init {
+        this.service = retrofit.create(<%= repositoryName %>Service::class.java);
     }
 
-    interface <%= repositoryName %>Service {
+    internal interface <%= repositoryName %>Service {
         @GET("api/foo")
-        Observable<Result<Void>> foo();
+        fun foo() : Observable<Result<Void>>
     }
 }

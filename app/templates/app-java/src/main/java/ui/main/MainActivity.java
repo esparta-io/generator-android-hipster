@@ -23,7 +23,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainVie
     MainComponent component;
 
     protected void injectModule() {
-        component = DaggerMainComponent.builder().applicationComponent(App.graph).mainModule(new MainModule(this)).build();
+        component = DaggerMainComponent.builder().applicationComponent(App.get(this).getComponent()).mainModule(new MainModule(this)).build();
         component.inject(this);
     }
 

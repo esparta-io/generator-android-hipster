@@ -32,7 +32,7 @@ public class <%= activityName %>Activity extends BaseActivity<<%= activityName %
 
     protected void injectModule() {
         <% if (componentType == 'useApplication') { %>component = App.graph;
-        component.inject(this);<% } else { %>component = Dagger<%= activityName %>Component.builder().applicationComponent(App.graph).<%= activityName.charAt(0).toLowerCase()+activityName.slice(1) %>Module(new <%= activityName %>Module(this)).build();
+        component.inject(this);<% } else { %>component = Dagger<%= activityName %>Component.builder().applicationComponent(App.get(this).getComponent()).<%= activityName.charAt(0).toLowerCase()+activityName.slice(1) %>Module(new <%= activityName %>Module(this)).build();
         component.inject(this);<% } %>
     }
     <% if (nucleus == true) { %>
@@ -58,16 +58,5 @@ public class <%= activityName %>Activity extends BaseActivity<<%= activityName %
     protected <%= activityName %>Presenter getPresenter() {
         return <%= activityName.charAt(0).toLowerCase()+activityName.slice(1) %>Presenter;
     }<% } %>
-
-    public static void launch(Activity activity, boolean finish, Pair<Integer, Integer> animation) {
-        Intent intent = new Intent(activity, <%= activityName %>Activity.class);
-        activity.startActivity(intent);
-        if (finish) {
-            activity.finish();
-        }
-        if (animation != null) {
-            activity.overridePendingTransition(animation.first, animation.second);
-        }
-    }
 
 }

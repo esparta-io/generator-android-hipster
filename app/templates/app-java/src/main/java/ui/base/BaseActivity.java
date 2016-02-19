@@ -31,7 +31,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends <% if (nucle
     public void onDestroy() {
         <% if (butterknife == true) { %>ButterKnife.unbind(this); <% } %>
         super.onDestroy();
-        RefWatcher refWatcher = App.getRefWatcher();
+        RefWatcher refWatcher = App.get(this).getRefWatcher();
         refWatcher.watch(this);
     }
 

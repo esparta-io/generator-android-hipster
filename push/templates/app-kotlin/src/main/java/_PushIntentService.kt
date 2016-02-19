@@ -11,39 +11,27 @@ import android.support.v4.app.NotificationCompat;
 
 import javax.inject.Inject;
 
-public class PushIntentService extends IntentService {
-
-    public PushIntentService() {
-        super("PushIntentService");
-    }
+class PushIntentService : IntentService("PushIntentService") {
 
     @Inject
-    NotificationManager notificationManager;
+    lateinit var notificationManager: NotificationManager
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        App.graph.inject(this);
+    fun onCreate() {
+        super.onCreate()
+        App.get(this).component.inject(this)
     }
 
-    @Override
-    protected void onHandleIntent(Intent intent) {
-        handleNotification(intent.getExtras());
+    protected fun onHandleIntent(intent: Intent) {
+        handleNotification(intent.getExtras())
     }
 
-    private void handleNotification(Bundle extras) {
+    private fun handleNotification(extras: Bundle) {
 
-      NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(PushIntentService.this)
-              .setSmallIcon(R.mipmap.ic_launcher)
-              .setContentTitle("Title")
-              .setContentText("Text");
+        val mBuilder = NotificationCompat.Builder(this@PushIntentService).setSmallIcon(R.mipmap.ic_launcher).setContentTitle("Title").setContentText("Text")
 
-      mBuilder.setStyle(new NotificationCompat.InboxStyle()
-              .setBigContentTitle("Big Content")
-              .addLine("Line 1"));
+        mBuilder.setStyle(NotificationCompat.InboxStyle().setBigContentTitle("Big Content").addLine("Line 1"))
 
-
-      notificationManager.notify(1, mBuilder.build());
+        notificationManager.notify(1, mBuilder.build())
 
     }
 
