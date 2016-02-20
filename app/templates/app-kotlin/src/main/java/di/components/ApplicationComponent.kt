@@ -8,17 +8,25 @@ import <%= appPackage %>.di.ForApplication
 import <%= appPackage %>.di.modules.AndroidModule
 import <%= appPackage %>.di.modules.ApplicationModule
 import <%= appPackage %>.domain.executors.ThreadExecutor
-import <%= appPackage %>.di.components.DaggerApplicationComponent;
+import <%= appPackage %>.di.components.DaggerApplicationComponent
+import <%= appPackage %>.network.OkHttpInterceptorsModule
 import <%= appPackage %>.environment.EnvironmentModule
 import <%= appPackage %>.storage.Storage
 import <%= appPackage %>.util.gson.GsonModule
 import retrofit2.Retrofit
 import javax.inject.Singleton
 
+<% if(eventbus==true) { %>import org.greenrobot.eventbus.EventBus<% } %>
+
 // android-hipster-needle-component-injection-import
 
 @Singleton
-@Component(modules = arrayOf(ApplicationModule::class, AndroidModule::class, GsonModule::class, EnvironmentModule::class))
+@Component(modules = arrayOf(
+                            ApplicationModule::class,
+                            AndroidModule::class,
+                            OkHttpInterceptorsModule::class,
+                            GsonModule::class,
+                            EnvironmentModule::class))
 interface ApplicationComponent {
 
     fun provideThreadExecutor(): ThreadExecutor
@@ -34,11 +42,13 @@ interface ApplicationComponent {
 
     fun inject(app: App)
 
+    <% if(eventbus==true) { %>fun provideEventBus(): EventBus<% } %>
+
     // android-hipster-needle-component-injection-method
 
     object Initializer {
         fun init(app: App): ApplicationComponent {
-            return DaggerApplicationComponent.builder().androidModule(AndroidModule()).gsonModule(GsonModule()).applicationModule(ApplicationModule(app)).environmentModule(EnvironmentModule(app)).build()
+            return DaggerApplicationComponent.builder().androidModule(AndroidModule()).okHttpInterceptorsModule(OkHttpInterceptorsModule()).gsonModule(GsonModule()).applicationModule(ApplicationModule(app)).environmentModule(EnvironmentModule(app)).build()
         }
     }
 

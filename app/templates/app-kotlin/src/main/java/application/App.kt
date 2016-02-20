@@ -16,18 +16,15 @@ import kotlin.properties.Delegates
 <% if (jodatime == true) { %>import net.danlew.android.joda.JodaTimeAndroid<% } %>
 <% if (printview == true) { %>import com.github.johnkil.print.PrintConfig<% } %>
 <% if (calligraphy == true) { %>import uk.co.chrisjenx.calligraphy.CalligraphyConfig<% } %>
+<% if (glide == true) { %>import com.bumptech.glide.Glide<% } %>
+
 import javax.inject.Inject
 
 
 class App : Application() {
 
-    companion object {
-
-        var graph by Delegates.notNull<ApplicationComponent>();
-        var refWatcher by Delegates.notNull<RefWatcher>();
-        var instance by Delegates.notNull<App>();
-
-    }
+    var graph by Delegates.notNull<ApplicationComponent>();
+    var refWatcher by Delegates.notNull<RefWatcher>();
 
     override fun attachBaseContext(base: Context) {
         super.attachBaseContext(base)
@@ -44,7 +41,6 @@ class App : Application() {
         super.onCreate()
 
         LeakCanary.install(this)
-        instance = this
         refWatcher = LeakCanary.install(this)
 
         <% if (jodatime === true) { %>JodaTimeAndroid.init(this)<% } %>
@@ -57,15 +53,41 @@ class App : Application() {
 
     }
 
-    fun createComponent(): ApplicationComponent {
-        val applicationComponent = ApplicationComponent.Initializer.init(this)
+    operator fun get(context: Context): App {
+        return context.getApplicationContext()
+    }
 
+    fun getComponent(): ApplicationComponent {
+        if (graph == null) {
+            createComponent()
+        }
+        return graph
+    }
+
+    private fun createComponent(): ApplicationComponent {
+        val applicationComponent = ApplicationComponent.Initializer.init(this)
         applicationComponent.inject(this)
         return applicationComponent
+    }
+
+    fun recreateComponents() {
+        graph = ApplicationComponent.Initializer.init(this)
+        graph.inject(this)
+        environmentConfiguration.configure()
     }
 
     fun getRefWatcher(): RefWatcher? {
         return refWatcher
     }
+
+    <% if (glide == true) { %>override fun onTrimMemory(level: Int) {
+        super.onTrimMemory(level)
+        Glide.get(this).trimMemory(level)
+    }
+
+    override fun onLowMemory() {
+        super.onLowMemory()
+        Glide.get(this).clearMemory()
+    }<% } %>
 
 }

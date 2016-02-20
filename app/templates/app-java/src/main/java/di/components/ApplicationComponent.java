@@ -69,6 +69,7 @@ public interface ApplicationComponent {
                             .gsonModule(new GsonModule())
                             .applicationModule(new ApplicationModule(app))
                             .environmentModule(new EnvironmentModule(app))
+                            .okHttpInterceptorsModule(new OkHttpInterceptorsModule())
                             .build();
           }
     }

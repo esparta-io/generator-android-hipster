@@ -74,7 +74,7 @@ public class App extends Application {
         return graph;
     }
 
-    public ApplicationComponent createComponent() {
+    private ApplicationComponent createComponent() {
         graph = ApplicationComponent.Initializer.init(this);
         graph.inject(this);
         return graph;
