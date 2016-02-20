@@ -368,7 +368,7 @@ module.exports = AppGenerator.extend({
             this.template(appFolder + '/src/main/java/network/OkHttpNetworkInterceptors' + ext, 'app/src/main/java/' + packageDir + '/network/OkHttpNetworkInterceptors' + ext, this, {});
             this.template(appFolder + '/src/main/java/network/OkHttpInterceptors' + ext, 'app/src/main/java/' + packageDir + '/network/OkHttpInterceptors' + ext, this, {});
             this.template(appFolder + '/src/main/java/network/OkHttpInterceptorsModuleInternal' + ext, 'app/src/internal/java/' + packageDir + '/network/OkHttpInterceptorsModule' + ext, this, {});
-            this.template(appFolder + '/src/main/java/network/OkHttpInterceptorsModule' + ext, 'app/src/release/java/' + packageDir + '/network/OkHttpInterceptorsModule' + ext, this, {});
+            this.template(appFolder + '/src/main/java/network/OkHttpInterceptorsModule' + ext, 'app/src/production/java/' + packageDir + '/network/OkHttpInterceptorsModule' + ext, this, {});
             this.template(appFolder + '/src/main/java/environment', 'app/src/internal/java/' + packageDir + '/environment', this, {});
             this.template(appFolder + '/src/main/java/environment', 'app/src/production/java/' + packageDir + '/environment', this, {});
 

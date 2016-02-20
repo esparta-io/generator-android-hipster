@@ -1,10 +1,14 @@
 package <%= appPackage %>.environment;
 
 import android.app.Application;
+import android.content.Context;
+import android.support.annotation.NonNull;
 
-import <%= appPackage %>.application.App;
-import <%= appPackage %>.BuildConfig;
+import <%= appPackage %>.network.ChangeableBaseUrl;
+import <%= appPackage %>.network.OkHttpInterceptors;
+import <%= appPackage %>.network.OkHttpNetworkInterceptors;
 
+import com.google.gson.Gson;
 import javax.inject.Singleton;
 import <%= appPackage %>.di.ForApplication;
 import <%= appPackage %>.BuildConfig;
@@ -14,19 +18,16 @@ import <%= appPackage %>.application.App;
 import dagger.Module;
 import dagger.Provides;
 
+import java.util.List;
 import java.io.File;
-import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Cache;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-import timber.log.Timber;
 
 @Module
 public class EnvironmentModule {

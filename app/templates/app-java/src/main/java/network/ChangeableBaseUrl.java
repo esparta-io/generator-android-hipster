@@ -1,4 +1,4 @@
-package <%= appPackage %>.environment;
+package <%= appPackage %>.network;
 
 import android.support.annotation.NonNull;
 

@@ -1,4 +1,4 @@
-package <%= appPackage %>.environment;
+package <%= appPackage %>.network;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;

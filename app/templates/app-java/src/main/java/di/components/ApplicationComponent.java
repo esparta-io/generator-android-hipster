@@ -25,6 +25,7 @@ import javax.inject.Singleton;
 
 import dagger.Component;
 import retrofit2.Retrofit;
+import android.support.annotation.NonNull;
 
 <% if (eventbus) { %>import org.greenrobot.eventbus.EventBus;<% } %>
 

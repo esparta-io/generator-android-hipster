@@ -2,6 +2,8 @@ package <%= appPackage %>.environment;
 
 import android.support.annotation.NonNull;
 
+import com.facebook.stetho.okhttp3.StethoInterceptor;
+
 import java.util.List;
 
 import javax.inject.Singleton;
@@ -9,8 +11,10 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import okhttp3.Interceptor;
+import okhttp3.logging.HttpLoggingInterceptor;
+import timber.log.Timber;
 
-import static java.util.Collections.emptyList;
+import static java.util.Collections.singletonList;
 
 @Module
 public class OkHttpInterceptorsModule {
@@ -29,5 +33,4 @@ public class OkHttpInterceptorsModule {
     public List<Interceptor> provideOkHttpNetworkInterceptors() {
         return singletonList(new StethoInterceptor());
     }
-
 }

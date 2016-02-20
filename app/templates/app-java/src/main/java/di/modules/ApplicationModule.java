@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
 
+import javax.inject.Named;
 import javax.inject.Singleton;
 import com.google.gson.Gson;
 <% if (eventbus) { %>import org.greenrobot.eventbus.EventBus;<% } %>
@@ -21,7 +22,7 @@ import <%= appPackage %>.domain.executors.JobExecutor;
 import <%= appPackage %>.domain.executors.ThreadExecutor;
 
 
-<% if (picasso) { %>import com.jakewharton.picasso.OkHttp3Downloader;
+<% if (picasso) { %>
 import okhttp3.OkHttpClient;
 import com.squareup.picasso.Picasso;<% } %>
 
@@ -48,7 +49,7 @@ public class ApplicationModule {
     @ForApplication
     @Provides
     @Singleton
-    public App provideApplication() {
+    public App provideApp() {
         return application;
     }
 
@@ -85,7 +86,6 @@ public class ApplicationModule {
     <% if (picasso) { %>@Provides @NonNull @Singleton
     public Picasso providePicasso(@NonNull @ForApplication App app, @NonNull OkHttpClient okHttpClient) {
         return new Picasso.Builder(app)
-                .downloader(new OkHttp3Downloader(okHttpClient))
                 .build();
     }<% } %>
 

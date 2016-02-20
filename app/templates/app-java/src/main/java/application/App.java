@@ -93,12 +93,7 @@ public class App extends Application {
     }<% } %>
 
     public void recreateComponents() {
-        graph = DaggerApplicationComponent.builder()
-                .androidModule(new AndroidModule())
-                .gsonModule(new GsonModule())
-                .applicationModule(new ApplicationModule(this))
-                .environmentModule(new EnvironmentModule(this))
-                .build();
+        graph = ApplicationComponent.Initializer.init(this);
         graph.inject(this);
         environmentConfiguration.configure();
     }
