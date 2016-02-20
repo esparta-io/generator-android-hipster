@@ -34,6 +34,8 @@ module.exports = AppGenerator.extend({
             this.nucleus = this.config.get('nucleus') || true;
             this.mvp = this.config.get('mvp') || 'nucleus';
             this.imageLib = this.config.get('imageLib') || 'glide';
+            this.glide = this.config.get('glide');
+            this.picasso = this.config.get('picasso');
             this.eventbus = this.config.get('eventbus') || true;
             this.mixpanel = this.config.get('mixpanel') || true;
             this.timber = this.config.get('timber') || true;
@@ -296,6 +298,8 @@ module.exports = AppGenerator.extend({
             this.config.set('nucleus', this.nucleus);
             this.config.set('mvp', this.mvp);
             this.config.set('imageLib', this.imageLib);
+            this.config.set('picasso', this.picasso);
+            this.config.set('glide', this.glide);
             this.config.set('eventbus', this.eventbus);
             this.config.set('mixpanel', this.mixpanel);
             this.config.set('timber', this.timber);
@@ -358,10 +362,15 @@ module.exports = AppGenerator.extend({
 
             mkdirp('app/src/main/java/' + packageDir);
 
-            this.template(appFolder + '/src/main/java/environment', 'app/src/internalDebug/java/' + packageDir + '/environment', this, {});
-            this.template(appFolder + '/src/main/java/environment', 'app/src/internalRelease/java/' + packageDir + '/environment', this, {});
-            this.template(appFolder + '/src/main/java/environment', 'app/src/productionDebug/java/' + packageDir + '/environment', this, {});
-            this.template(appFolder + '/src/main/java/environment', 'app/src/productionRelease/java/' + packageDir + '/environment', this, {});
+            var ext = this.language == 'java' ? '.java' : '.kt';
+
+            this.template(appFolder + '/src/main/java/network/ChangeableBaseUrl' + ext, 'app/src/main/java/' + packageDir + '/network/ChangeableBaseUrl' + ext, this, {});
+            this.template(appFolder + '/src/main/java/network/OkHttpNetworkInterceptors' + ext, 'app/src/main/java/' + packageDir + '/network/OkHttpNetworkInterceptors' + ext, this, {});
+            this.template(appFolder + '/src/main/java/network/OkHttpInterceptors' + ext, 'app/src/main/java/' + packageDir + '/network/OkHttpInterceptors' + ext, this, {});
+            this.template(appFolder + '/src/main/java/network/OkHttpInterceptorsModuleInternal' + ext, 'app/src/internal/java/' + packageDir + '/network/OkHttpInterceptorsModule' + ext, this, {});
+            this.template(appFolder + '/src/main/java/network/OkHttpInterceptorsModule' + ext, 'app/src/release/java/' + packageDir + '/network/OkHttpInterceptorsModule' + ext, this, {});
+            this.template(appFolder + '/src/main/java/environment', 'app/src/internal/java/' + packageDir + '/environment', this, {});
+            this.template(appFolder + '/src/main/java/environment', 'app/src/production/java/' + packageDir + '/environment', this, {});
 
             this.template(appFolder + '/src/main/java/application', 'app/src/main/java/' + packageDir + '/application', this, {});
             this.template(appFolder + '/src/main/java/di', 'app/src/main/java/' + packageDir + '/di', this, {});
@@ -374,7 +383,6 @@ module.exports = AppGenerator.extend({
             }
             this.template(appFolder + '/src/main/java/model', 'app/src/main/java/' + packageDir + '/model', this, {});
 
-            var ext = this.language == 'java' ? '.java' : '.kt';
             this.template(appFolder + '/src/main/java/ui/base/BaseActivity' + ext, 'app/src/main/java/' + packageDir + '/ui/base/BaseActivity' + ext, this, {});
             this.template(appFolder + '/src/main/java/ui/base/BasePresenter' + ext, 'app/src/main/java/' + packageDir + '/ui/base/BasePresenter' + ext, this, {});
             this.template(appFolder + '/src/main/java/ui/base/BaseFragment' + ext, 'app/src/main/java/' + packageDir + '/ui/base/BaseFragment' + ext, this, {});

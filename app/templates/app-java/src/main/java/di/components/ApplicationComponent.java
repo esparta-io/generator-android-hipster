@@ -11,8 +11,8 @@ import <%= appPackage %>.di.components.DaggerApplicationComponent;
 import <%= appPackage %>.di.modules.AndroidModule;
 import <%= appPackage %>.di.modules.ApplicationModule;
 import <%= appPackage %>.environment.EnvironmentConfiguration;
-import <%= appPackage %>.environment.OkHttpInterceptorsModule;
-import <%= appPackage %>.environment.ChangeableBaseUrl;
+import <%= appPackage %>.network.OkHttpInterceptorsModule;
+import <%= appPackage %>.network.ChangeableBaseUrl;
 import <%= appPackage %>.util.gson.GsonModule;
 
 import android.content.Context;

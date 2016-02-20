@@ -7,6 +7,10 @@ import rx.Observable;
 
 public class RxUtils {
 
+    private RxUtils() {
+
+    }
+
     public static Observable<?> getRetryObservable(Observable<? extends Throwable> observable, int count) {
         return observable.zipWith(Observable.range(1, count), (throwable, integer) -> {
             if (integer < count) {

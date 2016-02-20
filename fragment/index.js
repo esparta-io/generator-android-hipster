@@ -77,7 +77,59 @@ module.exports = ActivityGenerator.extend({
                 name: 'activityName',
                 message: 'What is the package of the Activity?',
                 store: true
-            }
+            },
+            {
+                when: function (response) {
+                    return response.activity;
+                },
+                type: 'list',
+                name: 'componentType',
+                message: 'For dependency injection, do you want to inject in Component... ',
+                choices: [
+                    {
+                        value: 'createNew',
+                        name: 'The same component of the activity'
+                    },
+                    {
+                        value: 'useApplication',
+                        name: 'Use the ApplicationComponent to inject this activity'
+                    },
+                    {
+                        value: 'useExistingComponent',
+                        name: 'Use the another existing component to inject this activity'
+                    }
+
+                ],
+                default: 0
+            },
+            {
+                when: function (response) {
+                    return !response.activity;
+                },
+                type: 'list',
+                name: 'componentType',
+                message: 'For dependency injection, do you want to inject in Component... ',
+                choices: [
+                    {
+                        value: 'useApplication',
+                        name: 'Use the ApplicationComponent to inject this activity'
+                    },
+                    {
+                        value: 'useExistingComponent',
+                        name: 'Use the another existing component to inject this activity'
+                    }
+
+                ],
+                default: 0
+            },
+            {
+                when: function (response) {
+                    return response.componentType == 'useExistingComponent';
+                },
+                name: 'useExistingComponentName',
+                message: 'What is the full name of the existing Component?',
+                store: true
+            },
 
         ];
 
@@ -87,6 +139,7 @@ module.exports = ActivityGenerator.extend({
             this.activity = props.activity;
             this.activityName = props.activityName;
             this.usePresenter = props.usePresenter;
+            this.componentType = props.componentType;
             done();
         }.bind(this));
     },
@@ -122,12 +175,33 @@ module.exports = ActivityGenerator.extend({
 
             var ext = this.language == 'java' ? ".java" : ".kt";
 
-            if (shelljs.test('-f', 'app/src/main/java/' + packageDir + '/di/components/' + this.activityName + 'Component' + ext)) {
-                this.componentType = 'createNew';
-                this.addCustomComponentInjection(this.activityName + 'Component', this.fragmentName + 'Fragment', packageDir, this.appPackage + '.ui.' + this.fragmentPackageName);
+            if (this.componentType == undefined) {
+                if (shelljs.test('-f', 'app/src/main/java/' + packageDir + '/di/components/' + this.activityName + 'Component' + ext)) {
+                    this.componentType = 'createNew';
+                    this.addCustomComponentInjection(this.activityName + 'Component', this.fragmentName + 'Fragment', packageDir, this.appPackage + '.ui.' + this.fragmentPackageName);
+                } else {
+                    this.componentType = 'useApplication';
+                    this.addComponentInjection(this.fragmentName + 'Fragment', packageDir, this.appPackage + '.ui.' + this.fragmentPackageName);
+                }
             } else {
-                this.componentType = 'useApplication';
-                this.addComponentInjection(this.fragmentName + 'Fragment', packageDir, this.appPackage + '.ui.' + this.fragmentPackageName);
+                if (this.componentType == 'createNew') {
+                    this.template(appFolder + '/src/main/java/di/components/_Component' + ext,
+                        'app/src/main/java/' + packageDir + '/di/components/' + this.activityName + 'Component' + ext, this, {});
+                    this.template(appFolder + '/src/main/java/di/modules/_Module' + ext,
+                        'app/src/main/java/' + packageDir + '/di/modules/' + this.activityName + 'Module' + ext, this, {});
+                } else if (this.componentType == 'useApplication') {
+                    if (this.language == 'java') {
+                        this.addComponentInjection(this.fragmentName + 'Fragment', packageDir, this.appPackage + '.ui.' + this.fragmentPackageName)
+                    } else {
+                        this.addComponentInjectionKotlin(this.fragmentName + 'Fragment', packageDir, this.appPackage + '.ui.' + this.fragmentPackageName)
+                    }
+                } else {
+                    if (this.language == 'java') {
+                        this.addComponentInjection(this.fragmentName + 'Fragment', packageDir, this.appPackage + '.ui.' + this.fragmentPackageName, this.componentType);
+                    } else {
+                        this.addComponentInjectionKotlin(this.fragmentName + 'Fragment', packageDir, this.appPackage + '.ui.' + this.fragmentPackageName, this.componentType);
+                    }
+                }
             }
 
             this.template(appFolder + '/src/main/java/_Fragment' + ext,

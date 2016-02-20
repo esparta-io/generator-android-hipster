@@ -9,6 +9,7 @@ import com.squareup.leakcanary.RefWatcher;
 
 <% if (jodatime == true) { %>import net.danlew.android.joda.JodaTimeAndroid; <% } %>
 <% if (printview == true) { %>import com.github.johnkil.print.PrintConfig; <% } %>
+<% if (glide == true) { %>import com.bumptech.glide.Glide;<% } %>
 
 import <%= appPackage %>.environment.EnvironmentConfiguration;
 import <%= appPackage %>.R;
@@ -78,6 +79,18 @@ public class App extends Application {
         graph.inject(this);
         return graph;
     }
+
+    <% if (glide == true) { %>@Override
+    public void onTrimMemory(int level) {
+        super.onTrimMemory(level);
+        Glide.get(this).trimMemory(level);
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        Glide.get(this).clearMemory();
+    }<% } %>
 
     public void recreateComponents() {
         graph = DaggerApplicationComponent.builder()

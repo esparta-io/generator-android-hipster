@@ -14,6 +14,10 @@ import rx.functions.Func1;
 
 public class RepositoryUtils {
 
+    private RepositoryUtils() {
+
+    }
+
     @NonNull
     public static <T> Observable.Transformer<Result<T>, T> transformResult() {
 
