@@ -55,7 +55,7 @@ class App : Application() {
     }
 
     companion object {
-        fun get(context: Context): App {
+        @JvmStatic fun get(context: Context): App {
             return context.applicationContext as App
         }
     }
