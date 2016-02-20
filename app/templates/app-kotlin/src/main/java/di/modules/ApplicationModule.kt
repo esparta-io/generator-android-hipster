@@ -5,14 +5,17 @@ import android.content.Context
 
 import javax.inject.Singleton
 
+import android.content.SharedPreferences
+import com.google.gson.Gson
+
 <% if (eventbus) { %>import org.greenrobot.eventbus.EventBus<% } %>
 import dagger.Module
 import dagger.Provides
 import <%= appPackage %>.application.App
 import <%= appPackage %>.di.ForApplication;
-import <%= appPackage %>.BuildConfig
 import <%= appPackage %>.domain.executors.JobExecutor
 import <%= appPackage %>.domain.executors.ThreadExecutor
+import <%= appPackage %>.storage.Storage
 
 // android-hipster-needle-module-provides-import
 

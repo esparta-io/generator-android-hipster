@@ -179,7 +179,7 @@
         "scope": "compile",
         "group": "io.reactivex",
         "name": "rxkotlin",
-        "version": "0.50",
+        "version": "0.40.1",
         "lang": "kotlin"
       },
       {
@@ -378,7 +378,7 @@
         "scope": "compile",
         "group": "com.github.grandstaish.paperparcel",
         "name": "paperparcel",
-        "version": "0.9.9",
+        "version": "1.0.0-beta1",
         "lang": "kotlin",
         "selection": "paperparcel"
       },
@@ -386,7 +386,7 @@
         "scope": "kapt",
         "group": "com.github.grandstaish.paperparcel",
         "name": "paperparcel",
-        "version": "0.9.9",
+        "version": "1.0.0-beta1",
         "lang": "kotlin",
         "selection": "paperparcel"
       },

@@ -27,7 +27,7 @@ abstract class BaseActivity<P : BasePresenter<*>?> : <% if (nucleus == true) { %
     override fun onDestroy() {
         <% if (butterknife == true) { %>ButterKnife.unbind(this) <% } %>
         super.onDestroy()
-        App.refWatcher.watch(this)
+        App.get(this).refWatcher?.watch(this)
     }
 
     <% if (calligraphy == true) { %>@CallSuper

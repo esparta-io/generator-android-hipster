@@ -1,4 +1,4 @@
-package <%= appPackage %>.di
+package <%= appPackage %>.network
 
 import javax.inject.Qualifier;
 

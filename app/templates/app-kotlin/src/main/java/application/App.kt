@@ -23,8 +23,9 @@ import javax.inject.Inject
 
 class App : Application() {
 
-    var graph by Delegates.notNull<ApplicationComponent>();
-    var refWatcher by Delegates.notNull<RefWatcher>();
+    var graph:ApplicationComponent? = null
+
+    var refWatcher:RefWatcher? = null
 
     override fun attachBaseContext(base: Context) {
         super.attachBaseContext(base)
@@ -53,15 +54,17 @@ class App : Application() {
 
     }
 
-    operator fun get(context: Context): App {
-        return context.getApplicationContext()
+    companion object {
+        fun get(context: Context): App {
+            return context.applicationContext as App
+        }
     }
 
     fun getComponent(): ApplicationComponent {
         if (graph == null) {
             createComponent()
         }
-        return graph
+        return graph!!
     }
 
     private fun createComponent(): ApplicationComponent {
@@ -72,11 +75,11 @@ class App : Application() {
 
     fun recreateComponents() {
         graph = ApplicationComponent.Initializer.init(this)
-        graph.inject(this)
+        graph!!.inject(this)
         environmentConfiguration.configure()
     }
 
-    fun getRefWatcher(): RefWatcher? {
+    fun refWatcher(): RefWatcher? {
         return refWatcher
     }
 
