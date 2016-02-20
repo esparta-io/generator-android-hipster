@@ -5,7 +5,7 @@ import com.google.android.gms.iid.InstanceIDListenerService
 
 class PushIDListenerService : InstanceIDListenerService() {
 
-    fun onTokenRefresh() {
+    override fun onTokenRefresh() {
         super.onTokenRefresh()
         // TODO update your device token here
     }

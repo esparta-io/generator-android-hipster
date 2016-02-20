@@ -15,17 +15,17 @@ import javax.inject.Inject;
 
 class PushServiceListener : GcmListenerService() {
 
-    fun onCreate() {
+    override fun onCreate() {
         super.onCreate()
-        App.get(this).component.inject(this)
+        App.get(this).getComponent().inject(this)
     }
 
-    fun onMessageReceived(from: String, data: Bundle) {
+    override fun onMessageReceived(from: String, data: Bundle) {
         val filter = IntentFilter()
         filter.addAction("Events.PUSH")
         val broadcast = Intent()
         broadcast.putExtras(data)
-        broadcast.setAction("Events.PUSH")
+        broadcast.action = "Events.PUSH"
         sendOrderedBroadcast(broadcast, null, null, null, Activity.RESULT_OK, null, data)
     }
 }

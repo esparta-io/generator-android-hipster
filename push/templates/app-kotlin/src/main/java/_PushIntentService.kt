@@ -16,13 +16,13 @@ class PushIntentService : IntentService("PushIntentService") {
     @Inject
     lateinit var notificationManager: NotificationManager
 
-    fun onCreate() {
+    override fun onCreate() {
         super.onCreate()
-        App.get(this).component.inject(this)
+        App.get(this).getComponent.inject(this)
     }
 
-    protected fun onHandleIntent(intent: Intent) {
-        handleNotification(intent.getExtras())
+    override fun onHandleIntent(intent: Intent) {
+        handleNotification(intent.extras)
     }
 
     private fun handleNotification(extras: Bundle) {
