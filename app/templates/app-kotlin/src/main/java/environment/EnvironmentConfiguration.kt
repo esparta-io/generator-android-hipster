@@ -19,7 +19,7 @@ class EnvironmentConfiguration @Inject constructor() {
     fun configure() {
         StrictMode.setThreadPolicy(StrictMode.ThreadPolicy.Builder().detectAll().penaltyLog().build())
         StrictMode.setVmPolicy(StrictMode.VmPolicy.Builder().detectAll().penaltyLog().build())
-        <% if (stetho == true) { %>Stetho.initializeWithDefaults(app)<% } %>
+        <% if (stetho == true) { %>Schedulers.io().createWorker().schedule { Stetho.initializeWithDefaults(app) }<% } %>
         <% if (timber == true) { %>if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
         } else {
