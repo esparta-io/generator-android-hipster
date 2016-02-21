@@ -88,7 +88,7 @@ module.exports = ActivityGenerator.extend({
                 choices: [
                     {
                         value: 'createNew',
-                        name: 'The same component of the activity'
+                        name: 'The SAME component of the activity'
                     },
                     {
                         value: 'useApplication',
@@ -96,7 +96,7 @@ module.exports = ActivityGenerator.extend({
                     },
                     {
                         value: 'useExistingComponent',
-                        name: 'Use the another existing component to inject this activity'
+                        name: 'Use the ANOTHER existing component to inject this activity'
                     }
 
                 ],
@@ -112,11 +112,11 @@ module.exports = ActivityGenerator.extend({
                 choices: [
                     {
                         value: 'useApplication',
-                        name: 'Use the ApplicationComponent to inject this activity'
+                        name: 'Use the ApplicationComponent to inject this fragment'
                     },
                     {
                         value: 'useExistingComponent',
-                        name: 'Use the another existing component to inject this activity'
+                        name: 'Use the another existing component to inject this fragment'
                     }
 
                 ],
@@ -140,6 +140,7 @@ module.exports = ActivityGenerator.extend({
             this.activityName = props.activityName;
             this.usePresenter = props.usePresenter;
             this.componentType = props.componentType;
+            this.useExistingComponentName = props.useExistingComponentName;
             done();
         }.bind(this));
     },

@@ -45,7 +45,7 @@ class <%= activityName %>Activity : BaseActivity<<%= activityName %>Presenter>()
     }
 
     override fun getComponent():  <% if (componentType == 'createNew') { %><%= activityName %>Component<% } else if (componentType == 'useApplication') { %>ApplicationComponent<% } else {  %><%= useExistingComponentName %>Component<% } %> {
-        return  <% if (componentType == 'createNew') { %><%= activityName.charAt(0).toLowerCase() + activityName.slice(1) %>Component<% } else if (componentType == 'useApplication') { %>applicationComponent<% } else {  %><%= underscoreUseExistingComponentName %>Component<% } %>
+        return <% if (componentType == 'createNew') { %><%= activityName.charAt(0).toLowerCase() + activityName.slice(1) %>Component<% } else if (componentType == 'useApplication') { %>applicationComponent<% } else {  %><%= underscoreUseExistingComponentName %>Component<% } %>
     }
 
 }

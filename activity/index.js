@@ -101,19 +101,11 @@ module.exports = ActivityGenerator.extend({
                 store: true,
                 default: false
             }
-            //{
-            //    type: 'confirm',
-            //    name: 'fragment',
-            //    message: 'Create a simple Fragment for this Activity?',
-            //    default: true
-            //}
-
         ];
 
         this.prompt(prompts, function (props) {
             this.activityName = props.name;
             this.activityPackageName = props.activityPackageName;
-            this.fragment = props.fragment || false;
             this.componentType = props.componentType;
             this.useExistingComponentName = props.useExistingComponentName;
             this.useExistingComponentNameApplication = props.useExistingComponentNameApplication;
@@ -141,8 +133,6 @@ module.exports = ActivityGenerator.extend({
                 this.underscoreUseExistingComponentName = this.useExistingComponentName.charAt(0).toLowerCase() + this.useExistingComponentName.slice(1);
             }
 
-            console.log('AEHOOOOOO', this.useExistingComponentNameApplication);
-
             var appFolder;
             if (this.language == 'java') {
                 appFolder = 'app-java';
@@ -160,38 +150,21 @@ module.exports = ActivityGenerator.extend({
             } else if (this.componentType == 'useApplication') {
                 if (this.language == 'java') {
                     this.addComponentInjection(this.activityName + 'Activity', packageDir, this.appPackage + '.ui.' + this.activityPackageName);
-                    if (this.fragment) {
-                        this.addComponentInjection(this.activityName + 'Fragment', packageDir, this.appPackage + '.ui.' + this.activityPackageName)
-                    }
                 } else {
                     this.addComponentInjectionKotlin(this.activityName + 'Activity', packageDir, this.appPackage + '.ui.' + this.activityPackageName);
-                    if (this.fragment) {
-                        this.addComponentInjectionKotlin(this.activityName + 'Fragment', packageDir, this.appPackage + '.ui.' + this.activityPackageName)
-                    }
                 }
             } else {
                 this.useExistingComponentName = this.useExistingComponentName.replace("Component", "");
                 var name = this.useExistingComponentName + "Component";
                 if (this.language == 'java') {
                     this.addComponentInjection(this.activityName + 'Activity', packageDir, this.appPackage + '.ui.' + this.activityPackageName, name);
-                    if (this.fragment) {
-                        this.addComponentInjection(this.activityName + 'Fragment', packageDir, this.appPackage + '.ui.' + this.activityPackageName, name);
-                    }
                 } else {
                     this.addComponentInjectionKotlin(this.activityName + 'Activity', packageDir, this.appPackage + '.ui.' + this.activityPackageName, name);
-                    if (this.fragment) {
-                        this.addComponentInjectionKotlin(this.activityName + 'Fragment', packageDir, this.appPackage + '.ui.' + this.activityPackageName, name);
-                    }
                 }
             }
 
             this.template(appFolder + '/src/main/java/ui/_Activity' + ext,
                 'app/src/main/java/' + packageDir + '/ui/' + packageFolder + '/' + this.activityName + 'Activity' + ext, this, {});
-
-            if (this.fragment == true) {
-                this.template(appFolder + '/src/main/java/ui/_Fragment' + ext,
-                    'app/src/main/java/' + packageDir + '/ui/' + packageFolder + '/' + this.activityName + 'Fragment' + ext, this, {});
-            }
 
             this.template(appFolder + '/src/main/java/ui/_Presenter' + ext,
                 'app/src/main/java/' + packageDir + '/ui/' + packageFolder + '/' + this.activityName + 'Presenter' + ext, this, {});
@@ -201,11 +174,6 @@ module.exports = ActivityGenerator.extend({
 
             this.template('resources/res/layout/_activity.xml',
                 'app/src/main/res/layout/activity_' + this.underscoreActivityName + '.xml', this, {});
-
-            if (this.fragment == true) {
-                this.template('resources/res/layout/_fragment.xml',
-                    'app/src/main/res/layout/fragment_' + this.underscoreActivityName + '.xml', this, {});
-            }
 
             var manifestFilePath = 'app/src/main/AndroidManifest.xml';
 
