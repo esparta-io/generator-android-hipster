@@ -9,6 +9,7 @@ import com.squareup.leakcanary.RefWatcher;
 
 <% if (jodatime == true) { %>import net.danlew.android.joda.JodaTimeAndroid; <% } %>
 <% if (printview == true) { %>import com.github.johnkil.print.PrintConfig; <% } %>
+<% if (glide == true) { %>import com.bumptech.glide.Glide;<% } %>
 
 import <%= appPackage %>.environment.EnvironmentConfiguration;
 import <%= appPackage %>.R;
@@ -22,9 +23,9 @@ import javax.inject.Inject;
 
 public class App extends Application {
 
-public static ApplicationComponent graph;
+    private ApplicationComponent graph;
 
-    private static RefWatcher refWatcher;
+    private RefWatcher refWatcher;
 
     @ForApplication
     @Inject
@@ -32,8 +33,6 @@ public static ApplicationComponent graph;
 
     @Inject
     EnvironmentConfiguration environmentConfiguration;
-
-    private static App instance = null;
 
     @Override
     protected void attachBaseContext(Context base) {
@@ -45,7 +44,6 @@ public static ApplicationComponent graph;
         super.onCreate();
 
         LeakCanary.install(this);
-        instance = this;
         refWatcher = LeakCanary.install(this);
 
         <% if (jodatime == true) { %>JodaTimeAndroid.init(this); <% } %>
@@ -58,15 +56,46 @@ public static ApplicationComponent graph;
 
     }
 
-    public ApplicationComponent createComponent() {
-        ApplicationComponent applicationComponent = ApplicationComponent.Initializer.init(this);
-
-        applicationComponent.inject(this);
-        return applicationComponent;
+    public RefWatcher getRefWatcher() {
+        if (refWatcher == null) {
+            refWatcher = LeakCanary.install(this);
+        }
+        return refWatcher;
     }
 
-    public static RefWatcher getRefWatcher() {
-       return refWatcher;
+    public static App get(Context context) {
+        return (App) context.getApplicationContext();
+    }
+
+    public ApplicationComponent getComponent() {
+        if (graph == null) {
+            createComponent();
+        }
+        return graph;
+    }
+
+    private ApplicationComponent createComponent() {
+        graph = ApplicationComponent.Initializer.init(this);
+        graph.inject(this);
+        return graph;
+    }
+
+    <% if (glide == true) { %>@Override
+    public void onTrimMemory(int level) {
+        super.onTrimMemory(level);
+        Glide.get(this).trimMemory(level);
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        Glide.get(this).clearMemory();
+    }<% } %>
+
+    public void recreateComponents() {
+        graph = ApplicationComponent.Initializer.init(this);
+        graph.inject(this);
+        environmentConfiguration.configure();
     }
 
 

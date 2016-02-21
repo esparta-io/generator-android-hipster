@@ -7,9 +7,9 @@ import  <%= appPackage %>.ui.main.MainActivity
 @Module
 public class MainModule(val activity: MainActivity) {
 
-  @Provides
-  fun provideActivity() : MainActivity{
-    return activity
-  }
+    @Provides
+    fun provideActivity() : MainActivity{
+        return activity
+    }
 
 }

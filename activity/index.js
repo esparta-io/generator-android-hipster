@@ -36,7 +36,7 @@ module.exports = ActivityGenerator.extend({
         ));
 
         var defaultAppBaseName = 'Sample';
-        var defaultName = '';
+        var defaultName = 'sample';
 
         var prompts = [{
             name: 'name',
@@ -46,7 +46,7 @@ module.exports = ActivityGenerator.extend({
                 if (/^([a-zA-Z0-9_]*)$/.test(input)) return true;
                 return 'Your activity name cannot contain special characters or a blank space, using the default name instead : ' + defaultAppBaseName;
             },
-            default: this.defaultAppBaseName
+            default: defaultAppBaseName
         },
             {
                 when: function (response) {
@@ -74,25 +74,41 @@ module.exports = ActivityGenerator.extend({
                     {
                         value: 'useApplication',
                         name: 'Use the ApplicationComponent to inject this activity'
+                    },
+                    {
+                        value: 'useExistingComponent',
+                        name: 'Use the another existing component to inject this activity'
                     }
 
                 ],
                 default: 0
             },
             {
+                when: function (response) {
+                    return response.componentType == 'useExistingComponent';
+                },
+                name: 'useExistingComponentName',
+                message: 'What is the name of the existing Component?',
+                store: true
+            },
+            {
+                when: function (response) {
+                    return response.componentType == 'useExistingComponent';
+                },
                 type: 'confirm',
-                name: 'fragment',
-                message: 'Create a simple Fragment for this Activity?',
-                default: true
+                name: 'useExistingComponentNameApplication',
+                message: 'This component is available in App class? (If NO, will create a new instance to this component)',
+                store: true,
+                default: false
             }
-
         ];
 
         this.prompt(prompts, function (props) {
             this.activityName = props.name;
             this.activityPackageName = props.activityPackageName;
-            this.fragment = props.fragment;
             this.componentType = props.componentType;
+            this.useExistingComponentName = props.useExistingComponentName;
+            this.useExistingComponentNameApplication = props.useExistingComponentNameApplication;
             this.usePresenter = true;
             done();
         }.bind(this));
@@ -113,6 +129,9 @@ module.exports = ActivityGenerator.extend({
             var packageFolder = this.activityPackageName.replace(/\./g, '/').replace(this.appPackage, '');
             var packageDir = this.appPackage.replace(/\./g, '/');
             this.underscoreActivityName = _s.underscored(this.activityName);
+            if (this.useExistingComponentName != undefined) {
+                this.underscoreUseExistingComponentName = this.useExistingComponentName.charAt(0).toLowerCase() + this.useExistingComponentName.slice(1);
+            }
 
             var appFolder;
             if (this.language == 'java') {
@@ -128,27 +147,24 @@ module.exports = ActivityGenerator.extend({
                     'app/src/main/java/' + packageDir + '/di/components/' + this.activityName + 'Component' + ext, this, {});
                 this.template(appFolder + '/src/main/java/di/modules/_Module' + ext,
                     'app/src/main/java/' + packageDir + '/di/modules/' + this.activityName + 'Module' + ext, this, {});
-            } else {
+            } else if (this.componentType == 'useApplication') {
                 if (this.language == 'java') {
                     this.addComponentInjection(this.activityName + 'Activity', packageDir, this.appPackage + '.ui.' + this.activityPackageName);
-                    if (this.fragment) {
-                        this.addComponentInjection(this.activityName + 'Fragment', packageDir, this.appPackage + '.ui.' + this.activityPackageName)
-                    }
                 } else {
                     this.addComponentInjectionKotlin(this.activityName + 'Activity', packageDir, this.appPackage + '.ui.' + this.activityPackageName);
-                    if (this.fragment) {
-                        this.addComponentInjectionKotlin(this.activityName + 'Fragment', packageDir, this.appPackage + '.ui.' + this.activityPackageName)
-                    }
+                }
+            } else {
+                this.useExistingComponentName = this.useExistingComponentName.replace("Component", "");
+                var name = this.useExistingComponentName + "Component";
+                if (this.language == 'java') {
+                    this.addComponentInjection(this.activityName + 'Activity', packageDir, this.appPackage + '.ui.' + this.activityPackageName, name);
+                } else {
+                    this.addComponentInjectionKotlin(this.activityName + 'Activity', packageDir, this.appPackage + '.ui.' + this.activityPackageName, name);
                 }
             }
 
             this.template(appFolder + '/src/main/java/ui/_Activity' + ext,
                 'app/src/main/java/' + packageDir + '/ui/' + packageFolder + '/' + this.activityName + 'Activity' + ext, this, {});
-
-            if (this.fragment == true) {
-                this.template(appFolder + '/src/main/java/ui/_Fragment' + ext,
-                    'app/src/main/java/' + packageDir + '/ui/' + packageFolder + '/' + this.activityName + 'Fragment' + ext, this, {});
-            }
 
             this.template(appFolder + '/src/main/java/ui/_Presenter' + ext,
                 'app/src/main/java/' + packageDir + '/ui/' + packageFolder + '/' + this.activityName + 'Presenter' + ext, this, {});
@@ -158,11 +174,6 @@ module.exports = ActivityGenerator.extend({
 
             this.template('resources/res/layout/_activity.xml',
                 'app/src/main/res/layout/activity_' + this.underscoreActivityName + '.xml', this, {});
-
-            if (this.fragment == true) {
-                this.template('resources/res/layout/_fragment.xml',
-                    'app/src/main/res/layout/fragment_' + this.underscoreActivityName + '.xml', this, {});
-            }
 
             var manifestFilePath = 'app/src/main/AndroidManifest.xml';
 
@@ -184,8 +195,11 @@ module.exports = ActivityGenerator.extend({
             styles.style(this.activityName + 'Style').attr('parent', 'AppTheme').text('');
             styles.writeFile(stylesFilePath);
 
-            var styles21FilePath = 'app/src/main/res/values-v21/styles.xml';
-            styles.writeFile(styles21FilePath);
+            var stylesFilePath21 = 'app/src/main/res/values-v21/styles.xml';
+            var styles21 = new AndroidResource().readFile(stylesFilePath21);
+            styles21.style(this.activityName + 'Style').attr('parent', 'AppTheme').text('');
+            styles21.writeFile(stylesFilePath21);
+
         },
 
         install: function () {

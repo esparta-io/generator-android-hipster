@@ -21,24 +21,24 @@ import com.google.gson.JsonSerializer
 
 class MoneyTypeConverter : JsonSerializer<Money>, JsonDeserializer<Money> {
 
-  override fun serialize(src: Money, srcType: Type, context: JsonSerializationContext): JsonElement {
-    return JsonPrimitive(serialize(src))
-  }
+    override fun serialize(src: Money, srcType: Type, context: JsonSerializationContext): JsonElement {
+        return JsonPrimitive(serialize(src))
+    }
 
-  @Throws(JsonParseException::class)
-  override fun deserialize(json: JsonElement, type: Type, context: JsonDeserializationContext): Money {
-    val jsonString = json.asString
-    return deserialize(jsonString)
-  }
+    @Throws(JsonParseException::class)
+    override fun deserialize(json: JsonElement, type: Type, context: JsonDeserializationContext): Money {
+        val jsonString = json.asString
+        return deserialize(jsonString)
+    }
 
-  internal fun deserialize(jsonString: String): Money {
-    return Money.parse(jsonString)
-  }
+    internal fun deserialize(jsonString: String): Money {
+        return Money.parse(jsonString)
+    }
 
-  internal fun serialize(src: Money): String {
-    return moneyFormatter.print(src)
-  }
+    internal fun serialize(src: Money): String {
+        return moneyFormatter.print(src)
+    }
 
-  private val moneyFormatter: MoneyFormatter
-    get() = MoneyFormatterBuilder().appendCurrencyCode().appendLiteral(" ").appendAmount(MoneyAmountStyle.ASCII_DECIMAL_POINT_NO_GROUPING).toFormatter()
+    private val moneyFormatter: MoneyFormatter
+        get() = MoneyFormatterBuilder().appendCurrencyCode().appendLiteral(" ").appendAmount(MoneyAmountStyle.ASCII_DECIMAL_POINT_NO_GROUPING).toFormatter()
 }

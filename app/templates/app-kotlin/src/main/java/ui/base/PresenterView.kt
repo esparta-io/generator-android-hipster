@@ -1,3 +1,3 @@
 package <%= appPackage %>.ui.base
 
-public interface PresenterView { }
+interface PresenterView { }

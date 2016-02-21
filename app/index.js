@@ -15,25 +15,66 @@ var AppGenerator = generators.Base.extend({});
 util.inherits(AppGenerator, scriptBase);
 
 module.exports = AppGenerator.extend({
+    initializing: {
+        setupVars: function () {
+            this.baseName = this.config.get('appName');
+            console.log(this.baseName);
+            this.jhipsterVersion = this.config.get('jhipsterVersion');
+            this.testFrameworks = this.config.get('testFrameworks');
+
+            var configFound = this.baseName != null;
+            if (configFound) {
+                this.existingProject = true;
+            }
+
+            this.appName = this.config.get('appName');
+            this.language = this.config.get('language');
+            this.appPackage = this.config.get('appPackage');
+
+            this.nucleus = this.config.get('nucleus') || true;
+            this.mvp = this.config.get('mvp') || 'nucleus';
+            this.imageLib = this.config.get('imageLib') || 'glide';
+            this.glide = this.config.get('glide');
+            this.picasso = this.config.get('picasso');
+            this.eventbus = this.config.get('eventbus') || true;
+            this.mixpanel = this.config.get('mixpanel') || true;
+            this.timber = this.config.get('timber') || true;
+            this.jodatime = this.config.get('jodatime') || true;
+            this.jodamoney = this.config.get('jodamoney') || true;
+            this.butterknife = this.config.get('butterknife') || true;
+            this.androidTargetSdkVersion = this.config.get('androidTargetSdkVersion');
+            this.androidMinSdkVersion = this.config.get('minSdk');
+            this.calligraphy = this.config.get('calligraphy') || true;
+            this.playServices = this.config.get('playServices') || [];
+            this.stetho = this.config.get('stetho') || true;
+            this.printview = this.config.get('printview') || true;
+            this.autoparcel = this.config.get('autoparcel') || true;
+        }
+    },
     prompting: function () {
         var done = this.async();
 
+        if (this.existingProject) {
+            done();
+            return;
+        }
         this.log(yosay(
             'Welcome to the ' + chalk.red('Android Hipster') + ' generator!'
         ));
 
         var defaultAppBaseName = 'android.hipster';
 
-        var prompts = [{
-            name: 'name',
-            message: 'What are the name of your app?',
-            store: true,
-            validate: function (input) {
-                if (/^([a-zA-Z0-9_]*)$/.test(input)) return true;
-                return 'Your application name cannot contain special characters or a blank space, using the default name instead : ' + defaultAppBaseName
+        var prompts = [
+            {
+                name: 'name',
+                message: 'What are the name of your app?',
+                store: true,
+                validate: function (input) {
+                    if (/^([a-zA-Z0-9_]*)$/.test(input)) return true;
+                    return 'Your application name cannot contain special characters or a blank space, using the default name instead : ' + defaultAppBaseName
+                },
+                default: this.defaultAppBaseName
             },
-            default: this.defaultAppBaseName
-        },
             {
                 name: 'package',
                 message: 'What is the package name of the app?',
@@ -52,10 +93,10 @@ module.exports = AppGenerator.extend({
                     {
                         value: 'java',
                         name: 'Java (with Retrolambda)'
-                        // },
-                        // {
-                        // value: 'kotlin',
-                        // name: 'Kotlin'
+                    },
+                    {
+                        value: 'kotlin',
+                        name: 'Kotlin'
                     }
 
                 ],
@@ -152,9 +193,21 @@ module.exports = AppGenerator.extend({
                 default: true
             },
             {
+                when: function (data) {
+                    return data.language == 'java';
+                },
                 type: 'confirm',
                 name: 'autoparcel',
                 message: 'Would you like to use AutoParcel?',
+                default: true
+            },
+            {
+                when: function (data) {
+                    return data.language == 'kotlin';
+                },
+                type: 'confirm',
+                name: 'paperparcel',
+                message: 'Would you like to use PaperParcel?',
                 default: true
             },
             {
@@ -220,6 +273,7 @@ module.exports = AppGenerator.extend({
             this.language = props.language;
             this.calligraphy = props.calligraphy;
             this.playServices = props.playServices;
+            this.paperparcel = props.paperparcel;
             this.stetho = props.stetho;
             this.printview = props.printview;
             this.autoparcel = true; // Yeap, need to be true at this time
@@ -235,16 +289,22 @@ module.exports = AppGenerator.extend({
 
     configuring: {
         saveSettings: function () {
+            if (this.existingProject) {
+                return;
+            }
             this.config.set('appPackage', this.appPackage);
             this.config.set('appName', this.appName);
             this.config.set('language', this.language);
             this.config.set('nucleus', this.nucleus);
             this.config.set('mvp', this.mvp);
             this.config.set('imageLib', this.imageLib);
+            this.config.set('picasso', this.picasso);
+            this.config.set('glide', this.glide);
             this.config.set('eventbus', this.eventbus);
             this.config.set('mixpanel', this.mixpanel);
             this.config.set('timber', this.timber);
             this.config.set('jodatime', this.jodatime);
+            this.config.set('paperparcel', this.paperparcel);
             this.config.set('jodamoney', this.jodamoney);
             this.config.set('butterknife', this.butterknife);
             this.config.set('androidTargetSdkVersion', this.androidTargetSdkVersion);
@@ -258,6 +318,7 @@ module.exports = AppGenerator.extend({
             this.config.set('nucleus', this.mvp == 'nucleus');
         }
     },
+
 
     writing: {
         projectfiles: function () {
@@ -277,12 +338,13 @@ module.exports = AppGenerator.extend({
         },
 
         app: function () {
+
+            console.log(this.stetho);
             var packageDir = this.appPackage.replace(/\./g, '/');
 
             mkdirp('app');
             mkdirp('app/libs');
 
-            var i = 0;
             var appFolder;
             if (this.language == 'java') {
                 appFolder = 'app-java'
@@ -300,50 +362,42 @@ module.exports = AppGenerator.extend({
 
             mkdirp('app/src/main/java/' + packageDir);
 
-            this.template(appFolder + '/src/main/java/environment', 'app/src/internalDebug/java/' + packageDir + '/environment', this, {});
-            this.template(appFolder + '/src/main/java/environment', 'app/src/internalRelease/java/' + packageDir + '/environment', this, {});
-            this.template(appFolder + '/src/main/java/environment', 'app/src/productionDebug/java/' + packageDir + '/environment', this, {});
-            this.template(appFolder + '/src/main/java/environment', 'app/src/productionRelease/java/' + packageDir + '/environment', this, {});
+            var ext = this.language == 'java' ? '.java' : '.kt';
+
+            this.template(appFolder + '/src/main/java/network/ChangeableBaseUrl' + ext, 'app/src/main/java/' + packageDir + '/network/ChangeableBaseUrl' + ext, this, {});
+            this.template(appFolder + '/src/main/java/network/OkHttpNetworkInterceptors' + ext, 'app/src/main/java/' + packageDir + '/network/OkHttpNetworkInterceptors' + ext, this, {});
+            this.template(appFolder + '/src/main/java/network/OkHttpInterceptors' + ext, 'app/src/main/java/' + packageDir + '/network/OkHttpInterceptors' + ext, this, {});
+            this.template(appFolder + '/src/main/java/network/OkHttpInterceptorsModuleInternal' + ext, 'app/src/internal/java/' + packageDir + '/network/OkHttpInterceptorsModule' + ext, this, {});
+            this.template(appFolder + '/src/main/java/network/OkHttpInterceptorsModule' + ext, 'app/src/production/java/' + packageDir + '/network/OkHttpInterceptorsModule' + ext, this, {});
+            this.template(appFolder + '/src/main/java/environment', 'app/src/internal/java/' + packageDir + '/environment', this, {});
+            this.template(appFolder + '/src/main/java/environment', 'app/src/production/java/' + packageDir + '/environment', this, {});
 
             this.template(appFolder + '/src/main/java/application', 'app/src/main/java/' + packageDir + '/application', this, {});
-
             this.template(appFolder + '/src/main/java/di', 'app/src/main/java/' + packageDir + '/di', this, {});
-
             this.template(appFolder + '/src/main/java/domain', 'app/src/main/java/' + packageDir + '/domain', this, {});
-
             if (this.language == 'kotlin') {
                 this.template(appFolder + '/src/main/java/extensions/ContextExtensions.kt', 'app/src/main/java/' + packageDir + '/extensions/ContextExtensions.kt', this, {});
                 if (this.nucleus == true) {
                     this.template(appFolder + '/src/main/java/extensions/PresenterExtensions.kt', 'app/src/main/java/' + packageDir + '/extensions/PresenterExtensions.kt', this, {})
                 }
             }
-
             this.template(appFolder + '/src/main/java/model', 'app/src/main/java/' + packageDir + '/model', this, {});
 
-            var ext = this.language == 'java' ? '.java' : '.kt';
-
             this.template(appFolder + '/src/main/java/ui/base/BaseActivity' + ext, 'app/src/main/java/' + packageDir + '/ui/base/BaseActivity' + ext, this, {});
-
-            this.template(appFolder + '/src/main/java/ui/base/BaseFragment' + ext, 'app/src/main/java/' + packageDir + '/ui/base/BaseFragment' + ext, this, {});
-
             this.template(appFolder + '/src/main/java/ui/base/BasePresenter' + ext, 'app/src/main/java/' + packageDir + '/ui/base/BasePresenter' + ext, this, {});
-
+            this.template(appFolder + '/src/main/java/ui/base/BaseFragment' + ext, 'app/src/main/java/' + packageDir + '/ui/base/BaseFragment' + ext, this, {});
             this.template(appFolder + '/src/main/java/ui/base/EmptyPresenter' + ext, 'app/src/main/java/' + packageDir + '/ui/base/EmptyPresenter' + ext, this, {});
-
             this.template(appFolder + '/src/main/java/ui/base/PresenterView' + ext, 'app/src/main/java/' + packageDir + '/ui/base/PresenterView' + ext, this, {});
-
             this.template(appFolder + '/src/main/java/storage', 'app/src/main/java/' + packageDir + '/storage', this, {});
-
             if (this.nucleus == false) {
                 this.template(appFolder + '/src/main/java/ui/base/Presenter' + ext, 'app/src/main/java/' + packageDir + '/ui/base/Presenter' + ext, this, {})
             }
-
             if (this.timber) {
                 this.template(appFolder + '/src/main/java/util/logging', 'app/src/main/java/' + packageDir + '/util/logging', this, {})
             }
-            if (this.mixpanel) {
-                this.template(appFolder + '/src/main/java/util/analytics', 'app/src/main/java/' + packageDir + '/util/analytics', this, {})
-            }
+            //if (this.mixpanel) {
+            //    this.template(appFolder + '/src/main/java/util/analytics', 'app/src/main/java/' + packageDir + '/util/analytics', this, {})
+            //}
             if (this.jodatime) {
                 this.template(appFolder + '/src/main/java/util/gson/DateTimeTypeConverter' + ext, 'app/src/main/java/' + packageDir + '/util/gson/DateTimeTypeConverter' + ext, this, {});
                 this.template(appFolder + '/src/main/java/util/gson/DateTimeZoneTypeConverter' + ext, 'app/src/main/java/' + packageDir + '/util/gson/DateTimeZoneTypeConverter' + ext, this, {})
@@ -352,23 +406,22 @@ module.exports = AppGenerator.extend({
                 this.template(appFolder + '/src/main/java/util/gson/CurrencyUnitTypeConverter' + ext, 'app/src/main/java/' + packageDir + '/util/gson/CurrencyUnitTypeConverter' + ext, this, {});
                 this.template(appFolder + '/src/main/java/util/gson/MoneyTypeConverter' + ext, 'app/src/main/java/' + packageDir + '/util/gson/MoneyTypeConverter' + ext, this, {})
             }
-
-            if (this.autoparcel) {
+            if (this.autoparcel && this.language == 'java') {
                 this.template(appFolder + '/src/main/java/util/gson/AutoGson' + ext, 'app/src/main/java/' + packageDir + '/util/gson/AutoGson' + ext, this, {});
                 this.template(appFolder + '/src/main/java/util/gson/AutoValueTypeAdapterFactory' + ext, 'app/src/main/java/' + packageDir + '/util/gson/AutoValueTypeAdapterFactory' + ext, this, {})
             }
-
             this.template(appFolder + '/src/main/java/util/gson/GsonModule' + ext, 'app/src/main/java/' + packageDir + '/util/gson/GsonModule' + ext, this, {});
-            this.template(appFolder + '/src/main/java/util/RxUtils' + ext, 'app/src/main/java/' + packageDir + '/util/RxUtils' + ext, this, {});
             this.template(appFolder + '/src/main/java/util/PermissionUtils' + ext, 'app/src/main/java/' + packageDir + '/util/PermissionUtils' + ext, this, {});
-            this.template(appFolder + '/src/main/java/util/RepositoryUtils' + ext, 'app/src/main/java/' + packageDir + '/util/RepositoryUtils' + ext, this, {});
 
-            this.template(appFolder + '/src/main/java/util/google', 'app/src/main/java/' + packageDir + '/util/google', this, {});
+            if (this.language == 'java') {
+                this.template(appFolder + '/src/main/java/util/RxUtils' + ext, 'app/src/main/java/' + packageDir + '/util/RxUtils' + ext, this, {});
+                this.template(appFolder + '/src/main/java/util/RepositoryUtils' + ext, 'app/src/main/java/' + packageDir + '/util/RepositoryUtils' + ext, this, {});
+                this.template(appFolder + '/src/main/java/util/google', 'app/src/main/java/' + packageDir + '/util/google', this, {});
+            }
 
             this.template(appFolder + '/src/main/java/ui/main', 'app/src/main/java/' + packageDir + '/ui/main', this, {});
 
             mkdirp('app/src/main/assets');
-
             mkdirp('app/src/main/res');
 
             this.directory('resources/assets', 'app/src/main/assets');
@@ -376,7 +429,7 @@ module.exports = AppGenerator.extend({
             this.directory('resources/res', 'app/src/main/res');
 
             this.template('resources/_AndroidManifest.xml', 'app/src/main/AndroidManifest.xml', this, {});
-            this.template('../../dependencies.json', 'dependencies.json', this, {}).on('end', function() {
+            this.template('../../dependencies.json', 'dependencies.json', this, {}).on('end', function () {
                 this.installGradleDependencies(this, false);
             });
 

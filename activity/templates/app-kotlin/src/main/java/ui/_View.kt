@@ -2,6 +2,6 @@ package <%= appPackage %>.ui.<%= activityPackageName %>
 
 import <%= appPackage %>.ui.base.PresenterView
 
-public interface <%= activityName %>View : PresenterView {
+interface <%= activityName %>View : PresenterView {
 
 }

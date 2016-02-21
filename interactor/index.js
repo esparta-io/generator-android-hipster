@@ -105,8 +105,15 @@ module.exports = ActivityGenerator.extend({
                     'app/src/main/java/' + appDir + '/domain/interactors/' + packageFolder + '/' + this.interactorName + 'Interactor' + ext, this, {});
                 this.template(appFolder + '/src/main/java/interactor/_InteractorImpl' + ext,
                     'app/src/main/java/' + appDir + '/domain/interactors/' + packageFolder + '/' + this.interactorName + 'InteractorImpl' + ext, this, {});
-                this.provideInComponent(this.interactorName, appDir, this.appPackage + '.domain.interactors.' + this.interactorPackageName, 'Interactor');
-                this.updateApplicationModuleToProvide(this.interactorName, appDir, this.appPackage + '.domain.interactors.' + this.interactorPackageName, 'Interactor')
+
+                if (this.language == 'java') {
+                    this.provideInComponent(this.interactorName, appDir, this.appPackage + '.domain.interactors.' + this.interactorPackageName, 'Interactor');
+                    this.updateApplicationModuleToProvide(this.interactorName, appDir, this.appPackage + '.domain.interactors.' + this.interactorPackageName, 'Interactor')
+                } else {
+                    this.provideInComponentKotlin(this.interactorName, appDir, this.appPackage + '.domain.interactors.' + this.interactorPackageName, 'Interactor');
+                    this.updateApplicationModuleToProvideKotlin(this.interactorName, appDir, this.appPackage + '.domain.interactors.' + this.interactorPackageName, 'Interactor')
+                }
+
             }
 
         },

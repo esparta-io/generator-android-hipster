@@ -18,7 +18,7 @@ public class PushServiceListener extends GcmListenerService {
     @Override
     public void onCreate() {
         super.onCreate();
-        App.graph.inject(this);
+        App.get(this).getComponent().inject(this);
     }
 
     @Override

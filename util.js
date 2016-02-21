@@ -89,7 +89,6 @@ function rewriteReplaceFile(args) {
     var lines = args.haystack.split('\n');
 
     var otherwiseLineIndex = -1;
-    console.log(needle, lines[otherwiseLineIndex]);
     lines.forEach(function (line, i) {
         if (line.indexOf(args.needle) !== -1) {
             otherwiseLineIndex = i;
@@ -119,6 +118,7 @@ function rewriteReplaceFileMultiple(args) {
     for (var i = 0; i < args.dependencies.length; i++) {
         var otherwiseLineIndex = -1;
         var needle = args.dependencies[i].scope + ' "' + args.dependencies[i].group + ':' + args.dependencies[i].name + ':';
+
         lines.forEach(function (line, i) {
             if (line.indexOf(needle) !== -1) {
                 otherwiseLineIndex = i;
@@ -128,7 +128,8 @@ function rewriteReplaceFileMultiple(args) {
         var isNew = false;
         if (lines[otherwiseLineIndex] == undefined) {
             // dont have the dependency, added now...
-            var needle = 'android-hipster-needle-gradle-dependency';
+            var needle = args.needle || 'android-hipster-needle-gradle-dependency';
+
             lines.forEach(function (line, i) {
                 if (line.indexOf(needle) !== -1) {
                     otherwiseLineIndex = i;
@@ -168,7 +169,7 @@ function rewriteMultiple(args) {
     var lines = args.haystack.split('\n');
     for (var i = 0; i < args.dependencies.length; i++) {
 
-        var needle = 'android-hipster-needle-gradle-dependency';
+        var needle = args.needle || 'android-hipster-needle-gradle-dependency';
         var otherwiseLineIndex = -1;
         lines.forEach(function (line, i) {
             if (line.indexOf(needle) !== -1) {

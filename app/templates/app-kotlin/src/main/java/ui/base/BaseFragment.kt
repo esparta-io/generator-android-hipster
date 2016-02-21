@@ -11,49 +11,61 @@ import android.view.ViewGroup
 
 <% if (nucleus == true) { %>import nucleus.view.NucleusSupportFragment<% } else { %>import android.support.v4.app.Fragment<% } %>
 <% if (butterknife == true) { %>import butterknife.Bind
-  import butterknife.ButterKnife <% } %>
+import butterknife.ButterKnife <% } %>
 
-public abstract class BaseFragment<P : BasePresenter<*>> : <% if (nucleus == true) { %>NucleusSupportFragment<P><% } else { %>Fragment;<% } %>() {
+abstract class BaseFragment<P : BasePresenter<*>> : <% if (nucleus == true) { %>NucleusSupportFragment<P><% } else { %>Fragment;<% } %>() {
 
-  @CallSuper
-  override fun onCreateView(inflater : LayoutInflater?, container : ViewGroup?, savedInstanceState : Bundle?) : View  {
-    val rootView = inflater!!.inflate(getLayoutResource(), container, false)
-    <% if (butterknife == true) { %>ButterKnife.bind(this, rootView)<% } %>
+    @CallSuper
+    override fun onCreateView(inflater : LayoutInflater?, container : ViewGroup?, savedInstanceState : Bundle?) : View  {
+        val rootView = inflater!!.inflate(getLayoutResource(), container, false)
+        <% if (butterknife == true) { %>ButterKnife.bind(this, rootView)<% } %>
+        return rootView;
+    }
 
-    return rootView;
-  }
+    override fun onCreate(bundle: Bundle? ) {
+        super.onCreate(bundle);
+        inject();
+        <% if (nucleus == true) { %>presenterFactory = presenterFactory<% } %>
+    }
 
+    @CallSuper
+    @Override
+    override fun onResume() {
+        super.onResume()
+        <% if (nucleus == false) { %>presenter.onTakeView(this)<% } %>
+    }
 
-  override public fun onCreate(bundle: Bundle? ) {
-    super.onCreate(bundle);
-    inject();
+    @CallSuper
+    @Override
+    override fun onPause() {
+        super.onPause()
+        <% if (nucleus == false) { %>presenter.onDropView()<% } %>
+    }
 
-    <% if (nucleus == true) { %>presenterFactory = presenterFactory<% } %>
-  }
+    @CallSuper
+    override fun onDestroyView() {
+        <% if (butterknife == true) { %>ButterKnife.unbind(this)<% } %>
+        super.onDestroyView()
+        <% if (nucleus == false) { %>presenter.onDestroy()<% } %>
+    }
 
-  @CallSuper
-  override fun onDestroyView() {
-    <% if (butterknife == true) { %>ButterKnife.unbind(this) <% } %>
-    super.onDestroyView()
-  }
+    fun getBaseActivity() : BaseActivity<*> {
+        return activity as BaseActivity<*>;
+    }
 
-  public fun getBaseActivity() : BaseActivity<*>  {
-    return activity as BaseActivity<*>;
-  }
+    @CallSuper
+    override public fun onAttach(context: Context) {
+        super.onAttach(context);
+    }
 
-  @CallSuper
+    protected fun <C> getComponent(componentType: Class<C>): C {
+        return componentType.cast((activity as HasComponent<*>).getComponent())
+    }
 
-  override public fun onAttach(context: Context) {
-    super.onAttach(context);
-  }
+    protected abstract fun inject()
 
-  protected fun <C> getComponent(componentType: Class<C>): C {
-    return componentType.cast((activity as HasComponent<*>).component)
-  }
+    protected abstract fun getLayoutResource(): Int
 
-  protected abstract fun inject()
-
-  protected abstract fun getLayoutResource(): Int
-
+    <% if (nucleus == false) { %>protected abstract fun getPresenter(): P<% } %>
 
 }

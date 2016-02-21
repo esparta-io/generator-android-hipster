@@ -18,6 +18,10 @@ import java.util.List;
 
 public class PermissionUtils {
 
+    private PermissionUtils() {
+
+    }
+
     public static boolean hasAcceptedAll(@NonNull int... permissions) {
         for (int permission : permissions) {
             if (PackageManager.PERMISSION_GRANTED != permission) {

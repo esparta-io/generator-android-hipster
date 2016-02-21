@@ -1,9 +1,9 @@
-package  <%= appPackage %>.di.modules;
+package <%= appPackage %>.di.modules;
 
 import dagger.Module;
 import dagger.Provides;
-import  <%= appPackage %>.di.ActivityScope;
-import  <%= appPackage %>.ui.base.BaseActivity;
+import <%= appPackage %>.di.ActivityScope;
+import <%= appPackage %>.ui.base.BaseActivity;
 
 @ActivityScope
 @Module
