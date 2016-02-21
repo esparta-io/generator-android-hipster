@@ -55,7 +55,7 @@ public class <%= activityName %>Activity extends BaseActivity<<%= activityName %
 
     @Override
     public <% if (componentType == 'createNew') { %><%= activityName %>Component<% } else if (componentType == 'useApplication') { %>ApplicationComponent<% } else {  %><%= useExistingComponentName %>Component<% } %> getComponent() {
-        <% if (componentType == 'createNew') { %><%= activityName.charAt(0).toLowerCase() + activityName.slice(1) %>Component<% } else if (componentType == 'useApplication') { %>applicationComponent<% } else {  %><%= underscoreUseExistingComponentName %>Component<% } %>
+        return <% if (componentType == 'createNew') { %><%= activityName.charAt(0).toLowerCase() + activityName.slice(1) %>Component;<% } else if (componentType == 'useApplication') { %>applicationComponent;<% } else {  %><%= underscoreUseExistingComponentName %>Component;<% } %>
     }
 
     <% if (nucleus == false) { %>

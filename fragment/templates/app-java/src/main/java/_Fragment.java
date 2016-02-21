@@ -10,7 +10,7 @@ import <%= appPackage %>.application.App;
 import <%= appPackage %>.di.components.ApplicationComponent;
 <% } else {  %>
 import <%= appPackage %>.application.App;
-import <%= appPackage %>.di.components.<%= useExistingComponentName %>Component<% } %>
+import <%= appPackage %>.di.components.<%= useExistingComponentName %>Component;<% } %>
 
 <% if (usePresenter == false) { %>import <%= appPackage %>.ui.base.EmptyPresenter;<% } %>
 <% if (nucleus == true) { %>import nucleus.factory.PresenterFactory; <% } %>
@@ -25,7 +25,7 @@ public class <%= fragmentName %>Fragment extends BaseFragment<<% if (usePresente
 
     @Override
     protected void inject() {
-        <% if (componentType == 'createNew') { %>getComponent(<%= activityName %>Component::class.java).inject(this)<% } else if (componentType == 'useApplication') { %>App.get(getContext()).getComponent().inject(this)<% } else { %>App.get(getContext()).get<%= useExistingComponentName.replace('Application', '') %>Component().inject(this)<% } %>
+        <% if (componentType == 'createNew') { %>getComponent(<%= activityName %>Component.class).inject(this);<% } else if (componentType == 'useApplication') { %>App.get(getContext()).getComponent().inject(this);<% } else { %>App.get(getContext()).get<%= useExistingComponentName.replace('Application', '') %>Component().inject(this);<% } %>
     }
 
     <% if (nucleus == true) { %>
@@ -40,10 +40,6 @@ public class <%= fragmentName %>Fragment extends BaseFragment<<% if (usePresente
     @Override
     protected int getLayoutResource() {
         return R.layout.fragment_<%= underscoreFragmentName %>;
-    }
-
-    public static Fragment newInstance() {
-        return new <%= fragmentName %>Fragment();
     }
 
 }

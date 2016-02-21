@@ -4,7 +4,6 @@ import dagger.Component;
 import <%= appPackage %>.di.ActivityScope;
 import <%= appPackage %>.di.modules.<%= activityName %>Module;
 import <%= appPackage %>.ui.<%= activityPackageName %>.<%= activityName %>Activity;
-<% if (fragment == true) { %>import <%= appPackage %>.ui.<%= activityPackageName %>.<%= activityName %>Fragment;<% } %>
 
 // android-hipster-needle-component-injection-import
 
@@ -13,7 +12,6 @@ import <%= appPackage %>.ui.<%= activityPackageName %>.<%= activityName %>Activi
 interface <%= activityName %>Component {
 
     fun inject(activity: <%= activityName %>Activity)
-    <% if (fragment == true) { %>fun inject(fragment: <%= activityName %>Fragment)<% } %>
 
     // android-hipster-needle-component-injection-method
 

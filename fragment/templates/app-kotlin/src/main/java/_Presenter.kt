@@ -6,7 +6,7 @@ import <%= appPackage %>.ui.base.BasePresenter;
 
 import javax.inject.Inject;
 
-<% if (componentType == 'createNew') { %>@ActivityScope<% } else { %>@Singleton<% } %>
+<% if (componentType == 'createNew') { %>@ActivityScope<% } else if (componentType == 'useApplication') { %>@Singleton<% } %>
 class <%= fragmentName %>Presenter @Inject constructor() : BasePresenter<<%= fragmentName %>View>() {
 
 }
