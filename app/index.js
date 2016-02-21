@@ -428,6 +428,10 @@ module.exports = AppGenerator.extend({
 
             this.directory('resources/res', 'app/src/main/res');
 
+            if (this.language == 'java') {
+                this.directory('config', 'config');
+            }
+
             this.template('resources/_AndroidManifest.xml', 'app/src/main/AndroidManifest.xml', this, {});
             this.template('../../dependencies.json', 'dependencies.json', this, {}).on('end', function () {
                 this.installGradleDependencies(this, false);

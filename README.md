@@ -1,9 +1,11 @@
 # generator-android-hipster
 > Android generator based on MVP, Dagger2, RxJava, Java/Kotlin Stack and usefull libraries for Android
 
-> Latest version: 0.1.0
+> Latest version: 0.2.0
+
 
 > Update with `npm update generator-android-hipster`
+
 
 > Info with `npm info generator-android-hipster`
 
