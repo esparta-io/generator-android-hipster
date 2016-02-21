@@ -8,6 +8,7 @@ import <%= appPackage %>.di.ForApplication;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import rx.schedulers.Schedulers;
 
 <% if (timber == true) { %>import timber.log.Timber;
 import <%= appPackage %>.util.logging.CrashReportingTree; <% } %>

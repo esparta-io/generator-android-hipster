@@ -4,6 +4,9 @@ import dagger.Module
 import dagger.Provides
 import <%= appPackage %>.ui.<%= activityPackageName %>.<%= activityName %>Activity
 
+// android-hipster-needle-module-provides-import
+
+
 @Module
 public class <%= activityName %>Module(val activity: <%= activityName %>Activity) {
 
@@ -11,5 +14,7 @@ public class <%= activityName %>Module(val activity: <%= activityName %>Activity
     fun provideActivity() : <%= activityName %>Activity{
         return activity
     }
-        
+
+    // android-hipster-needle-module-provides-method
+
 }

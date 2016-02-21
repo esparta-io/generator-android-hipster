@@ -88,24 +88,33 @@ module.exports = ActivityGenerator.extend({
                     return response.componentType == 'useExistingComponent';
                 },
                 name: 'useExistingComponentName',
-                message: 'What is the package of the existing Component?',
+                message: 'What is the name of the existing Component?',
                 store: true
             },
             {
-                type: 'confirm',
-                name: 'fragment',
-                message: 'Create a simple Fragment for this Activity?',
-                default: true
-            }
+                when: function (response) {
+                    return response.componentType == 'useExistingComponent';
+                },
+                name: 'useExistingComponentNameApplication',
+                message: 'This component is available in App class? (If NO, will create a new instance to this component)',
+                store: false
+            },
+            //{
+            //    type: 'confirm',
+            //    name: 'fragment',
+            //    message: 'Create a simple Fragment for this Activity?',
+            //    default: true
+            //}
 
         ];
 
         this.prompt(prompts, function (props) {
             this.activityName = props.name;
             this.activityPackageName = props.activityPackageName;
-            this.fragment = props.fragment;
+            this.fragment = props.fragment || false;
             this.componentType = props.componentType;
             this.useExistingComponentName = props.useExistingComponentName;
+            this.useExistingComponentNameApplication = props.useExistingComponentNameApplication;
             this.usePresenter = true;
             done();
         }.bind(this));
@@ -126,7 +135,7 @@ module.exports = ActivityGenerator.extend({
             var packageFolder = this.activityPackageName.replace(/\./g, '/').replace(this.appPackage, '');
             var packageDir = this.appPackage.replace(/\./g, '/');
             this.underscoreActivityName = _s.underscored(this.activityName);
-            this.underscoreUseExistingComponentName = _s.underscored(this.useExistingComponentName);
+            this.underscoreUseExistingComponentName = this.useExistingComponentName.charAt(0).toLowerCase() + this.useExistingComponentName.slice(1);
 
             var appFolder;
             if (this.language == 'java') {

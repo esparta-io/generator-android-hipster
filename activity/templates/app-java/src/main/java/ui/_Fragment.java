@@ -23,7 +23,7 @@ public class <%= activityName %>Fragment extends BaseFragment<EmptyPresenter>  {
 
     @Override
     protected void inject() {
-        <% if (componentType == 'createNew') { %>getComponent(<%= activityName %>Component.class).inject(this);<% } else { %>App.get(getContext()).getComponent().inject(this);<% } %>
+        <% if (componentType != 'useApplication') { %>getComponent(<%= activityName %>Component.class).inject(this);<% } else { %>App.get(getContext()).getComponent().inject(this);<% } %>
     }
 
     <% if (nucleus == true) { %>

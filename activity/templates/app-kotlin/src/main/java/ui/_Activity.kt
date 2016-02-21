@@ -8,7 +8,7 @@ import <%= appPackage %>.R
 import <%= appPackage %>.application.App
 <% if (componentType == 'createNew') { %>import <%= appPackage %>.di.components.Dagger<%= activityName %>Component
 import <%= appPackage %>.di.components.<%= activityName %>Component
-import <%= appPackage %>.di.modules.<%= activityName %>Module<% } else if (componentType == 'useApplication') { %>import <%= appPackage %>.di.components.ApplicationComponent<% } else {  %>import <%= appPackage %>.di.components.<%= UseExistingComponentName %>Component<% } %>
+import <%= appPackage %>.di.modules.<%= activityName %>Module<% } else if (componentType == 'useApplication') { %>import <%= appPackage %>.di.components.ApplicationComponent<% } else {  %>import <%= appPackage %>.di.components.<%= useExistingComponentName %>Component<% } %>
 <% if (nucleus == true) { %>import nucleus.factory.PresenterFactory <% } %>
 
 import javax.inject.Inject
@@ -17,20 +17,22 @@ import javax.inject.Inject
 class <%= activityName %>Activity : BaseActivity<<%= activityName %>Presenter>(), <%= activityName %>View, HasComponent<<% if (componentType == 'createNew') { %><%= activityName %>Component<% } else if (componentType == 'useApplication') { %>ApplicationComponent<% } else {  %><%= useExistingComponentName %>Component<% } %>> {
 
     @Inject
-    lateinit var <%= underscoreActivityName %>Presenter: <%= activityName %>Presenter
+    lateinit var <%= activityName.charAt(0).toLowerCase() + activityName.slice(1) %>Presenter: <%= activityName %>Presenter
 
-    lateinit var <% if (componentType == 'createNew') { %><%= underscoreActivityName %>Component: <%= activityName %>Component<% } else if (componentType == 'useApplication') { %>applicationComponent: ApplicationComponent<% } else {  %><%= underscoreUseExistingComponentName %>Component<% } %>
+    lateinit var <% if (componentType == 'createNew') { %><%= activityName.charAt(0).toLowerCase() + activityName.slice(1) %>Component: <%= activityName %>Component<% } else if (componentType == 'useApplication') { %>applicationComponent: ApplicationComponent<% } else {  %><%= underscoreUseExistingComponentName %>Component<% } %>
 
     override fun injectModule() {
-        <% if (componentType == 'createNew') { %><%= underscoreActivityName %>Component = Dagger<%= activityName %>Component.builder().applicationComponent(App.get(this).getComponent()).<%= underscoreActivityName  %>Module(<%= activityName %>Module(this)).build()
-        <%= underscoreActivityName %>Component.inject(this)
+        <% if (componentType == 'createNew') { %><%= activityName.charAt(0).toLowerCase() + activityName.slice(1) %>Component = Dagger<%= activityName %>Component.builder().applicationComponent(App.get(this).getComponent()).<%= activityName.charAt(0).toLowerCase() + activityName.slice(1)  %>Module(<%= activityName %>Module(this)).build()
+        <%= activityName.charAt(0).toLowerCase() + activityName.slice(1) %>Component.inject(this)
         <% } else if (componentType == 'useApplication') { %>applicationComponent = App.get(this).getComponent()
-        applicationComponent.inject(this)<% } else {  %>
+        applicationComponent.inject(this)<% } else if (useExistingComponentNameApplication == false){  %>
         <%= underscoreUseExistingComponentName %>Component = Dagger<%= useExistingComponentName %>Component.builder().applicationComponent(App.get(this).getComponent()).<%= underscoreUseExistingComponentName  %>Module(<%= useExistingComponentName %>Module(this)).build()
-        <%= underscoreActivityName %>Component.inject(this)<% } %>
+        <%= activityName.charAt(0).toLowerCase() + activityName.slice(1) %>Component.inject(this)<% } else { %>underscoreUseExistingComponentName = App.get(this).get<%= useExistingComponentName %>>()
+        <%= activityName.charAt(0).toLowerCase() + activityName.slice(1) %>Component.inject(this)
+        <% } %>
     }
 
-    <% if (nucleus == true) { %>override fun getPresenterFactory(): PresenterFactory<<%= activityName %>Presenter>? = PresenterFactory { <%= underscoreActivityName  %>Presenter }<% } %>
+    <% if (nucleus == true) { %>override fun getPresenterFactory(): PresenterFactory<<%= activityName %>Presenter>? = PresenterFactory { <%= activityName.charAt(0).toLowerCase() + activityName.slice(1)  %>Presenter }<% } %>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,7 +43,7 @@ class <%= activityName %>Activity : BaseActivity<<%= activityName %>Presenter>()
     }
 
     override fun getComponent():  <% if (componentType == 'createNew') { %><%= activityName %>Component<% } else if (componentType == 'useApplication') { %>ApplicationComponent<% } else {  %><%= useExistingComponentName %>Component<% } %> {
-        return  <% if (componentType == 'createNew') { %><%= underscoreActivityName %>Component<% } else if (componentType == 'useApplication') { %>applicationComponent<% } else {  %><%= underscoreUseExistingComponentName %>Component<% } %>
+        return  <% if (componentType == 'createNew') { %><%= activityName.charAt(0).toLowerCase() + activityName.slice(1) %>Component<% } else if (componentType == 'useApplication') { %>applicationComponent<% } else {  %><%= underscoreUseExistingComponentName %>Component<% } %>
     }
 
 }

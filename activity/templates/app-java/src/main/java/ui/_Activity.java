@@ -17,23 +17,28 @@ import <%= appPackage %>.di.modules.<%= activityName %>Module;
 <% } else if (componentType == 'useApplication') { %>
 import <%= appPackage %>.application.App;
 import <%= appPackage %>.di.components.ApplicationComponent;
-<% } %>
+<% } else {  %>import <%= appPackage %>.di.components.<%= useExistingComponentName %>Component<% } %>
 <% if (nucleus == true) { %>import nucleus.factory.PresenterFactory; <% } %>
 
 import javax.inject.Inject;
 
 <% if (componentType == 'createNew') { %>@ActivityScope<% } %>
-public class <%= activityName %>Activity extends BaseActivity<<%= activityName %>Presenter> implements <%= activityName %>View, HasComponent<<% if (componentType == 'createNew') { %><%= activityName %><% } else { %>Application<% } %>Component> {
+public class <%= activityName %>Activity extends BaseActivity<<%= activityName %>Presenter> implements <%= activityName %>View, HasComponent<<% if (componentType == 'createNew') { %><%= activityName %>Component<% } else if (componentType == 'useApplication') { %>ApplicationComponent<% } else {  %><%= useExistingComponentName %>Component<% } %>> {
 
     @Inject
     <%= activityName %>Presenter <%= activityName.charAt(0).toLowerCase()+activityName.slice(1) %>Presenter;
 
-    <% if (componentType == 'createNew') { %><%= activityName %>Component component;<% } else { %>ApplicationComponent component;<% } %>
+    <% if (componentType == 'createNew') { %><%= activityName %>Component <%= activityName.charAt(0).toLowerCase() + activityName.slice(1) %>Component;<% } else if (componentType == 'useApplication') { %>ApplicationComponent applicationComponent;<% } else {  %><%= underscoreUseExistingComponentName %>Component <%= useExistingComponentName %>Component;<% } %>
 
     protected void injectModule() {
-        <% if (componentType == 'useApplication') { %>component = App.get(this).getComponent();
-        component.inject(this);<% } else { %>component = Dagger<%= activityName %>Component.builder().applicationComponent(App.get(this).getComponent()).<%= activityName.charAt(0).toLowerCase()+activityName.slice(1) %>Module(new <%= activityName %>Module(this)).build();
-        component.inject(this);<% } %>
+    <% if (componentType == 'createNew') { %><%= activityName.charAt(0).toLowerCase() + activityName.slice(1) %>Component = Dagger<%= activityName %>Component.builder().applicationComponent(App.get(this).getComponent()).<%= activityName.charAt(0).toLowerCase() + activityName.slice(1)  %>Module(new <%= activityName %>Module(this)).build();
+    <%= activityName.charAt(0).toLowerCase() + activityName.slice(1) %>Component.inject(this);
+    <% } else if (componentType == 'useApplication') { %>applicationComponent = App.get(this).getComponent();
+    applicationComponent.inject(this);<% } else if (useExistingComponentNameApplication == false){  %>
+    <%= underscoreUseExistingComponentName %>Component = Dagger<%= useExistingComponentName %>Component.builder().applicationComponent(App.get(this).getComponent()).<%= underscoreUseExistingComponentName  %>Module(new <%= useExistingComponentName %>Module(this)).build();
+    <%= activityName.charAt(0).toLowerCase() + activityName.slice(1) %>Component.inject(this);<% } else { %>underscoreUseExistingComponentName = App.get(this).get<%= useExistingComponentName %>>();
+    <%= activityName.charAt(0).toLowerCase() + activityName.slice(1) %>Component.inject(this);
+    <% } %>
     }
     <% if (nucleus == true) { %>
     public PresenterFactory<<%= activityName %>Presenter> getPresenterFactory() {
@@ -49,7 +54,7 @@ public class <%= activityName %>Activity extends BaseActivity<<%= activityName %
     }
 
     @Override
-    public <% if (componentType == 'createNew') { %><%= activityName %><% } else { %>Application<% } %>Component getComponent() {
+    public <% if (componentType == 'createNew') { %><%= activityName %>Component<% } else if (componentType == 'useApplication') { %>ApplicationComponent<% } else {  %><%= useExistingComponentName %>Component<% } %> getComponent() {
         return component;
     }
 
