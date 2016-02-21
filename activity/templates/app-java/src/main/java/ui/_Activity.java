@@ -34,9 +34,9 @@ public class <%= activityName %>Activity extends BaseActivity<<%= activityName %
     <% if (componentType == 'createNew') { %><%= activityName.charAt(0).toLowerCase() + activityName.slice(1) %>Component = Dagger<%= activityName %>Component.builder().applicationComponent(App.get(this).getComponent()).<%= activityName.charAt(0).toLowerCase() + activityName.slice(1)  %>Module(new <%= activityName %>Module(this)).build();
     <%= activityName.charAt(0).toLowerCase() + activityName.slice(1) %>Component.inject(this);
     <% } else if (componentType == 'useApplication') { %>applicationComponent = App.get(this).getComponent();
-    applicationComponent.inject(this);<% } else if (useExistingComponentNameApplication == false){  %>
+    applicationComponent.inject(this);<% } else if (useExistingComponentNameApplication == false) {  %>
     <%= underscoreUseExistingComponentName %>Component = Dagger<%= useExistingComponentName %>Component.builder().applicationComponent(App.get(this).getComponent()).<%= underscoreUseExistingComponentName  %>Module(new <%= useExistingComponentName %>Module(this)).build();
-    <%= activityName.charAt(0).toLowerCase() + activityName.slice(1) %>Component.inject(this);<% } else { %>underscoreUseExistingComponentName = App.get(this).get<%= useExistingComponentName %>>();
+    <%= activityName.charAt(0).toLowerCase() + activityName.slice(1) %>Component.inject(this);<% } else { %><%= underscoreUseExistingComponentName %> = App.get(this).get<%= useExistingComponentName %>Component();
     <%= activityName.charAt(0).toLowerCase() + activityName.slice(1) %>Component.inject(this);
     <% } %>
     }
@@ -55,7 +55,7 @@ public class <%= activityName %>Activity extends BaseActivity<<%= activityName %
 
     @Override
     public <% if (componentType == 'createNew') { %><%= activityName %>Component<% } else if (componentType == 'useApplication') { %>ApplicationComponent<% } else {  %><%= useExistingComponentName %>Component<% } %> getComponent() {
-        return component;
+        <% if (componentType == 'createNew') { %><%= activityName.charAt(0).toLowerCase() + activityName.slice(1) %>Component<% } else if (componentType == 'useApplication') { %>applicationComponent<% } else {  %><%= underscoreUseExistingComponentName %>Component<% } %>
     }
 
     <% if (nucleus == false) { %>

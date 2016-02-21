@@ -175,32 +175,25 @@ module.exports = ActivityGenerator.extend({
 
             var ext = this.language == 'java' ? ".java" : ".kt";
 
-            if (this.componentType == undefined) {
-                if (shelljs.test('-f', 'app/src/main/java/' + packageDir + '/di/components/' + this.activityName + 'Component' + ext)) {
-                    this.componentType = 'createNew';
-                    this.addCustomComponentInjection(this.activityName + 'Component', this.fragmentName + 'Fragment', packageDir, this.appPackage + '.ui.' + this.fragmentPackageName);
+            if (this.componentType == 'createNew') {
+                if (this.language == 'java') {
+                    this.addComponentInjection(this.fragmentName + 'Fragment', packageDir, this.appPackage + '.ui.' + this.fragmentPackageName, this.activityName + "Component");
                 } else {
-                    this.componentType = 'useApplication';
-                    this.addComponentInjection(this.fragmentName + 'Fragment', packageDir, this.appPackage + '.ui.' + this.fragmentPackageName);
+                    this.addComponentInjectionKotlin(this.fragmentName + 'Fragment', packageDir, this.appPackage + '.ui.' + this.fragmentPackageName, this.activityName + "Component");
+                }
+            } else if (this.componentType == 'useApplication') {
+                if (this.language == 'java') {
+                    this.addComponentInjection(this.fragmentName + 'Fragment', packageDir, this.appPackage + '.ui.' + this.fragmentPackageName)
+                } else {
+                    this.addComponentInjectionKotlin(this.fragmentName + 'Fragment', packageDir, this.appPackage + '.ui.' + this.fragmentPackageName)
                 }
             } else {
-                if (this.componentType == 'createNew') {
-                    this.template(appFolder + '/src/main/java/di/components/_Component' + ext,
-                        'app/src/main/java/' + packageDir + '/di/components/' + this.activityName + 'Component' + ext, this, {});
-                    this.template(appFolder + '/src/main/java/di/modules/_Module' + ext,
-                        'app/src/main/java/' + packageDir + '/di/modules/' + this.activityName + 'Module' + ext, this, {});
-                } else if (this.componentType == 'useApplication') {
-                    if (this.language == 'java') {
-                        this.addComponentInjection(this.fragmentName + 'Fragment', packageDir, this.appPackage + '.ui.' + this.fragmentPackageName)
-                    } else {
-                        this.addComponentInjectionKotlin(this.fragmentName + 'Fragment', packageDir, this.appPackage + '.ui.' + this.fragmentPackageName)
-                    }
+                this.useExistingComponentName = this.useExistingComponentName.replace("Component", "");
+                var name = this.useExistingComponentName + "Component";
+                if (this.language == 'java') {
+                    this.addComponentInjection(this.fragmentName + 'Fragment', packageDir, this.appPackage + '.ui.' + this.fragmentPackageName, name);
                 } else {
-                    if (this.language == 'java') {
-                        this.addComponentInjection(this.fragmentName + 'Fragment', packageDir, this.appPackage + '.ui.' + this.fragmentPackageName, this.componentType);
-                    } else {
-                        this.addComponentInjectionKotlin(this.fragmentName + 'Fragment', packageDir, this.appPackage + '.ui.' + this.fragmentPackageName, this.componentType);
-                    }
+                    this.addComponentInjectionKotlin(this.fragmentName + 'Fragment', packageDir, this.appPackage + '.ui.' + this.fragmentPackageName, name);
                 }
             }
 

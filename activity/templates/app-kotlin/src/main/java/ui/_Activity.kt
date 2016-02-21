@@ -8,7 +8,9 @@ import <%= appPackage %>.R
 import <%= appPackage %>.application.App
 <% if (componentType == 'createNew') { %>import <%= appPackage %>.di.components.Dagger<%= activityName %>Component
 import <%= appPackage %>.di.components.<%= activityName %>Component
-import <%= appPackage %>.di.modules.<%= activityName %>Module<% } else if (componentType == 'useApplication') { %>import <%= appPackage %>.di.components.ApplicationComponent<% } else {  %>import <%= appPackage %>.di.components.<%= useExistingComponentName %>Component<% } %>
+import <%= appPackage %>.di.modules.<%= activityName %>Module<% } else if (componentType == 'useApplication') { %>import <%= appPackage %>.di.components.ApplicationComponent<% } else {  %>import <%= appPackage %>.di.components.<%= useExistingComponentName %>Component
+import <%= appPackage %>.di.modules.<%= useExistingComponentName %>Module
+import <%= appPackage %>.di.components.Dagger<%= useExistingComponentName %>Component<% } %>
 <% if (nucleus == true) { %>import nucleus.factory.PresenterFactory <% } %>
 
 import javax.inject.Inject
@@ -19,16 +21,16 @@ class <%= activityName %>Activity : BaseActivity<<%= activityName %>Presenter>()
     @Inject
     lateinit var <%= activityName.charAt(0).toLowerCase() + activityName.slice(1) %>Presenter: <%= activityName %>Presenter
 
-    lateinit var <% if (componentType == 'createNew') { %><%= activityName.charAt(0).toLowerCase() + activityName.slice(1) %>Component: <%= activityName %>Component<% } else if (componentType == 'useApplication') { %>applicationComponent: ApplicationComponent<% } else {  %><%= underscoreUseExistingComponentName %>Component<% } %>
+    lateinit var <% if (componentType == 'createNew') { %><%= activityName.charAt(0).toLowerCase() + activityName.slice(1) %>Component: <%= activityName %>Component<% } else if (componentType == 'useApplication') { %>applicationComponent: ApplicationComponent<% } else {  %><%= underscoreUseExistingComponentName %>Component: <%= useExistingComponentName %>Component<% } %>
 
     override fun injectModule() {
         <% if (componentType == 'createNew') { %><%= activityName.charAt(0).toLowerCase() + activityName.slice(1) %>Component = Dagger<%= activityName %>Component.builder().applicationComponent(App.get(this).getComponent()).<%= activityName.charAt(0).toLowerCase() + activityName.slice(1)  %>Module(<%= activityName %>Module(this)).build()
         <%= activityName.charAt(0).toLowerCase() + activityName.slice(1) %>Component.inject(this)
         <% } else if (componentType == 'useApplication') { %>applicationComponent = App.get(this).getComponent()
-        applicationComponent.inject(this)<% } else if (useExistingComponentNameApplication == false){  %>
+        applicationComponent.inject(this)<% } else if (useExistingComponentNameApplication == false) {  %>
         <%= underscoreUseExistingComponentName %>Component = Dagger<%= useExistingComponentName %>Component.builder().applicationComponent(App.get(this).getComponent()).<%= underscoreUseExistingComponentName  %>Module(<%= useExistingComponentName %>Module(this)).build()
-        <%= activityName.charAt(0).toLowerCase() + activityName.slice(1) %>Component.inject(this)<% } else { %>underscoreUseExistingComponentName = App.get(this).get<%= useExistingComponentName %>>()
-        <%= activityName.charAt(0).toLowerCase() + activityName.slice(1) %>Component.inject(this)
+        <%= underscoreUseExistingComponentName %>Component.inject(this)<% } else { %><%= underscoreUseExistingComponentName %>Component = App.get(this).get<%= useExistingComponentName %>Component()
+        <%= underscoreUseExistingComponentName %>Component.inject(this)
         <% } %>
     }
 

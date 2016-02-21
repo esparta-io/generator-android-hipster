@@ -95,10 +95,12 @@ module.exports = ActivityGenerator.extend({
                 when: function (response) {
                     return response.componentType == 'useExistingComponent';
                 },
+                type: 'confirm',
                 name: 'useExistingComponentNameApplication',
                 message: 'This component is available in App class? (If NO, will create a new instance to this component)',
-                store: false
-            },
+                store: true,
+                default: false
+            }
             //{
             //    type: 'confirm',
             //    name: 'fragment',
@@ -135,7 +137,11 @@ module.exports = ActivityGenerator.extend({
             var packageFolder = this.activityPackageName.replace(/\./g, '/').replace(this.appPackage, '');
             var packageDir = this.appPackage.replace(/\./g, '/');
             this.underscoreActivityName = _s.underscored(this.activityName);
-            this.underscoreUseExistingComponentName = this.useExistingComponentName.charAt(0).toLowerCase() + this.useExistingComponentName.slice(1);
+            if (this.useExistingComponentName != undefined) {
+                this.underscoreUseExistingComponentName = this.useExistingComponentName.charAt(0).toLowerCase() + this.useExistingComponentName.slice(1);
+            }
+
+            console.log('AEHOOOOOO', this.useExistingComponentNameApplication);
 
             var appFolder;
             if (this.language == 'java') {
@@ -164,15 +170,17 @@ module.exports = ActivityGenerator.extend({
                     }
                 }
             } else {
+                this.useExistingComponentName = this.useExistingComponentName.replace("Component", "");
+                var name = this.useExistingComponentName + "Component";
                 if (this.language == 'java') {
-                    this.addComponentInjection(this.activityName + 'Activity', packageDir, this.appPackage + '.ui.' + this.activityPackageName, this.useExistingComponentName);
+                    this.addComponentInjection(this.activityName + 'Activity', packageDir, this.appPackage + '.ui.' + this.activityPackageName, name);
                     if (this.fragment) {
-                        this.addComponentInjection(this.activityName + 'Fragment', packageDir, this.appPackage + '.ui.' + this.activityPackageName, this.useExistingComponentName);
+                        this.addComponentInjection(this.activityName + 'Fragment', packageDir, this.appPackage + '.ui.' + this.activityPackageName, name);
                     }
                 } else {
-                    this.addComponentInjectionKotlin(this.activityName + 'Activity', packageDir, this.appPackage + '.ui.' + this.activityPackageName, this.useExistingComponentName);
+                    this.addComponentInjectionKotlin(this.activityName + 'Activity', packageDir, this.appPackage + '.ui.' + this.activityPackageName, name);
                     if (this.fragment) {
-                        this.addComponentInjectionKotlin(this.activityName + 'Fragment', packageDir, this.appPackage + '.ui.' + this.activityPackageName, this.useExistingComponentName);
+                        this.addComponentInjectionKotlin(this.activityName + 'Fragment', packageDir, this.appPackage + '.ui.' + this.activityPackageName, name);
                     }
                 }
             }

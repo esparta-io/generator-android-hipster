@@ -8,7 +8,7 @@ import <%= appPackage %>.ui.<%= activityPackageName %>.<%= activityName %>Activi
 
 
 @Module
-public class <%= activityName %>Module(val activity: <%= activityName %>Activity) {
+class <%= activityName %>Module(val activity: <%= activityName %>Activity) {
 
     @Provides
     fun provideActivity() : <%= activityName %>Activity{

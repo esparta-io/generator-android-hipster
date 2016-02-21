@@ -11,20 +11,19 @@ import <%= appPackage %>.ui.base.BaseFragment;
 import <%= appPackage %>.R;
 
 
-class <%= fragmentName %>Fragment : BaseFragment<<% if (usePresenter) { %><%= fragmentName %><% } else { %>Empty<% } %>Presenter> <% if (usePresenter) { %>, <%= fragmentName %>View<% } %> {
+class <%= fragmentName %>Fragment : BaseFragment<<% if (usePresenter) { %><%= fragmentName %><% } else { %>Empty<% } %>Presenter>() <% if (usePresenter) { %>, <%= fragmentName %>View<% } %> {
 
     @Inject
     lateinit var <% if (usePresenter) { %><%= fragmentName.charAt(0).toLowerCase()+fragmentName.slice(1) %><% } else { %>empty<% } %>Presenter : <% if (usePresenter) { %><%= fragmentName %><% } else { %>Empty<% } %>Presenter
 
     @Override
-    protected void inject() {
-        <% if (componentType != 'useApplication') { %>getComponent(<%= activityName %>Component.class).inject(this)<% } else { %>App.get(context).getComponent().inject(this)<% } %>
+    override fun inject() {
+        <% if (componentType != 'useApplication') { %>getComponent(<%= activityName %>Component::class.java).inject(this)<% } else { %>App.get(context).getComponent().inject(this)<% } %>
     }
 
     <% if (nucleus == true) { %>
-    override fun getPresenterFactory(): PresenterFactory<<% if (usePresenter) { %><%= fragmentName %><% } else { %>Empty<% } %>Presenter>{
-        return {<% if (usePresenter) { %><%= fragmentName.charAt(0).toLowerCase()+fragmentName.slice(1) %><% } else { %>empty<% } %>Presenter }
-    }<% } else { %>
+    override fun getPresenterFactory(): PresenterFactory<<% if (usePresenter) { %><%= fragmentName %><% } else { %>Empty<% } %>Presenter>? = PresenterFactory { <% if (usePresenter) { %><%= fragmentName.charAt(0).toLowerCase()+fragmentName.slice(1) %><% } else { %>empty<% } %>Presenter }
+    <% } else { %>
     @Override
     override fun getPresenter() : <% if (usePresenter) { %><%= fragmentName %><% } else { %>Empty<% } %>Presenter {
         return <% if (usePresenter) { %><%= fragmentName.charAt(0).toLowerCase()+fragmentName.slice(1) %><% } else { %>empty<% } %>Presenter

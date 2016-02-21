@@ -160,6 +160,28 @@ Generator.prototype.addCustomComponentInjection = function (component, name, bas
     }
 };
 
+Generator.prototype.addCustomComponentInjectionKotlin = function (component, name, basePath, packageName) {
+    try {
+        var fullPath = 'app/src/main/java/' + basePath + '/di/components/' + component + '.kt';
+        jhipsterUtils.rewriteFile({
+            file: fullPath,
+            needle: 'android-hipster-needle-component-injection-method',
+            splicable: [
+                'fun inject(' + name.charAt(0).toLowerCase() + name.slice(1) + ': '+name+');'
+            ]
+        });
+        jhipsterUtils.rewriteFile({
+            file: fullPath,
+            needle: 'android-hipster-needle-component-injection-import',
+            splicable: [
+                'import ' + packageName + '.' + name + ''
+            ]
+        });
+    } catch (e) {
+        this.log(chalk.yellow('\nUnable to find ') + fullPath + chalk.yellow(' or missing required android-needle. Reference to ') + name + ' ' + chalk.yellow('not added.\n'));
+    }
+};
+
 Generator.prototype.updateApplicationModuleToProvide = function (name, basePath, packageName, type, ext) {
     try {
         var fullPath = 'app/src/main/java/' + basePath + '/di/modules/ApplicationModule.java';
