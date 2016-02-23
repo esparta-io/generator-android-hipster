@@ -184,6 +184,27 @@
       },
       {
         "scope": "compile",
+        "group": "com.trello",
+        "name": "rxlifecycle",
+        "version": "0.4.0",
+        "lang": "java"
+      },
+      {
+        "scope": "compile",
+        "group": "com.trello",
+        "name": "rxlifecycle-components",
+        "version": "0.4.0",
+        "lang": "java"
+      },
+      {
+        "scope": "compile",
+        "group": "com.trello",
+        "name": "rxlifecycle-kotlin",
+        "version": "0.4.0",
+        "lang": "kotlin"
+      },
+      {
+        "scope": "compile",
         "group": "org.jetbrains.kotlin",
         "name": "kotlin-stdlib",
         "version": "1.0.0",
@@ -254,7 +275,8 @@
         "version": "2.0.5",
         "lang": "all",
         "selection": "nucleus"
-      },{
+      },
+      {
         "scope": "compile",
         "group": "info.android15.nucleus",
         "name": "nucleus-support-v7",

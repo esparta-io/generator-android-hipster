@@ -4,6 +4,7 @@ import <%= appPackage %>.domain.executors.ThreadExecutor;
 import <%= appPackage %>.domain.interactors.base.BaseUseCase;
 
 import javax.inject.Inject;
+import rx.Observable;
 
 public class <%= useCaseName %>UseCase extends BaseUseCase  {
 
@@ -12,8 +13,8 @@ public class <%= useCaseName %>UseCase extends BaseUseCase  {
         super(executor);
     }
 
-    public void invoke() {
-        // TODO
+    public Observable<Object> invoke() {
+        return Observable.just(null);
     }
 
 }
