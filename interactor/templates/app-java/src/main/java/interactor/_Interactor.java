@@ -4,6 +4,7 @@ import <%= appPackage %>.domain.executors.ThreadExecutor;
 import <%= appPackage %>.domain.interactors.base.BaseInteractor;
 
 import javax.inject.Inject;
+import rx.Observable;
 
 public class <%= interactorName %>Interactor extends BaseInteractor {
 
@@ -12,8 +13,8 @@ public class <%= interactorName %>Interactor extends BaseInteractor {
         super(executor);
     }
 
-    public void invoke() {
-        // TODO
+    public Observable<Object> invoke() {
+        return Observable.just(null);
     }
 
 }
