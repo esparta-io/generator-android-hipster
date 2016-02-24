@@ -8,7 +8,7 @@ import dagger.Module
 import dagger.Provides
 import okhttp3.Interceptor
 import okhttp3.logging.HttpLoggingInterceptor
-import timber.log.Timber
+<% if (timber == true) { %>import timber.log.Timber<% } %>
 
 @Module
 class OkHttpInterceptorsModule {
@@ -16,7 +16,7 @@ class OkHttpInterceptorsModule {
     @Provides
     @Singleton
     fun provideHttpLoggingInterceptor(): HttpLoggingInterceptor {
-        return HttpLoggingInterceptor { message -> Timber.d(message) }
+        return HttpLoggingInterceptor { message -> <% if (timber == true) { %>Timber.d(message)<% } %> }
     }
 
     @Provides

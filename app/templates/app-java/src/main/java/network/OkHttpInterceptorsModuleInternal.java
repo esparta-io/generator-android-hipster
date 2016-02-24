@@ -12,7 +12,7 @@ import dagger.Module;
 import dagger.Provides;
 import okhttp3.Interceptor;
 import okhttp3.logging.HttpLoggingInterceptor;
-import timber.log.Timber;
+<% if (timber == true) { %>import timber.log.Timber;<% } %>
 
 import static java.util.Collections.singletonList;
 
@@ -21,7 +21,7 @@ public class OkHttpInterceptorsModule {
 
     @Provides @Singleton @NonNull
     public HttpLoggingInterceptor provideHttpLoggingInterceptor() {
-        return new HttpLoggingInterceptor(message -> Timber.d(message));
+        return new HttpLoggingInterceptor(message -> <% if (timber == true) { %>Timber.d(message)<% } %>);
     }
 
     @Provides @OkHttpInterceptors @Singleton @NonNull
