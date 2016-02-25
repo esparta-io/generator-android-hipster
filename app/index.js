@@ -41,6 +41,7 @@ module.exports = AppGenerator.extend({
             this.timber = this.config.get('timber') || true;
             this.jodatime = this.config.get('jodatime') || true;
             this.jodamoney = this.config.get('jodamoney') || true;
+            this.threetenabp = this.config.get('threetenabp') || true;
             this.butterknife = this.config.get('butterknife') || true;
             this.androidTargetSdkVersion = this.config.get('androidTargetSdkVersion');
             this.androidMinSdkVersion = this.config.get('minSdk');
@@ -163,6 +164,26 @@ module.exports = AppGenerator.extend({
                 default: true
             },
             {
+                type: 'list',
+                name: 'dates',
+                message: 'What date Library do you want to use? ',
+                choices: [
+                    {
+                        value: 'jodatime',
+                        name: 'Joda Time'
+                    },
+                    {
+                        value: 'threetenabp',
+                        name: 'ThreeTenAbp'
+                    },
+                    {
+                        value: 'none',
+                        name: 'None'
+                    }
+                ],
+                default: 'threetenabp'
+            },
+            {
                 type: 'confirm',
                 name: 'mixpanel',
                 message: 'Would you like to use MixPanel?',
@@ -264,7 +285,8 @@ module.exports = AppGenerator.extend({
             this.eventbus = props.eventbus;
             this.mixpanel = props.mixpanel;
             this.timber = props.timber;
-            this.jodatime = props.jodatime;
+            this.jodatime = props.dates == 'jodatime';
+            this.threetenabp = props.dates == 'threetenabp';
             this.jodamoney = props.jodamoney;
             this.butterknife = props.butterknife;
             this.appPackage = props.package;
@@ -304,6 +326,7 @@ module.exports = AppGenerator.extend({
             this.config.set('mixpanel', this.mixpanel);
             this.config.set('timber', this.timber);
             this.config.set('jodatime', this.jodatime);
+            this.config.set('threetenabp', this.threetenabp);
             this.config.set('paperparcel', this.paperparcel);
             this.config.set('jodamoney', this.jodamoney);
             this.config.set('butterknife', this.butterknife);

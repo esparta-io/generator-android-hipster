@@ -13,6 +13,7 @@ import <%= appPackage %>.di.components.ApplicationComponent
 import <%= appPackage %>.environment.EnvironmentConfiguration
 import kotlin.properties.Delegates
 
+<% if (threetenabp == true) { %>import com.jakewharton.threetenabp.AndroidThreeTen <% } %>
 <% if (jodatime == true) { %>import net.danlew.android.joda.JodaTimeAndroid<% } %>
 <% if (printview == true) { %>import com.github.johnkil.print.PrintConfig<% } %>
 <% if (calligraphy == true) { %>import uk.co.chrisjenx.calligraphy.CalligraphyConfig<% } %>
@@ -45,6 +46,7 @@ class App : Application() {
         refWatcher = LeakCanary.install(this)
 
         <% if (jodatime === true) { %>JodaTimeAndroid.init(this)<% } %>
+        <% if (threetenabp == true) { %>  AndroidThreeTen.init(this) <% } %>
         <% if (printview === true) { %>PrintConfig.initDefault(assets, "fonts/MaterialIcons-Regular.ttf")<% } %>
         <% if (calligraphy === true) { %>CalligraphyConfig.initDefault(CalligraphyConfig.Builder().setDefaultFontPath("fonts/Roboto-Regular.ttf").setFontAttrId(R.attr.fontPath).build()) <% } %>
 

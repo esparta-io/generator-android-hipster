@@ -342,6 +342,14 @@
       },
       {
         "scope": "compile",
+        "group": "com.jakewharton.threetenabp",
+        "name": "threetenabp",
+        "version": "1.0.3",
+        "lang": "all",
+        "selection": "threetenabp"
+      },
+      {
+        "scope": "compile",
         "group": "org.joda",
         "name": "joda-money",
         "version": "0.10.0",
