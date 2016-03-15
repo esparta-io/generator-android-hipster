@@ -158,12 +158,6 @@ module.exports = AppGenerator.extend({
                 default: true
             },
             {
-                type: 'confirm',
-                name: 'jodatime',
-                message: 'Would you like to use Joda Time?',
-                default: true
-            },
-            {
                 type: 'list',
                 name: 'dates',
                 message: 'What date Library do you want to use? ',
