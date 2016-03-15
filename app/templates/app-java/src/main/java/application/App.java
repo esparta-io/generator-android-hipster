@@ -8,6 +8,7 @@ import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 
 <% if (jodatime == true) { %>import net.danlew.android.joda.JodaTimeAndroid; <% } %>
+<% if (threetenabp == true) { %>import com.jakewharton.threetenabp.AndroidThreeTen; <% } %>
 <% if (printview == true) { %>import com.github.johnkil.print.PrintConfig; <% } %>
 <% if (glide == true) { %>import com.bumptech.glide.Glide;<% } %>
 
@@ -47,6 +48,7 @@ public class App extends Application {
         refWatcher = LeakCanary.install(this);
 
         <% if (jodatime == true) { %>JodaTimeAndroid.init(this); <% } %>
+        <% if (threetenabp == true) { %>  AndroidThreeTen.init(this); <% } %>
         <% if (printview == true) { %>PrintConfig.initDefault(getAssets(), "fonts/MaterialIcons-Regular.ttf");<% } %>
         <% if (calligraphy == true) { %>CalligraphyConfig.initDefault(new CalligraphyConfig.Builder().setDefaultFontPath("fonts/Roboto-Regular.ttf").setFontAttrId(R.attr.fontPath).build()); <% } %>
 
