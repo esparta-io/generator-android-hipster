@@ -4,7 +4,6 @@ import android.app.Application;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-import <%= appPackage %>.network.ChangeableBaseUrl;
 import <%= appPackage %>.network.OkHttpInterceptors;
 import <%= appPackage %>.network.OkHttpNetworkInterceptors;
 
@@ -36,17 +35,8 @@ public class EnvironmentModule {
 
     private final App app;
 
-    @NonNull
-    private final ChangeableBaseUrl changeableBaseUrl;
-
     public EnvironmentModule(App app) {
         this.app = app;
-        this.changeableBaseUrl = new ChangeableBaseUrl("");
-    }
-
-    @Provides @NonNull @Singleton
-    public ChangeableBaseUrl provideChangeableBaseUrl() {
-        return changeableBaseUrl;
     }
 
     @Provides
@@ -79,9 +69,9 @@ public class EnvironmentModule {
 
     @Provides
     @Singleton
-    public Retrofit provideRestAdapter(@NonNull OkHttpClient okHttpClient, @NonNull ChangeableBaseUrl changeableBaseUrl, @NonNull Gson gson) {
+    public Retrofit provideRestAdapter(@NonNull OkHttpClient okHttpClient, @NonNull Gson gson) {
         Retrofit restAdapter = new Retrofit.Builder()
-                .baseUrl(changeableBaseUrl)
+                .baseUrl(BuildConfig.API_ENDPOINT_LOCAL)
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())

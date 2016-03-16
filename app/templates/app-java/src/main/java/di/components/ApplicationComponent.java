@@ -12,7 +12,6 @@ import <%= appPackage %>.di.modules.AndroidModule;
 import <%= appPackage %>.di.modules.ApplicationModule;
 import <%= appPackage %>.environment.EnvironmentConfiguration;
 import <%= appPackage %>.network.OkHttpInterceptorsModule;
-import <%= appPackage %>.network.ChangeableBaseUrl;
 import <%= appPackage %>.util.gson.GsonModule;
 
 import android.content.Context;
@@ -45,9 +44,6 @@ public interface ApplicationComponent {
     ThreadExecutor provideThreadExecutor();
 
     Storage provideStorage();
-
-    @NonNull
-    ChangeableBaseUrl changeableBaseUrl();
 
     Retrofit provideRetrofit();
 
