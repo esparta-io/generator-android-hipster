@@ -27,8 +27,6 @@ import javax.inject.Singleton
 @Module
 class EnvironmentModule(val app: App) {
 
-    val DISK_CACHE_SIZE: Long = 1000000
-
     @Provides
     @Singleton
     fun provideOkHttpClient(@ForApplication app: Context,
@@ -36,7 +34,7 @@ class EnvironmentModule(val app: App) {
                                      @OkHttpNetworkInterceptors @NonNull networkInterceptors: Array<Interceptor>): OkHttpClient {
 
         val cacheDir = File(app.cacheDir, "http")
-        val cache = Cache(cacheDir, DISK_CACHE_SIZE)
+        val cache = Cache(cacheDir, 1000000)
 
         val okHttpBuilder = OkHttpClient.Builder()
 
