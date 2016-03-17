@@ -1,38 +1,33 @@
 package <%= appPackage %>.environment;
 
-import android.app.Application
-import android.content.Context
-import android.support.annotation.NonNull
-
 import <%= appPackage %>.network.OkHttpInterceptors
 import <%= appPackage %>.network.OkHttpNetworkInterceptors
-
-import com.google.gson.Gson
-import javax.inject.Singleton
 import <%= appPackage %>.di.ForApplication
 import <%= appPackage %>.BuildConfig
 import <%= appPackage %>.application.App
 <% if (mixpanel == true) { %>import com.mixpanel.android.mpmetrics.MixpanelAPI<% } %>
 
+import android.app.Application
+import android.content.Context
+import android.support.annotation.NonNull
+import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
-
-import java.util.List
-import java.io.File
-import java.util.concurrent.TimeUnit
-
 import okhttp3.Cache
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import java.io.File
+import java.util.concurrent.TimeUnit
+import javax.inject.Singleton
 
 
 @Module
 class EnvironmentModule(val app: App) {
 
-    val DISK_CACHE_SIZE = 1000000
+    val DISK_CACHE_SIZE: Long = 1000000
 
     @Provides
     @Singleton
@@ -40,7 +35,7 @@ class EnvironmentModule(val app: App) {
                                      @OkHttpInterceptors @NonNull interceptors: List<Interceptor>,
                                      @OkHttpNetworkInterceptors @NonNull networkInterceptors: List<Interceptor>): OkHttpClient {
 
-        val cacheDir = File(app.getCacheDir(), "http")
+        val cacheDir = File(app.cacheDir, "http")
         val cache = Cache(cacheDir, DISK_CACHE_SIZE)
 
         val okHttpBuilder = OkHttpClient.Builder()
@@ -64,7 +59,7 @@ class EnvironmentModule(val app: App) {
 
     @Provides
     @Singleton
-    fun provideRestAdapter(val okHttpClient: OkHttpClient, val gson: Gson): Retrofit  {
+    fun provideRestAdapter(okHttpClient: OkHttpClient, gson: Gson): Retrofit  {
         val restAdapter = Retrofit.Builder()
                 .baseUrl(BuildConfig.API_ENDPOINT_LOCAL)
                 .client(okHttpClient)
