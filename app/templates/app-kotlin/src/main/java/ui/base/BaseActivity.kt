@@ -39,16 +39,16 @@ abstract class BaseActivity<P : BasePresenter<*>?> : <% if (nucleus == true) { %
     @CallSuper
     override fun onResume() {
         super.onResume()
-        presenter.onTakeView(this)
+        getPresenter().takeView(this)
     }
 
     @CallSuper
     override fun onPause() {
         super.onPause()
-        presenter.onDropView()
+        getPresenter().dropView()
     }
 
-    abstract override fun getPresenter(): P
+    abstract fun getPresenter(): P
     <% } %>
 
 }

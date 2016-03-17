@@ -28,7 +28,7 @@ class MainActivity : BaseActivity<MainPresenter>(), MainView, HasComponent<MainC
     }
 
     <% if (nucleus == true) { %>override fun getPresenterFactory(): PresenterFactory<MainPresenter>? = PresenterFactory { mainPresenter }<% } else { %>
-    protected fun getPresenter(): MainPresenter {
+    override fun getPresenter(): MainPresenter {
         return mainPresenter
     }<% } %>
 
@@ -43,4 +43,15 @@ class MainActivity : BaseActivity<MainPresenter>(), MainView, HasComponent<MainC
     override fun getComponent(): MainComponent {
         return mainComponent
     }
+
+    <% if (nucleus == false) { %>
+    override fun onResume() {
+        super.onResume()
+        getPresenter().takeView(this)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        getPresenter().dropView()
+    }<% } %>
 }

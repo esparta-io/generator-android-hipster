@@ -48,4 +48,15 @@ class <%= activityName %>Activity : BaseActivity<<%= activityName %>Presenter>()
         return <% if (componentType == 'createNew') { %><%= activityName.charAt(0).toLowerCase() + activityName.slice(1) %>Component<% } else if (componentType == 'useApplication') { %>applicationComponent<% } else {  %><%= underscoreUseExistingComponentName %>Component<% } %>
     }
 
+    <% if (nucleus == false) { %>
+    override fun onResume() {
+        super.onResume()
+        getPresenter().takeView(this)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        getPresenter().dropView()
+    }<% } %>
+
 }

@@ -19,7 +19,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
  * @param  a type of view to return with [.getView].
  */
-class Presenter<View> {
+open class Presenter<View> {
 
     /**
      * Returns a current view attached to the presenter or null.

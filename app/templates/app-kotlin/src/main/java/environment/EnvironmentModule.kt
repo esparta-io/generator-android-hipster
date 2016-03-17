@@ -32,8 +32,8 @@ class EnvironmentModule(val app: App) {
     @Provides
     @Singleton
     fun provideOkHttpClient(@ForApplication app: Context,
-                                     @OkHttpInterceptors @NonNull interceptors: List<Interceptor>,
-                                     @OkHttpNetworkInterceptors @NonNull networkInterceptors: List<Interceptor>): OkHttpClient {
+                                     @OkHttpInterceptors @NonNull interceptors: Array<Interceptor>,
+                                     @OkHttpNetworkInterceptors @NonNull networkInterceptors: Array<Interceptor>): OkHttpClient {
 
         val cacheDir = File(app.cacheDir, "http")
         val cache = Cache(cacheDir, DISK_CACHE_SIZE)
