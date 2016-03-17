@@ -32,7 +32,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 @Module
 class EnvironmentModule(val app: App) {
 
-    val DISK_CACHE_SIZE = 1_000_000L.toInt()
+    val DISK_CACHE_SIZE = 1000000
 
     @Provides
     @Singleton

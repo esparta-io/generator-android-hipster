@@ -41,7 +41,7 @@ public class EnvironmentModule {
 
     @Provides
     @Singleton
-    OkHttpClient provideOkHttpClient(@ForApplication Context app,
+    public OkHttpClient provideOkHttpClient(@ForApplication Context app,
                                      @OkHttpInterceptors @NonNull List<Interceptor> interceptors,
                                      @OkHttpNetworkInterceptors @NonNull List<Interceptor> networkInterceptors) {
 

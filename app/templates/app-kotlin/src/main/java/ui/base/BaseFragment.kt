@@ -13,7 +13,7 @@ import android.view.ViewGroup
 <% if (butterknife == true) { %>import butterknife.Bind
 import butterknife.ButterKnife <% } %>
 
-abstract class BaseFragment<P : BasePresenter<*>> : <% if (nucleus == true) { %>NucleusSupportFragment<P><% } else { %>Fragment;<% } %>() {
+abstract class BaseFragment<P : BasePresenter<*>> : <% if (nucleus == true) { %>NucleusSupportFragment<P><% } else { %>Fragment<% } %>() {
 
     @CallSuper
     override fun onCreateView(inflater : LayoutInflater?, container : ViewGroup?, savedInstanceState : Bundle?) : View  {
