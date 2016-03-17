@@ -1,7 +1,7 @@
 {
   "name": "generator-android-hipster",
-  "version": "0.2.3",
-  "description": "Android generator based on MVP, Dagger2, RxJava, Java/Kotlin Stack and usefull libraries for Android",
+  "version": "0.2.4",
+  "description": "Android generator based on MVP, Dagger2, RxJava, Java & Kotlin Stack and usefull libraries for Android",
   "homepage": "https://github.com/cavarzan/generator-android-hipster",
   "author": {
     "name": "cavarzan",
