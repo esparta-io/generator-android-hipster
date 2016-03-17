@@ -29,20 +29,6 @@ abstract class BaseFragment<P : BasePresenter<*>> : <% if (nucleus == true) { %>
     }
 
     @CallSuper
-    @Override
-    override fun onResume() {
-        super.onResume()
-        <% if (nucleus == false) { %>presenter.onTakeView(this)<% } %>
-    }
-
-    @CallSuper
-    @Override
-    override fun onPause() {
-        super.onPause()
-        <% if (nucleus == false) { %>presenter.onDropView()<% } %>
-    }
-
-    @CallSuper
     override fun onDestroyView() {
         <% if (butterknife == true) { %>ButterKnife.unbind(this)<% } %>
         super.onDestroyView()
@@ -54,7 +40,7 @@ abstract class BaseFragment<P : BasePresenter<*>> : <% if (nucleus == true) { %>
     }
 
     @CallSuper
-    override public fun onAttach(context: Context) {
+    override fun onAttach(context: Context) {
         super.onAttach(context);
     }
 
