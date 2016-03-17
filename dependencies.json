@@ -179,7 +179,7 @@
         "scope": "compile",
         "group": "io.reactivex",
         "name": "rxkotlin",
-        "version": "0.50",
+        "version": "0.41",
         "lang": "kotlin"
       },
       {
