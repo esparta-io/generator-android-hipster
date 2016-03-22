@@ -22,7 +22,7 @@ public class RepositoryUtils {
     public static <T> Observable.Transformer<Result<T>, T> transformResult() {
 
         return responseObservable -> responseObservable.flatMap((Func1<Result<T>, Observable<T>>) result -> {
-            if (!result.isError() && result.response().isSuccess()) {
+            if (!result.isError() && result.response().isSuccessful()) {
                 return Observable.just(result.response().body());
             }
 
@@ -53,7 +53,7 @@ public class RepositoryUtils {
 
         return responseObservable -> responseObservable.flatMap((Func1<Result<T>, Single<T>>) result -> {
 
-          if (!result.isError() && result.response().isSuccess()) {
+          if (!result.isError() && result.response().isSuccessful()) {
               return Single.just(result.response().body());
           }
 

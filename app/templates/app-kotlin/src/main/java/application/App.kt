@@ -46,14 +46,12 @@ class App : Application() {
         refWatcher = LeakCanary.install(this)
 
         <% if (jodatime === true) { %>JodaTimeAndroid.init(this)<% } %>
-        <% if (threetenabp == true) { %>  AndroidThreeTen.init(this) <% } %>
+        <% if (threetenabp == true) { %>AndroidThreeTen.init(this) <% } %>
         <% if (printview === true) { %>PrintConfig.initDefault(assets, "fonts/MaterialIcons-Regular.ttf")<% } %>
         <% if (calligraphy === true) { %>CalligraphyConfig.initDefault(CalligraphyConfig.Builder().setDefaultFontPath("fonts/Roboto-Regular.ttf").setFontAttrId(R.attr.fontPath).build()) <% } %>
 
         graph = createComponent()
-
         environmentConfiguration.configure()
-
     }
 
     companion object {

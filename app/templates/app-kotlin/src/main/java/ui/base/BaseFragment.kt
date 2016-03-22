@@ -32,7 +32,7 @@ abstract class BaseFragment<P : BasePresenter<*>> : <% if (nucleus == true) { %>
     override fun onDestroyView() {
         <% if (butterknife == true) { %>ButterKnife.unbind(this)<% } %>
         super.onDestroyView()
-        <% if (nucleus == false) { %>presenter.onDestroy()<% } %>
+        <% if (nucleus == false) { %>presenter.destroy()<% } %>
     }
 
     fun getBaseActivity() : BaseActivity<*> {

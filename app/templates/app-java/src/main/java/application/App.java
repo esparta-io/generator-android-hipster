@@ -4,23 +4,20 @@ import android.app.Application;
 import android.support.multidex.MultiDex;
 import android.content.Context;
 
-import com.squareup.leakcanary.LeakCanary;
-import com.squareup.leakcanary.RefWatcher;
-
-<% if (jodatime == true) { %>import net.danlew.android.joda.JodaTimeAndroid; <% } %>
-<% if (threetenabp == true) { %>import com.jakewharton.threetenabp.AndroidThreeTen; <% } %>
-<% if (printview == true) { %>import com.github.johnkil.print.PrintConfig; <% } %>
-<% if (glide == true) { %>import com.bumptech.glide.Glide;<% } %>
-
 import <%= appPackage %>.environment.EnvironmentConfiguration;
 import <%= appPackage %>.R;
 import <%= appPackage %>.di.components.ApplicationComponent;
 import <%= appPackage %>.di.ForApplication;
-import <%= appPackage %>.di.components.DaggerApplicationComponent;
+
+import com.squareup.leakcanary.LeakCanary;
+import com.squareup.leakcanary.RefWatcher;
+<% if (glide == true) { %>import com.bumptech.glide.Glide;<% } %>
+<% if (printview == true) { %>import com.github.johnkil.print.PrintConfig; <% } %>
+<% if (threetenabp == true) { %>import com.jakewharton.threetenabp.AndroidThreeTen; <% } %>
+<% if (jodatime == true) { %>import net.danlew.android.joda.JodaTimeAndroid; <% } %>
+<% if (calligraphy == true) { %>import uk.co.chrisjenx.calligraphy.CalligraphyConfig; <% } %>
 
 import javax.inject.Inject;
-
-<% if (calligraphy == true) { %>import uk.co.chrisjenx.calligraphy.CalligraphyConfig; <% } %>
 
 public class App extends Application {
 
@@ -48,7 +45,7 @@ public class App extends Application {
         refWatcher = LeakCanary.install(this);
 
         <% if (jodatime == true) { %>JodaTimeAndroid.init(this); <% } %>
-        <% if (threetenabp == true) { %>  AndroidThreeTen.init(this); <% } %>
+        <% if (threetenabp == true) { %>AndroidThreeTen.init(this); <% } %>
         <% if (printview == true) { %>PrintConfig.initDefault(getAssets(), "fonts/MaterialIcons-Regular.ttf");<% } %>
         <% if (calligraphy == true) { %>CalligraphyConfig.initDefault(new CalligraphyConfig.Builder().setDefaultFontPath("fonts/Roboto-Regular.ttf").setFontAttrId(R.attr.fontPath).build()); <% } %>
 

@@ -19,6 +19,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
  * @param  a type of view to return with [.getView].
  */
+@Suppress("UNUSED_PARAMETER")
 open class Presenter<View> {
 
     /**
@@ -37,7 +38,8 @@ open class Presenter<View> {
      */
     @Nullable var view: View? = null
         private set
-    private val onDestroyListeners = CopyOnWriteArrayList()
+
+    private val onDestroyListeners = CopyOnWriteArrayList<OnDestroyListener>()
 
     /**
      * This method is called after presenter construction.

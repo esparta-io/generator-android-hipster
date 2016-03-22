@@ -19,17 +19,25 @@ import static java.util.Collections.singletonList;
 @Module
 public class OkHttpInterceptorsModule {
 
-    @Provides @Singleton @NonNull
+    @Provides
+    @Singleton
+    @NonNull
     public HttpLoggingInterceptor provideHttpLoggingInterceptor() {
         return new HttpLoggingInterceptor(message -> <% if (timber == true) { %>Timber.d(message)<% } %>);
     }
 
-    @Provides @OkHttpInterceptors @Singleton @NonNull
+    @Provides
+    @OkHttpInterceptors
+    @Singleton
+    @NonNull
     public List<Interceptor> provideOkHttpInterceptors(@NonNull HttpLoggingInterceptor httpLoggingInterceptor) {
         return singletonList(httpLoggingInterceptor);
     }
 
-    @Provides @OkHttpNetworkInterceptors @Singleton @NonNull
+    @Provides
+    @OkHttpNetworkInterceptors
+    @Singleton
+    @NonNull
     public List<Interceptor> provideOkHttpNetworkInterceptors() {
         return singletonList(new StethoInterceptor());
     }

@@ -28,11 +28,11 @@ public class EnvironmentConfiguration {
     public void configure() {
         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().detectAll().penaltyLog().build());
         StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder().detectAll().penaltyLog().build());
-        <% if (stetho == true) { %>Stetho.initializeWithDefaults(app);<% } %>
+        <% if (stetho == true) { %>Schedulers.io().createWorker().schedule(() -> Stetho.initializeWithDefaults(app));<% } %>
         <% if (timber == true) { %>if (BuildConfig.DEBUG) {
-               Timber.plant(new Timber.DebugTree());
+           Timber.plant(new Timber.DebugTree());
         } else {
-               Timber.plant(new CrashReportingTree());
+           Timber.plant(new CrashReportingTree());
         }<% } %>
     }
 
