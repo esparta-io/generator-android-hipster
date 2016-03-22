@@ -6,14 +6,14 @@
         "scope": "classpath",
         "group": "me.tatarka",
         "name": "gradle-retrolambda",
-        "version": "3.2.3",
+        "version": "3.2.5",
         "lang": "java"
       },
       {
         "scope": "classpath",
         "group": "com.android.tools.build",
         "name": "gradle",
-        "version": "2.0.0-beta5",
+        "version": "2.1.0-alpha3",
         "lang": "all"
       },
       {
@@ -179,7 +179,7 @@
         "scope": "compile",
         "group": "io.reactivex",
         "name": "rxkotlin",
-        "version": "0.50",
+        "version": "0.40.1",
         "lang": "kotlin"
       },
       {

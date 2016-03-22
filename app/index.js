@@ -381,7 +381,6 @@ module.exports = AppGenerator.extend({
 
             var ext = this.language == 'java' ? '.java' : '.kt';
 
-            this.template(appFolder + '/src/main/java/network/ChangeableBaseUrl' + ext, 'app/src/main/java/' + packageDir + '/network/ChangeableBaseUrl' + ext, this, {});
             this.template(appFolder + '/src/main/java/network/OkHttpNetworkInterceptors' + ext, 'app/src/main/java/' + packageDir + '/network/OkHttpNetworkInterceptors' + ext, this, {});
             this.template(appFolder + '/src/main/java/network/OkHttpInterceptors' + ext, 'app/src/main/java/' + packageDir + '/network/OkHttpInterceptors' + ext, this, {});
             this.template(appFolder + '/src/main/java/network/OkHttpInterceptorsModuleInternal' + ext, 'app/src/internal/java/' + packageDir + '/network/OkHttpInterceptorsModule' + ext, this, {});

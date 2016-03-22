@@ -13,7 +13,7 @@ import android.view.ViewGroup
 <% if (butterknife == true) { %>import butterknife.Bind
 import butterknife.ButterKnife <% } %>
 
-abstract class BaseFragment<P : BasePresenter<*>> : <% if (nucleus == true) { %>NucleusSupportFragment<P><% } else { %>Fragment;<% } %>() {
+abstract class BaseFragment<P : BasePresenter<*>> : <% if (nucleus == true) { %>NucleusSupportFragment<P><% } else { %>Fragment<% } %>() {
 
     @CallSuper
     override fun onCreateView(inflater : LayoutInflater?, container : ViewGroup?, savedInstanceState : Bundle?) : View  {
@@ -29,24 +29,10 @@ abstract class BaseFragment<P : BasePresenter<*>> : <% if (nucleus == true) { %>
     }
 
     @CallSuper
-    @Override
-    override fun onResume() {
-        super.onResume()
-        <% if (nucleus == false) { %>presenter.onTakeView(this)<% } %>
-    }
-
-    @CallSuper
-    @Override
-    override fun onPause() {
-        super.onPause()
-        <% if (nucleus == false) { %>presenter.onDropView()<% } %>
-    }
-
-    @CallSuper
     override fun onDestroyView() {
         <% if (butterknife == true) { %>ButterKnife.unbind(this)<% } %>
         super.onDestroyView()
-        <% if (nucleus == false) { %>presenter.onDestroy()<% } %>
+        <% if (nucleus == false) { %>presenter.destroy()<% } %>
     }
 
     fun getBaseActivity() : BaseActivity<*> {
@@ -54,7 +40,7 @@ abstract class BaseFragment<P : BasePresenter<*>> : <% if (nucleus == true) { %>
     }
 
     @CallSuper
-    override public fun onAttach(context: Context) {
+    override fun onAttach(context: Context) {
         super.onAttach(context);
     }
 

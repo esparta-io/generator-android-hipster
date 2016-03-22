@@ -32,4 +32,16 @@ class <%= fragmentName %>Fragment : BaseFragment<<% if (usePresenter) { %><%= fr
         return R.layout.fragment_<%= underscoreFragmentName %>
     }
 
+    @Override
+    override fun onResume() {
+        super.onResume()
+        <% if (nucleus == false) { %>presenter.onTakeView(this)<% } %>
+    }
+
+    @Override
+    override fun onPause() {
+        super.onPause()
+        <% if (nucleus == false) { %>presenter.onDropView()<% } %>
+    }
+
 }
