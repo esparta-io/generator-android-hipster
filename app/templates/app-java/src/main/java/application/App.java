@@ -21,9 +21,9 @@ import javax.inject.Inject;
 
 public class App extends Application {
 
-    private ApplicationComponent graph;
+    protected ApplicationComponent graph;
 
-    private RefWatcher refWatcher;
+    protected RefWatcher refWatcher;
 
     @ForApplication
     @Inject

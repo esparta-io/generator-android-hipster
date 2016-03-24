@@ -31,6 +31,21 @@ android {
     }
 
     buildTypes {
+
+        applicationVariants.all { variant ->
+            if (variant.getBuildType().isMinifyEnabled()) {
+                variant.assemble.doLast {
+                    copy {
+                        from variant.mappingFile
+                        into "${rootDir}/proguardTools"
+                        rename { String fileName ->
+                            "mapping-${variant.name}.txt"
+                        }
+                    }
+                }
+            }
+        }
+
         all {
             buildConfigField 'String', 'API_ENDPOINT_LOCAL', "\"http://example.com\""
             buildConfigField 'String', 'API_ENDPOINT_INTERNAL', "\"http://example.com\""

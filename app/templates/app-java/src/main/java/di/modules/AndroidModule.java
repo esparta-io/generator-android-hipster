@@ -10,10 +10,9 @@ import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.inputmethod.InputMethodManager;
 
-import javax.inject.Singleton;
-
 import dagger.Module;
 import dagger.Provides;
+
 @Module
 public class AndroidModule {
 
