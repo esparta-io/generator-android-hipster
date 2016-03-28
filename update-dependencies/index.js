@@ -19,7 +19,6 @@ module.exports = ActivityGenerator.extend({
             this.appName = this.config.get('appName');
             this.language = this.config.get('language');
             this.appPackage = this.config.get('appPackage');
-
             this.nucleus = this.config.get('nucleus') || true;
             this.mvp = this.config.get('mvp') || 'nucleus';
             this.imageLib = this.config.get('imageLib') || 'glide';

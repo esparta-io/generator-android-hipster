@@ -4,10 +4,8 @@ import <%= appPackage %>.application.TestApp;
 import <%= appPackage %>.di.components.ApplicationComponent;
 import <%= appPackage %>.di.modules.AndroidModule;
 import <%= appPackage %>.di.modules.ApplicationModule;
-import <%= appPackage %>.di.modules.MCSModule;
 import <%= appPackage %>.environment.EnvironmentModule;
 import <%= appPackage %>.network.OkHttpInterceptorsModule;
-import <%= appPackage %>.ui.MCSTest;
 import <%= appPackage %>.ui.MainActivityTest;
 import <%= appPackage %>.util.gson.GsonModule;
 
@@ -21,7 +19,6 @@ import dagger.Component;
         ApplicationModule.class,
         AndroidModule.class,
         GsonModule.class,
-        MCSModule.class,
         OkHttpInterceptorsModule.class,
         EnvironmentModule.class}
 )
@@ -41,7 +38,6 @@ public interface MockApplicationComponent extends ApplicationComponent {
             return DaggerMockApplicationComponent.builder()
                     .androidModule(new AndroidModule())
                     .gsonModule(new GsonModule())
-                    .mCSModule(new MCSModule())
                     .applicationModule(new ApplicationModule(app))
                     .environmentModule(new EnvironmentModule(app))
                     .build();
