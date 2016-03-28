@@ -27,10 +27,10 @@ public class App extends Application {
 
     @ForApplication
     @Inject
-    Context context;
+    protected Context context;
 
     @Inject
-    EnvironmentConfiguration environmentConfiguration;
+    protected EnvironmentConfiguration environmentConfiguration;
 
     @Override
     protected void attachBaseContext(Context base) {
@@ -73,7 +73,7 @@ public class App extends Application {
         return graph;
     }
 
-    private ApplicationComponent createComponent() {
+    protected ApplicationComponent createComponent() {
         graph = ApplicationComponent.Initializer.init(this);
         graph.inject(this);
         return graph;

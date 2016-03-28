@@ -19,6 +19,8 @@ android {
         versionCode 1
         versionName "0.0.1"
 
+        testInstrumentationRunner '<%= appPackage %>.MockTestRunner'
+
     }
 
     signingConfigs {
@@ -84,6 +86,13 @@ android {
         exclude 'META-INF/LICENSE.txt'
         exclude 'META-INF/license.txt'
         exclude 'META-INF/license'
+        exclude 'META-INF/maven/com.google.guava/guava/pom.xml'
+        exclude 'META-INF/maven/com.google.guava/guava/pom.properties'
+        exclude 'META-INF/license'
+        exclude 'META-INF/services/javax.annotation.processing.Processor'
+        exclude 'META-INF/services/org.robolectric.internal.ShadowProvider'
+        pickFirst 'META-INF/services/javax.annotation.processing.Processor'
+
     }
 
     dexOptions {
@@ -106,8 +115,26 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
     <% } %>
+
+    sourceSets {
+        // Functional tests live in src/functionalTests.
+        androidTest.java.srcDir 'src/functionalTest/java'
+    }
+
     lintOptions {
-        disable "InvalidPackage"
+        disable "InvalidPackage", 'TypographyFractions', 'TypographyQuotes', 'TrustAllX509TrustManager'
+    }
+
+    // Always show the result of every unit test, even if it passes.
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
+
+    testOptions.unitTests.all {
+        testLogging {
+            events 'passed', 'skipped', 'failed', 'standardOut', 'standardError'
+        }
+
     }
 
 }
@@ -148,3 +175,11 @@ dependencies {
         // android-hipster-needle-gradle-parent-dependency
     }
 }<% } %>
+
+configurations.compile.dependencies.each { compileDependency ->
+    println "Excluding compile dependency: ${compileDependency.getName()}"
+    configurations.androidTestCompile.dependencies.each { androidTestCompileDependency ->
+        configurations.androidTestCompile.exclude module: "${compileDependency.getName()}"
+    }
+}
+
