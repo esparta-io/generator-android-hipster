@@ -4,6 +4,10 @@ buildscript {
     mavenCentral()
     jcenter()
     maven { url = 'https://jitpack.io' }
+    maven {url "https://clojars.org/repo/"}
+    maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
+    maven { url "http://dl.bintray.com/tbruyelle/tbruyelle" }
+
   }
   dependencies {
     // android-hipster-needle-gradle-parent-dependency
@@ -15,6 +19,12 @@ allprojects {
     mavenCentral()
     jcenter()
     maven { url = 'https://jitpack.io' }
+    maven { url "http://dl.bintray.com/tbruyelle/tbruyelle" }
+    maven {url "https://clojars.org/repo/"}
+    maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
+  }
+  tasks.withType(JavaForkOptions) {
+      jvmArgs '-Djava.awt.headless=true'
   }
 }
 

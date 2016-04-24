@@ -97,8 +97,11 @@ module.exports = ActivityGenerator.extend({
                     {
                         value: 'useExistingComponent',
                         name: 'Use the ANOTHER existing component to inject this activity'
-                    }
-
+                    },
+                    {
+                        value: 'createNewSub',
+                        name: 'The SAME component of the activity based on @Subcomponent'
+                    },
                 ],
                 default: 0
             },
@@ -124,7 +127,7 @@ module.exports = ActivityGenerator.extend({
             },
             {
                 when: function (response) {
-                    return response.componentType == 'useExistingComponent';
+                    return response.componentType == 'useExistingComponent' || response.componentType == 'createNewSub';
                 },
                 name: 'useExistingComponentName',
                 message: 'What is the full name of the existing Component?',
@@ -181,6 +184,15 @@ module.exports = ActivityGenerator.extend({
                     this.addComponentInjection(this.fragmentName + 'Fragment', packageDir, this.appPackage + '.ui.' + this.fragmentPackageName, this.activityName + "Component");
                 } else {
                     this.addComponentInjectionKotlin(this.fragmentName + 'Fragment', packageDir, this.appPackage + '.ui.' + this.fragmentPackageName, this.activityName + "Component");
+                }
+            }
+            if (this.componentType == 'createNewSub') {
+                this.useExistingComponentName = this.useExistingComponentName.replace("Component", "");
+                var name = this.useExistingComponentName + "Component";
+                if (this.language == 'java') {
+                    this.addComponentInjection(this.fragmentName + 'Fragment', packageDir, this.appPackage + '.ui.' + this.fragmentPackageName, name);
+                } else {
+                    this.addComponentInjectionKotlin(this.fragmentName + 'Fragment', packageDir, this.appPackage + '.ui.' + this.fragmentPackageName, name);
                 }
             } else if (this.componentType == 'useApplication') {
                 if (this.language == 'java') {
