@@ -1,12 +1,12 @@
 package <%= appPackage %>.domain.usecases.<%= useCasePackageName %>;
 
-import <%= appPackage %>.domain.executors.ThreadExecutor;
+import rx.Scheduler;
 import <%= appPackage %>.domain.interactors.base.BaseUseCase;
 import rx.Observable;
 
 public class <%= useCaseName %>UseCaseImpl extends BaseUseCase implements <%= useCaseName %>UseCase {
 
-    public <%= useCaseName %>UseCaseImpl(ThreadExecutor executor) {
+    public <%= useCaseName %>UseCaseImpl(Scheduler executor) {
         super(executor);
     }
 

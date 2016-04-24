@@ -22,6 +22,8 @@ import <%= appPackage %>.domain.executors.JobExecutor;
 import <%= appPackage %>.domain.executors.ThreadExecutor;
 
 
+import rx.Scheduler;
+import rx.schedulers.Schedulers;
 <% if (picasso) { %>
 import okhttp3.OkHttpClient;
 import com.squareup.picasso.Picasso;<% } %>
@@ -51,6 +53,12 @@ public class ApplicationModule {
     @Singleton
     public App provideApp() {
         return application;
+    }
+
+    @Provides
+    @Singleton
+    public Scheduler provideScheduler() {
+        return Schedulers.from(new JobExecutor());
     }
 
     @ForApplication

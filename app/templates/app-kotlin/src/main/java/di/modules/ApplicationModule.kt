@@ -17,6 +17,8 @@ import <%= appPackage %>.domain.executors.JobExecutor
 import <%= appPackage %>.domain.executors.ThreadExecutor
 import <%= appPackage %>.storage.Storage
 
+import rx.Scheduler
+import rx.schedulers.Schedulers
 // android-hipster-needle-module-provides-import
 
 
@@ -39,8 +41,8 @@ class ApplicationModule(val application: App) {
 
     @Provides
     @Singleton
-    fun provideThreadExecutor(): ThreadExecutor {
-        return JobExecutor();
+    fun provideThreadExecutor(): Scheduler {
+        return Schedulers.from(JobExecutor());
     }
 
     @Provides

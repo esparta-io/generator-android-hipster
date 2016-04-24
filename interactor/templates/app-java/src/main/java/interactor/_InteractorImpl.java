@@ -1,13 +1,13 @@
 package <%= appPackage %>.domain.interactors.<%= interactorPackageName %>;
 
-import <%= appPackage %>.domain.executors.ThreadExecutor;
+import rx.Scheduler;
 import <%= appPackage %>.domain.interactors.base.BaseInteractor;
 
-import rx.Observable;
+import rx.Observable
 
 public class <%= interactorName %>InteractorImpl extends BaseInteractor implements <%= interactorName %>Interactor {
 
-    public <%= interactorName %>InteractorImpl(ThreadExecutor executor) {
+    public <%= interactorName %>InteractorImpl(Scheduler executor) {
         super(executor);
     }
 

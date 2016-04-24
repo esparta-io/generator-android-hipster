@@ -191,7 +191,7 @@ Generator.prototype.updateApplicationModuleToProvide = function (name, basePath,
             splicable: [
                 '@Provides',
                 '@Singleton',
-                name + type + ' provide' + name + type + '(ThreadExecutor executor) {',
+                name + type + ' provide' + name + type + '(Scheduler executor) {',
                 '   return new ' + name + type + 'Impl(executor);',
                 '}'
             ]
@@ -218,7 +218,7 @@ Generator.prototype.updateApplicationModuleToProvideKotlin = function (name, bas
             splicable: [
                 '@Provides',
                 '@Singleton',
-                'fun provide' + name + type + '(executor: ThreadExecutor): '+name + type + ' {',
+                'fun provide' + name + type + '(executor: Scheduler): '+name + type + ' {',
                 '   return ' + name + type + 'Impl(executor);',
                 '}'
             ]
