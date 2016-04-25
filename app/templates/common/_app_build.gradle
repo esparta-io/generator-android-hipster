@@ -86,12 +86,23 @@ android {
         exclude 'META-INF/LICENSE.txt'
         exclude 'META-INF/license.txt'
         exclude 'META-INF/license'
+        exclude 'META-INF/license.txt'
         exclude 'META-INF/maven/com.google.guava/guava/pom.xml'
+        pickFirst 'META-INF/maven/com.google.guava/guava/pom.xml'
         exclude 'META-INF/maven/com.google.guava/guava/pom.properties'
+        pickFirst 'META-INF/maven/com.google.guava/guava/pom.properties'
+
+        exclude 'META-INF/maven/com.google.dagger/dagger/pom.properties'
+        pickFirst 'META-INF/maven/com.google.dagger/dagger/pom.properties'
+
+        exclude 'META-INF/maven/com.google.dagger/dagger/pom.xml'
+        pickFirst 'META-INF/maven/com.google.dagger/dagger/pom.xml'
+
         exclude 'META-INF/license'
         exclude 'META-INF/services/javax.annotation.processing.Processor'
         exclude 'META-INF/services/org.robolectric.internal.ShadowProvider'
         pickFirst 'META-INF/services/javax.annotation.processing.Processor'
+        exclude 'assets/oracle_mobile_cloud_internal_config.xml'
 
     }
 

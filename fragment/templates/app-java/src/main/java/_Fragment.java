@@ -25,7 +25,7 @@ public class <%= fragmentName %>Fragment extends BaseFragment<<% if (usePresente
 
     @Override
     protected void inject() {
-        <% if (componentType == 'createNewSub') { %>getComponent(<%= useExistingComponentName %>.class).inject(this);<% } else if (componentType == 'createNew') { %>getComponent(<%= activityName %>Component.class).inject(this);<% } else if (componentType == 'useApplication') { %>App.get(getContext()).getComponent().inject(this);<% } else { %>App.get(getContext()).get<%= useExistingComponentName.replace('Application', '') %>Component().inject(this);<% } %>
+        <% if (componentType == 'createNewSub') { %>getComponent(<%= useExistingComponentName %>Component.class).inject(this);<% } else if (componentType == 'createNew') { %>getComponent(<%= activityName %>Component.class).inject(this);<% } else if (componentType == 'useApplication') { %>App.get(getContext()).getComponent().inject(this);<% } else { %>App.get(getContext()).get<%= useExistingComponentName.replace('Application', '') %>Component().inject(this);<% } %>
     }
 
     <% if (nucleus == true) { %>

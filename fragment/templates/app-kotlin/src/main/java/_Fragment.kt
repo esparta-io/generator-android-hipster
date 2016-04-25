@@ -17,7 +17,7 @@ class <%= fragmentName %>Fragment : BaseFragment<<% if (usePresenter) { %><%= fr
 
     @Override
     override fun inject() {
-        <% if (componentType == 'createNewSub') { %>getComponent(<%= useExistingComponentName %>::class.java).inject(this)<% } else if (componentType == 'createNew') { %>getComponent(<%= activityName %>Component::class.java).inject(this)<% } else if (componentType == 'useApplication') { %>App.get(context).getComponent().inject(this)<% } else { %>App.get(context).get<%= useExistingComponentName.replace('Application', '') %>Component().inject(this)<% } %>
+        <% if (componentType == 'createNewSub') { %>getComponent(<%= useExistingComponentName %>Component::class.java).inject(this)<% } else if (componentType == 'createNew') { %>getComponent(<%= activityName %>Component::class.java).inject(this)<% } else if (componentType == 'useApplication') { %>App.get(context).getComponent().inject(this)<% } else { %>App.get(context).get<%= useExistingComponentName.replace('Application', '') %>Component().inject(this)<% } %>
     }
 
     <% if (nucleus == true) { %>

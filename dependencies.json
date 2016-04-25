@@ -121,9 +121,9 @@
       },
       {
         "scope": "provided",
-        "group": "org.glassfish",
-        "name": "javax.annotation",
-        "version": "10.0-b28",
+        "group": "javax.annotation",
+        "name": "jsr250-api",
+        "version": "1.0",
         "lang": "all"
       },
       {
