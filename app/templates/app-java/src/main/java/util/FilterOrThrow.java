@@ -1,7 +1,7 @@
 package <%= appPackage %>.util;
 
 
-import com.rumo.chavenamao.util.google.common.base.Optional;
+import <%= appPackage %>.util.google.common.base.Optional;
 
 import rx.Observable;
 

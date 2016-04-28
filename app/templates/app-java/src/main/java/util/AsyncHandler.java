@@ -8,7 +8,7 @@ import android.os.Process;
 
 import java.util.concurrent.Semaphore;
 
-import javax.annotation.Nonnull;
+import android.support.annotation.NonNull;
 
 /**
  * Created by deividi on 08/04/16.
@@ -43,7 +43,7 @@ public class AsyncHandler extends Handler {
         getLooper().quit();
     }
 
-    public boolean sendMessageAtTime(@Nonnull Message message, long uptimeMillis) {
+    public boolean sendMessageAtTime(@NonNull Message message, long uptimeMillis) {
         return super.sendMessageAtTime(message, uptimeMillis);
     }
 
