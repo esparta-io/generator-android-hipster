@@ -88,7 +88,7 @@ module.exports = ActivityGenerator.extend({
         },
 
         install: function () {
-            this.installGradleDependencies(this, false);
+
         }
     }
 });
