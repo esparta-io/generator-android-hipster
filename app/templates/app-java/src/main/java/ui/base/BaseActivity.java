@@ -63,9 +63,4 @@ public abstract class BaseActivity<P extends BasePresenter> extends <% if (nucle
 
     protected abstract P getPresenter();
     <% } %>
-
-    @VisibleForTesting
-    public IdlingResource getCountingIdlingResource() {
-        return EspressoIdlingResource.getIdlingResource();
-    }
 }

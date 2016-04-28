@@ -2,8 +2,9 @@ package <%= appPackage %>.network;
 
 import android.support.annotation.NonNull;
 
-import com.facebook.stetho.okhttp3.StethoInterceptor;
-
+<% if (stetho== true) { %>import com.facebook.stetho.okhttp3.StethoInterceptor;
+import static java.util.Collections.emptyList;
+<% } %>
 import java.util.List;
 
 import javax.inject.Singleton;
@@ -13,6 +14,7 @@ import dagger.Provides;
 import okhttp3.Interceptor;
 import okhttp3.logging.HttpLoggingInterceptor;
 <% if (timber == true) { %>import timber.log.Timber;<% } %>
+
 
 import static java.util.Collections.singletonList;
 
@@ -39,6 +41,6 @@ public class OkHttpInterceptorsModule {
     @Singleton
     @NonNull
     public List<Interceptor> provideOkHttpNetworkInterceptors() {
-        return singletonList(new StethoInterceptor());
+        <% if (stetho == true) { %>return singletonList(new StethoInterceptor());<% } else { %>return emptyList();<% } %>
     }
 }
