@@ -1,11 +1,11 @@
 package <%= appPackage %>.model;
 
-import auto.parcel.AutoParcel;
+import com.google.auto.value.AutoValue;
 
 import <%= appPackage %>.util.gson.AutoGson;
 
-@AutoParcel
-@AutoGson(autoValueClass = AutoParcel_<%= entityName %>.class)
+@AutoValue
+@AutoGson(autoValueClass = AutoValue_<%= entityName %>.class)
 public abstract class <%= entityName %> {
 
     public abstract Long id();
@@ -13,10 +13,10 @@ public abstract class <%= entityName %> {
     public abstract Builder toBuilder();
 
     public static Builder builder() {
-        return new AutoParcel_<%= entityName %>.Builder();
+        return new AutoValue_<%= entityName %>.Builder();
     }
 
-    @AutoParcel.Builder
+    @AutoValue.Builder
     public abstract static class Builder {
 
         public abstract Builder id(Long id);

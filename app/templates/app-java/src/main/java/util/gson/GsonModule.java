@@ -31,7 +31,7 @@ public class GsonModule {
 
     @Provides
     @Singleton
-    Gson provideGson(GsonBuilder gsonBuilder) {
+    public Gson provideGson(GsonBuilder gsonBuilder) {
         return gsonBuilder.create();
     }
 

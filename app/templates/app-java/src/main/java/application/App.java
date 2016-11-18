@@ -21,16 +21,16 @@ import javax.inject.Inject;
 
 public class App extends Application {
 
-    private ApplicationComponent graph;
+    protected ApplicationComponent graph;
 
-    private RefWatcher refWatcher;
+    protected RefWatcher refWatcher;
 
     @ForApplication
     @Inject
-    Context context;
+    protected Context context;
 
     @Inject
-    EnvironmentConfiguration environmentConfiguration;
+    protected EnvironmentConfiguration environmentConfiguration;
 
     @Override
     protected void attachBaseContext(Context base) {
@@ -73,7 +73,7 @@ public class App extends Application {
         return graph;
     }
 
-    private ApplicationComponent createComponent() {
+    protected ApplicationComponent createComponent() {
         graph = ApplicationComponent.Initializer.init(this);
         graph.inject(this);
         return graph;

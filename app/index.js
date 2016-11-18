@@ -411,9 +411,7 @@ module.exports = AppGenerator.extend({
             if (this.timber) {
                 this.template(appFolder + '/src/main/java/util/logging', 'app/src/main/java/' + packageDir + '/util/logging', this, {})
             }
-            //if (this.mixpanel) {
-            //    this.template(appFolder + '/src/main/java/util/analytics', 'app/src/main/java/' + packageDir + '/util/analytics', this, {})
-            //}
+
             if (this.jodatime) {
                 this.template(appFolder + '/src/main/java/util/gson/DateTimeTypeConverter' + ext, 'app/src/main/java/' + packageDir + '/util/gson/DateTimeTypeConverter' + ext, this, {});
                 this.template(appFolder + '/src/main/java/util/gson/DateTimeZoneTypeConverter' + ext, 'app/src/main/java/' + packageDir + '/util/gson/DateTimeZoneTypeConverter' + ext, this, {})
@@ -430,6 +428,10 @@ module.exports = AppGenerator.extend({
             this.template(appFolder + '/src/main/java/util/PermissionUtils' + ext, 'app/src/main/java/' + packageDir + '/util/PermissionUtils' + ext, this, {});
 
             if (this.language == 'java') {
+                this.template(appFolder + '/src/main/java/util/AsyncHandler' + ext, 'app/src/main/java/' + packageDir + '/util/AsyncHandler' + ext, this, {});
+                this.template(appFolder + '/src/main/java/util/CallInExecutorThanMainThread' + ext, 'app/src/main/java/' + packageDir + '/util/CallInExecutorThanMainThread' + ext, this, {});
+                this.template(appFolder + '/src/main/java/util/FilterOrThrow' + ext, 'app/src/main/java/' + packageDir + '/util/FilterOrThrow' + ext, this, {});
+                this.template(appFolder + '/src/main/java/util/RetryWhen' + ext, 'app/src/main/java/' + packageDir + '/util/RetryWhen' + ext, this, {});
                 this.template(appFolder + '/src/main/java/util/RxUtils' + ext, 'app/src/main/java/' + packageDir + '/util/RxUtils' + ext, this, {});
                 this.template(appFolder + '/src/main/java/util/RepositoryUtils' + ext, 'app/src/main/java/' + packageDir + '/util/RepositoryUtils' + ext, this, {});
                 this.template(appFolder + '/src/main/java/util/google', 'app/src/main/java/' + packageDir + '/util/google', this, {});

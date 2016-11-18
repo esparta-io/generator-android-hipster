@@ -2,7 +2,7 @@ package <%= appPackage %>.domain.repository.<%= repositoryPackageName %>;
 
 import javax.inject.Inject;
 
-import retrofit2.Result;
+import retrofit2.adapter.rxjava.Result;
 import retrofit2.Retrofit;
 import retrofit2.http.GET;
 

@@ -2,7 +2,7 @@ package <%= appPackage %>.ui.<%= fragmentPackageName %>;
 
 import javax.inject.Inject;
 
-<% if (componentType == 'createNew') { %>import <%= appPackage %>.di.components.<%= activityName %>Component<% } else if (componentType == 'useApplication') { %>import <%= appPackage %>.application.App;<% } else { %>import <%= appPackage %>.application.App;
+<% if (componentType == 'createNewSub') { %>import <%= appPackage %>.di.components.<%= useExistingComponentName %><% } else if (componentType == 'createNew') { %>import <%= appPackage %>.di.components.<%= activityName %>Component<% } else if (componentType == 'useApplication') { %>import <%= appPackage %>.application.App;<% } else { %>import <%= appPackage %>.application.App;
 import <%= appPackage %>.di.components.<%= useExistingComponentName %>Component<% } %>
 <% if (usePresenter == false) { %>import <%= appPackage %>.ui.base.EmptyPresenter;<% } %>
 <% if (nucleus == true) { %>import nucleus.factory.PresenterFactory; <% } %>
@@ -17,7 +17,7 @@ class <%= fragmentName %>Fragment : BaseFragment<<% if (usePresenter) { %><%= fr
 
     @Override
     override fun inject() {
-        <% if (componentType == 'createNew') { %>getComponent(<%= activityName %>Component::class.java).inject(this)<% } else if (componentType == 'useApplication') { %>App.get(context).getComponent().inject(this)<% } else { %>App.get(context).get<%= useExistingComponentName.replace('Application', '') %>Component().inject(this)<% } %>
+        <% if (componentType == 'createNewSub') { %>getComponent(<%= useExistingComponentName %>Component::class.java).inject(this)<% } else if (componentType == 'createNew') { %>getComponent(<%= activityName %>Component::class.java).inject(this)<% } else if (componentType == 'useApplication') { %>App.get(context).getComponent().inject(this)<% } else { %>App.get(context).get<%= useExistingComponentName.replace('Application', '') %>Component().inject(this)<% } %>
     }
 
     <% if (nucleus == true) { %>

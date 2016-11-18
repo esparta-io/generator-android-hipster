@@ -9,14 +9,14 @@ import <%= appPackage %>.ui.base.BaseActivity;
 @Module
 public class ActivityModule {
 
-    protected BaseActivity activity;
+    protected BaseActivity baseActivity;
 
-    public ActivityModule(BaseActivity activity) {
-        this.activity = activity;
+    public ActivityModule(BaseActivity baseActivity) {
+        this.baseActivity = baseActivity;
     }
 
     @Provides
     protected BaseActivity activity() {
-        return activity;
+        return baseActivity;
     }
 }

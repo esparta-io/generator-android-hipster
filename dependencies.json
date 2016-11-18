@@ -13,7 +13,7 @@
         "scope": "classpath",
         "group": "com.android.tools.build",
         "name": "gradle",
-        "version": "2.1.0-alpha3",
+        "version": "2.1.0-alpha5",
         "lang": "all"
       },
       {
@@ -27,14 +27,14 @@
         "scope": "classpath",
         "group": "org.jetbrains.kotlin",
         "name": "kotlin-android-extensions",
-        "version": "1.0.0",
+        "version": "1.0.3",
         "lang": "kotlin"
       },
       {
         "scope": "classpath",
         "group": "org.jetbrains.kotlin",
         "name": "kotlin-gradle-plugin",
-        "version": "1.0.0",
+        "version": "1.0.3",
         "lang": "kotlin"
       }
     ]
@@ -53,7 +53,7 @@
         "scope": "compile",
         "group": "com.android.support",
         "name": "support-annotations",
-        "version": "23.2.1",
+        "version": "24.0.0",
         "lang": "all"
       },
       {
@@ -67,98 +67,98 @@
         "scope": "compile",
         "group": "io.reactivex",
         "name": "rxjava",
-        "version": "1.1.1",
+        "version": "1.1.7",
         "lang": "all"
       },
       {
         "scope": "compile",
         "group": "io.reactivex",
         "name": "rxandroid",
-        "version": "1.1.0",
+        "version": "1.2.1",
         "lang": "all"
       },
       {
         "scope": "compile",
         "group": "com.google.code.gson",
         "name": "gson",
-        "version": "2.6.2",
+        "version": "2.7",
         "lang": "all"
       },
       {
         "scope": "compile",
         "group": "com.squareup.retrofit2",
         "name": "retrofit",
-        "version": "2.0.0",
+        "version": "2.1.0",
         "lang": "all"
       },
       {
         "scope": "compile",
         "group": "com.squareup.okhttp3",
         "name": "okhttp",
-        "version": "3.2.0",
+        "version": "3.4.1",
         "lang": "all"
       },
       {
         "scope": "compile",
         "group": "com.squareup.okhttp3",
         "name": "logging-interceptor",
-        "version": "3.2.0",
+        "version": "3.4.1",
         "lang": "all"
       },
       {
         "scope": "compile",
         "group": "com.squareup.retrofit2",
         "name": "adapter-rxjava",
-        "version": "2.0.0",
+        "version": "2.1.0",
         "lang": "all"
       },
       {
         "scope": "compile",
         "group": "com.squareup.retrofit2",
         "name": "converter-gson",
-        "version": "2.0.0",
+        "version": "2.1.0",
         "lang": "all"
       },
       {
         "scope": "provided",
-        "group": "org.glassfish",
-        "name": "javax.annotation",
-        "version": "10.0-b28",
+        "group": "javax.annotation",
+        "name": "jsr250-api",
+        "version": "1.0",
         "lang": "all"
       },
       {
         "scope": "compile",
         "group": "com.google.dagger",
         "name": "dagger",
-        "version": "2.0.2",
+        "version": "2.5",
         "lang": "all"
       },
       {
         "scope": "compile",
         "group": "com.android.support",
         "name": "support-v4",
-        "version": "23.2.1",
+        "version": "24.0.0",
         "lang": "all"
       },
       {
         "scope": "compile",
         "group": "com.android.support",
         "name": "appcompat-v7",
-        "version": "23.2.1",
+        "version": "24.0.0",
         "lang": "all"
       },
       {
         "scope": "compile",
         "group": "com.android.support",
         "name": "design",
-        "version": "23.2.1",
+        "version": "24.0.0",
         "lang": "all"
       },
       {
         "scope": "compile",
         "group": "com.android.support",
         "name": "recyclerview-v7",
-        "version": "23.2.1",
+        "version": "24.0.0",
         "lang": "all"
       },
       {
@@ -179,63 +179,63 @@
         "scope": "compile",
         "group": "io.reactivex",
         "name": "rxkotlin",
-        "version": "0.40.1",
+        "version": "0.60.0",
         "lang": "kotlin"
       },
       {
         "scope": "compile",
         "group": "com.trello",
         "name": "rxlifecycle",
-        "version": "0.5.0",
+        "version": "0.6.1",
         "lang": "java"
       },
       {
         "scope": "compile",
         "group": "com.trello",
         "name": "rxlifecycle-components",
-        "version": "0.5.0",
+        "version": "0.6.1",
         "lang": "java"
       },
       {
         "scope": "compile",
         "group": "com.trello",
         "name": "rxlifecycle-kotlin",
-        "version": "0.5.0",
+        "version": "0.6.1",
         "lang": "kotlin"
       },
       {
         "scope": "compile",
         "group": "org.jetbrains.kotlin",
         "name": "kotlin-stdlib",
-        "version": "1.0.0",
+        "version": "1.03",
         "lang": "kotlin"
       },
       {
         "scope": "compile",
         "group": "org.jetbrains.anko",
         "name": "anko-sdk15",
-        "version": "0.8.3",
+        "version": "0.9",
         "lang": "kotlin"
       },
       {
         "scope": "compile",
         "group": "org.jetbrains.anko",
         "name": "anko-support-v4",
-        "version": "0.8.3",
+        "version": "0.9",
         "lang": "kotlin"
       },
       {
         "scope": "compile",
         "group": "org.jetbrains.anko",
         "name": "anko-appcompat-v7",
-        "version": "0.8.3",
+        "version": "0.9",
         "lang": "kotlin"
       },
       {
         "scope": "kapt",
         "group": "com.google.dagger",
         "name": "dagger-compiler",
-        "version": "2.0.2",
+        "version": "2.5",
         "lang": "kotlin"
       },
       {
@@ -250,21 +250,21 @@
         "scope": "retrolambdaConfig",
         "group": "net.orfjackal.retrolambda",
         "name": "retrolambda",
-        "version": "2.1.0",
+        "version": "2.3.0",
         "lang": "java"
       },
       {
         "scope": "apt",
         "group": "com.google.dagger",
         "name": "dagger-compiler",
-        "version": "2.0.2",
+        "version": "2.5",
         "lang": "java"
       },
       {
         "scope": "compile",
         "group": "info.android15.nucleus",
         "name": "nucleus",
-        "version": "2.0.5",
+        "version": "4.0.0",
         "lang": "all",
         "selection": "nucleus"
       },
@@ -272,7 +272,7 @@
         "scope": "compile",
         "group": "info.android15.nucleus",
         "name": "nucleus-support-v4",
-        "version": "2.0.5",
+        "version": "4.0.0",
         "lang": "all",
         "selection": "nucleus"
       },
@@ -280,7 +280,7 @@
         "scope": "compile",
         "group": "info.android15.nucleus",
         "name": "nucleus-support-v7",
-        "version": "2.0.5",
+        "version": "4.0.0",
         "lang": "all",
         "selection": "nucleus"
       },
@@ -320,7 +320,7 @@
         "scope": "compile",
         "group": "uk.co.chrisjenx",
         "name": "calligraphy",
-        "version": "2.1.0",
+        "version": "2.2.0",
         "lang": "all",
         "selection": "calligraphy"
       },
@@ -390,9 +390,9 @@
       },
       {
         "scope": "compile",
-        "group": "com.github.frankiesardo",
+        "group": "frankiesardo",
         "name": "auto-parcel",
-        "version": "0.3.1",
+        "version": "1.0.1",
         "lang": "java",
         "selection": "autoparcel"
       },
@@ -408,7 +408,7 @@
         "scope": "compile",
         "group": "com.github.grandstaish.paperparcel",
         "name": "paperparcel",
-        "version": "1.0.0-beta1",
+        "version": "1.0.0",
         "lang": "kotlin",
         "selection": "paperparcel"
       },
@@ -416,7 +416,7 @@
         "scope": "kapt",
         "group": "com.github.grandstaish.paperparcel",
         "name": "paperparcel",
-        "version": "1.0.0-beta1",
+        "version": "1.0.0",
         "lang": "kotlin",
         "selection": "paperparcel"
       },
@@ -424,7 +424,7 @@
         "scope": "compile",
         "group": "com.google.android.gms",
         "name": "play-services-base",
-        "version": "8.4.0",
+        "version": "9.2.1",
         "lang": "all",
         "selection": "playServices"
       },
@@ -432,7 +432,7 @@
         "scope": "compile",
         "group": "com.google.android.gms",
         "name": "play-services-plus",
-        "version": "8.4.0",
+        "version": "9.2.1",
         "lang": "all",
         "selection": "playServices"
       },
@@ -440,7 +440,7 @@
         "scope": "compile",
         "group": "com.google.android.gms",
         "name": "play-services-auth",
-        "version": "8.4.0",
+        "version": "9.2.1",
         "lang": "all",
         "selection": "playServices"
       },
@@ -448,7 +448,7 @@
         "scope": "compile",
         "group": "com.google.android.gms",
         "name": "play-services-appinvite",
-        "version": "8.4.0",
+        "version": "9.2.1",
         "lang": "all",
         "selection": "playServices"
       },
@@ -456,7 +456,7 @@
         "scope": "compile",
         "group": "com.google.android.gms",
         "name": "play-services-appindexing",
-        "version": "8.4.0",
+        "version": "9.2.1",
         "lang": "all",
         "selection": "playServices"
       },
@@ -464,7 +464,7 @@
         "scope": "compile",
         "group": "com.google.android.gms",
         "name": "play-services-identity",
-        "version": "8.4.0",
+        "version": "9.2.1",
         "lang": "all",
         "selection": "playServices"
       },
@@ -472,7 +472,7 @@
         "scope": "compile",
         "group": "com.google.android.gms",
         "name": "play-services-location",
-        "version": "8.4.0",
+        "version": "9.2.1",
         "lang": "all",
         "selection": "playServices"
       },
@@ -480,7 +480,7 @@
         "scope": "compile",
         "group": "com.google.android.gms",
         "name": "play-services-fitness",
-        "version": "8.4.0",
+        "version": "9.2.1",
         "lang": "all",
         "selection": "playServices"
       },
@@ -488,7 +488,7 @@
         "scope": "compile",
         "group": "com.google.android.gms",
         "name": "play-services-drive",
-        "version": "8.4.0",
+        "version": "9.2.1",
         "lang": "all",
         "selection": "playServices"
       },
@@ -496,7 +496,7 @@
         "scope": "compile",
         "group": "com.google.android.gms",
         "name": "play-services-gcm",
-        "version": "8.4.0",
+        "version": "9.2.1",
         "lang": "all",
         "selection": "playServices"
       },
@@ -504,7 +504,7 @@
         "scope": "compile",
         "group": "com.google.android.gms",
         "name": "play-services-cast",
-        "version": "8.4.0",
+        "version": "9.2.1",
         "lang": "all",
         "selection": "playServices"
       },
@@ -512,7 +512,7 @@
         "scope": "compile",
         "group": "com.google.android.gms",
         "name": "play-services-analytics",
-        "version": "8.4.0",
+        "version": "9.2.1",
         "lang": "all",
         "selection": "playServices"
       },
@@ -520,7 +520,7 @@
         "scope": "compile",
         "group": "com.google.android.gms",
         "name": "play-services-maps",
-        "version": "8.4.0",
+        "version": "9.2.1",
         "lang": "all",
         "selection": "playServices"
       },
@@ -528,7 +528,7 @@
         "scope": "compile",
         "group": "com.google.android.gms",
         "name": "play-services-ads",
-        "version": "8.4.0",
+        "version": "9.2.1",
         "lang": "all",
         "selection": "playServices"
       },
@@ -536,7 +536,7 @@
         "scope": "compile",
         "group": "com.google.android.gms",
         "name": "play-services-vision",
-        "version": "8.4.0",
+        "version": "9.2.1",
         "lang": "all",
         "selection": "playServices"
       },
@@ -544,7 +544,7 @@
         "scope": "compile",
         "group": "com.google.android.gms",
         "name": "play-services-nearby",
-        "version": "8.4.0",
+        "version": "9.2.1",
         "lang": "all",
         "selection": "playServices"
       },
@@ -552,7 +552,7 @@
         "scope": "compile",
         "group": "com.google.android.gms",
         "name": "play-services-panorama",
-        "version": "8.4.0",
+        "version": "9.2.1",
         "lang": "all",
         "selection": "playServices"
       },
@@ -560,7 +560,7 @@
         "scope": "compile",
         "group": "com.google.android.gms",
         "name": "play-services-games",
-        "version": "8.4.0",
+        "version": "9.2.1",
         "lang": "all",
         "selection": "playServices"
       },
@@ -568,7 +568,7 @@
         "scope": "compile",
         "group": "com.google.android.gms",
         "name": "play-services-safetynet",
-        "version": "8.4.0",
+        "version": "9.2.1",
         "lang": "all",
         "selection": "playServices"
       },
@@ -576,7 +576,7 @@
         "scope": "compile",
         "group": "com.google.android.gms",
         "name": "play-services-wearable",
-        "version": "8.4.0",
+        "version": "9.2.1",
         "lang": "all",
         "selection": "playServices"
       },
@@ -584,10 +584,11 @@
         "scope": "compile",
         "group": "com.google.android.gms",
         "name": "play-services-wallet",
-        "version": "8.4.0",
+        "version": "9.2.1",
         "lang": "all",
         "selection": "playServices"
       }
+
     ]
   }
 ]

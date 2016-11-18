@@ -1,6 +1,6 @@
 package <%= appPackage %>.domain.usecases.<%= useCasePackageName %>;
 
-import <%= appPackage %>.domain.executors.ThreadExecutor;
+import rx.Scheduler;
 import <%= appPackage %>.domain.interactors.base.BaseUseCase;
 
 import javax.inject.Inject;
@@ -9,7 +9,7 @@ import rx.Observable;
 public class <%= useCaseName %>UseCase extends BaseUseCase  {
 
     @Inject
-    public <%= useCaseName %>UseCase(ThreadExecutor executor) {
+    public <%= useCaseName %>UseCase(Scheduler executor) {
         super(executor);
     }
 

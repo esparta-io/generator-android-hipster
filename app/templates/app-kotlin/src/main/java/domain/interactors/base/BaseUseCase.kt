@@ -4,9 +4,9 @@ import rx.Observable
 import rx.Single
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
-import java.util.concurrent.Executor
+import rx.Scheduler;
 
-open class BaseUseCase(val executor: Executor) {
+open class BaseUseCase(val executor: Scheduler) {
 
     fun <T> observable(action: () -> Observable<T>): Observable<T> {
         return action()

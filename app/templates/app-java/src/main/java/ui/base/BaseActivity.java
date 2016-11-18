@@ -10,6 +10,10 @@ import butterknife.ButterKnife; <% } %>
 import com.squareup.leakcanary.RefWatcher;
 <% if (calligraphy == true) { %>import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;<% } %>
 
+import android.support.annotation.VisibleForTesting;
+import android.support.test.espresso.IdlingResource;
+import <%= appPackage %>.util.EspressoIdlingResource;
+
 public abstract class BaseActivity<P extends BasePresenter> extends <% if (nucleus == true) { %>NucleusAppCompatActivity<P><% } else { %>AppCompatActivity<% } %> {
 
     @CallSuper

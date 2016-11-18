@@ -1,12 +1,12 @@
 package <%= appPackage %>.domain.interactors.base;
 
-import java.util.concurrent.Executor;
+import rx.Scheduler;
 
 public abstract class BaseInteractor {
 
-    protected Executor executor;
+    protected Scheduler executor;
 
-    public BaseInteractor(Executor executor) {
+    public BaseInteractor(Scheduler executor) {
         this.executor = executor;
     }
 
