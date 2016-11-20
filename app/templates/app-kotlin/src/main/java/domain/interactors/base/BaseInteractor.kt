@@ -7,7 +7,7 @@ import rx.schedulers.Schedulers
 import java.util.concurrent.Executor
 import rx.Scheduler
 
-open class BaseInteractor(val executor: Scheduler) {
+open class BaseInteractor(val executor: Executor) {
 
     fun <T> observable(action: () -> Observable<T>): Observable<T> {
         return action()

@@ -1,7 +1,7 @@
 # generator-android-hipster
 > Android generator based on MVP, Dagger2, RxJava, Java/Kotlin Stack and usefull libraries for Android
 
-> Latest version: 0.2.4
+> Latest version: 0.2.7
 
 
 > Update with `npm update -g generator-android-hipster`
@@ -17,7 +17,7 @@
 It provides a generator to create and maintain a android application based on the latests frameworks and patterns used by the community.
 
 Stack:
-- Java / [Kotlin](https://kotlinlang.org/)
+- Java / [Kotlin](https://kotlinlang.org/) 1.0.4
 - [RxJava](https://github.com/ReactiveX/RxJava)
 - [RxAndroid](https://github.com/ReactiveX/RxAndroid)
 - MVP
@@ -191,3 +191,8 @@ yo android-hipster:push
 [daviddm-url]: https://david-dm.org/cavarzan/generator-android-hipster
 [coveralls-image]: https://coveralls.io/repos/cavarzan/generator-android-hipster/badge.svg
 [coveralls-url]: https://coveralls.io/r/cavarzan/generator-android-hipster
+
+## Contributors
+
+[Alexandre Richonnier](http://www.hera.cc) | [GitHub](https://github.com/heralight)
+ 

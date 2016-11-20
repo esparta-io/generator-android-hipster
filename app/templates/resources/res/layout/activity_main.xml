@@ -6,4 +6,15 @@
                 android:layout_height="match_parent"
 >
 
+    <TextView
+        android:text="Hello !"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="81dp"
+        android:layout_marginStart="81dp"
+        android:layout_marginTop="205dp"
+        android:id="@+id/textView" />
 </RelativeLayout>

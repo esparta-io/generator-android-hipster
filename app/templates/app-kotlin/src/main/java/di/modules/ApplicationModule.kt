@@ -41,8 +41,8 @@ class ApplicationModule(val application: App) {
 
     @Provides
     @Singleton
-    fun provideThreadExecutor(): Scheduler {
-        return Schedulers.from(JobExecutor());
+    fun provideThreadExecutor(): ThreadExecutor {
+        return JobExecutor()
     }
 
     @Provides

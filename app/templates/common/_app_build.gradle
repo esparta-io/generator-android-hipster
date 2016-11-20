@@ -1,13 +1,14 @@
 apply plugin: 'com.android.application'
 <% if (language == 'kotlin') { %>apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'<% } %>
 <% if (language == 'java') { %>apply plugin: "me.tatarka.retrolambda"
 apply plugin: "com.neenbedankt.android-apt"
 apply from: '../config/quality/quality.gradle'<% } %>
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+    compileSdkVersion 24
+    buildToolsVersion "24.0.3"
 
     defaultConfig {
         applicationId '<%= appPackage %>'
@@ -69,6 +70,7 @@ android {
             signingConfig signingConfigs.app
 
         }
+        compileOptions.incremental = false
     }
 
     <% if (language == 'kotlin') { %>sourceSets {
@@ -149,10 +151,7 @@ android {
     }
 
 }
-<% if (language == 'kotlin') { %>
-kapt {
-    generateStubs = true
-}<% } %>
+
 <% if (language == 'java') { %>
 apt {
     arguments {
