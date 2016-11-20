@@ -1,5 +1,5 @@
 buildscript {
-
+  <% if (language == 'kotlin') { %>ext.kotlin_version = '1.0.4'<% } %>
   repositories {
     mavenCentral()
     jcenter()

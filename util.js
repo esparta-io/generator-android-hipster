@@ -115,10 +115,11 @@ function rewriteReplaceFile(args) {
 function rewriteReplaceFileMultiple(args) {
 
     var lines = args.haystack.split('\n');
+    var lastVirtualgroup = undefined;
     for (var i = 0; i < args.dependencies.length; i++) {
         var otherwiseLineIndex = -1;
         var needle = args.dependencies[i].scope + ' "' + args.dependencies[i].group + ':' + args.dependencies[i].name + ':';
-
+		
         lines.forEach(function (line, i) {
             if (line.indexOf(needle) !== -1) {
                 otherwiseLineIndex = i;
@@ -151,7 +152,17 @@ function rewriteReplaceFileMultiple(args) {
 
         var dep = args.dependencies[i].scope + ' "' + args.dependencies[i].group + ':' + args.dependencies[i].name + ':' + args.dependencies[i].version + '"';
         console.log('updated:', dep);
+		
+		// Begin add Selection Group
+		var newVirtualgroup = args.dependencies[i].selection || args.dependencies[i].virtualgroup;
+		if (lastVirtualgroup != newVirtualgroup && newVirtualgroup && isNew) {
+			lines.splice(otherwiseLineIndex, 0, '\n' + spaceStr + '// ' + newVirtualgroup).join('\n');
+			otherwiseLineIndex += 1;
+		}
+		lastVirtualgroup = newVirtualgroup;
+		// End add Selection Group
 
+		// Write deps
         if (isNew) {
             lines.splice(otherwiseLineIndex, 0, spaceStr + args.dependencies[i].scope + ' "' + args.dependencies[i].group + ':' + args.dependencies[i].name + ':' + args.dependencies[i].version + '"').join('\n');
         } else {
@@ -167,6 +178,7 @@ function rewriteReplaceFileMultiple(args) {
 function rewriteMultiple(args) {
 
     var lines = args.haystack.split('\n');
+    var lastVirtualgroup = undefined;
     for (var i = 0; i < args.dependencies.length; i++) {
 
         var needle = args.needle || 'android-hipster-needle-gradle-dependency';
@@ -189,6 +201,15 @@ function rewriteMultiple(args) {
 
         var dep = args.dependencies[i].scope + ' "' + args.dependencies[i].group + ':' + args.dependencies[i].name + ':' + args.dependencies[i].version + '"';
         console.log('added:', dep);
+	
+		// Begin add Selection Group
+		var newVirtualgroup = args.dependencies[i].selection || args.dependencies[i].virtualgroup;
+		if (lastVirtualgroup != newVirtualgroup && newVirtualgroup) {
+			lines.splice(otherwiseLineIndex, 0, '\n' + spaceStr + '// ' + newVirtualgroup).join('\n');
+			otherwiseLineIndex += 1;
+		}
+		lastVirtualgroup = newVirtualgroup;
+		// End add Selection Group
 
         lines.splice(otherwiseLineIndex, 0, spaceStr + args.dependencies[i].scope + ' "' + args.dependencies[i].group + ':' + args.dependencies[i].name + ':' + args.dependencies[i].version + '"').join('\n');
     }

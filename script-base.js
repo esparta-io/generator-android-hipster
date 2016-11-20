@@ -24,7 +24,7 @@ Generator.prototype.installGradleDependencies = function (config, update) {
 
     var dependencies = this.fs.readJSON('dependencies.json');
 
-    this.addGradleFieldDependency('buildToolsVersion', '"23.0.2"', update);
+    this.addGradleFieldDependency('buildToolsVersion', '"24.0.3"', update);
 
     var parent = [];
     var parentKotlin = [];
