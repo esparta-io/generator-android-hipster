@@ -1,10 +1,9 @@
 package <%= appPackage %>.domain.interactors.base
 
 import rx.Observable
+import rx.Scheduler
 import rx.Single
 import rx.android.schedulers.AndroidSchedulers
-import rx.schedulers.Schedulers
-import rx.Scheduler;
 
 open class BaseUseCase(val executor: Scheduler) {
 
@@ -29,18 +28,18 @@ open class BaseUseCase(val executor: Scheduler) {
     }
 
     fun <T> defer(action: () -> Observable<T>): Observable<T> {
-        return Observable.defer ({ action() })
+        return Observable.defer({ action() })
     }
 
-    fun <T> transform(e: Executor = executor): Observable.Transformer<T, T> {
+    fun <T> transform(e: Scheduler = executor): Observable.Transformer<T, T> {
         return Observable.Transformer {
-            it.subscribeOn(Schedulers.from(e)).observeOn(AndroidSchedulers.mainThread())
+            it.subscribeOn(e).observeOn(AndroidSchedulers.mainThread())
         }
     }
 
-    fun <T> transformSingle(e: Executor = executor): Single.Transformer<T, T> {
+    fun <T> transformSingle(e: Scheduler = executor): Single.Transformer<T, T> {
         return Single.Transformer {
-          it.subscribeOn(Schedulers.from(e)).observeOn(AndroidSchedulers.mainThread())
+            it.subscribeOn(e).observeOn(AndroidSchedulers.mainThread())
         }
     }
 

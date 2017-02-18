@@ -27,7 +27,7 @@ class JobExecutor : ThreadExecutor {
 
   private var awaitTerminationInSeconds = 0
 
-  private lateinit var executor: ExecutorService
+  private var executor: ExecutorService
 
   private val workQueue: BlockingQueue<Runnable>
 
