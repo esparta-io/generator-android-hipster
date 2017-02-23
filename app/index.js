@@ -412,8 +412,8 @@ module.exports = AppGenerator.extend({
                     this.template(appFolder + '/src/main/java/ui/base/EventBusUser.kt', 'app/src/main/java/' + packageDir + '/ui/base/EventBusUser.kt', this, {})
                 }
 
-                this.template(appFolder + '/src/main/java/ui/base/IToolbarActivity.kt', 'app/src/main/java/' + packageDir + '/ui/base/IToolbarActivity.kt' + ext, this, {});    
-                this.template(appFolder + '/src/main/java/ui/base/ProgressPresenterView.kt', 'app/src/main/java/' + packageDir + '/ui/base/ProgressPresenterView.kt' + ext, this, {});    
+                this.template(appFolder + '/src/main/java/ui/base/IToolbarActivity.kt', 'app/src/main/java/' + packageDir + '/ui/base/IToolbarActivity.kt', this, {});    
+                this.template(appFolder + '/src/main/java/ui/base/ProgressPresenterView.kt', 'app/src/main/java/' + packageDir + '/ui/base/ProgressPresenterView.kt', this, {});    
             }
 
             this.template(appFolder + '/src/main/java/storage', 'app/src/main/java/' + packageDir + '/storage', this, {});
