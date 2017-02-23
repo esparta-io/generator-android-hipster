@@ -381,6 +381,8 @@ module.exports = AppGenerator.extend({
 
             var ext = this.language == 'java' ? '.java' : '.kt';
 
+            
+
             this.template(appFolder + '/src/main/java/network/OkHttpNetworkInterceptors' + ext, 'app/src/main/java/' + packageDir + '/network/OkHttpNetworkInterceptors' + ext, this, {});
             this.template(appFolder + '/src/main/java/network/OkHttpInterceptors' + ext, 'app/src/main/java/' + packageDir + '/network/OkHttpInterceptors' + ext, this, {});
             this.template(appFolder + '/src/main/java/network/OkHttpInterceptorsModuleInternal' + ext, 'app/src/internal/java/' + packageDir + '/network/OkHttpInterceptorsModule' + ext, this, {});
@@ -393,6 +395,7 @@ module.exports = AppGenerator.extend({
             this.template(appFolder + '/src/main/java/domain', 'app/src/main/java/' + packageDir + '/domain', this, {});
             if (this.language == 'kotlin') {
                 this.template(appFolder + '/src/main/java/extensions/ContextExtensions.kt', 'app/src/main/java/' + packageDir + '/extensions/ContextExtensions.kt', this, {});
+                this.template(appFolder + '/src/main/java/extensions/Extensions.kt', 'app/src/main/java/' + packageDir + '/extensions/Extensions.kt', this, {});
                 if (this.nucleus == true) {
                     this.template(appFolder + '/src/main/java/extensions/PresenterExtensions.kt', 'app/src/main/java/' + packageDir + '/extensions/PresenterExtensions.kt', this, {})
                 }
@@ -404,6 +407,15 @@ module.exports = AppGenerator.extend({
             this.template(appFolder + '/src/main/java/ui/base/BaseFragment' + ext, 'app/src/main/java/' + packageDir + '/ui/base/BaseFragment' + ext, this, {});
             this.template(appFolder + '/src/main/java/ui/base/EmptyPresenter' + ext, 'app/src/main/java/' + packageDir + '/ui/base/EmptyPresenter' + ext, this, {});
             this.template(appFolder + '/src/main/java/ui/base/PresenterView' + ext, 'app/src/main/java/' + packageDir + '/ui/base/PresenterView' + ext, this, {});
+            if (this.language == 'kotlin') {
+                if (this.eventbus) {
+                    this.template(appFolder + '/src/main/java/ui/base/EventBusUser.kt', 'app/src/main/java/' + packageDir + '/ui/base/EventBusUser.kt', this, {})
+                }
+
+                this.template(appFolder + '/src/main/java/ui/base/IToolbarActivity.kt', 'app/src/main/java/' + packageDir + '/ui/base/IToolbarActivity.kt' + ext, this, {});    
+                this.template(appFolder + '/src/main/java/ui/base/ProgressPresenterView.kt', 'app/src/main/java/' + packageDir + '/ui/base/ProgressPresenterView.kt' + ext, this, {});    
+            }
+
             this.template(appFolder + '/src/main/java/storage', 'app/src/main/java/' + packageDir + '/storage', this, {});
             if (this.nucleus == false) {
                 this.template(appFolder + '/src/main/java/ui/base/Presenter' + ext, 'app/src/main/java/' + packageDir + '/ui/base/Presenter' + ext, this, {})
