@@ -439,6 +439,13 @@ module.exports = AppGenerator.extend({
             this.template(appFolder + '/src/main/java/util/gson/GsonModule' + ext, 'app/src/main/java/' + packageDir + '/util/gson/GsonModule' + ext, this, {});
             this.template(appFolder + '/src/main/java/util/PermissionUtils' + ext, 'app/src/main/java/' + packageDir + '/util/PermissionUtils' + ext, this, {});
 
+            if (this.language == 'kotlin') {
+                this.template(appFolder + '/src/main/java/domain/repository/exception/ApiException.kt', 'app/src/main/java/' + packageDir + '/domain/repository/exception/ApiException.kt', this, {});
+                this.template(appFolder + '/src/main/java/domain/repository/exception/ErrorMessage.kt', 'app/src/main/java/' + packageDir + '/domain/repository/exception/ErrorMessage.kt', this, {});
+                this.template(appFolder + '/src/main/java/util/ExtractErrorUtil.kt', 'app/src/main/java/' + packageDir + '/util/ExtractErrorUtil.kt', this, {});
+                this.template(appFolder + '/src/main/java/util/ExtractResult.kt', 'app/src/main/java/' + packageDir + '/util/ExtractResult.kt', this, {});
+            }
+
             if (this.language == 'java') {
                 this.template(appFolder + '/src/main/java/util/AsyncHandler' + ext, 'app/src/main/java/' + packageDir + '/util/AsyncHandler' + ext, this, {});
                 this.template(appFolder + '/src/main/java/util/CallInExecutorThanMainThread' + ext, 'app/src/main/java/' + packageDir + '/util/CallInExecutorThanMainThread' + ext, this, {});

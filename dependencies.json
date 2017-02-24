@@ -58,16 +58,16 @@
       },
       {
         "scope": "compile",
-        "group": "io.reactivex",
+        "group": "io.reactivex.rxjava2",
         "name": "rxjava",
-        "version": "1.2.0",
+        "version": "2.0.6",
         "lang": "all"
       },
       {
         "scope": "compile",
-        "group": "io.reactivex",
+        "group": "io.reactivex.rxjava2",
         "name": "rxandroid",
-        "version": "1.2.1",
+        "version": "2.0.1",
         "lang": "all"
       },
       {
