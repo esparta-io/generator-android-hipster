@@ -406,6 +406,14 @@
         "selection": "paperparcel"
       },
       {
+        "scope": "compile",
+        "group": "nz.bradcampbell",
+        "name": "paperparcel-kotlin",
+        "version": "2.0.0",
+        "lang": "kotlin",
+        "selection": "paperparcel"
+      },
+      {
         "scope": "kapt",
         "group": "nz.bradcampbell",
         "name": "paperparcel-compiler",
