@@ -6,7 +6,7 @@ import retrofit2.adapter.rxjava.Result
 import retrofit2.Retrofit
 import retrofit2.http.GET
 
-import rx.Observable
+import io.reactivex.Observable
 
 class <%= repositoryName %>RemoteRepository <% if (interface == false) { %>@Inject<% } %> constructor(retrofit: Retrofit) {
 

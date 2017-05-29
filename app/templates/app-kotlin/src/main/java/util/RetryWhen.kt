@@ -1,4 +1,4 @@
-package io.esparta.datamate.util
+package <%= appPackage %>.util
 
 import io.reactivex.Observable
 import io.reactivex.ObservableSource

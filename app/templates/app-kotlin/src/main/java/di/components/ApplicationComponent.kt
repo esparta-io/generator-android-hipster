@@ -14,7 +14,7 @@ import <%= appPackage %>.environment.EnvironmentModule
 import <%= appPackage %>.storage.Storage
 import <%= appPackage %>.util.gson.GsonModule
 import retrofit2.Retrofit
-import rx.Scheduler
+import io.reactivex.Scheduler
 import javax.inject.Singleton
 
 <% if(eventbus==true) { %>import org.greenrobot.eventbus.EventBus<% } %>

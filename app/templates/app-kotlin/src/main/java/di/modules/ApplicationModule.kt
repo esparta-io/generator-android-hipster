@@ -17,8 +17,8 @@ import <%= appPackage %>.domain.executors.JobExecutor
 import <%= appPackage %>.domain.executors.ThreadExecutor
 import <%= appPackage %>.storage.Storage
 
-import rx.Scheduler
-import rx.schedulers.Schedulers
+import io.reactivex.Scheduler
+import io.reactivex.schedulers.Schedulers
 // android-hipster-needle-module-provides-import
 
 
