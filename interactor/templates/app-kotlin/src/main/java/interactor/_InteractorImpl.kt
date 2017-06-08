@@ -1,9 +1,9 @@
 package <%= appPackage %>.domain.interactors.<%= interactorPackageName %>
 
-import rx.Scheduler
+import io.reactivex.Scheduler
 import <%= appPackage %>.domain.interactors.base.BaseInteractor
 
-import rx.Observable
+import io.reactivex.Observable
 
 class <%= interactorName %>InteractorImpl (executor: Scheduler) : BaseInteractor(executor), <%= interactorName %>Interactor {
 

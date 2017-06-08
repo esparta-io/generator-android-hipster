@@ -1,11 +1,7 @@
 package <%= appPackage %>.domain.interactors.base
 
-import rx.Observable
-import rx.Single
-import rx.android.schedulers.AndroidSchedulers
-import rx.schedulers.Schedulers
-import java.util.concurrent.Executor
-import rx.Scheduler
+import io.reactivex.*
+import io.reactivex.android.schedulers.AndroidSchedulers
 
 open class BaseInteractor(val executor: Scheduler) {
 
@@ -30,19 +26,18 @@ open class BaseInteractor(val executor: Scheduler) {
     }
 
     fun <T> defer(action: () -> Observable<T>): Observable<T> {
-        return Observable.defer ({ action() })
+        return Observable.defer({ action() })
     }
 
-    fun <T> transform(e: Executor = executor): Observable.Transformer<T, T> {
-        return Observable.Transformer {
-            it.subscribeOn(Schedulers.from(e)).observeOn(AndroidSchedulers.mainThread())
+    fun <T> transform(e: Scheduler = executor): ObservableTransformer<T, T> {
+        return ObservableTransformer {
+            it.subscribeOn(e).observeOn(AndroidSchedulers.mainThread())
         }
     }
 
-    fun <T> transformSingle(e: Executor = executor): Single.Transformer<T, T> {
-        return Single.Transformer {
-          it.subscribeOn(Schedulers.from(e)).observeOn(AndroidSchedulers.mainThread())
+    fun <T> transformSingle(e: Scheduler = executor): SingleTransformer<T, T> {
+        return SingleTransformer {
+            it.subscribeOn(e).observeOn(AndroidSchedulers.mainThread())
         }
     }
-
 }

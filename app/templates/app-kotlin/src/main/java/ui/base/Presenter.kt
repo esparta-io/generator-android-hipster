@@ -156,7 +156,7 @@ open class Presenter<View> {
     /**
      * Detaches the presenter from a view.
      */
-    fun dropView() {
+    <% if (nucleus == false) { %>open<% } %> fun dropView() {
         onDropView()
         this.view = null
     }
