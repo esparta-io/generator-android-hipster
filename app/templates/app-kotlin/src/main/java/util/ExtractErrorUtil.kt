@@ -30,7 +30,7 @@ class ExtractErrorUtil<INCOMING_RESULT_TYPE, ERROR_RESULT_TYPE> {
             }
 
             errorMessage.throwable = incomingResult.error()
-            return Observable.error<ERROR_RESULT_TYPE>(ApiException(errorMessage, incomingResult.error()))
+            return Observable.error<ERROR_RESULT_TYPE>(ApiException(errorMessage, incomingResult.error()!!))
         }
 
         try {
@@ -45,7 +45,7 @@ class ExtractErrorUtil<INCOMING_RESULT_TYPE, ERROR_RESULT_TYPE> {
             if (incomingResult.error() == null) {
                 return Observable.error(ApiException(errorMessage))
             } else {
-                return Observable.error(ApiException(errorMessage, incomingResult.error()))
+                return Observable.error(ApiException(errorMessage, incomingResult.error()!!))
             }
         } catch (e: IOException) {
             <% if (timber == true) { %>Timber.e("IOException in Rest call:", e)<% } else { %>e.printStackTrace()<% } %>
@@ -54,7 +54,7 @@ class ExtractErrorUtil<INCOMING_RESULT_TYPE, ERROR_RESULT_TYPE> {
             errorMessage.httpCode = incomingResult.response()?.code() ?: 0
             errorMessage.throwable = e
 
-            return Observable.error<ERROR_RESULT_TYPE>(ApiException(errorMessage, incomingResult.error()))
+            return Observable.error<ERROR_RESULT_TYPE>(ApiException(errorMessage, incomingResult.error()!!))
 
         }
 

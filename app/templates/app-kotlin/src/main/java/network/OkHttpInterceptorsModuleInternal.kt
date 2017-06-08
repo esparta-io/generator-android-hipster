@@ -1,7 +1,5 @@
 package <%= appPackage %>.network;
 
-import com.facebook.stetho.okhttp3.StethoInterceptor
-
 import javax.inject.Singleton
 
 import dagger.Module
@@ -30,6 +28,6 @@ class OkHttpInterceptorsModule {
     @OkHttpNetworkInterceptors
     @Singleton
     fun provideOkHttpNetworkInterceptors(): Array<Interceptor> {
-        return arrayOf(StethoInterceptor())
+        return arrayOf()
     }
 }

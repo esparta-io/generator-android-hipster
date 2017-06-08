@@ -7,7 +7,7 @@
 -optimizations !code/simplification/arithmetic,!code/simplification/cast,!field/*,!class/merging/*
 -renamesourcefileattribute SourceFile
 -keepattributes SourceFile,LineNumberTable
--repackageclasses 'agivis'
+-repackageclasses 'io.esparta'
 -allowaccessmodification
 
 -keepattributes Signature

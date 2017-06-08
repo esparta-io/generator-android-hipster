@@ -1,12 +1,12 @@
 {
   "name": "generator-android-hipster",
-  "version": "1.0.0",
+  "version": "2.0.1-dev",
   "description": "Android generator based on MVP, Dagger2, RxJava, Java & Kotlin Stack and usefull libraries for Android",
   "homepage": "https://github.com/cavarzan/generator-android-hipster",
   "author": {
-    "name": "cavarzan",
-    "email": "deividi.cavarzan@gmail.com",
-    "url": "https://github.com/cavarzan/"
+    "name": "esparta-io",
+    "email": "os@esparta.io",
+    "url": "https://github.com/esparta-io/"
   },
   "main": "app/index.js",
   "keywords": [

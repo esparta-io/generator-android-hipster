@@ -24,7 +24,7 @@ Generator.prototype.installGradleDependencies = function (config, update) {
 
     var dependencies = this.fs.readJSON('dependencies.json');
 
-    this.addGradleFieldDependency('buildToolsVersion', '"25.0.2"', update);
+    this.addGradleFieldDependency('buildToolsVersion', '"25.0.3"', update);
 
     var parent = [];
     var parentKotlin = [];
@@ -394,13 +394,13 @@ Generator.prototype.addMultipleGradleDependency = function (dependencies, update
                 file: fullPath,
                 dependencies: dependencies
             });
-            this.log(chalk.green('updated dependency: ' + scope + ' "' + group + ':' + name + ':' + version + '"'));
+            // this.log(chalk.green('updated dependency: ' + scope + ' "' + group + ':' + name + ':' + version + '"'));
         } else {
             jhipsterUtils.rewriteFileMultiple({
                 file: fullPath,
                 dependencies: dependencies
             });
-            this.log(chalk.green('added dependency: ' + scope + ' "' + group + ':' + name + ':' + version + '"'));
+            // this.log(chalk.green('added dependency: ' + scope + ' "' + group + ':' + name + ':' + version + '"'));
         }
     } catch (e) {
         this.log(e);

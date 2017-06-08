@@ -93,11 +93,7 @@ module.exports = AppGenerator.extend({
                 choices: [
                     {
                         value: 'kotlin',
-                        name: 'Kotlin'
-                    },
-                    {
-                        value: 'java',
-                        name: 'Java (with Retrolambda)'
+                        name: 'Kotlin (Java not supported anymore)'
                     }
                 ],
                 default: 0
@@ -224,7 +220,7 @@ module.exports = AppGenerator.extend({
                 name: 'targetSdk',
                 message: 'What Android SDK will you be targeting?',
                 store: true,
-                default: 23
+                default: 26
             },
             {
                 name: 'minSdk',
@@ -357,12 +353,7 @@ module.exports = AppGenerator.extend({
             mkdirp('app');
             mkdirp('app/libs');
 
-            var appFolder;
-            if (this.language == 'java') {
-                appFolder = 'app-java'
-            } else {
-                appFolder = 'app-kotlin'
-            }
+            var appFolder = 'app-kotlin';
 
             mkdirp('app/src/internal/java/' + packageDir);
             mkdirp('app/src/internalDebug/java/' + packageDir);
@@ -376,12 +367,10 @@ module.exports = AppGenerator.extend({
 
             var ext = this.language == 'java' ? '.java' : '.kt';
 
-
-
-            this.template(appFolder + '/src/main/java/network/OkHttpNetworkInterceptors' + ext, 'app/src/main/java/' + packageDir + '/network/OkHttpNetworkInterceptors' + ext, this, {});
-            this.template(appFolder + '/src/main/java/network/OkHttpInterceptors' + ext, 'app/src/main/java/' + packageDir + '/network/OkHttpInterceptors' + ext, this, {});
-            this.template(appFolder + '/src/main/java/network/OkHttpInterceptorsModuleInternal' + ext, 'app/src/internal/java/' + packageDir + '/network/OkHttpInterceptorsModule' + ext, this, {});
-            this.template(appFolder + '/src/main/java/network/OkHttpInterceptorsModule' + ext, 'app/src/production/java/' + packageDir + '/network/OkHttpInterceptorsModule' + ext, this, {});
+            this.template(appFolder + '/src/main/java/network/OkHttpNetworkInterceptors.kt', 'app/src/main/java/' + packageDir + '/network/OkHttpNetworkInterceptors.kt', this, {});
+            this.template(appFolder + '/src/main/java/network/OkHttpInterceptors.kt', 'app/src/main/java/' + packageDir + '/network/OkHttpInterceptors.kt', this, {});
+            this.template(appFolder + '/src/main/java/network/OkHttpInterceptorsModuleInternal.kt', 'app/src/internal/java/' + packageDir + '/network/OkHttpInterceptorsModule.kt', this, {});
+            this.template(appFolder + '/src/main/java/network/OkHttpInterceptorsModule.kt', 'app/src/production/java/' + packageDir + '/network/OkHttpInterceptorsModule.kt', this, {});
             this.template(appFolder + '/src/main/java/environment', 'app/src/internal/java/' + packageDir + '/environment', this, {});
             this.template(appFolder + '/src/main/java/environment', 'app/src/production/java/' + packageDir + '/environment', this, {});
 
@@ -397,11 +386,11 @@ module.exports = AppGenerator.extend({
             }
             this.template(appFolder + '/src/main/java/model', 'app/src/main/java/' + packageDir + '/model', this, {});
 
-            this.template(appFolder + '/src/main/java/ui/base/BaseActivity' + ext, 'app/src/main/java/' + packageDir + '/ui/base/BaseActivity' + ext, this, {});
-            this.template(appFolder + '/src/main/java/ui/base/BasePresenter' + ext, 'app/src/main/java/' + packageDir + '/ui/base/BasePresenter' + ext, this, {});
-            this.template(appFolder + '/src/main/java/ui/base/BaseFragment' + ext, 'app/src/main/java/' + packageDir + '/ui/base/BaseFragment' + ext, this, {});
-            this.template(appFolder + '/src/main/java/ui/base/EmptyPresenter' + ext, 'app/src/main/java/' + packageDir + '/ui/base/EmptyPresenter' + ext, this, {});
-            this.template(appFolder + '/src/main/java/ui/base/PresenterView' + ext, 'app/src/main/java/' + packageDir + '/ui/base/PresenterView' + ext, this, {});
+            this.template(appFolder + '/src/main/java/ui/base/BaseActivity.kt', 'app/src/main/java/' + packageDir + '/ui/base/BaseActivity.kt', this, {});
+            this.template(appFolder + '/src/main/java/ui/base/BasePresenter.kt', 'app/src/main/java/' + packageDir + '/ui/base/BasePresenter.kt', this, {});
+            this.template(appFolder + '/src/main/java/ui/base/BaseFragment.kt', 'app/src/main/java/' + packageDir + '/ui/base/BaseFragment.kt', this, {});
+            this.template(appFolder + '/src/main/java/ui/base/EmptyPresenter.kt', 'app/src/main/java/' + packageDir + '/ui/base/EmptyPresenter.kt', this, {});
+            this.template(appFolder + '/src/main/java/ui/base/PresenterView.kt', 'app/src/main/java/' + packageDir + '/ui/base/PresenterView.kt', this, {});
             if (this.language == 'kotlin') {
                 if (this.eventbus) {
                     this.template(appFolder + '/src/main/java/ui/base/EventBusUser.kt', 'app/src/main/java/' + packageDir + '/ui/base/EventBusUser.kt', this, {})
@@ -413,26 +402,26 @@ module.exports = AppGenerator.extend({
 
             this.template(appFolder + '/src/main/java/storage', 'app/src/main/java/' + packageDir + '/storage', this, {});
             if (this.nucleus == false) {
-                this.template(appFolder + '/src/main/java/ui/base/Presenter' + ext, 'app/src/main/java/' + packageDir + '/ui/base/Presenter' + ext, this, {})
+                this.template(appFolder + '/src/main/java/ui/base/Presenter.kt', 'app/src/main/java/' + packageDir + '/ui/base/Presenter.kt', this, {})
             }
             if (this.timber) {
                 this.template(appFolder + '/src/main/java/util/logging', 'app/src/main/java/' + packageDir + '/util/logging', this, {})
             }
 
             if (this.jodatime) {
-                this.template(appFolder + '/src/main/java/util/gson/DateTimeTypeConverter' + ext, 'app/src/main/java/' + packageDir + '/util/gson/DateTimeTypeConverter' + ext, this, {});
-                this.template(appFolder + '/src/main/java/util/gson/DateTimeZoneTypeConverter' + ext, 'app/src/main/java/' + packageDir + '/util/gson/DateTimeZoneTypeConverter' + ext, this, {})
+                this.template(appFolder + '/src/main/java/util/gson/DateTimeTypeConverter.kt', 'app/src/main/java/' + packageDir + '/util/gson/DateTimeTypeConverter.kt', this, {});
+                this.template(appFolder + '/src/main/java/util/gson/DateTimeZoneTypeConverter.kt', 'app/src/main/java/' + packageDir + '/util/gson/DateTimeZoneTypeConverter.kt', this, {})
             }
             if (this.jodamoney) {
-                this.template(appFolder + '/src/main/java/util/gson/CurrencyUnitTypeConverter' + ext, 'app/src/main/java/' + packageDir + '/util/gson/CurrencyUnitTypeConverter' + ext, this, {});
-                this.template(appFolder + '/src/main/java/util/gson/MoneyTypeConverter' + ext, 'app/src/main/java/' + packageDir + '/util/gson/MoneyTypeConverter' + ext, this, {})
+                this.template(appFolder + '/src/main/java/util/gson/CurrencyUnitTypeConverter.kt', 'app/src/main/java/' + packageDir + '/util/gson/CurrencyUnitTypeConverter.kt', this, {});
+                this.template(appFolder + '/src/main/java/util/gson/MoneyTypeConverter.kt', 'app/src/main/java/' + packageDir + '/util/gson/MoneyTypeConverter.kt', this, {})
             }
             if (this.autoparcel && this.language == 'java') {
-                this.template(appFolder + '/src/main/java/util/gson/AutoGson' + ext, 'app/src/main/java/' + packageDir + '/util/gson/AutoGson' + ext, this, {});
-                this.template(appFolder + '/src/main/java/util/gson/AutoValueTypeAdapterFactory' + ext, 'app/src/main/java/' + packageDir + '/util/gson/AutoValueTypeAdapterFactory' + ext, this, {})
+                this.template(appFolder + '/src/main/java/util/gson/AutoGson.kt', 'app/src/main/java/' + packageDir + '/util/gson/AutoGson.kt', this, {});
+                this.template(appFolder + '/src/main/java/util/gson/AutoValueTypeAdapterFactory.kt', 'app/src/main/java/' + packageDir + '/util/gson/AutoValueTypeAdapterFactory.kt', this, {})
             }
-            this.template(appFolder + '/src/main/java/util/gson/GsonModule' + ext, 'app/src/main/java/' + packageDir + '/util/gson/GsonModule' + ext, this, {});
-            this.template(appFolder + '/src/main/java/util/PermissionUtils' + ext, 'app/src/main/java/' + packageDir + '/util/PermissionUtils' + ext, this, {});
+            this.template(appFolder + '/src/main/java/util/gson/GsonModule.kt', 'app/src/main/java/' + packageDir + '/util/gson/GsonModule.kt', this, {});
+            this.template(appFolder + '/src/main/java/util/PermissionUtils.kt', 'app/src/main/java/' + packageDir + '/util/PermissionUtils.kt', this, {});
 
             if (this.language == 'kotlin') {
                 this.template(appFolder + '/src/main/java/domain/repository/exception/ApiException.kt', 'app/src/main/java/' + packageDir + '/domain/repository/exception/ApiException.kt', this, {});
@@ -443,12 +432,12 @@ module.exports = AppGenerator.extend({
             }
 
             if (this.language == 'java') {
-                this.template(appFolder + '/src/main/java/util/AsyncHandler' + ext, 'app/src/main/java/' + packageDir + '/util/AsyncHandler' + ext, this, {});
-                this.template(appFolder + '/src/main/java/util/CallInExecutorThanMainThread' + ext, 'app/src/main/java/' + packageDir + '/util/CallInExecutorThanMainThread' + ext, this, {});
-                this.template(appFolder + '/src/main/java/util/FilterOrThrow' + ext, 'app/src/main/java/' + packageDir + '/util/FilterOrThrow' + ext, this, {});
-                this.template(appFolder + '/src/main/java/util/RetryWhen' + ext, 'app/src/main/java/' + packageDir + '/util/RetryWhen' + ext, this, {});
-                this.template(appFolder + '/src/main/java/util/RxUtils' + ext, 'app/src/main/java/' + packageDir + '/util/RxUtils' + ext, this, {});
-                this.template(appFolder + '/src/main/java/util/RepositoryUtils' + ext, 'app/src/main/java/' + packageDir + '/util/RepositoryUtils' + ext, this, {});
+                this.template(appFolder + '/src/main/java/util/AsyncHandler.kt', 'app/src/main/java/' + packageDir + '/util/AsyncHandler.kt', this, {});
+                this.template(appFolder + '/src/main/java/util/CallInExecutorThanMainThread.kt', 'app/src/main/java/' + packageDir + '/util/CallInExecutorThanMainThread.kt', this, {});
+                this.template(appFolder + '/src/main/java/util/FilterOrThrow.kt', 'app/src/main/java/' + packageDir + '/util/FilterOrThrow.kt', this, {});
+                this.template(appFolder + '/src/main/java/util/RetryWhen.kt', 'app/src/main/java/' + packageDir + '/util/RetryWhen.kt', this, {});
+                this.template(appFolder + '/src/main/java/util/RxUtils.kt', 'app/src/main/java/' + packageDir + '/util/RxUtils.kt', this, {});
+                this.template(appFolder + '/src/main/java/util/RepositoryUtils.kt', 'app/src/main/java/' + packageDir + '/util/RepositoryUtils.kt', this, {});
                 this.template(appFolder + '/src/main/java/util/google', 'app/src/main/java/' + packageDir + '/util/google', this, {});
             }
 

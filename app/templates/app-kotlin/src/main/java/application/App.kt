@@ -4,9 +4,6 @@ import android.app.Application
 import android.content.Context
 import android.support.multidex.MultiDex
 
-import com.squareup.leakcanary.LeakCanary
-import com.squareup.leakcanary.RefWatcher
-
 import <%= appPackage %>.R
 import <%= appPackage %>.di.ForApplication
 import <%= appPackage %>.di.components.ApplicationComponent
@@ -26,8 +23,6 @@ class App : Application() {
 
     var graph:ApplicationComponent? = null
 
-    var refWatcher:RefWatcher? = null
-
     override fun attachBaseContext(base: Context) {
         super.attachBaseContext(base)
         MultiDex.install(this)
@@ -41,9 +36,6 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
-
-        LeakCanary.install(this)
-        refWatcher = LeakCanary.install(this)
 
         <% if (jodatime === true) { %>JodaTimeAndroid.init(this)<% } %>
         <% if (threetenabp == true) { %>AndroidThreeTen.init(this) <% } %>
@@ -77,10 +69,6 @@ class App : Application() {
         graph = ApplicationComponent.Initializer.init(this)
         graph!!.inject(this)
         environmentConfiguration.configure()
-    }
-
-    fun refWatcher(): RefWatcher? {
-        return refWatcher
     }
 
     <% if (glide == true) { %>override fun onTrimMemory(level: Int) {

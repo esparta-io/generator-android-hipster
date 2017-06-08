@@ -1,7 +1,7 @@
 # generator-android-hipster
 > Android generator based on MVP, Dagger2, RxJava, Java/Kotlin Stack and usefull libraries for Android
 
-> Latest version: 0.2.4
+> Latest version: 1.0.1
 
 
 > Update with `npm update -g generator-android-hipster`
@@ -17,11 +17,10 @@
 It provides a generator to create and maintain a android application based on the latests frameworks and patterns used by the community.
 
 Stack:
-- Java / [Kotlin](https://kotlinlang.org/)
+- [Kotlin](https://kotlinlang.org/)
 - [RxJava](https://github.com/ReactiveX/RxJava)
 - [RxAndroid](https://github.com/ReactiveX/RxAndroid)
 - MVP
-- [Nucleus](https://github.com/konmik/nucleus)
 - Interactors / UseCases
 - Repositories
 - Flavors like used in [u2020](https://github.com/JakeWharton/u2020)
@@ -36,7 +35,6 @@ Stack:
 - Push notifications
 - [ButterKnife](http://jakewharton.github.io/butterknife/)
 - [Anko](https://github.com/Kotlin/anko) (kotlin)
-- [Retrolambda](https://github.com/orfjackal/retrolambda) (Java)
 - [JodaTimeAndroid](https://github.com/dlew/joda-time-android) / [Jodamoney](http://www.joda.org/joda-money/)
 - [Gson](https://github.com/google/gson)
 - [MixPanel](https://mixpanel.com/help/reference/android)
@@ -44,15 +42,7 @@ Stack:
 - [PrintView](https://github.com/johnkil/Print)
 - [Calligraphy](https://github.com/chrisjenx/Calligraphy)
 - [AutoValue](https://github.com/google/auto/tree/master/value) / [AutoParcel](https://github.com/frankiesardo/auto-parcel)
-- [Guava](https://github.com/google/guava) Optionals (source included - just optionals)
 
-Yet to come:
-- [RxLifeCycle](https://github.com/trello/RxLifecycle)
-- [Hawk](https://github.com/orhanobut/hawk) / [RxPreferences](https://github.com/f2prateek/rx-preferences)
-- [Dexter](https://github.com/Karumi/Dexter) / [RxPermissions](https://github.com/tbruyelle/RxPermissions)
-- DB implementations (I usually work with ORMLite, but it will be awesome to create a multi db options to use ORMLite, DBFlow, Storio, Realm and etc..)
-- JNI support
-- ???
 
 Some of these technologies are optional, and you can choose what you want to use answering the questions when you create the project.
 Some of them are mandatory, but can be optional soon. If you have any questions, please create a new issue and we will discuss.
@@ -170,17 +160,9 @@ yo android-hipster:push
 ```
 
 
-# Special THANKS to:
-
-[JHipster](https://github.com/jhipster/generator-jhipster) that inspired to develop!
-
-[Android Kickstarter](https://github.com/cristhianescobar/generator-android-starter/) another inspiration for Environment classes and Mixpanel.
-
-[Agivis Web & Mobile](http://www.agivis.com.br)
-
 ## License
 
- © [cavarzan](https://github.com/cavarzan/)
+ © [esparta-io](https://github.com/esparta-io/)
 
 
 [npm-image]: https://badge.fury.io/js/generator-android-hipster.svg
