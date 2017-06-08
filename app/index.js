@@ -92,14 +92,13 @@ module.exports = AppGenerator.extend({
                 message: 'What language would you like to use? ',
                 choices: [
                     {
-                        value: 'java',
-                        name: 'Java (with Retrolambda)'
-                    },
-                    {
                         value: 'kotlin',
                         name: 'Kotlin'
+                    },
+                    {
+                        value: 'java',
+                        name: 'Java (with Retrolambda)'
                     }
-
                 ],
                 default: 0
             },
@@ -129,15 +128,11 @@ module.exports = AppGenerator.extend({
                 message: 'What MVP do you want to use? ',
                 choices: [
                     {
-                        value: 'nucleus',
-                        name: 'Nucleus MVP'
-                    },
-                    {
                         value: 'embeed',
                         name: 'Embeed MVP (No Lib)'
                     }
                 ],
-                default: 'nucleus'
+                default: 'embeed'
             },
             {
                 type: 'confirm',
@@ -175,7 +170,7 @@ module.exports = AppGenerator.extend({
                         name: 'None'
                     }
                 ],
-                default: 'threetenabp'
+                default: 'jodatime'
             },
             {
                 type: 'confirm',
@@ -205,7 +200,7 @@ module.exports = AppGenerator.extend({
                 type: 'confirm',
                 name: 'stetho',
                 message: 'Would you like to use Stetho for Network Monitoring?',
-                default: true
+                default: false
             },
             {
                 when: function (data) {
@@ -214,7 +209,7 @@ module.exports = AppGenerator.extend({
                 type: 'confirm',
                 name: 'autoparcel',
                 message: 'Would you like to use AutoParcel?',
-                default: true
+                default: false
             },
             {
                 when: function (data) {
@@ -381,7 +376,7 @@ module.exports = AppGenerator.extend({
 
             var ext = this.language == 'java' ? '.java' : '.kt';
 
-            
+
 
             this.template(appFolder + '/src/main/java/network/OkHttpNetworkInterceptors' + ext, 'app/src/main/java/' + packageDir + '/network/OkHttpNetworkInterceptors' + ext, this, {});
             this.template(appFolder + '/src/main/java/network/OkHttpInterceptors' + ext, 'app/src/main/java/' + packageDir + '/network/OkHttpInterceptors' + ext, this, {});
@@ -412,8 +407,8 @@ module.exports = AppGenerator.extend({
                     this.template(appFolder + '/src/main/java/ui/base/EventBusUser.kt', 'app/src/main/java/' + packageDir + '/ui/base/EventBusUser.kt', this, {})
                 }
 
-                this.template(appFolder + '/src/main/java/ui/base/IToolbarActivity.kt', 'app/src/main/java/' + packageDir + '/ui/base/IToolbarActivity.kt', this, {});    
-                this.template(appFolder + '/src/main/java/ui/base/ProgressPresenterView.kt', 'app/src/main/java/' + packageDir + '/ui/base/ProgressPresenterView.kt', this, {});    
+                this.template(appFolder + '/src/main/java/ui/base/IToolbarActivity.kt', 'app/src/main/java/' + packageDir + '/ui/base/IToolbarActivity.kt', this, {});
+                this.template(appFolder + '/src/main/java/ui/base/ProgressPresenterView.kt', 'app/src/main/java/' + packageDir + '/ui/base/ProgressPresenterView.kt', this, {});
             }
 
             this.template(appFolder + '/src/main/java/storage', 'app/src/main/java/' + packageDir + '/storage', this, {});
