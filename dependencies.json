@@ -101,7 +101,7 @@
       {
         "scope": "compile",
         "group": "com.squareup.retrofit2",
-        "name": "adapter-rxjava",
+        "name": "adapter-rxjava2",
         "version": "2.1.0",
         "lang": "all"
       },
