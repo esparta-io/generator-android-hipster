@@ -3,7 +3,7 @@ package <%= appPackage %>.util
 import io.reactivex.Observable
 import io.reactivex.ObservableSource
 import io.reactivex.ObservableTransformer
-import retrofit2.adapter.rxjava.Result
+import retrofit2.adapter.rxjava2.Result
 
 class ExtractResult<T> : ObservableTransformer<Result<T>, T> {
 

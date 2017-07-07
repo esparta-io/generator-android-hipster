@@ -1,15 +1,14 @@
 package <%= appPackage %>.ui.base
 
+import android.annotation.SuppressLint
 import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
+import android.view.MenuItem
 import <%= appPackage %>.R
 
-/**
- * Created by rene on 11/18/16.
- */
 interface IToolbarActivity {
 
     fun configureToolbar(toolbar: Toolbar, activity: AppCompatActivity, color: Int? = null, homeEnable: Boolean) {
@@ -25,6 +24,16 @@ interface IToolbarActivity {
             }
         }
 
+    }
+
+    fun handleHomePressed(activity: AppCompatActivity, item: MenuItem?): Boolean {
+        when (item?.itemId) {
+            android.R.id.home -> {
+                activity.onBackPressed()
+                return true
+            }
+        }
+        return false
     }
 
 }

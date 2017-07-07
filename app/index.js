@@ -367,10 +367,15 @@ module.exports = AppGenerator.extend({
 
             var ext = this.language == 'java' ? '.java' : '.kt';
 
+            this.template(appFolder + '/src/main/java/network/OAuthInterceptor.kt', 'app/src/main/java/' + packageDir + '/network/OAuthInterceptor.kt', this, {});
             this.template(appFolder + '/src/main/java/network/OkHttpNetworkInterceptors.kt', 'app/src/main/java/' + packageDir + '/network/OkHttpNetworkInterceptors.kt', this, {});
             this.template(appFolder + '/src/main/java/network/OkHttpInterceptors.kt', 'app/src/main/java/' + packageDir + '/network/OkHttpInterceptors.kt', this, {});
             this.template(appFolder + '/src/main/java/network/OkHttpInterceptorsModuleInternal.kt', 'app/src/internal/java/' + packageDir + '/network/OkHttpInterceptorsModule.kt', this, {});
             this.template(appFolder + '/src/main/java/network/OkHttpInterceptorsModule.kt', 'app/src/production/java/' + packageDir + '/network/OkHttpInterceptorsModule.kt', this, {});
+
+            this.template(appFolder + '/src/main/java/service/LogoutWorker.kt', 'app/src/main/java/' + packageDir + '/service/LogoutWorker.kt', this, {});
+            this.template(appFolder + '/src/main/java/service/push/PushExtras.kt', 'app/src/main/java/' + packageDir + '/service/push/PushExtras.kt', this, {});
+
             this.template(appFolder + '/src/main/java/environment', 'app/src/internal/java/' + packageDir + '/environment', this, {});
             this.template(appFolder + '/src/main/java/environment', 'app/src/production/java/' + packageDir + '/environment', this, {});
 
@@ -384,9 +389,10 @@ module.exports = AppGenerator.extend({
                     this.template(appFolder + '/src/main/java/extensions/PresenterExtensions.kt', 'app/src/main/java/' + packageDir + '/extensions/PresenterExtensions.kt', this, {})
                 }
             }
-            this.template(appFolder + '/src/main/java/model', 'app/src/main/java/' + packageDir + '/model', this, {});
+            this.template(appFolder + '/src/main/java/model/OAuth.kt', 'app/src/main/java/' + packageDir + '/model/OAuth.kt', this, {});
 
             this.template(appFolder + '/src/main/java/ui/base/BaseActivity.kt', 'app/src/main/java/' + packageDir + '/ui/base/BaseActivity.kt', this, {});
+            this.template(appFolder + '/src/main/java/ui/base/BaseAdapter.kt', 'app/src/main/java/' + packageDir + '/ui/base/BaseAdapter.kt', this, {});
             this.template(appFolder + '/src/main/java/ui/base/BasePresenter.kt', 'app/src/main/java/' + packageDir + '/ui/base/BasePresenter.kt', this, {});
             this.template(appFolder + '/src/main/java/ui/base/BaseFragment.kt', 'app/src/main/java/' + packageDir + '/ui/base/BaseFragment.kt', this, {});
             this.template(appFolder + '/src/main/java/ui/base/EmptyPresenter.kt', 'app/src/main/java/' + packageDir + '/ui/base/EmptyPresenter.kt', this, {});
@@ -396,6 +402,8 @@ module.exports = AppGenerator.extend({
                     this.template(appFolder + '/src/main/java/ui/base/EventBusUser.kt', 'app/src/main/java/' + packageDir + '/ui/base/EventBusUser.kt', this, {})
                 }
 
+                this.template(appFolder + '/src/main/java/ui/base/IFailMessage.kt', 'app/src/main/java/' + packageDir + '/ui/base/IFailMessage.kt', this, {});
+                this.template(appFolder + '/src/main/java/ui/base/IProgressActivity.kt', 'app/src/main/java/' + packageDir + '/ui/base/IProgressActivity.kt', this, {});
                 this.template(appFolder + '/src/main/java/ui/base/IToolbarActivity.kt', 'app/src/main/java/' + packageDir + '/ui/base/IToolbarActivity.kt', this, {});
                 this.template(appFolder + '/src/main/java/ui/base/ProgressPresenterView.kt', 'app/src/main/java/' + packageDir + '/ui/base/ProgressPresenterView.kt', this, {});
             }
@@ -421,6 +429,10 @@ module.exports = AppGenerator.extend({
                 this.template(appFolder + '/src/main/java/util/gson/AutoValueTypeAdapterFactory.kt', 'app/src/main/java/' + packageDir + '/util/gson/AutoValueTypeAdapterFactory.kt', this, {})
             }
             this.template(appFolder + '/src/main/java/util/gson/GsonModule.kt', 'app/src/main/java/' + packageDir + '/util/gson/GsonModule.kt', this, {});
+            this.template(appFolder + '/src/main/java/util/DensityUtil.kt', 'app/src/main/java/' + packageDir + '/util/DensityUtil.kt', this, {});
+            this.template(appFolder + '/src/main/java/util/ExtractSingleResult.kt', 'app/src/main/java/' + packageDir + '/util/ExtractSingleResult.kt', this, {});
+            this.template(appFolder + '/src/main/java/util/LinearMarginItemDecoration.kt', 'app/src/main/java/' + packageDir + '/util/LinearMarginItemDecoration.kt', this, {});
+            this.template(appFolder + '/src/main/java/util/StringUtils.kt', 'app/src/main/java/' + packageDir + '/util/StringUtils.kt', this, {});
             this.template(appFolder + '/src/main/java/util/PermissionUtils.kt', 'app/src/main/java/' + packageDir + '/util/PermissionUtils.kt', this, {});
 
             if (this.language == 'kotlin') {

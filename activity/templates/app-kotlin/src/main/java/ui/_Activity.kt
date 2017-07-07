@@ -11,7 +11,6 @@ import <%= appPackage %>.di.components.<%= activityName %>Component
 import <%= appPackage %>.di.modules.<%= activityName %>Module<% } else if (componentType == 'useApplication') { %>import <%= appPackage %>.di.components.ApplicationComponent<% } else {  %>import <%= appPackage %>.di.components.<%= useExistingComponentName %>Component
 import <%= appPackage %>.di.modules.<%= useExistingComponentName %>Module
 import <%= appPackage %>.di.components.Dagger<%= useExistingComponentName %>Component<% } %>
-<% if (nucleus == true) { %>import nucleus.factory.PresenterFactory <% } %>
 
 import javax.inject.Inject
 
@@ -22,6 +21,20 @@ class <%= activityName %>Activity : BaseActivity<<%= activityName %>Presenter>()
     lateinit var <%= activityName.charAt(0).toLowerCase() + activityName.slice(1) %>Presenter: <%= activityName %>Presenter
 
     lateinit var <% if (componentType == 'createNew') { %><%= activityName.charAt(0).toLowerCase() + activityName.slice(1) %>Component: <%= activityName %>Component<% } else if (componentType == 'useApplication') { %>applicationComponent: ApplicationComponent<% } else {  %><%= underscoreUseExistingComponentName %>Component: <%= useExistingComponentName %>Component<% } %>
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getPresenter().takeView(this)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        getPresenter().dropView()
+    }
 
     override fun injectModule() {
         <% if (componentType == 'createNew') { %><%= activityName.charAt(0).toLowerCase() + activityName.slice(1) %>Component = Dagger<%= activityName %>Component.builder().applicationComponent(App.get(this).getComponent()).<%= activityName.charAt(0).toLowerCase() + activityName.slice(1)  %>Module(<%= activityName %>Module(this)).build()
@@ -34,29 +47,10 @@ class <%= activityName %>Activity : BaseActivity<<%= activityName %>Presenter>()
         <% } %>
     }
 
-    <% if (nucleus == true) { %>override fun getPresenterFactory(): PresenterFactory<<%= activityName %>Presenter>? = PresenterFactory { <%= activityName.charAt(0).toLowerCase() + activityName.slice(1)  %>Presenter }<% } %>
+    override fun getPresenter(): <%= activityName %>Presenter = <%= activityName.charAt(0).toLowerCase() + activityName.slice(1) %>Presenter
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+    override fun getLayoutResource(): Int = R.layout.activity_<%= underscoreActivityName  %>
 
-    override fun getLayoutResource(): Int {
-        return R.layout.activity_<%= underscoreActivityName  %>
-    }
-
-    override fun getComponent():  <% if (componentType == 'createNew') { %><%= activityName %>Component<% } else if (componentType == 'useApplication') { %>ApplicationComponent<% } else {  %><%= useExistingComponentName %>Component<% } %> {
-        return <% if (componentType == 'createNew') { %><%= activityName.charAt(0).toLowerCase() + activityName.slice(1) %>Component<% } else if (componentType == 'useApplication') { %>applicationComponent<% } else {  %><%= underscoreUseExistingComponentName %>Component<% } %>
-    }
-
-    <% if (nucleus == false) { %>
-    override fun onResume() {
-        super.onResume()
-        getPresenter().takeView(this)
-    }
-
-    override fun onPause() {
-        super.onPause()
-        getPresenter().dropView()
-    }<% } %>
+    override fun getComponent():  <% if (componentType == 'createNew') { %><%= activityName %>Component<% } else if (componentType == 'useApplication') { %>ApplicationComponent<% } else {  %><%= useExistingComponentName %>Component<% } %> = <% if (componentType == 'createNew') { %><%= activityName.charAt(0).toLowerCase() + activityName.slice(1) %>Component<% } else if (componentType == 'useApplication') { %>applicationComponent<% } else {  %><%= underscoreUseExistingComponentName %>Component<% } %>
 
 }

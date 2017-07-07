@@ -4,8 +4,9 @@ import com.google.gson.Gson
 import com.google.gson.JsonSyntaxException
 import <%= appPackage %>.domain.repository.exception.ApiException
 import <%= appPackage %>.domain.repository.exception.ErrorMessage
-import retrofit2.adapter.rxjava.Result
+import retrofit2.adapter.rxjava2.Result
 import io.reactivex.Observable
+import io.reactivex.Single
 <% if (timber == true) { %>import timber.log.Timber<% } %>
 import java.io.IOException
 import java.net.ConnectException
@@ -58,6 +59,10 @@ class ExtractErrorUtil<INCOMING_RESULT_TYPE, ERROR_RESULT_TYPE> {
 
         }
 
+    }
+
+    fun extractSingleError(incomingResult: Result<INCOMING_RESULT_TYPE>): Single<ERROR_RESULT_TYPE> {
+        return extractError(incomingResult).singleOrError()
     }
 
     private fun convertErrorMessage(string: String?): ErrorMessage {

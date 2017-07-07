@@ -54,6 +54,8 @@ android {
             buildConfigField 'String', 'API_ENDPOINT_INTERNAL', "\"http://example.com\""
             buildConfigField 'String', 'API_ENDPOINT_STAGING', "\"http://example.com\""
             buildConfigField 'String', 'API_ENDPOINT_PRODUCTION', "\"http://example.com\""
+            buildConfigField 'String', 'CLIENT_ID', "\"CLIENT_ID\""
+            buildConfigField 'String', 'CLIENT_SECRET', "\"CLIENT_SECRET\""
         }
         debug {
           def host = InetAddress.getLocalHost().getCanonicalHostName()
