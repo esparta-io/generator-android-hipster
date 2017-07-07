@@ -9,7 +9,7 @@ import io.reactivex.Observable
 class <%= interactorName %>Interactor @Inject constructor(executor: Scheduler) : BaseInteractor(executor)  {
 
     fun invoke(): Observable<Any> {
-        return Observable.just(Any());
+        return Observable.just(Any())
     }
 
 }

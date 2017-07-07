@@ -1,15 +1,15 @@
-package <%= appPackage %>.environment;
+package <%= appPackage %>.environment
 
 import android.app.Application
 import android.os.StrictMode
-import <%= appPackage %>.BuildConfig;
-import <%= appPackage %>.di.ForApplication;
+import <%= appPackage %>.BuildConfig
+import <%= appPackage %>.di.ForApplication
 <% if (stetho == true) { %>import com.facebook.stetho.Stetho;<% } %>
 <% if (timber == true) { %>import timber.log.Timber;
 import <%= appPackage %>.util.logging.CrashReportingTree; <% } %>
 import javax.inject.Inject
 import javax.inject.Singleton
-import rx.schedulers.Schedulers
+import io.reactivex.schedulers.Schedulers
 
 @Singleton
 class EnvironmentConfiguration @Inject constructor() {
