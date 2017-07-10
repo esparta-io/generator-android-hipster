@@ -201,8 +201,8 @@ module.exports = ActivityGenerator.extend({
                     this.addComponentInjectionKotlin(this.fragmentName + 'Fragment', packageDir, this.appPackage + '.ui.' + this.fragmentPackageName)
                 }
             } else {
-                this.useExistingComponentName = this.useExistingComponentName.replace("Component", "");
-                var name = this.useExistingComponentName + "Component";
+                this.activityName = this.activityName.replace("Component", "");
+                var name = this.activityName + "Component";
                 if (this.language == 'java') {
                     this.addComponentInjection(this.fragmentName + 'Fragment', packageDir, this.appPackage + '.ui.' + this.fragmentPackageName, name);
                 } else {
