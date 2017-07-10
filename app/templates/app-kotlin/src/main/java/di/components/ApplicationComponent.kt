@@ -13,6 +13,7 @@ import <%= appPackage %>.network.OkHttpInterceptorsModule
 import <%= appPackage %>.environment.EnvironmentModule
 import <%= appPackage %>.storage.Storage
 import <%= appPackage %>.util.gson.GsonModule
+import <%= appPackage %>.di.modules.UserModule
 import retrofit2.Retrofit
 import io.reactivex.Scheduler
 import javax.inject.Singleton
@@ -42,6 +43,8 @@ interface ApplicationComponent {
     fun provideGson(): Gson
 
     fun inject(app: App)
+
+    fun plus(userModule: UserModule): UserComponent?
 
     <% if(eventbus==true) { %>fun provideEventBus(): EventBus<% } %>
 

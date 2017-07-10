@@ -9,7 +9,10 @@ import <%= appPackage %>.di.ForApplication
 import <%= appPackage %>.di.components.ApplicationComponent
 import <%= appPackage %>.environment.EnvironmentConfiguration
 import kotlin.properties.Delegates
-
+import <%= appPackage %>.di.components.UserComponent
+import <%= appPackage %>.di.modules.UserModule
+import <%= appPackage %>.model.OAuth
+import <%= appPackage %>.storage.Storage
 <% if (threetenabp == true) { %>import com.jakewharton.threetenabp.AndroidThreeTen <% } %>
 <% if (jodatime == true) { %>import net.danlew.android.joda.JodaTimeAndroid<% } %>
 <% if (printview == true) { %>import com.github.johnkil.print.PrintConfig<% } %>
@@ -23,6 +26,8 @@ class App : Application() {
 
     var graph:ApplicationComponent? = null
 
+    var userGraph: UserComponent? = null
+
     override fun attachBaseContext(base: Context) {
         super.attachBaseContext(base)
         MultiDex.install(this)
@@ -30,6 +35,9 @@ class App : Application() {
 
     @field:[Inject ForApplication]
     lateinit var context: Context
+
+    @field:[Inject]
+    lateinit var storage: Storage
 
     @Inject
     lateinit var environmentConfiguration: EnvironmentConfiguration
@@ -80,5 +88,27 @@ class App : Application() {
         super.onLowMemory()
         Glide.get(this).clearMemory()
     }<% } %>
+
+    fun getUserComponent(): UserComponent? {
+        if (graph == null) {
+            createComponent()
+        }
+        if (userGraph == null) {
+            val oauth = storage.get(OAuth.CLASS_NAME, OAuth::class.java)
+            if (oauth != null) {
+                createUserComponent(oauth)
+            }
+        }
+        return userGraph
+    }
+
+    fun clearUserComponent() {
+        userGraph = null
+    }
+
+    fun createUserComponent(oauth: OAuth): UserComponent {
+        userGraph = getComponent().plus(UserModule(this, oauth))
+        return userGraph!!
+    }
 
 }

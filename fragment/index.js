@@ -88,11 +88,15 @@ module.exports = ActivityGenerator.extend({
                 choices: [
                     {
                         value: 'createNew',
-                        name: 'The SAME component of the activity'
+                        name: 'The SAME component of the activity, only when the activity owns your Component / Module'
                     },
                     {
                         value: 'useApplication',
                         name: 'Use the ApplicationComponent to inject this activity'
+                    },
+                    {
+                        value: 'useUserComponent',
+                        name: 'Use the UserComponent to inject this activity'
                     },
                     {
                         value: 'useExistingComponent',
@@ -116,6 +120,10 @@ module.exports = ActivityGenerator.extend({
                     {
                         value: 'useApplication',
                         name: 'Use the ApplicationComponent to inject this fragment'
+                    },
+                    {
+                        value: 'useUserComponent',
+                        name: 'Use the UserComponent to inject this fragment'
                     },
                     {
                         value: 'useExistingComponent',
@@ -200,6 +208,8 @@ module.exports = ActivityGenerator.extend({
                 } else {
                     this.addComponentInjectionKotlin(this.fragmentName + 'Fragment', packageDir, this.appPackage + '.ui.' + this.fragmentPackageName)
                 }
+            } else if (this.componentType == 'useUserComponent') {
+              this.addComponentInjectionKotlin(this.fragmentName + 'Fragment', packageDir, this.appPackage + '.ui.' + this.fragmentPackageName, 'UserComponent')
             } else {
                 this.activityName = this.activityName.replace("Component", "");
                 var name = this.activityName + "Component";

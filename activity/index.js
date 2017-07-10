@@ -76,6 +76,10 @@ module.exports = ActivityGenerator.extend({
                         name: 'Use the ApplicationComponent to inject this activity'
                     },
                     {
+                        value: 'useUserComponent',
+                        name: 'Use the UserComponent to inject this activity'
+                    },
+                    {
                         value: 'useExistingComponent',
                         name: 'Use the another existing component to inject this activity'
                     }
@@ -153,6 +157,8 @@ module.exports = ActivityGenerator.extend({
                 } else {
                     this.addComponentInjectionKotlin(this.activityName + 'Activity', packageDir, this.appPackage + '.ui.' + this.activityPackageName);
                 }
+            } else if (this.componentType == 'useUserComponent') {
+                this.addComponentInjectionKotlin(this.activityName + 'Activity', packageDir, this.appPackage + '.ui.' + this.activityPackageName, "userComponent");
             } else {
                 this.useExistingComponentName = this.useExistingComponentName.replace("Component", "");
                 var name = this.useExistingComponentName + "Component";

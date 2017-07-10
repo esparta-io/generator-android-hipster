@@ -1,5 +1,5 @@
-package <%= appPackage %>.di;
+package <%= appPackage %>.di
 
 interface HasComponent<C> {
-    fun getComponent() : C
+    fun getComponent() : C?
 }
