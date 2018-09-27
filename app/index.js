@@ -380,6 +380,11 @@ module.exports = AppGenerator.extend({
                     this.template(appFolder + '/src/main/java/extensions/PresenterExtensions.kt', 'app/src/main/java/' + packageDir + '/extensions/PresenterExtensions.kt', this, {})
                 }
             }
+
+            if (this.glide) {
+                this.template(appFolder + '/src/main/java/application/GlideModule.kt', 'app/src/main/java/' + packageDir + '/application/GlideModule.kt', this, {});
+            }
+
             this.template(appFolder + '/src/main/java/model/OAuth.kt', 'app/src/main/java/' + packageDir + '/model/OAuth.kt', this, {});
 
             this.template(appFolder + '/src/main/java/ui/base/BaseActivity.kt', 'app/src/main/java/' + packageDir + '/ui/base/BaseActivity.kt', this, {});
