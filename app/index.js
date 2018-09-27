@@ -392,7 +392,6 @@ module.exports = AppGenerator.extend({
             this.template(appFolder + '/src/main/java/model/OAuth.kt', 'app/src/main/java/' + packageDir + '/model/OAuth.kt', this, {});
 
             this.template(appFolder + '/src/main/java/ui/base/BaseActivity.kt', 'app/src/main/java/' + packageDir + '/ui/base/BaseActivity.kt', this, {});
-            this.template(appFolder + '/src/main/java/ui/base/BaseAdapter.kt', 'app/src/main/java/' + packageDir + '/ui/base/BaseAdapter.kt', this, {});
             this.template(appFolder + '/src/main/java/ui/base/BasePresenter.kt', 'app/src/main/java/' + packageDir + '/ui/base/BasePresenter.kt', this, {});
             this.template(appFolder + '/src/main/java/ui/base/BaseFragment.kt', 'app/src/main/java/' + packageDir + '/ui/base/BaseFragment.kt', this, {});
             this.template(appFolder + '/src/main/java/ui/base/EmptyPresenter.kt', 'app/src/main/java/' + packageDir + '/ui/base/EmptyPresenter.kt', this, {});

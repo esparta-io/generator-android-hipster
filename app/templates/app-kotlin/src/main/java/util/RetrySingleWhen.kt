@@ -1,19 +1,21 @@
 package <%= appPackage %>.util
 
-import io.reactivex.Observable
-import io.reactivex.ObservableSource
-import io.reactivex.ObservableTransformer
+import io.reactivex.Flowable
+import io.reactivex.Single
+import io.reactivex.SingleSource
+import io.reactivex.SingleTransformer
 import java.util.concurrent.TimeUnit
 import kotlin.properties.Delegates
 
 /**
- * Created by gmribas on 03/03/17.
+ *
+ * Created by gmribas on 30/04/18.
  */
-class RetryWhen<T>: ObservableTransformer<T, T> {
+class RetrySingleWhen<T>: SingleTransformer<T, T> {
 
-    private var count: Int by Delegates.notNull()
-    private var period: Int by Delegates.notNull()
-    private var backoff: Int by Delegates.notNull()
+    private var count by Delegates.notNull<Int>()
+    private var period by Delegates.notNull<Int>()
+    private var backoff by Delegates.notNull<Int>()
 
     constructor() {
         count = 3
@@ -39,15 +41,15 @@ class RetryWhen<T>: ObservableTransformer<T, T> {
         this.backoff = backoff
     }
 
-    override fun apply(upstream: Observable<T>): ObservableSource<T> {
+    override fun apply(upstream: Single<T>): SingleSource<T> {
         return upstream.retryWhen {
             it.cast(Throwable::class.java)
                     .zipWith(1..count) { throwable, counter -> Pair(throwable, counter) }
                     .flatMap {
                         if (it.second < count)
-                            Observable.timer((period + period * backoff * count).toLong(), TimeUnit.MILLISECONDS)
+                            Flowable.timer((period + period * backoff * count).toLong(), TimeUnit.MILLISECONDS)
                         else
-                            Observable.error(it.first)
+                            Flowable.error(it.first)
                     }
         }
     }

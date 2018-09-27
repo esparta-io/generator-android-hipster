@@ -16,7 +16,7 @@ import butterknife.ButterKnife <% } %>
 abstract class BaseFragment<out P : BasePresenter<*>> : Fragment() {
 
     @CallSuper
-    override fun onCreateView(inflater : LayoutInflater?, container : ViewGroup?, savedInstanceState : Bundle?) : View  {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater!!.inflate(getLayoutResource(), container, false)
         <% if (butterknife == true) { %>ButterKnife.bind(this, rootView)<% } %>
         return rootView

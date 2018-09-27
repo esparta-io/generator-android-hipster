@@ -8,7 +8,7 @@ apply from: '../config/quality/quality.gradle'<% } %>
 
 android {
     compileSdkVersion <%= androidTargetSdkVersion %>
-    buildToolsVersion "25.0.2"
+    buildToolsVersion "28.0.3"
 
     defaultConfig {
         applicationId '<%= appPackage %>'
@@ -114,12 +114,16 @@ android {
         javaMaxHeapSize "4g"
     }
 
+    flavorDimensions "default"
+
     productFlavors {
         internal {
             applicationId '<%= appPackage %>.internal'
+            dimension = "default"
         }
         production {
             applicationId '<%= appPackage %>'
+            dimension = "default"
         }
     }
     <% if (language == 'java') { %>
@@ -172,7 +176,7 @@ repositories {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     // android-hipster-needle-gradle-dependency
 

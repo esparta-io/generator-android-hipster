@@ -7,9 +7,9 @@ import retrofit2.adapter.rxjava2.Result
 
 class ExtractResult<T> : ObservableTransformer<Result<T>, T> {
 
-   override fun apply(upstream: Observable<Result<T>>?): ObservableSource<T>? {
-       return upstream?.flatMap {
-           if (!it.isError && it.response()?.isSuccessful ?: false) {
+    override fun apply(upstream: Observable<Result<T>>): ObservableSource<T> {
+       return upstream.flatMap {
+           if (!it.isError && it.response()?.isSuccessful == true) {
                return@flatMap Observable.just(it.response()!!.body())
            }
 

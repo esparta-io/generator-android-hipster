@@ -60,7 +60,7 @@ abstract class BaseActivity<out P : BasePresenter<*>?> : AppCompatActivity() {
 
     abstract fun getPresenter(): P
 
-    private val receiver = object : BroadcastReceiver() {
+    private val receiver: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
 
             if (intent.action == PushExtras.UNAUTHORIZED && shouldProcessLogout()) {
