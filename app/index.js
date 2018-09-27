@@ -364,7 +364,7 @@ module.exports = AppGenerator.extend({
             this.template(appFolder + '/src/main/java/network/OkHttpInterceptorsModuleInternal.kt', 'app/src/internal/java/' + packageDir + '/network/OkHttpInterceptorsModule.kt', this, {});
             this.template(appFolder + '/src/main/java/network/OkHttpInterceptorsModule.kt', 'app/src/production/java/' + packageDir + '/network/OkHttpInterceptorsModule.kt', this, {});
 
-            this.template(appFolder + '/src/main/java/service/LogoutWorker.kt', 'app/src/main/java/' + packageDir + '/service/LogoutWorker.kt', this, {});
+            this.template(appFolder + '/src/main/java/service/LogoutExecutor.kt', 'app/src/main/java/' + packageDir + '/service/LogoutExecutor.kt', this, {});
             this.template(appFolder + '/src/main/java/service/push/PushExtras.kt', 'app/src/main/java/' + packageDir + '/service/push/PushExtras.kt', this, {});
 
             this.template(appFolder + '/src/main/java/environment', 'app/src/internal/java/' + packageDir + '/environment', this, {});
