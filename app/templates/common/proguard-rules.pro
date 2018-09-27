@@ -98,18 +98,6 @@
 -keep class com.splunk.** { *; }
 -dontwarn org.apache.http.**
 
--keep class butterknife.** { *; }
--dontwarn butterknife.internal.**
--keep class **$$ViewBinder { *; }
-
--keepclasseswithmembernames class * {
-    @butterknife.* <fields>;
-}
-
--keepclasseswithmembernames class * {
-    @butterknife.* <methods>;
-}
-
 -keep class sun.misc.Unsafe { *; }
 -keep class com.google.gson.stream.** { *; }
 
@@ -278,18 +266,7 @@
 
 
 
--keep class butterknife.** { *; }
--dontwarn butterknife.internal.**
 -keep class **$$ViewBinder { *; }
-
--keepclasseswithmembernames class * {
-    @butterknife.* <fields>;
-}
-
--keepclasseswithmembernames class * {
-    @butterknife.* <methods>;
-}
-
 
 -keep class uk.co.chrisjenx.calligraphy.* { *; }
 -keep class uk.co.chrisjenx.calligraphy.*$* { *; }

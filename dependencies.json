@@ -142,6 +142,13 @@
       },
       {
         "scope": "implementation",
+        "group": "com.android.support.constraint",
+        "name": "constraint-layout",
+        "version": "1.1.3",
+        "lang": "all"
+      },
+      {
+        "scope": "implementation",
         "group": "io.reactivex",
         "name": "rxkotlin",
         "version": "2.0.0-RC1",
@@ -183,27 +190,11 @@
         "lang": "kotlin"
       },
       {
-        "scope": "kapt",
-        "group": "com.jakewharton",
-        "name": "butterknife",
-        "version": "7.0.1",
-        "lang": "kotlin",
-        "selection": "butterknife"
-      },
-      {
         "scope": "apt",
         "group": "com.google.dagger",
         "name": "dagger-compiler",
         "version": "2.11",
         "lang": "java"
-      },
-      {
-        "scope": "implementation",
-        "group": "com.jakewharton",
-        "name": "butterknife",
-        "version": "7.0.1",
-        "lang": "all",
-        "selection": "butterknife"
       },
       {
         "scope": "implementation",

@@ -5,8 +5,8 @@ import android.text.Editable
 import android.text.InputFilter
 import android.text.TextWatcher
 import android.widget.EditText
-<% if (butterknife == true) { %>import org.joda.time.DateTime <% } %>
-<% if (butterknife == true) { %>import org.joda.time.format.DateTimeFormat <% } %>
+<% if (jodatime == true) { %>import org.joda.time.format.DateTimeFormat <% } %>
+<% if (jodatime == true) { %>import org.joda.time.DateTime <% } %>
 import java.text.NumberFormat
 import java.util.*
 import android.text.Html
@@ -52,7 +52,7 @@ fun formatTwoDigitsFilter(): InputFilter {
     }
 }
 
-<% if (butterknife == true) { %>
+<% if (jodatime == true) { %>
   /**
    * @param pattern dd.MM.yyyy, dd/MM/yyyy, etc
    */
@@ -66,10 +66,11 @@ fun formatTwoDigitsFilter(): InputFilter {
 <% } %>
 
 fun stripHtml(html: String): String {
-    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-        return Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY).toString()
+    return if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+        Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY).toString()
     } else {
-        return Html.fromHtml(html).toString()
+        @Suppress("DEPRECATION")
+        Html.fromHtml(html).toString()
     }
 }
 
