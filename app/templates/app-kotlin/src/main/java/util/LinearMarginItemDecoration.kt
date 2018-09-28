@@ -7,7 +7,7 @@ import android.view.View
 
 class LinearMarginItemDecoration(private val margin: Int, private val orientation: Int) : RecyclerView.ItemDecoration() {
 
-    override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State?) {
+    override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
         if (orientation == LinearLayoutManager.HORIZONTAL) {
             outRect.right = margin
         } else {

@@ -7,9 +7,9 @@ import retrofit2.adapter.rxjava2.Result
 
 class ExtractSingleResult<T>: SingleTransformer<Result<T>, T> {
 
-    override fun apply(upstream: Single<Result<T>>?): SingleSource<T>? {
-        return upstream?.flatMap {
-            if (!it.isError && it.response()?.isSuccessful ?: false) {
+    override fun apply(upstream: Single<Result<T>>): SingleSource<T> {
+        return upstream.flatMap {
+            if (!it.isError && it.response()?.isSuccessful == true) {
                 return@flatMap Single.just(it.response()?.body())
             }
 

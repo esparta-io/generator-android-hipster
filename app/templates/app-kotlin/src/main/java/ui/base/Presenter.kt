@@ -1,12 +1,10 @@
-package <%= appPackage %>.ui.base;
+package <%= appPackage %>.ui.base
 
-import android.app.Activity;
-import android.app.Fragment;
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
+import android.app.Activity
+import android.os.Bundle
+import android.support.annotation.Nullable
 
-import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.CopyOnWriteArrayList
 
 /**
  * This is a base class for all presenters. Subclasses can override

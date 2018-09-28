@@ -33,7 +33,6 @@ Stack:
 - Image Loaders ([Glide](https://github.com/bumptech/glide) / [Picasso](http://square.github.io/picasso/))
 - [Google Play Services](https://developers.google.com/android/guides/overview)
 - Push notifications
-- [ButterKnife](http://jakewharton.github.io/butterknife/)
 - [Anko](https://github.com/Kotlin/anko) (kotlin)
 - [JodaTimeAndroid](https://github.com/dlew/joda-time-android) / [Jodamoney](http://www.joda.org/joda-money/)
 - [Gson](https://github.com/google/gson)

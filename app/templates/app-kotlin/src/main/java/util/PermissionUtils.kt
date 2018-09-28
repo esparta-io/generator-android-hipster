@@ -57,7 +57,7 @@ object PermissionUtils {
 
     fun snackbarForSettings(activity: Activity, REQUEST_SETTINGS: Int) {
         val make = Snackbar.make(activity.findViewById(android.R.id.content), "R.string.need_permissions", Snackbar.LENGTH_INDEFINITE)
-        make.setAction("R.string.settings") { v ->
+        make.setAction("R.string.settings") { _ ->
             make.dismiss()
             val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:" + activity.packageName))
             intent.flags = 0
@@ -71,7 +71,7 @@ object PermissionUtils {
         builder.setTitle("R.string.permissions_required")
         builder.setMessage("R.string.permissions_required_to_use_app")
         builder.setCancelable(false)
-        builder.setPositiveButton("R.string.ok") { dialog, which ->
+        builder.setPositiveButton("R.string.ok") { dialog, _ ->
             dialog.dismiss()
             callback.onAccept()
         }

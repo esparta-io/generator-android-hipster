@@ -42,7 +42,6 @@ module.exports = AppGenerator.extend({
             this.jodatime = this.config.get('jodatime') || true;
             this.jodamoney = this.config.get('jodamoney') || true;
             this.threetenabp = this.config.get('threetenabp') || true;
-            this.butterknife = this.config.get('butterknife') || true;
             this.androidTargetSdkVersion = this.config.get('androidTargetSdkVersion');
             this.androidMinSdkVersion = this.config.get('minSdk');
             this.calligraphy = this.config.get('calligraphy') || true;
@@ -129,12 +128,6 @@ module.exports = AppGenerator.extend({
                     }
                 ],
                 default: 'embeed'
-            },
-            {
-                type: 'confirm',
-                name: 'butterknife',
-                message: 'Use ButterKnife? ',
-                default: true
             },
             {
                 type: 'confirm',
@@ -273,7 +266,6 @@ module.exports = AppGenerator.extend({
             this.jodatime = props.dates == 'jodatime';
             this.threetenabp = props.dates == 'threetenabp';
             this.jodamoney = props.jodamoney;
-            this.butterknife = props.butterknife;
             this.appPackage = props.package;
             this.androidTargetSdkVersion = props.targetSdk;
             this.androidMinSdkVersion = props.minSdk;
@@ -314,7 +306,6 @@ module.exports = AppGenerator.extend({
             this.config.set('threetenabp', this.threetenabp);
             this.config.set('paperparcel', this.paperparcel);
             this.config.set('jodamoney', this.jodamoney);
-            this.config.set('butterknife', this.butterknife);
             this.config.set('androidTargetSdkVersion', this.androidTargetSdkVersion);
             this.config.set('minSdk', this.androidMinSdkVersion);
             this.config.set('calligraphy', this.calligraphy);
@@ -373,7 +364,7 @@ module.exports = AppGenerator.extend({
             this.template(appFolder + '/src/main/java/network/OkHttpInterceptorsModuleInternal.kt', 'app/src/internal/java/' + packageDir + '/network/OkHttpInterceptorsModule.kt', this, {});
             this.template(appFolder + '/src/main/java/network/OkHttpInterceptorsModule.kt', 'app/src/production/java/' + packageDir + '/network/OkHttpInterceptorsModule.kt', this, {});
 
-            this.template(appFolder + '/src/main/java/service/LogoutWorker.kt', 'app/src/main/java/' + packageDir + '/service/LogoutWorker.kt', this, {});
+            this.template(appFolder + '/src/main/java/service/LogoutExecutor.kt', 'app/src/main/java/' + packageDir + '/service/LogoutExecutor.kt', this, {});
             this.template(appFolder + '/src/main/java/service/push/PushExtras.kt', 'app/src/main/java/' + packageDir + '/service/push/PushExtras.kt', this, {});
 
             this.template(appFolder + '/src/main/java/environment', 'app/src/internal/java/' + packageDir + '/environment', this, {});
@@ -389,14 +380,19 @@ module.exports = AppGenerator.extend({
                     this.template(appFolder + '/src/main/java/extensions/PresenterExtensions.kt', 'app/src/main/java/' + packageDir + '/extensions/PresenterExtensions.kt', this, {})
                 }
             }
+
+            if (this.glide) {
+                this.template(appFolder + '/src/main/java/application/GlideModule.kt', 'app/src/main/java/' + packageDir + '/application/GlideModule.kt', this, {});
+            }
+
             this.template(appFolder + '/src/main/java/model/OAuth.kt', 'app/src/main/java/' + packageDir + '/model/OAuth.kt', this, {});
 
             this.template(appFolder + '/src/main/java/ui/base/BaseActivity.kt', 'app/src/main/java/' + packageDir + '/ui/base/BaseActivity.kt', this, {});
-            this.template(appFolder + '/src/main/java/ui/base/BaseAdapter.kt', 'app/src/main/java/' + packageDir + '/ui/base/BaseAdapter.kt', this, {});
             this.template(appFolder + '/src/main/java/ui/base/BasePresenter.kt', 'app/src/main/java/' + packageDir + '/ui/base/BasePresenter.kt', this, {});
             this.template(appFolder + '/src/main/java/ui/base/BaseFragment.kt', 'app/src/main/java/' + packageDir + '/ui/base/BaseFragment.kt', this, {});
             this.template(appFolder + '/src/main/java/ui/base/EmptyPresenter.kt', 'app/src/main/java/' + packageDir + '/ui/base/EmptyPresenter.kt', this, {});
             this.template(appFolder + '/src/main/java/ui/base/PresenterView.kt', 'app/src/main/java/' + packageDir + '/ui/base/PresenterView.kt', this, {});
+            this.template(appFolder + '/src/main/java/ui/components/Dialogs.kt', 'app/src/main/java/' + packageDir + '/ui/components/Dialogs.kt', this, {});
             if (this.language == 'kotlin') {
                 if (this.eventbus) {
                     this.template(appFolder + '/src/main/java/ui/base/EventBusUser.kt', 'app/src/main/java/' + packageDir + '/ui/base/EventBusUser.kt', this, {})
@@ -441,6 +437,7 @@ module.exports = AppGenerator.extend({
                 this.template(appFolder + '/src/main/java/util/ExtractErrorUtil.kt', 'app/src/main/java/' + packageDir + '/util/ExtractErrorUtil.kt', this, {});
                 this.template(appFolder + '/src/main/java/util/ExtractResult.kt', 'app/src/main/java/' + packageDir + '/util/ExtractResult.kt', this, {});
                 this.template(appFolder + '/src/main/java/util/RetryWhen.kt', 'app/src/main/java/' + packageDir + '/util/RetryWhen.kt', this, {});
+                this.template(appFolder + '/src/main/java/util/RetrySingleWhen.kt', 'app/src/main/java/' + packageDir + '/util/RetrySingleWhen.kt', this, {});
             }
 
             if (this.language == 'java') {

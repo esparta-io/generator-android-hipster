@@ -6,21 +6,21 @@
         "scope": "classpath",
         "group": "com.android.tools.build",
         "name": "gradle",
-        "version": "2.3.3",
+        "version": "3.2.0",
         "lang": "all"
       },
       {
         "scope": "classpath",
         "group": "org.jetbrains.kotlin",
         "name": "kotlin-android-extensions",
-        "version": "1.1.2",
+        "version": "1.2.71",
         "lang": "kotlin"
       },
       {
         "scope": "classpath",
         "group": "org.jetbrains.kotlin",
         "name": "kotlin-gradle-plugin",
-        "version": "1.1.2",
+        "version": "1.2.71",
         "lang": "kotlin"
       }
     ]
@@ -29,147 +29,154 @@
     "type": "gradle",
     "dependencies": [
       {
-        "scope": "compile",
+        "scope": "implementation",
         "group": "com.android.support",
         "name": "multidex",
-        "version": "1.0.1",
+        "version": "1.0.3",
         "lang": "all"
       },
       {
-        "scope": "compile",
+        "scope": "implementation",
         "group": "com.android.support",
         "name": "support-annotations",
-        "version": "25.3.1",
+        "version": "28.0.0",
         "lang": "all"
       },
       {
-        "scope": "compile",
+        "scope": "implementation",
         "group": "io.reactivex.rxjava2",
         "name": "rxjava",
-        "version": "2.0.6",
+        "version": "2.1.15",
         "lang": "all"
       },
       {
-        "scope": "compile",
+        "scope": "implementation",
         "group": "io.reactivex.rxjava2",
         "name": "rxandroid",
-        "version": "2.0.1",
+        "version": "2.0.2",
         "lang": "all"
       },
       {
-        "scope": "compile",
+        "scope": "implementation",
         "group": "com.google.code.gson",
         "name": "gson",
-        "version": "2.8.1",
+        "version": "2.8.5",
         "lang": "all"
       },
       {
-        "scope": "compile",
+        "scope": "implementation",
         "group": "com.squareup.retrofit2",
         "name": "retrofit",
-        "version": "2.3.0",
+        "version": "2.4.0",
         "lang": "all"
       },
       {
-        "scope": "compile",
+        "scope": "implementation",
         "group": "com.squareup.okhttp3",
         "name": "okhttp",
-        "version": "3.8.0",
+        "version": "3.11.0",
         "lang": "all"
       },
       {
-        "scope": "compile",
+        "scope": "implementation",
         "group": "com.squareup.okhttp3",
         "name": "logging-interceptor",
-        "version": "3.8.0",
+        "version": "3.11.0",
         "lang": "all"
       },
       {
-        "scope": "compile",
+        "scope": "implementation",
         "group": "com.squareup.retrofit2",
         "name": "adapter-rxjava2",
         "version": "2.3.0",
         "lang": "all"
       },
       {
-        "scope": "compile",
+        "scope": "implementation",
         "group": "com.squareup.retrofit2",
         "name": "converter-gson",
         "version": "2.3.0",
         "lang": "all"
       },
       {
-        "scope": "provided",
+        "scope": "compileOnly",
         "group": "javax.annotation",
         "name": "jsr250-api",
         "version": "1.0",
         "lang": "all"
       },
       {
-        "scope": "compile",
+        "scope": "implementation",
         "group": "com.google.dagger",
         "name": "dagger",
         "version": "2.11",
         "lang": "all"
       },
       {
-        "scope": "compile",
+        "scope": "implementation",
         "group": "com.android.support",
         "name": "support-v4",
-        "version": "25.3.1",
+        "version": "28.0.0",
         "lang": "all"
       },
       {
-        "scope": "compile",
+        "scope": "implementation",
         "group": "com.android.support",
         "name": "appcompat-v7",
-        "version": "25.3.1",
+        "version": "28.0.0",
         "lang": "all"
       },
       {
-        "scope": "compile",
+        "scope": "implementation",
         "group": "com.android.support",
         "name": "design",
-        "version": "25.3.1",
+        "version": "28.0.0",
         "lang": "all"
       },
       {
-        "scope": "compile",
+        "scope": "implementation",
         "group": "com.android.support",
         "name": "recyclerview-v7",
-        "version": "25.3.1",
+        "version": "28.0.0",
         "lang": "all"
       },
       {
-        "scope": "compile",
+        "scope": "implementation",
+        "group": "com.android.support.constraint",
+        "name": "constraint-layout",
+        "version": "1.1.3",
+        "lang": "all"
+      },
+      {
+        "scope": "implementation",
         "group": "io.reactivex",
         "name": "rxkotlin",
         "version": "2.0.0-RC1",
         "lang": "kotlin"
       },
       {
-        "scope": "compile",
+        "scope": "implementation",
         "group": "org.jetbrains.kotlin",
         "name": "kotlin-stdlib",
-        "version": "1.1.2",
+        "version": "1.2.71",
         "lang": "kotlin"
       },
       {
-        "scope": "compile",
+        "scope": "implementation",
         "group": "org.jetbrains.anko",
         "name": "anko-sdk15",
         "version": "0.10.1",
         "lang": "kotlin"
       },
       {
-        "scope": "compile",
+        "scope": "implementation",
         "group": "org.jetbrains.anko",
         "name": "anko-support-v4",
         "version": "0.10.1",
         "lang": "kotlin"
       },
       {
-        "scope": "compile",
+        "scope": "implementation",
         "group": "org.jetbrains.anko",
         "name": "anko-appcompat-v7",
         "version": "0.10.1",
@@ -183,14 +190,6 @@
         "lang": "kotlin"
       },
       {
-        "scope": "kapt",
-        "group": "com.jakewharton",
-        "name": "butterknife",
-        "version": "7.0.1",
-        "lang": "kotlin",
-        "selection": "butterknife"
-      },
-      {
         "scope": "apt",
         "group": "com.google.dagger",
         "name": "dagger-compiler",
@@ -198,31 +197,23 @@
         "lang": "java"
       },
       {
-        "scope": "compile",
-        "group": "com.jakewharton",
-        "name": "butterknife",
-        "version": "7.0.1",
-        "lang": "all",
-        "selection": "butterknife"
-      },
-      {
-        "scope": "compile",
+        "scope": "implementation",
         "group": "org.greenrobot",
         "name": "eventbus",
-        "version": "3.0.0",
+        "version": "3.1.1",
         "lang": "all",
         "selection": "eventbus"
       },
       {
-        "scope": "compile",
+        "scope": "implementation",
         "group": "com.github.bumptech.glide",
         "name": "glide",
-        "version": "3.8.0",
+        "version": "4.8.0",
         "lang": "all",
         "selection": "glide"
       },
       {
-        "scope": "compile",
+        "scope": "implementation",
         "group": "com.squareup.picasso",
         "name": "picasso",
         "version": "2.5.2",
@@ -230,7 +221,7 @@
         "selection": "picasso"
       },
       {
-        "scope": "compile",
+        "scope": "implementation",
         "group": "uk.co.chrisjenx",
         "name": "calligraphy",
         "version": "2.2.0",
@@ -238,7 +229,7 @@
         "selection": "calligraphy"
       },
       {
-        "scope": "compile",
+        "scope": "implementation",
         "group": "com.jakewharton.timber",
         "name": "timber",
         "version": "4.5.1",
@@ -246,7 +237,7 @@
         "selection": "timber"
       },
       {
-        "scope": "compile",
+        "scope": "implementation",
         "group": "net.danlew",
         "name": "android.joda",
         "version": "2.9.9",
@@ -254,7 +245,7 @@
         "selection": "jodatime"
       },
       {
-        "scope": "compile",
+        "scope": "implementation",
         "group": "com.jakewharton.threetenabp",
         "name": "threetenabp",
         "version": "1.0.5",
@@ -262,7 +253,7 @@
         "selection": "threetenabp"
       },
       {
-        "scope": "compile",
+        "scope": "implementation",
         "group": "org.joda",
         "name": "joda-money",
         "version": "0.12",
@@ -270,7 +261,7 @@
         "selection": "jodamoney"
       },
       {
-        "scope": "compile",
+        "scope": "implementation",
         "group": "com.github.johnkil.print",
         "name": "print",
         "version": "1.3.1",
@@ -278,7 +269,7 @@
         "selection": "printview"
       },
       {
-        "scope": "compile",
+        "scope": "implementation",
         "group": "com.mixpanel.android",
         "name": "mixpanel-android",
         "version": "4.9.4",
@@ -286,7 +277,7 @@
         "selection": "mixpanel"
       },
       {
-        "scope": "compile",
+        "scope": "implementation",
         "group": "com.facebook.stetho",
         "name": "stetho",
         "version": "1.5.0",
@@ -294,7 +285,7 @@
         "selection": "stetho"
       },
       {
-        "scope": "compile",
+        "scope": "implementation",
         "group": "com.facebook.stetho",
         "name": "stetho-okhttp3",
         "version": "1.5.0",
@@ -302,7 +293,7 @@
         "selection": "stetho"
       },
       {
-        "scope": "compile",
+        "scope": "implementation",
         "group": "nz.bradcampbell",
         "name": "paperparcel",
         "version": "2.0.0",
@@ -310,7 +301,7 @@
         "selection": "paperparcel"
       },
       {
-        "scope": "compile",
+        "scope": "implementation",
         "group": "nz.bradcampbell",
         "name": "paperparcel-kotlin",
         "version": "2.0.1",
@@ -326,15 +317,15 @@
         "selection": "paperparcel"
       },
       {
-        "scope": "compile",
+        "scope": "implementation",
         "group": "com.google.android.gms",
         "name": "play-services-base",
-        "version": "11.0.0",
+        "version": "15.0.1",
         "lang": "all",
         "selection": "playServices"
       },
       {
-        "scope": "compile",
+        "scope": "implementation",
         "group": "com.google.android.gms",
         "name": "play-services-plus",
         "version": "11.0.0",
@@ -342,7 +333,7 @@
         "selection": "playServices"
       },
       {
-        "scope": "compile",
+        "scope": "implementation",
         "group": "com.google.android.gms",
         "name": "play-services-auth",
         "version": "11.0.0",
@@ -350,7 +341,7 @@
         "selection": "playServices"
       },
       {
-        "scope": "compile",
+        "scope": "implementation",
         "group": "com.google.android.gms",
         "name": "play-services-appinvite",
         "version": "11.0.0",
@@ -358,7 +349,7 @@
         "selection": "playServices"
       },
       {
-        "scope": "compile",
+        "scope": "implementation",
         "group": "com.google.android.gms",
         "name": "play-services-appindexing",
         "version": "11.0.0",
@@ -366,7 +357,7 @@
         "selection": "playServices"
       },
       {
-        "scope": "compile",
+        "scope": "implementation",
         "group": "com.google.android.gms",
         "name": "play-services-identity",
         "version": "11.0.0",
@@ -374,15 +365,15 @@
         "selection": "playServices"
       },
       {
-        "scope": "compile",
+        "scope": "implementation",
         "group": "com.google.android.gms",
         "name": "play-services-location",
-        "version": "11.0.0",
+        "version": "15.0.1",
         "lang": "all",
         "selection": "playServices"
       },
       {
-        "scope": "compile",
+        "scope": "implementation",
         "group": "com.google.android.gms",
         "name": "play-services-fitness",
         "version": "11.0.0",
@@ -390,7 +381,7 @@
         "selection": "playServices"
       },
       {
-        "scope": "compile",
+        "scope": "implementation",
         "group": "com.google.android.gms",
         "name": "play-services-drive",
         "version": "11.0.0",
@@ -398,7 +389,7 @@
         "selection": "playServices"
       },
       {
-        "scope": "compile",
+        "scope": "implementation",
         "group": "com.google.android.gms",
         "name": "play-services-gcm",
         "version": "11.0.0",
@@ -406,7 +397,7 @@
         "selection": "playServices"
       },
       {
-        "scope": "compile",
+        "scope": "implementation",
         "group": "com.google.android.gms",
         "name": "play-services-cast",
         "version": "11.0.0",
@@ -414,7 +405,7 @@
         "selection": "playServices"
       },
       {
-        "scope": "compile",
+        "scope": "implementation",
         "group": "com.google.android.gms",
         "name": "play-services-analytics",
         "version": "11.0.0",
@@ -422,15 +413,15 @@
         "selection": "playServices"
       },
       {
-        "scope": "compile",
+        "scope": "implementation",
         "group": "com.google.android.gms",
         "name": "play-services-maps",
-        "version": "11.0.0",
+        "version": "15.0.1",
         "lang": "all",
         "selection": "playServices"
       },
       {
-        "scope": "compile",
+        "scope": "implementation",
         "group": "com.google.android.gms",
         "name": "play-services-ads",
         "version": "11.0.0",
@@ -438,7 +429,7 @@
         "selection": "playServices"
       },
       {
-        "scope": "compile",
+        "scope": "implementation",
         "group": "com.google.android.gms",
         "name": "play-services-vision",
         "version": "11.0.0",
@@ -446,7 +437,7 @@
         "selection": "playServices"
       },
       {
-        "scope": "compile",
+        "scope": "implementation",
         "group": "com.google.android.gms",
         "name": "play-services-nearby",
         "version": "11.0.0",
@@ -454,7 +445,7 @@
         "selection": "playServices"
       },
       {
-        "scope": "compile",
+        "scope": "implementation",
         "group": "com.google.android.gms",
         "name": "play-services-panorama",
         "version": "11.0.0",
@@ -462,7 +453,7 @@
         "selection": "playServices"
       },
       {
-        "scope": "compile",
+        "scope": "implementation",
         "group": "com.google.android.gms",
         "name": "play-services-games",
         "version": "11.0.0",
@@ -470,7 +461,7 @@
         "selection": "playServices"
       },
       {
-        "scope": "compile",
+        "scope": "implementation",
         "group": "com.google.android.gms",
         "name": "play-services-safetynet",
         "version": "11.0.0",
@@ -478,7 +469,7 @@
         "selection": "playServices"
       },
       {
-        "scope": "compile",
+        "scope": "implementation",
         "group": "com.google.android.gms",
         "name": "play-services-wearable",
         "version": "11.0.0",
@@ -486,7 +477,7 @@
         "selection": "playServices"
       },
       {
-        "scope": "compile",
+        "scope": "implementation",
         "group": "com.google.android.gms",
         "name": "play-services-wallet",
         "version": "11.0.0",

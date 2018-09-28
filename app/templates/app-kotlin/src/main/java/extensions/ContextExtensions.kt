@@ -8,11 +8,29 @@ import <%= appPackage %>.application.App
 import <%= appPackage %>.di.components.UserComponent
 import android.content.Intent
 import android.content.IntentFilter
+import android.net.NetworkCapabilities
+import android.os.Build
 import java.util.concurrent.atomic.AtomicInteger
 
 fun Context.isConnected(): Boolean {
     val manager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-    return manager.activeNetworkInfo?.isConnectedOrConnecting ?: true
+    return if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
+        @Suppress("DEPRECATION")
+        manager.activeNetworkInfo?.isConnectedOrConnecting ?: false
+    } else {
+        manager.activeNetworkInfo?.isConnected ?: false
+    }
+}
+
+fun Context.isWifiConnection(): Boolean {
+    val manager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+
+    return if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
+        @Suppress("DEPRECATION")
+        manager.activeNetworkInfo?.type == ConnectivityManager.TYPE_WIFI
+    } else {
+        manager.getNetworkCapabilities(manager.activeNetwork).hasTransport(NetworkCapabilities.TRANSPORT_WIFI)
+    }
 }
 
 fun Activity.makeLogin() {
