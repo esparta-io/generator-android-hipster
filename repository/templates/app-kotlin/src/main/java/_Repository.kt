@@ -1,6 +1,6 @@
-package <%= appPackage %>.domain.repository.<%= repositoryPackageName %>;
+package <%= appPackage %>.domain.repository.<%= repositoryPackageName %>
 
-import javax.inject.Inject;
+import javax.inject.Inject
 
 class <%= repositoryName %>Repository @Inject constructor() {
 
@@ -9,5 +9,4 @@ class <%= repositoryName %>Repository @Inject constructor() {
 
     <% if (remoteLocal.indexOf('remote') >= 0) { %>@Inject
     lateinit var remoteRepository: <%= repositoryName %>RemoteRepository<% } %>
-
-  }
+}
