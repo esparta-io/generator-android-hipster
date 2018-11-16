@@ -18,11 +18,11 @@ import kotlinx.coroutines.Job
 import kotlin.coroutines.CoroutineContext
 <% if (calligraphy == true) { %>import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper<% } %>
 
-abstract class BaseActivity<out P : BasePresenter<*>?> : AppCompatActivity(), CoroutineScope {
+abstract class BaseActivity<out P : BasePresenter<*>> : AppCompatActivity(), CoroutineScope {
 
     private lateinit var job: Job
 
-    protected val coroutineActivityContext: CoroutineContext by lazy { Dispatchers.Main + job }
+    protected val coroutineActivityContext: CoroutineContext by lazyUnsafe { Dispatchers.Main + job }
 
     override val coroutineContext: CoroutineContext
         get() = coroutineActivityContext
@@ -44,13 +44,12 @@ abstract class BaseActivity<out P : BasePresenter<*>?> : AppCompatActivity(), Co
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
     }<% } %>
 
-    @CallSuper
     override fun onResume() {
         super.onResume()
+        lifecycle.addObserver(getPresenter())
         this.registerSyncReceiver(receiver, PushExtras.UNAUTHORIZED)
     }
 
-    @CallSuper
     override fun onPause() {
         super.onPause()
         this.unregisterReceiver(receiver)

@@ -1,5 +1,8 @@
 package <%= appPackage %>.ui.base
 
+import android.arch.lifecycle.Lifecycle
+import android.arch.lifecycle.LifecycleObserver
+import android.arch.lifecycle.OnLifecycleEvent
 import android.support.v7.app.AppCompatActivity
 import <%= appPackage %>.extensions.lazyUnsafe
 import io.reactivex.disposables.Disposable
@@ -11,7 +14,7 @@ import org.jetbrains.anko.coroutines.experimental.asReference
 import java.util.ArrayList
 import kotlin.coroutines.CoroutineContext
 
-abstract class BasePresenter<V : PresenterView> : Presenter<V>(), CoroutineScope {
+abstract class BasePresenter<V : PresenterView> : Presenter<V>(), CoroutineScope, LifecycleObserver {
 
     private lateinit var job: Job
 
@@ -32,6 +35,7 @@ abstract class BasePresenter<V : PresenterView> : Presenter<V>(), CoroutineScope
                 .forEach { it.dispose() }
     }
 
+    @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
     override fun dropView() {
         super.dropView()
         job.cancel()
