@@ -149,19 +149,10 @@ android {
     }
 
 }
-<% if (language == 'kotlin') { %>
+
 kapt {
     generateStubs = true
-}<% } %>
-<% if (language == 'java') { %>
-apt {
-    arguments {
-    }
 }
-retrolambda {
-    jvmArgs "-noverify"
-}
-<% } %>
 
 repositories {
     flatDir {
