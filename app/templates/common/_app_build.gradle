@@ -114,20 +114,18 @@ android {
         javaMaxHeapSize "4g"
     }
 
+    flavorDimensions "default"
+
     productFlavors {
         internal {
             applicationId '<%= appPackage %>.internal'
+            dimension = "default"
         }
         production {
             applicationId '<%= appPackage %>'
+            dimension = "default"
         }
     }
-    <% if (language == 'java') { %>
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-    <% } %>
 
     sourceSets {
         // Functional tests live in src/functionalTests.
