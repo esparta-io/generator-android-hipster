@@ -385,6 +385,7 @@ module.exports = AppGenerator.extend({
             if (this.language == 'kotlin') {
                 this.template(appFolder + '/src/main/java/extensions/ContextExtensions.kt', 'app/src/main/java/' + packageDir + '/extensions/ContextExtensions.kt', this, {});
                 this.template(appFolder + '/src/main/java/extensions/Extensions.kt', 'app/src/main/java/' + packageDir + '/extensions/Extensions.kt', this, {});
+                this.template(appFolder + '/src/main/java/extensions/DeferredExtensions.kt', 'app/src/main/java/' + packageDir + '/extensions/DeferredExtensions.kt', this, {});
                 if (this.nucleus == true) {
                     this.template(appFolder + '/src/main/java/extensions/PresenterExtensions.kt', 'app/src/main/java/' + packageDir + '/extensions/PresenterExtensions.kt', this, {})
                 }
@@ -434,10 +435,13 @@ module.exports = AppGenerator.extend({
             this.template(appFolder + '/src/main/java/util/LinearMarginItemDecoration.kt', 'app/src/main/java/' + packageDir + '/util/LinearMarginItemDecoration.kt', this, {});
             this.template(appFolder + '/src/main/java/util/StringUtils.kt', 'app/src/main/java/' + packageDir + '/util/StringUtils.kt', this, {});
             this.template(appFolder + '/src/main/java/util/PermissionUtils.kt', 'app/src/main/java/' + packageDir + '/util/PermissionUtils.kt', this, {});
+            this.template(appFolder + '/src/main/java/util/ExtractDeferredErrorUtil.kt', 'app/src/main/java/' + packageDir + '/util/ExtractDeferredErrorUtil.kt', this, {});
 
             if (this.language == 'kotlin') {
                 this.template(appFolder + '/src/main/java/domain/repository/exception/ApiException.kt', 'app/src/main/java/' + packageDir + '/domain/repository/exception/ApiException.kt', this, {});
+                this.template(appFolder + '/src/main/java/domain/repository/exception/ApiDeferredException.kt', 'app/src/main/java/' + packageDir + '/domain/repository/exception/ApiDeferredException.kt', this, {});
                 this.template(appFolder + '/src/main/java/domain/repository/exception/ErrorMessage.kt', 'app/src/main/java/' + packageDir + '/domain/repository/exception/ErrorMessage.kt', this, {});
+                this.template(appFolder + '/src/main/java/domain/repository/exception/DeferredErrorMessage.kt', 'app/src/main/java/' + packageDir + '/domain/repository/exception/DeferredErrorMessage.kt', this, {});
                 this.template(appFolder + '/src/main/java/util/ExtractErrorUtil.kt', 'app/src/main/java/' + packageDir + '/util/ExtractErrorUtil.kt', this, {});
                 this.template(appFolder + '/src/main/java/util/ExtractResult.kt', 'app/src/main/java/' + packageDir + '/util/ExtractResult.kt', this, {});
                 this.template(appFolder + '/src/main/java/util/RetryWhen.kt', 'app/src/main/java/' + packageDir + '/util/RetryWhen.kt', this, {});

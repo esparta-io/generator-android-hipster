@@ -8,7 +8,7 @@ apply from: '../config/quality/quality.gradle'<% } %>
 
 android {
     compileSdkVersion <%= androidTargetSdkVersion %>
-    buildToolsVersion "25.0.2"
+    buildToolsVersion "28.0.3"
 
     defaultConfig {
         applicationId '<%= appPackage %>'
