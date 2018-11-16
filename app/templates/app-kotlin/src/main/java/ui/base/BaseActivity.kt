@@ -6,19 +6,32 @@ import android.content.Context
 import android.os.Bundle
 import android.support.annotation.CallSuper
 import android.view.MenuItem
+import <%= appPackage %>.extensions.lazyUnsafe
 import android.support.v7.app.AppCompatActivity
 import <%= appPackage %>.application.App
 import <%= appPackage %>.extensions.makeLogin
 import <%= appPackage %>.extensions.registerSyncReceiver
 import <%= appPackage %>.service.push.PushExtras
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlin.coroutines.CoroutineContext
 <% if (calligraphy == true) { %>import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper<% } %>
 
-abstract class BaseActivity<out P : BasePresenter<*>?> : AppCompatActivity() {
+abstract class BaseActivity<out P : BasePresenter<*>?> : AppCompatActivity(), CoroutineScope {
+
+    private lateinit var job: Job
+
+    protected val coroutineActivityContext: CoroutineContext by lazy { Dispatchers.Main + job }
+
+    override val coroutineContext: CoroutineContext
+        get() = coroutineActivityContext
 
     @CallSuper
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(getLayoutResource())
+        job = Job()
         injectModule()
     }
 
@@ -41,6 +54,11 @@ abstract class BaseActivity<out P : BasePresenter<*>?> : AppCompatActivity() {
     override fun onPause() {
         super.onPause()
         this.unregisterReceiver(receiver)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        job.cancel()
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {

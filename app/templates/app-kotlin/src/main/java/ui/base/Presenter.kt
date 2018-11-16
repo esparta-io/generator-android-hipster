@@ -77,7 +77,7 @@ open class Presenter<View> {
 
      * @param view a view that should be taken
      */
-    protected fun onTakeView(view: View) {
+    protected open fun onTakeView(view: View) {
     }
 
     /**
