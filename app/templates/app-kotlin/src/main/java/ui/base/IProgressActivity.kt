@@ -1,28 +1,29 @@
 package <%= appPackage %>.ui.base
 
-import android.app.ProgressDialog
-import android.content.Context
+import android.app.Dialog
 import android.support.annotation.StringRes
-import org.jetbrains.anko.indeterminateProgressDialog
+import android.support.v7.app.AppCompatActivity
+import <%= appPackage %>.ui.components.Dialogs
 
 interface IProgressActivity {
 
-    var progress: ProgressDialog?
+    var progress: Dialog?
 
     fun hideProgressLoading() {
         progress?.dismiss()
         progress = null
     }
 
-    fun showProgressLoading(context: Context, progressMessage: String?, progressTitle: String? = "") {
+    fun showProgressLoading(activity: AppCompatActivity, progressTitle: String) {
         progress?.dismiss()
-        progress = context.indeterminateProgressDialog(message = progressMessage ?: "Processando", title = progressTitle)
+        progress = Dialogs.showProgressDialog(activity, progressTitle)
         progress?.show()
     }
 
-    fun showProgressLoading(context: Context, @StringRes progressMessage: Int, progressTitle: String? = "") {
+    fun showProgressLoading(activity: AppCompatActivity, @StringRes progressTitle: Int) {
         progress?.dismiss()
-        progress = context.indeterminateProgressDialog(message = context.getString(progressMessage), title = progressTitle)
+        Dialogs.showProgressDialog(activity, activity.getString(progressTitle))
+
         progress?.show()
     }
 }

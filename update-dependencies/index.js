@@ -27,7 +27,6 @@ module.exports = ActivityGenerator.extend({
             this.timber = this.config.get('timber') || true;
             this.jodatime = this.config.get('jodatime') || true;
             this.jodamoney = this.config.get('jodamoney') || true;
-            this.butterknife = this.config.get('butterknife') || true;
             this.androidTargetSdkVersion = this.config.get('androidTargetSdkVersion');
             this.minSdk = this.config.get('minSdk');
             this.calligraphy = this.config.get('calligraphy') || true;

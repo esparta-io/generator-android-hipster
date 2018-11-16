@@ -10,16 +10,12 @@ import android.view.View
 import android.view.ViewGroup
 
 import android.support.v4.app.Fragment
-<% if (butterknife == true) { %>import butterknife.Bind
-import butterknife.ButterKnife <% } %>
 
 abstract class BaseFragment<out P : BasePresenter<*>> : Fragment() {
 
     @CallSuper
-    override fun onCreateView(inflater : LayoutInflater?, container : ViewGroup?, savedInstanceState : Bundle?) : View  {
-        val rootView = inflater!!.inflate(getLayoutResource(), container, false)
-        <% if (butterknife == true) { %>ButterKnife.bind(this, rootView)<% } %>
-        return rootView
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(getLayoutResource(), container, false)
     }
 
     override fun onCreate(bundle: Bundle? ) {
@@ -29,7 +25,6 @@ abstract class BaseFragment<out P : BasePresenter<*>> : Fragment() {
 
     @CallSuper
     override fun onDestroyView() {
-        <% if (butterknife == true) { %>ButterKnife.unbind(this)<% } %>
         super.onDestroyView()
         getPresenter().destroy()
     }

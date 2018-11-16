@@ -95,20 +95,11 @@
     public static ** valueOf(java.lang.String);
 }
 
+-dontwarn org.apache.http.**
 -keep class com.splunk.** { *; }
 -dontwarn org.apache.http.**
 
--keep class butterknife.** { *; }
--dontwarn butterknife.internal.**
 -keep class **$$ViewBinder { *; }
-
--keepclasseswithmembernames class * {
-    @butterknife.* <fields>;
-}
-
--keepclasseswithmembernames class * {
-    @butterknife.* <methods>;
-}
 
 -keep class sun.misc.Unsafe { *; }
 -keep class com.google.gson.stream.** { *; }
@@ -126,6 +117,7 @@
 
 
 -dontwarn rx.**
+
 -dontwarn retrofit.**
 -dontwarn okio.**
 -keep class retrofit.** { *; }
@@ -276,19 +268,7 @@
 
 -dontwarn org.androidannotations.api.rest.**
 
-
-
--keep class butterknife.** { *; }
--dontwarn butterknife.internal.**
 -keep class **$$ViewBinder { *; }
-
--keepclasseswithmembernames class * {
-    @butterknife.* <fields>;
-}
-
--keepclasseswithmembernames class * {
-    @butterknife.* <methods>;
-}
 
 
 -keep class uk.co.chrisjenx.calligraphy.* { *; }
@@ -414,6 +394,7 @@
 -keep class com.squareup.leakcanary.** { *; }
 
 
+-dontwarn javax.net.ssl.**
 -keep public class javax.net.ssl.**
 -keepclassmembers public class javax.net.ssl.** {
   *;
@@ -442,4 +423,86 @@
 -keepclassmembers class * implements javax.annotation.processing.ProcessingEnvironment { *; }
 -keepclassmembers interface javax.annotation.processing.ProcessingEnvironment { *; }
 
--dontwarn com.mixpanel.**
+-keep class org.spongycastle.** { *; }
+-dontwarn org.spongycastle.**
+
+#RX2
+-dontwarn io.reactivex.**
+-keep class io.reactivex.schedulers.Schedulers {
+    public static <methods>;
+}
+-keep class io.reactivex.internal.schedulers.ImmediateScheduler {
+    public <methods>;
+}
+-keep class io.reactivex.schedulers.TestScheduler {
+    public <methods>;
+}
+-keep class io.reactivex.schedulers.Schedulers {
+    public static ** test();
+}
+-keep class io.reactivex.schedulers.ImmediateScheduler {
+    public <methods>;
+}
+-keep class io.reactivex.Observable {
+    public <methods>;
+    public io.reactivex.Observable retryWhen(io.reactivex.functions.Function, io.reactivex.ObservableSource);
+    public io.reactivex.Observable cast(java.lang.Class);
+}
+-keep class io.reactivex.Observable {
+    public static <methods>;
+}
+-keep public interface io.reactivex.ObservableSource { *; }
+
+#EventBus
+-keepclassmembers class ** {
+    @org.greenrobot.eventbus.Subscribe <methods>;
+}
+-keep enum org.greenrobot.eventbus.ThreadMode { *; }
+
+#Room
+## Android architecture components: Lifecycle
+# LifecycleObserver's empty constructor is considered to be unused by proguard
+-keepclassmembers class * implements android.arch.lifecycle.LifecycleObserver {
+    <init>(...);
+}
+# ViewModel's empty constructor is considered to be unused by proguard
+-keepclassmembers class * extends android.arch.lifecycle.ViewModel {
+    <init>(...);
+}
+# keep Lifecycle State and Event enums values
+-keepclassmembers class android.arch.lifecycle.Lifecycle$State { *; }
+-keepclassmembers class android.arch.lifecycle.Lifecycle$Event { *; }
+# keep methods annotated with @OnLifecycleEvent even if they seem to be unused
+# (Mostly for LiveData.LifecycleBoundObserver.onStateChange(), but who knows)
+-keepclassmembers class * {
+    @android.arch.lifecycle.OnLifecycleEvent *;
+}
+
+-keepclassmembers class * implements android.arch.lifecycle.LifecycleObserver {
+    <init>(...);
+}
+
+-keep class * implements android.arch.lifecycle.LifecycleObserver {
+    <init>(...);
+}
+-keepclassmembers class android.arch.** { *; }
+-keep class android.arch.** { *; }
+-dontwarn android.arch.**
+
+#-keep class br.com.pavi.ambiental.service.worker.** { *; }
+#-keepnames class br.com.pavi.ambiental.service.worker.**
+
+#Epoxy
+-keep class * extends com.airbnb.epoxy.EpoxyController { *; }
+-keep class * extends com.airbnb.epoxy.ControllerHelper { *; }
+
+#OkHttp
+-dontwarn okhttp3.**
+-dontwarn okio.**
+-dontwarn javax.annotation.**
+-dontwarn org.conscrypt.**
+# A resource is loaded with a relative path so the package of this class must be preserved.
+-keepnames class okhttp3.internal.publicsuffix.PublicSuffixDatabase
+
+#Mapstruct
+-keep class * implements br.com.pavi.ambiental.domain.database.mapper.IMapper { *; }

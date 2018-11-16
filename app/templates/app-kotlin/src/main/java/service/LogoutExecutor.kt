@@ -6,7 +6,7 @@ import <%= appPackage %>.model.OAuth
 import <%= appPackage %>.service.push.PushExtras
 import <%= appPackage %>.storage.Storage
 
-object LogoutWorker {
+object LogoutExecutor {
 
     fun logoutAndStopDownloads(context: Context, storage: Storage) {
         doLogout(context, storage)

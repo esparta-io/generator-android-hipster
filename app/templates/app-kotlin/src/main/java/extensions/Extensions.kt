@@ -1,14 +1,18 @@
 package <%= appPackage %>.extensions
 
 import android.content.Context
+import android.graphics.Point
 import android.graphics.PorterDuff
+import android.graphics.Rect
 import android.os.Build
 import android.support.annotation.ColorRes
 import android.support.annotation.StringRes
 import android.support.design.widget.Snackbar
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
+import android.util.TypedValue
 import android.view.View
+import android.view.Window
 import android.view.WindowManager
 import android.widget.EditText
 import android.widget.ProgressBar
@@ -125,4 +129,37 @@ private class VarDelegate<T>(initializer: () -> T) : ReadWriteProperty<Any?, T> 
 // http://stackoverflow.com/questions/34346966/kotlin-lazy-default-property/34347410#34347410
 object DelegatesExt {
     fun <T> lazyVar(initializer: () -> T): ReadWriteProperty<Any?, T> = VarDelegate(initializer)
+}
+
+fun <T> lazyUnsafe(initializer: () -> T): Lazy<T> = lazy(LazyThreadSafetyMode.NONE, initializer)
+
+inline fun <T1: Any, T2: Any, R: Any> doubleLet(p1: T1?, p2: T2?, block: (T1, T2)->R?): R? =
+        if (p1 != null && p2 != null) block(p1, p2) else null
+
+inline fun <T1: Any, T2: Any, T3: Any, R: Any> tripleLet(p1: T1?, p2: T2?, p3: T3?, block: (T1, T2, T3)->R?): R? =
+        if (p1 != null && p2 != null && p3 != null) block(p1, p2, p3) else null
+
+
+fun AppCompatActivity.getStatusBarHeight(): Int {
+    val rectangle = Rect()
+    val window = window
+    window.decorView.getWindowVisibleDisplayFrame(rectangle)
+    val statusBarHeight = rectangle.top
+    val contentViewTop = window.findViewById<View>(Window.ID_ANDROID_CONTENT).top
+    return statusBarHeight - contentViewTop
+}
+
+fun AppCompatActivity.getToolBarHeight(): Int {
+    val textSizeAttr = intArrayOf(android.R.attr.actionBarSize)
+    val a = applicationContext.obtainStyledAttributes(TypedValue().data, textSizeAttr)
+    val toolbarSize = a.getDimensionPixelSize(0, -1)
+    a.recycle()
+    return toolbarSize
+}
+
+fun AppCompatActivity.getDisplayDimensions(): Pair<Int, Int> {
+    val display = windowManager.defaultDisplay
+    val size = Point()
+    display.getSize(size)
+    return Pair(size.x, size.y)
 }

@@ -5,7 +5,7 @@ import com.google.gson.Gson
 import <%= appPackage %>.BuildConfig
 import <%= appPackage %>.di.ForApplication
 import <%= appPackage %>.model.OAuth
-import <%= appPackage %>.service.LogoutWorker
+import <%= appPackage %>.service.LogoutExecutor
 import <%= appPackage %>.storage.Storage
 import okhttp3.*
 <% if (jodatime == true) { %> import org.joda.time.DateTime <% } %>
@@ -43,7 +43,7 @@ constructor(private val storage: Storage, @ForApplication private val context: C
                 val code = refreshToken(currentToken, oauth.refreshToken)
                 if ((code / 100) != 2) {
                     if (code == 401 || code == 403) {
-                        LogoutWorker.logoutAndStopDownloadsDueToInvalidToken(context, storage)
+                        LogoutExecutor.logoutAndStopDownloadsDueToInvalidToken(context, storage)
                     }
                     return response
                 }
