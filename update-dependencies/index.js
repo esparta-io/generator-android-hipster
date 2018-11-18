@@ -29,7 +29,6 @@ module.exports = ActivityGenerator.extend({
             this.jodamoney = this.config.get('jodamoney') || true;
             this.androidTargetSdkVersion = this.config.get('androidTargetSdkVersion');
             this.minSdk = this.config.get('minSdk');
-            this.calligraphy = this.config.get('calligraphy') || true;
             this.playServices = this.config.get('playServices') || [];
             this.stetho = this.config.get('stetho') || true;
             this.printview = this.config.get('printview') || true;
