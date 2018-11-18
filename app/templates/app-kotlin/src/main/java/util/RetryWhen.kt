@@ -15,18 +15,21 @@ class RetryWhen<T>: ObservableTransformer<T, T> {
     private var period: Int by Delegates.notNull()
     private var backoff: Int by Delegates.notNull()
 
+    @Suppress("MagicNumber")
     constructor() {
         count = 3
         period = 1000
         backoff = 0
     }
 
+    @Suppress("MagicNumber")
     constructor(count: Int) {
         this.count = count
         period = 1000
         backoff = 0
     }
 
+    @Suppress("MagicNumber")
     constructor(count: Int, period: Int) {
         this.count = count
         this.period = period

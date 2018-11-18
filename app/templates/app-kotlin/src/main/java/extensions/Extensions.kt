@@ -31,6 +31,7 @@ import kotlin.reflect.KProperty
      enableDisableView(false)
  }
 
+@Suppress("MagicNumber")
 fun View.enableDisableView(enabled: Boolean) {
     this.isEnabled = enabled
     this.isClickable = enabled

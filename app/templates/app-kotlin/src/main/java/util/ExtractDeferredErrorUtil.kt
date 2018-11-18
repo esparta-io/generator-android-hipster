@@ -35,10 +35,11 @@ object ExtractDeferredErrorUtil {
 
     private fun convertErrorMessage(string: String?): DeferredErrorMessage {
         try {
-            if (string == null || string == "") {
-                return DeferredErrorMessage()
+            return if (string == null || string == "") {
+                DeferredErrorMessage()
+            } else {
+                Gson().fromJson(string, DeferredErrorMessage::class.java)
             }
-            return Gson().fromJson(string, DeferredErrorMessage::class.java)
         } catch (e: JsonSyntaxException) {
             Timber.e("JsonSyntaxException convertErrorMessage", e)
             val error = DeferredErrorMessage()

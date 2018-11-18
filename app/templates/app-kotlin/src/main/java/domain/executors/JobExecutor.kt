@@ -35,6 +35,7 @@ class JobExecutor : ThreadExecutor {
 
   private var threadFactory: ThreadFactory? = null
 
+    @Suppress("MagicNumber")
   private var keepAliveSeconds = 60
 
   init {

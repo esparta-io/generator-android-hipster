@@ -25,6 +25,7 @@ import <%= appPackage %>.R
 @SuppressLint("InflateParams")
 object Dialogs {
     
+    @Suppress("ReturnCount")
     fun showProgressDialog(activity: AppCompatActivity, label: String): Dialog {
         val builder = AlertDialog.Builder(activity, R.style.Dialogs)
         val view = LayoutInflater.from(activity).inflate(R.layout.dialog_progress, null)

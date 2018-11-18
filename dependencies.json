@@ -265,14 +265,6 @@
       },
       {
         "scope": "implementation",
-        "group": "uk.co.chrisjenx",
-        "name": "calligraphy",
-        "version": "2.2.0",
-        "lang": "all",
-        "selection": "calligraphy"
-      },
-      {
-        "scope": "implementation",
         "group": "com.jakewharton.timber",
         "name": "timber",
         "version": "4.5.1",
