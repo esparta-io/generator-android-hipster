@@ -16,7 +16,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlin.coroutines.CoroutineContext
-<% if (calligraphy == true) { %>import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper<% } %>
 
 abstract class BaseActivity<out P : BasePresenter<*>> : AppCompatActivity(), CoroutineScope {
 
@@ -38,11 +37,6 @@ abstract class BaseActivity<out P : BasePresenter<*>> : AppCompatActivity(), Cor
     protected abstract fun injectModule()
 
     protected abstract fun getLayoutResource(): Int
-
-    <% if (calligraphy == true) { %>@CallSuper
-    override fun attachBaseContext(newBase: Context) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
-    }<% } %>
 
     override fun onResume() {
         super.onResume()
