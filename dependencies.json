@@ -30,7 +30,7 @@
     "dependencies": [
       {
         "scope": "implementation",
-        "group": "androidx.support",
+        "group": "androidx.multidex",
         "name": "multidex",
         "version": "2.0.1",
         "lang": "all"
@@ -298,30 +298,6 @@
         "version": "1.5.0",
         "lang": "all",
         "selection": "stetho"
-      },
-      {
-        "scope": "implementation",
-        "group": "nz.bradcampbell",
-        "name": "paperparcel",
-        "version": "2.0.0",
-        "lang": "kotlin",
-        "selection": "paperparcel"
-      },
-      {
-        "scope": "implementation",
-        "group": "nz.bradcampbell",
-        "name": "paperparcel-kotlin",
-        "version": "2.0.1",
-        "lang": "kotlin",
-        "selection": "paperparcel"
-      },
-      {
-        "scope": "kapt",
-        "group": "nz.bradcampbell",
-        "name": "paperparcel-compiler",
-        "version": "2.0.1",
-        "lang": "kotlin",
-        "selection": "paperparcel"
       },
       {
         "scope": "implementation",

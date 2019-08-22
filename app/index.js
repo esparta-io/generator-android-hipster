@@ -194,15 +194,6 @@ module.exports = AppGenerator.extend({
                 default: false
             },
             {
-                when: function (data) {
-                    return data.language == 'kotlin';
-                },
-                type: 'confirm',
-                name: 'paperparcel',
-                message: 'Would you like to use PaperParcel?',
-                default: true
-            },
-            {
                 name: 'targetSdk',
                 message: 'What Android SDK will you be targeting?',
                 store: true,
@@ -264,7 +255,6 @@ module.exports = AppGenerator.extend({
             this.androidMinSdkVersion = props.minSdk;
             this.language = props.language;
             this.playServices = props.playServices;
-            this.paperparcel = props.paperparcel;
             this.stetho = props.stetho;
             this.printview = props.printview;
             this.autoparcel = true; // Yeap, need to be true at this time
@@ -296,7 +286,6 @@ module.exports = AppGenerator.extend({
             this.config.set('timber', this.timber);
             this.config.set('jodatime', this.jodatime);
             this.config.set('threetenabp', this.threetenabp);
-            this.config.set('paperparcel', this.paperparcel);
             this.config.set('jodamoney', this.jodamoney);
             this.config.set('androidTargetSdkVersion', this.androidTargetSdkVersion);
             this.config.set('minSdk', this.androidMinSdkVersion);
