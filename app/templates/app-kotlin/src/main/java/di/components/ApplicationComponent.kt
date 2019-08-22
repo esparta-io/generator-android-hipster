@@ -17,18 +17,18 @@ import <%= appPackage %>.di.modules.UserModule
 import retrofit2.Retrofit
 import io.reactivex.Scheduler
 import javax.inject.Singleton
-
+import kotlinx.coroutines.CoroutineDispatcher
 <% if(eventbus==true) { %>import org.greenrobot.eventbus.EventBus<% } %>
 
 // android-hipster-needle-component-injection-import
 
 @Singleton
-@Component(modules = arrayOf(
-                            ApplicationModule::class,
-                            AndroidModule::class,
-                            OkHttpInterceptorsModule::class,
-                            GsonModule::class,
-                            EnvironmentModule::class))
+@Component(modules = [
+    ApplicationModule::class,
+    AndroidModule::class,
+    OkHttpInterceptorsModule::class,
+    GsonModule::class,
+    EnvironmentModule::class])
 interface ApplicationComponent {
 
     fun provideThreadExecutor(): Scheduler
@@ -45,6 +45,8 @@ interface ApplicationComponent {
     fun inject(app: App)
 
     fun plus(userModule: UserModule): UserComponent?
+
+    fun provideDispatcher(): CoroutineDispatcher
 
     <% if(eventbus==true) { %>fun provideEventBus(): EventBus<% } %>
 

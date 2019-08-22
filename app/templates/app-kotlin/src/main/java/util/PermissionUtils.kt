@@ -55,13 +55,13 @@ object PermissionUtils {
     }
 
 
-    fun snackbarForSettings(activity: Activity, REQUEST_SETTINGS: Int) {
+    fun snackbarForSettings(activity: Activity, requestSettings: Int) {
         val make = Snackbar.make(activity.findViewById(android.R.id.content), "R.string.need_permissions", Snackbar.LENGTH_INDEFINITE)
         make.setAction("R.string.settings") { _ ->
             make.dismiss()
             val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:" + activity.packageName))
             intent.flags = 0
-            activity.startActivityForResult(intent, REQUEST_SETTINGS)
+            activity.startActivityForResult(intent, requestSettings)
         }
         make.show()
     }

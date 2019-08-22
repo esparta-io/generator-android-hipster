@@ -1,6 +1,10 @@
 package <%= appPackage %>.domain.interactors.base
 
-import io.reactivex.*
+import io.reactivex.Observable
+import io.reactivex.ObservableTransformer
+import io.reactivex.Scheduler
+import io.reactivex.Single
+import io.reactivex.SingleTransformer
 import io.reactivex.android.schedulers.AndroidSchedulers
 
 open class BaseInteractor(val executor: Scheduler) {

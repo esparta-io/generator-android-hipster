@@ -35,6 +35,7 @@ class JobExecutor : ThreadExecutor {
 
   private var threadFactory: ThreadFactory? = null
 
+    @Suppress("MagicNumber")
   private var keepAliveSeconds = 60
 
   init {
@@ -81,7 +82,7 @@ class JobExecutor : ThreadExecutor {
 
     companion object {
 
-      private val THREAD_NAME = "app_"
+      private const val THREAD_NAME = "app_"
     }
   }
 
@@ -150,7 +151,7 @@ class JobExecutor : ThreadExecutor {
   }
 
   companion object {
-    private val INITIAL_POOL_SIZE = 4
+    private const val INITIAL_POOL_SIZE = 4
   }
 
 

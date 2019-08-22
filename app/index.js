@@ -44,7 +44,6 @@ module.exports = AppGenerator.extend({
             this.threetenabp = this.config.get('threetenabp') || true;
             this.androidTargetSdkVersion = this.config.get('androidTargetSdkVersion');
             this.androidMinSdkVersion = this.config.get('minSdk');
-            this.calligraphy = this.config.get('calligraphy') || true;
             this.playServices = this.config.get('playServices') || [];
             this.stetho = this.config.get('stetho') || true;
             this.printview = this.config.get('printview') || true;
@@ -133,12 +132,6 @@ module.exports = AppGenerator.extend({
                 type: 'confirm',
                 name: 'eventbus',
                 message: 'Would you like to use EventBus?',
-                default: true
-            },
-            {
-                type: 'confirm',
-                name: 'calligraphy',
-                message: 'Would you like to use calligraphy for custom fonts?',
                 default: true
             },
             {
@@ -270,7 +263,6 @@ module.exports = AppGenerator.extend({
             this.androidTargetSdkVersion = props.targetSdk;
             this.androidMinSdkVersion = props.minSdk;
             this.language = props.language;
-            this.calligraphy = props.calligraphy;
             this.playServices = props.playServices;
             this.paperparcel = props.paperparcel;
             this.stetho = props.stetho;
@@ -308,7 +300,6 @@ module.exports = AppGenerator.extend({
             this.config.set('jodamoney', this.jodamoney);
             this.config.set('androidTargetSdkVersion', this.androidTargetSdkVersion);
             this.config.set('minSdk', this.androidMinSdkVersion);
-            this.config.set('calligraphy', this.calligraphy);
             this.config.set('playServices', this.playServices);
             this.config.set('stetho', this.stetho);
             this.config.set('printview', this.printview);
@@ -327,6 +318,9 @@ module.exports = AppGenerator.extend({
             this.copy('gradlew.bat', 'gradlew.bat');
             this.template('settings.gradle', 'settings.gradle');
             this.directory('gradle', 'gradle');
+
+            this.copy('detekt.gradle', 'detekt.gradle');
+            this.copy('default-detekt-config.yml', 'default-detekt-config.yml');
 
             this.copy('common/gitignore', 'app/.gitignore');
             this.copy('common/proguard-rules.pro', 'app/proguard-rules.pro');
@@ -376,6 +370,7 @@ module.exports = AppGenerator.extend({
             if (this.language == 'kotlin') {
                 this.template(appFolder + '/src/main/java/extensions/ContextExtensions.kt', 'app/src/main/java/' + packageDir + '/extensions/ContextExtensions.kt', this, {});
                 this.template(appFolder + '/src/main/java/extensions/Extensions.kt', 'app/src/main/java/' + packageDir + '/extensions/Extensions.kt', this, {});
+                this.template(appFolder + '/src/main/java/extensions/DeferredExtensions.kt', 'app/src/main/java/' + packageDir + '/extensions/DeferredExtensions.kt', this, {});
                 if (this.nucleus == true) {
                     this.template(appFolder + '/src/main/java/extensions/PresenterExtensions.kt', 'app/src/main/java/' + packageDir + '/extensions/PresenterExtensions.kt', this, {})
                 }
@@ -425,15 +420,17 @@ module.exports = AppGenerator.extend({
                 this.template(appFolder + '/src/main/java/util/gson/AutoValueTypeAdapterFactory.kt', 'app/src/main/java/' + packageDir + '/util/gson/AutoValueTypeAdapterFactory.kt', this, {})
             }
             this.template(appFolder + '/src/main/java/util/gson/GsonModule.kt', 'app/src/main/java/' + packageDir + '/util/gson/GsonModule.kt', this, {});
-            this.template(appFolder + '/src/main/java/util/DensityUtil.kt', 'app/src/main/java/' + packageDir + '/util/DensityUtil.kt', this, {});
             this.template(appFolder + '/src/main/java/util/ExtractSingleResult.kt', 'app/src/main/java/' + packageDir + '/util/ExtractSingleResult.kt', this, {});
             this.template(appFolder + '/src/main/java/util/LinearMarginItemDecoration.kt', 'app/src/main/java/' + packageDir + '/util/LinearMarginItemDecoration.kt', this, {});
             this.template(appFolder + '/src/main/java/util/StringUtils.kt', 'app/src/main/java/' + packageDir + '/util/StringUtils.kt', this, {});
             this.template(appFolder + '/src/main/java/util/PermissionUtils.kt', 'app/src/main/java/' + packageDir + '/util/PermissionUtils.kt', this, {});
+            this.template(appFolder + '/src/main/java/util/ExtractDeferredErrorUtil.kt', 'app/src/main/java/' + packageDir + '/util/ExtractDeferredErrorUtil.kt', this, {});
 
             if (this.language == 'kotlin') {
                 this.template(appFolder + '/src/main/java/domain/repository/exception/ApiException.kt', 'app/src/main/java/' + packageDir + '/domain/repository/exception/ApiException.kt', this, {});
+                this.template(appFolder + '/src/main/java/domain/repository/exception/ApiDeferredException.kt', 'app/src/main/java/' + packageDir + '/domain/repository/exception/ApiDeferredException.kt', this, {});
                 this.template(appFolder + '/src/main/java/domain/repository/exception/ErrorMessage.kt', 'app/src/main/java/' + packageDir + '/domain/repository/exception/ErrorMessage.kt', this, {});
+                this.template(appFolder + '/src/main/java/domain/repository/exception/DeferredErrorMessage.kt', 'app/src/main/java/' + packageDir + '/domain/repository/exception/DeferredErrorMessage.kt', this, {});
                 this.template(appFolder + '/src/main/java/util/ExtractErrorUtil.kt', 'app/src/main/java/' + packageDir + '/util/ExtractErrorUtil.kt', this, {});
                 this.template(appFolder + '/src/main/java/util/ExtractResult.kt', 'app/src/main/java/' + packageDir + '/util/ExtractResult.kt', this, {});
                 this.template(appFolder + '/src/main/java/util/RetryWhen.kt', 'app/src/main/java/' + packageDir + '/util/RetryWhen.kt', this, {});

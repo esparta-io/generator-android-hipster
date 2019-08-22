@@ -271,10 +271,6 @@
 -keep class **$$ViewBinder { *; }
 
 
--keep class uk.co.chrisjenx.calligraphy.* { *; }
--keep class uk.co.chrisjenx.calligraphy.*$* { *; }
-
-
 # https://github.com/greenrobot/EventBus/blob/master/HOWTO.md#proguard-configuration
 
 -keepclassmembers class ** {

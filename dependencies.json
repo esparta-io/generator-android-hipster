@@ -6,21 +6,21 @@
         "scope": "classpath",
         "group": "com.android.tools.build",
         "name": "gradle",
-        "version": "3.2.0",
+        "version": "3.2.1",
         "lang": "all"
       },
       {
         "scope": "classpath",
         "group": "org.jetbrains.kotlin",
         "name": "kotlin-android-extensions",
-        "version": "1.2.71",
+        "version": "1.3.10",
         "lang": "kotlin"
       },
       {
         "scope": "classpath",
         "group": "org.jetbrains.kotlin",
         "name": "kotlin-gradle-plugin",
-        "version": "1.2.71",
+        "version": "1.3.10",
         "lang": "kotlin"
       }
     ]
@@ -99,6 +99,13 @@
         "lang": "all"
       },
       {
+        "scope": "implementation",
+        "group": "com.jakewharton.retrofit",
+        "name": "retrofit2-kotlin-coroutines-adapter",
+        "version": "0.9.2",
+        "lang": "all"
+      },
+      {
         "scope": "compileOnly",
         "group": "javax.annotation",
         "name": "jsr250-api",
@@ -158,7 +165,21 @@
         "scope": "implementation",
         "group": "org.jetbrains.kotlin",
         "name": "kotlin-stdlib",
-        "version": "1.2.71",
+        "version": "1.3.0",
+        "lang": "kotlin"
+      },
+      {
+        "scope": "implementation",
+        "group": "org.jetbrains.kotlinx",
+        "name": "kotlinx-coroutines-core",
+        "version": "1.0.0-RC1",
+        "lang": "kotlin"
+      },
+      {
+        "scope": "implementation",
+        "group": "org.jetbrains.kotlinx",
+        "name": "kotlinx-coroutines-android",
+        "version": "1.0.0-RC1",
         "lang": "kotlin"
       },
       {
@@ -183,6 +204,20 @@
         "lang": "kotlin"
       },
       {
+        "scope": "implementation",
+        "group": "org.jetbrains.anko",
+        "name": "anko-coroutines",
+        "version": "0.10.1",
+        "lang": "kotlin"
+      },
+      {
+        "scope": "implementation",
+        "group": "org.jetbrains.anko",
+        "name": "anko-sdk25-listeners",
+        "version": "0.10.1",
+        "lang": "kotlin"
+      },
+      {
         "scope": "kapt",
         "group": "com.google.dagger",
         "name": "dagger-compiler",
@@ -195,6 +230,14 @@
         "name": "dagger-compiler",
         "version": "2.11",
         "lang": "java"
+      },
+      {
+        "scope": "implementation",
+        "group": "com.jakewharton",
+        "name": "butterknife",
+        "version": "7.0.1",
+        "lang": "all",
+        "selection": "butterknife"
       },
       {
         "scope": "implementation",
@@ -219,14 +262,6 @@
         "version": "2.5.2",
         "lang": "all",
         "selection": "picasso"
-      },
-      {
-        "scope": "implementation",
-        "group": "uk.co.chrisjenx",
-        "name": "calligraphy",
-        "version": "2.2.0",
-        "lang": "all",
-        "selection": "calligraphy"
       },
       {
         "scope": "implementation",
@@ -483,6 +518,27 @@
         "version": "11.0.0",
         "lang": "all",
         "selection": "playServices"
+      },
+      {
+        "scope": "implementation",
+        "group": "android.arch.lifecycle",
+        "name": "runtime",
+        "version": "1.1.1",
+        "lang": "all"
+      },
+      {
+        "scope": "implementation",
+        "group": "android.arch.lifecycle",
+        "name": "extensions",
+        "version": "1.1.1",
+        "lang": "all"
+      },
+      {
+        "scope": "kapt",
+        "group": "android.arch.lifecycle",
+        "name": "compiler",
+        "version": "1.1.1",
+        "lang": "all"
       }
 
     ]

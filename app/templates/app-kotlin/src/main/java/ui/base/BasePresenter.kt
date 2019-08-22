@@ -1,25 +1,49 @@
 package <%= appPackage %>.ui.base
 
+import android.arch.lifecycle.Lifecycle
+import android.arch.lifecycle.LifecycleObserver
+import android.arch.lifecycle.OnLifecycleEvent
+import android.support.v7.app.AppCompatActivity
+import <%= appPackage %>.extensions.lazyUnsafe
 import io.reactivex.disposables.Disposable
-import java.util.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import org.jetbrains.anko.coroutines.experimental.Ref
+import org.jetbrains.anko.coroutines.experimental.asReference
+import java.util.ArrayList
+import kotlin.coroutines.CoroutineContext
 
-<% if (timber == true) { %>import timber.log.Timber <% } %>
+abstract class BasePresenter<V : PresenterView> : Presenter<V>(), CoroutineScope, LifecycleObserver {
 
-abstract class BasePresenter<V : PresenterView> : Presenter<V>() {
-      private var disposableList = ArrayList<Disposable>()
+    private lateinit var job: Job
 
-      fun add(disposable: Disposable) {
-          disposableList .add(disposable)
-      }
+    protected val coroutineMainContext: CoroutineContext by lazyUnsafe { Dispatchers.Main + job }
 
-      fun unSubscribe() {
-          disposableList
-                  .filter { ! it.isDisposed }
-                  .forEach { it.dispose() }
-      }
+    override val coroutineContext: CoroutineContext
+        get() = coroutineMainContext
 
-      override fun dropView() {
-          super.dropView()
-          unSubscribe()
-      }
+    private var disposableList = ArrayList<Disposable>()
+
+    fun add(disposable: Disposable) {
+        disposableList .add(disposable)
+    }
+
+    fun unSubscribe() {
+        disposableList
+                .filter { ! it.isDisposed }
+                .forEach { it.dispose() }
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
+    override fun dropView() {
+        super.dropView()
+        job.cancel()
+        unSubscribe()
+    }
+
+    override fun onTakeView(view: V) {
+        super.onTakeView(view)
+        job = Job()
+    }
 }
