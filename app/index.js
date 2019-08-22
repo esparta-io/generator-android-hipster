@@ -388,6 +388,7 @@ module.exports = AppGenerator.extend({
             this.template(appFolder + '/src/main/java/ui/base/EmptyPresenter.kt', 'app/src/main/java/' + packageDir + '/ui/base/EmptyPresenter.kt', this, {});
             this.template(appFolder + '/src/main/java/ui/base/PresenterView.kt', 'app/src/main/java/' + packageDir + '/ui/base/PresenterView.kt', this, {});
             this.template(appFolder + '/src/main/java/ui/components/Dialogs.kt', 'app/src/main/java/' + packageDir + '/ui/components/Dialogs.kt', this, {});
+            this.template(appFolder + '/src/main/java/ui/base/BaseViewCoroutineScope.kt', 'app/src/main/java/' + packageDir + '/ui/base/BaseViewCoroutineScope.kt', this, {});
             if (this.language == 'kotlin') {
                 if (this.eventbus) {
                     this.template(appFolder + '/src/main/java/ui/base/EventBusUser.kt', 'app/src/main/java/' + packageDir + '/ui/base/EventBusUser.kt', this, {})

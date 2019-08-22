@@ -4,10 +4,10 @@ import android.content.BroadcastReceiver
 import android.content.Intent
 import android.content.Context
 import android.os.Bundle
-import android.support.annotation.CallSuper
+import androidx.annotation.CallSuper
 import android.view.MenuItem
 import <%= appPackage %>.extensions.lazyUnsafe
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import <%= appPackage %>.application.App
 import <%= appPackage %>.extensions.makeLogin
 import <%= appPackage %>.extensions.registerSyncReceiver
@@ -17,20 +17,20 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlin.coroutines.CoroutineContext
 
-abstract class BaseActivity<out P : BasePresenter<*>> : AppCompatActivity(), CoroutineScope {
+abstract class BaseActivity<out P : BasePresenter<*>> : AppCompatActivity(), BaseViewCoroutineScope, PresenterView {
 
-    private lateinit var job: Job
+    override var job: Job? = null
 
-    protected val coroutineActivityContext: CoroutineContext by lazyUnsafe { Dispatchers.Main + job }
+    @Inject
+    lateinit var storage: Storage
 
-    override val coroutineContext: CoroutineContext
-        get() = coroutineActivityContext
+    private lateinit var coroutineActivityContext: CoroutineContext
 
     @CallSuper
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(getLayoutResource())
-        job = Job()
+        createSupervisorJob()
         injectModule()
     }
 
@@ -38,10 +38,25 @@ abstract class BaseActivity<out P : BasePresenter<*>> : AppCompatActivity(), Cor
 
     protected abstract fun getLayoutResource(): Int
 
+    protected open fun checkIfIsSynchronizing(): Boolean = true
+
+    protected open fun processSynchronized() {}
+
+    protected open fun processSynchronizingProblems() {}
+
     override fun onResume() {
         super.onResume()
         lifecycle.addObserver(getPresenter())
-        this.registerSyncReceiver(receiver, PushExtras.UNAUTHORIZED)
+        this.registerSyncReceiver(receiver,
+                PushExtras.UNAUTHORIZED,
+                PushExtras.BROADCAST_NOTIFICATION,
+                PushExtras.SYNCHRONIZING,
+                PushExtras.SYNCHRONIZED,
+                PushExtras.SYNCHRONIZING_PROBLEMS)
+
+        if (checkIfIsSynchronizing() && storage.getBoolean(SyncExecutor.IS_SYNCHRONIZING)) {
+            startActivity(intentFor<SynchronizingActivity>())
+        }
     }
 
     override fun onPause() {
@@ -51,7 +66,8 @@ abstract class BaseActivity<out P : BasePresenter<*>> : AppCompatActivity(), Cor
 
     override fun onDestroy() {
         super.onDestroy()
-        job.cancel()
+        job?.cancel()
+        lifecycle.removeObserver(getPresenter())
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
@@ -66,9 +82,18 @@ abstract class BaseActivity<out P : BasePresenter<*>> : AppCompatActivity(), Cor
     private val receiver: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
 
-            if (intent.action == PushExtras.UNAUTHORIZED && shouldProcessLogout()) {
-                makeLogin()
-                return
+            when (intent.action) {
+                PushExtras.UNAUTHORIZED -> {
+                    if (shouldProcessLogout()) {
+                        makeLogin()
+                    }
+                }
+
+                PushExtras.SYNCHRONIZING -> startActivity(intentFor<SynchronizingActivity>())
+
+                PushExtras.SYNCHRONIZED -> processSynchronized()
+
+                PushExtras.SYNCHRONIZING_PROBLEMS -> processSynchronizingProblems()
             }
 
             val notification = intent.getBundleExtra(PushExtras.PUSH)

@@ -3,7 +3,7 @@ package <%= appPackage %>.ui.base
 import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleObserver
 import android.arch.lifecycle.OnLifecycleEvent
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import <%= appPackage %>.extensions.lazyUnsafe
 import io.reactivex.disposables.Disposable
 import kotlinx.coroutines.CoroutineScope
