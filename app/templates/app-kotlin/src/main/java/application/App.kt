@@ -2,7 +2,7 @@ package <%= appPackage %>.application
 
 import android.app.Application
 import android.content.Context
-import android.support.multidex.MultiDex
+import androidx.multidex.MultiDex
 
 import <%= appPackage %>.R
 import <%= appPackage %>.di.ForApplication

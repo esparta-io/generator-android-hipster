@@ -10,10 +10,6 @@ import java.io.IOException
 import java.net.ConnectException
 import java.net.SocketTimeoutException
 
-/**
- *
- * Created by gmribas on 15/11/18.
- */
 object ExtractDeferredErrorUtil {
 
     fun extractError(e: Exception): ApiDeferredException {

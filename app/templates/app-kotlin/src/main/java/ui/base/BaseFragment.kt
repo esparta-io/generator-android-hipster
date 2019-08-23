@@ -9,7 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.CallSuper
 import androidx.fragment.app.Fragment
-import br.com.ibd.totaldata.di.HasComponent
+import <%= appPackage %>.ui.base.BaseViewCoroutineScope
 import kotlinx.coroutines.Job
 
 abstract class BaseFragment<out P : BasePresenter<*>> : Fragment(), BaseViewCoroutineScope {
@@ -56,8 +56,8 @@ abstract class BaseFragment<out P : BasePresenter<*>> : Fragment(), BaseViewCoro
         super.onAttach(context)
     }
 
-    protected fun <C> getComponent(componentType: Class<C>): C {
-        return componentType.cast((activity as HasComponent<C>).getComponent())
+    protected fun <C> getComponent(componentType: Class<C>): C? {
+        return componentType.cast((activity as HasComponent<*>).getComponent())
     }
 
     protected abstract fun inject()

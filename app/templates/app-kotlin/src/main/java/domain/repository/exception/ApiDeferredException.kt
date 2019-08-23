@@ -1,8 +1,5 @@
 package <%= appPackage %>.domain.repository.exception
 
-/**
- * Created by gmribas on 15/11/18.
- */
 class ApiDeferredException : Throwable {
 
     val errorMessage: DeferredErrorMessage

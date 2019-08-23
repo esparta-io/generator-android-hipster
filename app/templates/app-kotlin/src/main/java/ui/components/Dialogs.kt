@@ -18,10 +18,6 @@ import org.jetbrains.anko.find
 import <%= appPackage %>.R
 
 
-/**
- *
- * Created by gmribas on 04/07/18.
- */
 @SuppressLint("InflateParams")
 object Dialogs {
     

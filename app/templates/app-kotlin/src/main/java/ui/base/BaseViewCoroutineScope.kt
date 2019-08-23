@@ -1,5 +1,6 @@
-package br.com.ibd.totaldata.ui.base
+package <%= appPackage %>.ui.base
 
+import <%= appPackage %>.ui.base.ProgressPresenterView
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -8,10 +9,6 @@ import kotlinx.coroutines.SupervisorJob
 import timber.log.Timber
 import kotlin.coroutines.CoroutineContext
 
-/**
- *
- * Created by gmribas on 2019-06-13.
- */
 interface BaseViewCoroutineScope: CoroutineScope {
 
     var job: Job?

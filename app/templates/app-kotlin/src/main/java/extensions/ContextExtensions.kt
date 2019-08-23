@@ -50,9 +50,11 @@ fun Activity.getCurrentUserComponent(): UserComponent? {
 
 val priority = AtomicInteger(1)
 
-fun Context.registerSyncReceiver(receiver: BroadcastReceiver, action: String) {
+fun Context.registerSyncReceiver(receiver: BroadcastReceiver, vararg actions: String) {
     val filter = IntentFilter()
-    filter.addAction(action)
+    actions.forEach {
+        filter.addAction(it)
+    }
     filter.priority = priority.incrementAndGet()
     registerReceiver(receiver, filter)
 }

@@ -349,6 +349,7 @@ module.exports = AppGenerator.extend({
 
             this.template(appFolder + '/src/main/java/service/LogoutExecutor.kt', 'app/src/main/java/' + packageDir + '/service/LogoutExecutor.kt', this, {});
             this.template(appFolder + '/src/main/java/service/push/PushExtras.kt', 'app/src/main/java/' + packageDir + '/service/push/PushExtras.kt', this, {});
+            this.template(appFolder + '/src/main/java/service/BroadcastExtras.kt', 'app/src/main/java/' + packageDir + '/service/BroadcastExtras.kt', this, {});
 
             this.template(appFolder + '/src/main/java/environment', 'app/src/internal/java/' + packageDir + '/environment', this, {});
             this.template(appFolder + '/src/main/java/environment', 'app/src/production/java/' + packageDir + '/environment', this, {});

@@ -2,9 +2,6 @@ package <%= appPackage %>.ui.base
 
 import org.greenrobot.eventbus.EventBus
 
-/**
- * Created by gmribas on 29/11/16.
- */
 interface EventBusUser {
 
     var busRegistered: Boolean

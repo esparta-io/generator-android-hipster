@@ -12,17 +12,17 @@ import <%= appPackage %>.application.App
 import <%= appPackage %>.extensions.makeLogin
 import <%= appPackage %>.extensions.registerSyncReceiver
 import <%= appPackage %>.service.push.PushExtras
+import <%= appPackage %>.service.BroadcastExtras
+import <%= appPackage %>.ui.base.BaseViewCoroutineScope
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
 abstract class BaseActivity<out P : BasePresenter<*>> : AppCompatActivity(), BaseViewCoroutineScope, PresenterView {
 
     override var job: Job? = null
-
-    @Inject
-    lateinit var storage: Storage
 
     private lateinit var coroutineActivityContext: CoroutineContext
 
@@ -50,13 +50,13 @@ abstract class BaseActivity<out P : BasePresenter<*>> : AppCompatActivity(), Bas
         this.registerSyncReceiver(receiver,
                 PushExtras.UNAUTHORIZED,
                 PushExtras.BROADCAST_NOTIFICATION,
-                PushExtras.SYNCHRONIZING,
-                PushExtras.SYNCHRONIZED,
-                PushExtras.SYNCHRONIZING_PROBLEMS)
+                BroadcastExtras.SYNCHRONIZING,
+                BroadcastExtras.SYNCHRONIZED,
+                BroadcastExtras.SYNCHRONIZING_PROBLEMS)
 
-        if (checkIfIsSynchronizing() && storage.getBoolean(SyncExecutor.IS_SYNCHRONIZING)) {
-            startActivity(intentFor<SynchronizingActivity>())
-        }
+//        if (checkIfIsSynchronizing() && storage.getBoolean(SyncExecutor.IS_SYNCHRONIZING)) {
+//            startActivity(intentFor<SynchronizingActivity>())
+//        }
     }
 
     override fun onPause() {
@@ -89,11 +89,11 @@ abstract class BaseActivity<out P : BasePresenter<*>> : AppCompatActivity(), Bas
                     }
                 }
 
-                PushExtras.SYNCHRONIZING -> startActivity(intentFor<SynchronizingActivity>())
+                BroadcastExtras.SYNCHRONIZING -> {}
 
-                PushExtras.SYNCHRONIZED -> processSynchronized()
+                BroadcastExtras.SYNCHRONIZED -> processSynchronized()
 
-                PushExtras.SYNCHRONIZING_PROBLEMS -> processSynchronizingProblems()
+                BroadcastExtras.SYNCHRONIZING_PROBLEMS -> processSynchronizingProblems()
             }
 
             val notification = intent.getBundleExtra(PushExtras.PUSH)

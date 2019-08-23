@@ -7,10 +7,6 @@ import io.reactivex.SingleTransformer
 import java.util.concurrent.TimeUnit
 import kotlin.properties.Delegates
 
-/**
- *
- * Created by gmribas on 30/04/18.
- */
 class RetrySingleWhen<T>: SingleTransformer<T, T> {
 
     private var count by Delegates.notNull<Int>()

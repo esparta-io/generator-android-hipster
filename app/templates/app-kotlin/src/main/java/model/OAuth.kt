@@ -18,5 +18,10 @@ data class OAuth(
         @Expose(serialize = false, deserialize = false) var date: DateTime = DateTime.now()
         <% } else { %>
         @Expose(serialize = false, deserialize = false) var date: Calendar = Calendar.getInstance()
-        <% } %>
-)
+        <% } %>) {
+
+        companion object {
+                const val CLASS_NAME = "OAuth"
+                const val USER_NAME = "OAuth_USER_NAME"
+        }
+}
