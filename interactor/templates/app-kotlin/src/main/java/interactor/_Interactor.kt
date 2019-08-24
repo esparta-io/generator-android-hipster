@@ -1,7 +1,6 @@
 package <%= appPackage %>.domain.interactors.<%= interactorPackageName %>
 
 import <%= appPackage %>.domain.interactors.base.BaseCoroutineInteractor
-import <%= appPackage %>.ui.base.BaseViewCoroutineScope
 import <%= appPackage %>.domain.repository.<%= interactorPackageName %>.<%= interactorName %>LocalRepository
 import <%= appPackage %>.domain.repository.<%= interactorPackageName %>.<%= interactorName %>RemoteRepository
 import kotlinx.coroutines.CoroutineDispatcher

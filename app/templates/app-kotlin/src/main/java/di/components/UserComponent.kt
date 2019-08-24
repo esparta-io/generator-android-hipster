@@ -7,7 +7,7 @@ import <%= appPackage %>.di.modules.UserModule
 // android-hipster-needle-component-injection-import
 
 @UserScope
-@Subcomponent(modules = arrayOf(UserModule::class))
+@Subcomponent(modules = [UserModule::class])
 interface UserComponent {
 
   // android-hipster-needle-component-injection-method
