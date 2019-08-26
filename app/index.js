@@ -197,13 +197,13 @@ module.exports = AppGenerator.extend({
                 name: 'targetSdk',
                 message: 'What Android SDK will you be targeting?',
                 store: true,
-                default: 26
+                default: 29
             },
             {
                 name: 'minSdk',
                 message: 'What is the minimum Android SDK you wish to support?',
                 store: true,
-                default: 15
+                default: 19
             },
             {
                 type: 'checkbox',

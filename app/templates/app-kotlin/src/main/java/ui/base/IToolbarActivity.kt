@@ -3,14 +3,16 @@ package <%= appPackage %>.ui.base
 import android.annotation.SuppressLint
 import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
-import androidx.core.content.ContextCompat
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import android.view.MenuItem
+import androidx.core.content.ContextCompat
+import <%= appPackage %>.extensions.setColorFilterWith
 import <%= appPackage %>.R
 
 interface IToolbarActivity {
 
+    @SuppressLint("PrivateResource")
     fun configureToolbar(toolbar: Toolbar, activity: AppCompatActivity, color: Int? = null, homeEnable: Boolean) {
         activity.setSupportActionBar(toolbar)
         activity.supportActionBar?.title = ""
@@ -19,7 +21,7 @@ interface IToolbarActivity {
         color?.let{
             val upArrow: Drawable? = ContextCompat.getDrawable(activity, R.drawable.abc_ic_ab_back_material)
             upArrow?.let {
-                upArrow.setColorFilter(ContextCompat.getColor(activity, color), PorterDuff.Mode.SRC_ATOP)
+                upArrow.setColorFilterWith(activity, color, PorterDuff.Mode.SRC_ATOP)
                 activity.supportActionBar?.setHomeAsUpIndicator(upArrow)
             }
         }

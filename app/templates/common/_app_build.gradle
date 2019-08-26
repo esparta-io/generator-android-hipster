@@ -8,7 +8,7 @@ apply from: '../config/quality/quality.gradle'<% } %>
 
 android {
     compileSdkVersion <%= androidTargetSdkVersion %>
-    buildToolsVersion "28.0.3"
+    buildToolsVersion "29.0.2"
 
     defaultConfig {
         applicationId '<%= appPackage %>'
@@ -171,7 +171,7 @@ dependencies {
 
 }
 
-<% if (language == 'kotlin') { %>buildscript {
+buildscript {
 
     repositories {
         mavenCentral()
@@ -180,7 +180,7 @@ dependencies {
     dependencies {
         // android-hipster-needle-gradle-parent-dependency
     }
-}<% } %>
+}
 
 configurations.compile.dependencies.each { compileDependency ->
     println "Excluding compile dependency: ${compileDependency.getName()}"

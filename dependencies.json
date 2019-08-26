@@ -13,14 +13,14 @@
         "scope": "classpath",
         "group": "org.jetbrains.kotlin",
         "name": "kotlin-android-extensions",
-        "version": "1.3.10",
+        "version": "1.3.50",
         "lang": "kotlin"
       },
       {
         "scope": "classpath",
         "group": "org.jetbrains.kotlin",
         "name": "kotlin-gradle-plugin",
-        "version": "1.3.10",
+        "version": "1.3.50",
         "lang": "kotlin"
       }
     ]
@@ -46,7 +46,7 @@
         "scope": "implementation",
         "group": "io.reactivex.rxjava2",
         "name": "rxjava",
-        "version": "2.1.15",
+        "version": "2.1.17",
         "lang": "all"
       },
       {
@@ -67,14 +67,14 @@
         "scope": "implementation",
         "group": "com.squareup.retrofit2",
         "name": "retrofit",
-        "version": "2.4.0",
+        "version": "2.5.0",
         "lang": "all"
       },
       {
         "scope": "implementation",
         "group": "com.squareup.okhttp3",
         "name": "okhttp",
-        "version": "3.11.0",
+        "version": "3.12.0",
         "lang": "all"
       },
       {
@@ -88,14 +88,14 @@
         "scope": "implementation",
         "group": "com.squareup.retrofit2",
         "name": "adapter-rxjava2",
-        "version": "2.3.0",
+        "version": "2.5.0",
         "lang": "all"
       },
       {
         "scope": "implementation",
         "group": "com.squareup.retrofit2",
         "name": "converter-gson",
-        "version": "2.3.0",
+        "version": "2.4.0",
         "lang": "all"
       },
       {
@@ -116,7 +116,7 @@
         "scope": "implementation",
         "group": "com.google.dagger",
         "name": "dagger",
-        "version": "2.11",
+        "version": "2.19",
         "lang": "all"
       },
       {
@@ -137,21 +137,21 @@
         "scope": "implementation",
         "group": "org.jetbrains.kotlin",
         "name": "kotlin-stdlib",
-        "version": "1.3.0",
+        "version": "1.3.50",
         "lang": "kotlin"
       },
       {
         "scope": "implementation",
         "group": "org.jetbrains.kotlinx",
         "name": "kotlinx-coroutines-core",
-        "version": "1.0.0-RC1",
+        "version": "1.1.1",
         "lang": "kotlin"
       },
       {
         "scope": "implementation",
         "group": "org.jetbrains.kotlinx",
         "name": "kotlinx-coroutines-android",
-        "version": "1.0.0-RC1",
+        "version": "1.1.1",
         "lang": "kotlin"
       },
       {
@@ -193,15 +193,8 @@
         "scope": "kapt",
         "group": "com.google.dagger",
         "name": "dagger-compiler",
-        "version": "2.11",
+        "version": "2.19",
         "lang": "kotlin"
-      },
-      {
-        "scope": "apt",
-        "group": "com.google.dagger",
-        "name": "dagger-compiler",
-        "version": "2.11",
-        "lang": "java"
       },
       {
         "scope": "implementation",
@@ -469,34 +462,6 @@
       },
       {
         "scope": "implementation",
-        "group": "android.arch.lifecycle",
-        "name": "runtime",
-        "version": "1.1.1",
-        "lang": "all"
-      },
-      {
-        "scope": "implementation",
-        "group": "android.arch.lifecycle",
-        "name": "extensions",
-        "version": "1.1.1",
-        "lang": "all"
-      },
-      {
-        "scope": "kapt",
-        "group": "android.arch.lifecycle",
-        "name": "compiler",
-        "version": "1.1.1",
-        "lang": "all"
-      },
-      {
-        "scope": "implementation",
-        "group": "android.arch.lifecycle",
-        "name": "extensions",
-        "version": "1.1.1",
-        "lang": "all"
-      },
-      {
-        "scope": "implementation",
         "group": "androidx.legacy",
         "name": "legacy-support-v4",
         "version": "1.0.0",
@@ -540,8 +505,8 @@
       {
         "scope": "kapt",
         "group": "androidx.lifecycle",
-        "name": "lifecycle-compiler",
-        "version": "2.0.0",
+        "name": "lifecycle-common-java8",
+        "version": "2.2.0-alpha03",
         "lang": "all"
       },
       {

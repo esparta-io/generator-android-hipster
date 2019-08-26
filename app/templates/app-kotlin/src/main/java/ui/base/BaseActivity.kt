@@ -70,7 +70,7 @@ abstract class BaseActivity<out P : BasePresenter<*>> : AppCompatActivity(), Bas
         lifecycle.removeObserver(getPresenter())
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (this is IToolbarActivity && handleHomePressed(this, item)) {
             return true
         }

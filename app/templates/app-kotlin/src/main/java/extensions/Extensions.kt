@@ -1,21 +1,42 @@
 package <%= appPackage %>.extensions
 
 import android.content.Context
+import android.graphics.BlendMode
+import android.graphics.BlendModeColorFilter
 import android.graphics.Point
 import android.graphics.PorterDuff
+import android.graphics.PorterDuff.Mode.ADD
+import android.graphics.PorterDuff.Mode.CLEAR
+import android.graphics.PorterDuff.Mode.DARKEN
+import android.graphics.PorterDuff.Mode.DST
+import android.graphics.PorterDuff.Mode.DST_ATOP
+import android.graphics.PorterDuff.Mode.DST_IN
+import android.graphics.PorterDuff.Mode.DST_OUT
+import android.graphics.PorterDuff.Mode.DST_OVER
+import android.graphics.PorterDuff.Mode.LIGHTEN
+import android.graphics.PorterDuff.Mode.MULTIPLY
+import android.graphics.PorterDuff.Mode.OVERLAY
+import android.graphics.PorterDuff.Mode.SCREEN
+import android.graphics.PorterDuff.Mode.SRC
+import android.graphics.PorterDuff.Mode.SRC_ATOP
+import android.graphics.PorterDuff.Mode.SRC_IN
+import android.graphics.PorterDuff.Mode.SRC_OUT
+import android.graphics.PorterDuff.Mode.SRC_OVER
+import android.graphics.PorterDuff.Mode.XOR
 import android.graphics.Rect
+import android.graphics.drawable.Drawable
 import android.os.Build
-import androidx.annotation.ColorRes
-import androidx.annotation.StringRes
-import com.google.android.material.snackbar.Snackbar
-import androidx.core.content.ContextCompat
-import androidx.appcompat.app.AppCompatActivity
 import android.util.TypedValue
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import android.widget.EditText
 import android.widget.ProgressBar
+import androidx.annotation.ColorRes
+import androidx.annotation.StringRes
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import com.google.android.material.snackbar.Snackbar
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
@@ -80,11 +101,40 @@ fun Context.setViewsGone(vararg views: View) {
  * Define color filter no background
  */
 fun EditText.setUnderlineColor(@ColorRes color: Int) {
-    background.setColorFilter(ContextCompat.getColor(context, color), PorterDuff.Mode.SRC_IN)
+    background.setColorFilterWith(context, color, SRC_ATOP)
 }
 
 fun ProgressBar.setProgressColor(@ColorRes color: Int) {
-    indeterminateDrawable.setColorFilter(color, PorterDuff.Mode.MULTIPLY)
+    indeterminateDrawable.setColorFilterWith(context, color, MULTIPLY)
+}
+
+@Suppress("DEPRECATION")
+fun Drawable.setColorFilterWith(context: Context, @ColorRes color: Int, mode: PorterDuff.Mode) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+        val blendMode = when (mode) {
+            CLEAR -> BlendMode.CLEAR
+            SRC -> BlendMode.SRC
+            DST -> BlendMode.DST
+            SRC_OVER -> BlendMode.SRC_OVER
+            DST_OVER -> BlendMode.DST_OVER
+            SRC_IN -> BlendMode.SRC_IN
+            DST_IN -> BlendMode.DST_IN
+            SRC_OUT -> BlendMode.SRC_OUT
+            DST_OUT -> BlendMode.DST_OUT
+            SRC_ATOP -> BlendMode.SRC_ATOP
+            DST_ATOP -> BlendMode.DST_ATOP
+            XOR -> BlendMode.XOR
+            DARKEN -> BlendMode.DARKEN
+            LIGHTEN -> BlendMode.LIGHTEN
+            MULTIPLY -> BlendMode.MULTIPLY
+            SCREEN -> BlendMode.SCREEN
+            ADD -> BlendMode.MULTIPLY//I don't have any idea which one is
+            OVERLAY -> BlendMode.OVERLAY
+        }
+        colorFilter = BlendModeColorFilter(color, blendMode)
+    } else {
+        setColorFilter(ContextCompat.getColor(context, color), mode)
+    }
 }
 
 fun AppCompatActivity.snackbar(view: View, @StringRes text: Int, length: Int = Snackbar.LENGTH_SHORT){
