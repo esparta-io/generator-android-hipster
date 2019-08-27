@@ -158,7 +158,7 @@ module.exports = AppGenerator.extend({
                 type: 'confirm',
                 name: 'mixpanel',
                 message: 'Would you like to use MixPanel?',
-                default: true
+                default: false
             },
             {
                 type: 'confirm',
@@ -176,7 +176,7 @@ module.exports = AppGenerator.extend({
                 type: 'confirm',
                 name: 'printview',
                 message: 'Would you like to use PrintView for icon font?',
-                default: true
+                default: false
             },
             {
                 type: 'confirm',

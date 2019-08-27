@@ -121,13 +121,6 @@
       },
       {
         "scope": "implementation",
-        "group": "com.android.support",
-        "name": "design",
-        "version": "28.0.0",
-        "lang": "all"
-      },
-      {
-        "scope": "implementation",
         "group": "io.reactivex",
         "name": "rxkotlin",
         "version": "2.0.0-RC1",
@@ -296,7 +289,7 @@
         "scope": "implementation",
         "group": "com.google.android.gms",
         "name": "play-services-base",
-        "version": "15.0.1",
+        "version": "17.1.0",
         "lang": "all",
         "selection": "playServices"
       },
@@ -344,7 +337,7 @@
         "scope": "implementation",
         "group": "com.google.android.gms",
         "name": "play-services-location",
-        "version": "15.0.1",
+        "version": "17.0.0",
         "lang": "all",
         "selection": "playServices"
       },
@@ -392,7 +385,7 @@
         "scope": "implementation",
         "group": "com.google.android.gms",
         "name": "play-services-maps",
-        "version": "15.0.1",
+        "version": "17.0.0",
         "lang": "all",
         "selection": "playServices"
       },
@@ -513,6 +506,13 @@
         "scope": "implementation",
         "group": "androidx.cardview",
         "name": "cardview",
+        "version": "1.0.0",
+        "lang": "all"
+      },
+      {
+        "scope": "implementation",
+        "group": "com.google.android.material",
+        "name": "material",
         "version": "1.0.0",
         "lang": "all"
       }
