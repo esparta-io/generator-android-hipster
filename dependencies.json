@@ -46,14 +46,14 @@
         "scope": "implementation",
         "group": "io.reactivex.rxjava2",
         "name": "rxjava",
-        "version": "2.1.17",
+        "version": "2.2.12",
         "lang": "all"
       },
       {
         "scope": "implementation",
         "group": "io.reactivex.rxjava2",
         "name": "rxandroid",
-        "version": "2.0.2",
+        "version": "2.1.1",
         "lang": "all"
       },
       {
@@ -88,14 +88,14 @@
         "scope": "implementation",
         "group": "com.squareup.retrofit2",
         "name": "adapter-rxjava2",
-        "version": "2.5.0",
+        "version": "2.6.1",
         "lang": "all"
       },
       {
         "scope": "implementation",
         "group": "com.squareup.retrofit2",
         "name": "converter-gson",
-        "version": "2.4.0",
+        "version": "2.6.1",
         "lang": "all"
       },
       {
@@ -116,7 +116,7 @@
         "scope": "implementation",
         "group": "com.google.dagger",
         "name": "dagger",
-        "version": "2.19",
+        "version": "2.24",
         "lang": "all"
       },
       {
@@ -137,14 +137,14 @@
         "scope": "implementation",
         "group": "org.jetbrains.kotlinx",
         "name": "kotlinx-coroutines-core",
-        "version": "1.1.1",
+        "version": "1.3.0",
         "lang": "kotlin"
       },
       {
         "scope": "implementation",
         "group": "org.jetbrains.kotlinx",
         "name": "kotlinx-coroutines-android",
-        "version": "1.1.1",
+        "version": "1.3.0",
         "lang": "kotlin"
       },
       {
@@ -186,7 +186,7 @@
         "scope": "kapt",
         "group": "com.google.dagger",
         "name": "dagger-compiler",
-        "version": "2.19",
+        "version": "2.24",
         "lang": "kotlin"
       },
       {
@@ -209,7 +209,7 @@
         "scope": "implementation",
         "group": "com.github.bumptech.glide",
         "name": "glide",
-        "version": "4.8.0",
+        "version": "4.9.0",
         "lang": "all",
         "selection": "glide"
       },
@@ -225,7 +225,7 @@
         "scope": "implementation",
         "group": "com.jakewharton.timber",
         "name": "timber",
-        "version": "4.5.1",
+        "version": "4.7.1",
         "lang": "all",
         "selection": "timber"
       },
@@ -233,7 +233,7 @@
         "scope": "implementation",
         "group": "net.danlew",
         "name": "android.joda",
-        "version": "2.9.9",
+        "version": "2.10.2",
         "lang": "all",
         "selection": "jodatime"
       },
