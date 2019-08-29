@@ -17,7 +17,7 @@ object ExtractDeferredErrorUtil {
 
         when (e) {
             is HttpException -> {
-                val string = e.response().errorBody()?.string()
+                val string = e.response()?.errorBody()?.string()
                 Timber.d("ExtractError raw String error $string")
                 return ApiDeferredException(convertErrorMessage(string), e)
             }
@@ -37,7 +37,7 @@ object ExtractDeferredErrorUtil {
                 Gson().fromJson(string, DeferredErrorMessage::class.java)
             }
         } catch (e: JsonSyntaxException) {
-            Timber.e("JsonSyntaxException convertErrorMessage", e)
+            Timber.e(e, "JsonSyntaxException convertErrorMessage")
             val error = DeferredErrorMessage()
             error.rawString = string
             return error
