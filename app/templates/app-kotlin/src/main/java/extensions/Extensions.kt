@@ -39,6 +39,9 @@ import androidx.core.content.ContextCompat
 import com.google.android.material.snackbar.Snackbar
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
+import org.joda.time.DateTime
+import org.joda.time.LocalDate
+import org.joda.time.format.DateTimeFormat
 
 /**
  * Created by esparta on 30/08/16.
@@ -213,4 +216,14 @@ fun AppCompatActivity.getDisplayDimensions(): Pair<Int, Int> {
     val size = Point()
     display.getSize(size)
     return Pair(size.x, size.y)
+}
+
+fun DateTime.toStringFormat(format: String): String {
+    val formatter = DateTimeFormat.forPattern(format)
+    return formatter.print(this)
+}
+
+fun LocalDate.toStringFormat(format: String): String {
+    val formatter = DateTimeFormat.forPattern(format)
+    return formatter.print(this)
 }
