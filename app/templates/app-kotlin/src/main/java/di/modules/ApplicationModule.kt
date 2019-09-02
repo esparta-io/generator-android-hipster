@@ -19,6 +19,8 @@ import <%= appPackage %>.storage.Storage
 
 import io.reactivex.Scheduler
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.asCoroutineDispatcher
 // android-hipster-needle-module-provides-import
 
 
@@ -41,8 +43,20 @@ class ApplicationModule(val application: App) {
 
     @Provides
     @Singleton
-    fun provideThreadExecutor(): Scheduler {
-        return Schedulers.from(JobExecutor());
+    fun provideExecutor(): JobExecutor {
+        return JobExecutor()
+    }
+
+    @Provides
+    @Singleton
+    fun provideThreadExecutor(executor: JobExecutor): Scheduler {
+        return Schedulers.from(executor)
+    }
+
+    @Provides
+    @Singleton
+    fun provideDispatcher(executor: JobExecutor): CoroutineDispatcher {
+        return executor.asCoroutineDispatcher()
     }
 
     @Provides

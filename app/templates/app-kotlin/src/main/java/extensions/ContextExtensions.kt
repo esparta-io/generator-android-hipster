@@ -14,10 +14,18 @@ import java.util.concurrent.atomic.AtomicInteger
 
 fun Context.isConnected(): Boolean {
     val manager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-    return if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
-        @Suppress("DEPRECATION")
-        manager.activeNetworkInfo?.isConnectedOrConnecting ?: false
+
+    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        val capabilities = manager.getNetworkCapabilities(manager.activeNetwork)
+        when {
+            capabilities == null -> false
+            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
+            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
+            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> true
+            else -> false
+        }
     } else {
+        @Suppress("DEPRECATION")
         manager.activeNetworkInfo?.isConnected ?: false
     }
 }
@@ -29,7 +37,7 @@ fun Context.isWifiConnection(): Boolean {
         @Suppress("DEPRECATION")
         manager.activeNetworkInfo?.type == ConnectivityManager.TYPE_WIFI
     } else {
-        manager.getNetworkCapabilities(manager.activeNetwork).hasTransport(NetworkCapabilities.TRANSPORT_WIFI)
+        manager.getNetworkCapabilities(manager.activeNetwork)?.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ?: false
     }
 }
 
@@ -50,9 +58,11 @@ fun Activity.getCurrentUserComponent(): UserComponent? {
 
 val priority = AtomicInteger(1)
 
-fun Context.registerSyncReceiver(receiver: BroadcastReceiver, action: String) {
+fun Context.registerSyncReceiver(receiver: BroadcastReceiver, vararg actions: String) {
     val filter = IntentFilter()
-    filter.addAction(action)
+    actions.forEach {
+        filter.addAction(it)
+    }
     filter.priority = priority.incrementAndGet()
     registerReceiver(receiver, filter)
 }

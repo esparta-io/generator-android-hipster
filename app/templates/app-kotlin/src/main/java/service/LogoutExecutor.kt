@@ -18,7 +18,8 @@ object LogoutExecutor {
 
     private fun doLogout(context: Context, storage: Storage, clearDatabase: Boolean = true) {
         if (clearDatabase) {
-            val auth = storage.get(OAuth::class.java)
+//            val auth = storage.get(OAuth::class.java)
+            //clear stuff
         }
 
         val username = storage.getString(OAuth.USER_NAME)

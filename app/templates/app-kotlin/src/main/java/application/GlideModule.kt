@@ -11,7 +11,7 @@ import com.bumptech.glide.module.AppGlideModule
 @GlideModule
 class GlideModule: AppGlideModule() {
 
-    @Suppress("INTEGER_OVERFLOW")
+    @Suppress("INTEGER_OVERFLOW", "MagicNumber")
     override fun applyOptions(context: Context, builder: GlideBuilder) {
         super.applyOptions(context, builder)
         val diskCacheSizeBytes = 1024 * 1024 * 100 * 50

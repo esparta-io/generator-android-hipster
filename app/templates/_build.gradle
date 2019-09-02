@@ -16,9 +16,13 @@ buildscript {
   dependencies {
     // android-hipster-needle-gradle-parent-dependency
     classpath 'io.fabric.tools:gradle:1.+'
-    classpath 'com.google.gms:google-services:4.0.1'
-    classpath 'net.ltgt.gradle:gradle-apt-plugin:0.18'
+    classpath 'com.google.gms:google-services:4.3.1'
+    classpath 'net.ltgt.gradle:gradle-apt-plugin:0.19'
   }
+}
+
+plugins {
+  id "io.gitlab.arturbosch.detekt" version "1.0.0-RC11"
 }
 
 allprojects {
@@ -37,7 +41,9 @@ allprojects {
       jvmArgs '-Djava.awt.headless=true'
   }
 
-  ext.kotlin_version = "1.2.71"
+  ext.kotlin_version = "1.3.50"
+
+  apply from: "$rootDir/detekt.gradle"
 }
 
 task clean(type: Delete) {

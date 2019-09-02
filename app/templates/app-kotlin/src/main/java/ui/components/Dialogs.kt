@@ -3,11 +3,11 @@ package <%= appPackage %>.ui.components
 import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.DialogInterface
-import android.support.annotation.DrawableRes
-import android.support.v7.app.AlertDialog
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.content.res.AppCompatResources
-import android.support.v7.widget.AppCompatImageButton
+import androidx.annotation.DrawableRes
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.content.res.AppCompatResources
+import androidx.appcompat.widget.AppCompatImageButton
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.widget.Button
@@ -18,13 +18,10 @@ import org.jetbrains.anko.find
 import <%= appPackage %>.R
 
 
-/**
- *
- * Created by gmribas on 04/07/18.
- */
 @SuppressLint("InflateParams")
 object Dialogs {
     
+    @Suppress("ReturnCount")
     fun showProgressDialog(activity: AppCompatActivity, label: String): Dialog {
         val builder = AlertDialog.Builder(activity, R.style.Dialogs)
         val view = LayoutInflater.from(activity).inflate(R.layout.dialog_progress, null)

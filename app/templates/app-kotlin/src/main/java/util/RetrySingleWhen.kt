@@ -7,28 +7,27 @@ import io.reactivex.SingleTransformer
 import java.util.concurrent.TimeUnit
 import kotlin.properties.Delegates
 
-/**
- *
- * Created by gmribas on 30/04/18.
- */
 class RetrySingleWhen<T>: SingleTransformer<T, T> {
 
     private var count by Delegates.notNull<Int>()
     private var period by Delegates.notNull<Int>()
     private var backoff by Delegates.notNull<Int>()
 
+    @Suppress("MagicNumber")
     constructor() {
         count = 3
         period = 1000
         backoff = 0
     }
 
+    @Suppress("MagicNumber")
     constructor(count: Int) {
         this.count = count
         period = 1000
         backoff = 0
     }
 
+    @Suppress("MagicNumber")
     constructor(count: Int, period: Int) {
         this.count = count
         this.period = period

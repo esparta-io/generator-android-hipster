@@ -43,10 +43,11 @@ fun formatTwoDigitsFilter(): InputFilter {
         val builder = StringBuilder(dest)
         builder.replace(dstart, dend, source.subSequence(start, end).toString())
         if (!builder.toString().matches(Regex("(([1-9]{1})([0-9]{0,4})?(\\.)?)?([0-9]{0,2})?"))) {
-            if (source.isEmpty()) {
-                return@InputFilter dest.subSequence(dstart, dend)
+            return@InputFilter if (source.isEmpty()) {
+                dest.subSequence(dstart, dend)
+            } else {
+                ""
             }
-            return@InputFilter ""
         }
         return@InputFilter null
     }

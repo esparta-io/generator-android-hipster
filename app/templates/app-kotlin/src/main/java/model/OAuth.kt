@@ -3,13 +3,8 @@ package <%= appPackage %>.model
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 <% if (jodatime == true) { %>import org.joda.time.DateTime <% } %>
-<% if(paperparcel == true) { %>
-  import paperparcel.PaperParcel
-  import paperparcel.PaperParcelable
-<% } %>
 import java.util.*
 
-<% if(paperparcel == true) { %>@PaperParcel<% } %>
 data class OAuth(
         @SerializedName("access_token") val accessToken: String,
         @SerializedName("token_type") val tokenType: String,
@@ -23,13 +18,10 @@ data class OAuth(
         @Expose(serialize = false, deserialize = false) var date: DateTime = DateTime.now()
         <% } else { %>
         @Expose(serialize = false, deserialize = false) var date: Calendar = Calendar.getInstance()
-        <% } %>
-)<% if(paperparcel == true) { %> : PaperParcelable {
+        <% } %>) {
 
-    companion object {
-        @JvmField val CREATOR = PaperParcelOAuth.CREATOR
-        val CLASS_NAME = "OAuth"
-        val USER_NAME = "USER_NAME"
-    }
+        companion object {
+                const val CLASS_NAME = "OAuth"
+                const val USER_NAME = "OAuth_USER_NAME"
+        }
 }
-<% } %>

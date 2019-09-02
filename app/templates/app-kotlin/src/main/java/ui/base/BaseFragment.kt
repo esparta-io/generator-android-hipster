@@ -4,29 +4,47 @@ import <%= appPackage %>.di.HasComponent
 
 import android.content.Context
 import android.os.Bundle
-import android.support.annotation.CallSuper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.CallSuper
+import androidx.fragment.app.Fragment
+import <%= appPackage %>.ui.base.BaseViewCoroutineScope
+import kotlinx.coroutines.Job
 
-import android.support.v4.app.Fragment
+abstract class BaseFragment<out P : BasePresenter<*>> : Fragment(), BaseViewCoroutineScope {
 
-abstract class BaseFragment<out P : BasePresenter<*>> : Fragment() {
+    override var job: Job? = null
 
     @CallSuper
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(getLayoutResource(), container, false)
     }
 
+    @CallSuper
     override fun onCreate(bundle: Bundle? ) {
         super.onCreate(bundle)
+        createSupervisorJob()
         inject()
     }
 
     @CallSuper
     override fun onDestroyView() {
         super.onDestroyView()
+        job?.cancel()
         getPresenter().destroy()
+    }
+
+    @CallSuper
+    override fun onPause() {
+        super.onPause()
+        job?.cancel()
+    }
+
+    @CallSuper
+    override fun onResume() {
+        super.onResume()
+        createSupervisorJob()
     }
 
     fun getBaseActivity() : BaseActivity<*> {
@@ -38,7 +56,7 @@ abstract class BaseFragment<out P : BasePresenter<*>> : Fragment() {
         super.onAttach(context)
     }
 
-    protected fun <C> getComponent(componentType: Class<C>): C {
+    protected fun <C> getComponent(componentType: Class<C>): C? {
         return componentType.cast((activity as HasComponent<*>).getComponent())
     }
 

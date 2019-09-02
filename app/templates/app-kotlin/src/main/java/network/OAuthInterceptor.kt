@@ -7,7 +7,12 @@ import <%= appPackage %>.di.ForApplication
 import <%= appPackage %>.model.OAuth
 import <%= appPackage %>.service.LogoutExecutor
 import <%= appPackage %>.storage.Storage
-import okhttp3.*
+import okhttp3.Interceptor
+import okhttp3.MediaType
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.RequestBody
+import okhttp3.Response
 <% if (jodatime == true) { %> import org.joda.time.DateTime <% } %>
 import java.io.IOException
 import javax.inject.Inject
@@ -18,6 +23,7 @@ class OAuthInterceptor
 @Inject
 constructor(private val storage: Storage, @ForApplication private val context: Context) : Interceptor {
 
+    @Suppress("MagicNumber")
     @Throws(IOException::class)
     override fun intercept(chain: Interceptor.Chain): Response {
 

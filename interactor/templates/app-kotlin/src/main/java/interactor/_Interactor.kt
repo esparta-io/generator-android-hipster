@@ -1,15 +1,17 @@
 package <%= appPackage %>.domain.interactors.<%= interactorPackageName %>
 
-import io.reactivex.Scheduler
-import <%= appPackage %>.domain.interactors.base.BaseInteractor
+import <%= appPackage %>.domain.interactors.base.BaseCoroutineInteractor
+import <%= appPackage %>.domain.repository.<%= interactorPackageName %>.<%= interactorName %>LocalRepository
+import <%= appPackage %>.domain.repository.<%= interactorPackageName %>.<%= interactorName %>RemoteRepository
+import kotlinx.coroutines.CoroutineDispatcher
 
 import javax.inject.Inject
-import io.reactivex.Observable
 
-class <%= interactorName %>Interactor @Inject constructor(executor: Scheduler) : BaseInteractor(executor)  {
+class <%= interactorName %>Interactor @Inject constructor(dispatcher: CoroutineDispatcher) : BaseCoroutineInteractor(dispatcher)  {
 
-    fun invoke(): Observable<Any> {
-        return Observable.just(Any())
-    }
+    @Inject
+    lateinit var remoteRepository: <%= interactorName %>RemoteRepository
 
+    @Inject
+    lateinit var localRepository: <%= interactorName %>LocalRepository
 }

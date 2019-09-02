@@ -1,25 +1,47 @@
 package <%= appPackage %>.ui.base
 
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.OnLifecycleEvent
 import io.reactivex.disposables.Disposable
-import java.util.*
+import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.Job
+import timber.log.Timber
+import java.util.ArrayList
+import <%= appPackage %>.ui.base.BaseViewCoroutineScope
 
-<% if (timber == true) { %>import timber.log.Timber <% } %>
+abstract class BasePresenter<V : PresenterView> : Presenter<V>(), BaseViewCoroutineScope, LifecycleObserver {
 
-abstract class BasePresenter<V : PresenterView> : Presenter<V>() {
-      private var disposableList = ArrayList<Disposable>()
+    override var job: Job? = null
 
-      fun add(disposable: Disposable) {
-          disposableList .add(disposable)
-      }
+    private var disposableList = ArrayList<Disposable>()
 
-      fun unSubscribe() {
-          disposableList
-                  .filter { ! it.isDisposed }
-                  .forEach { it.dispose() }
-      }
+    private val errorHandler = CoroutineExceptionHandler { _, exception ->
+        Timber.e(exception, "Coroutine exception not handled")
+        if (view is ProgressPresenterView) {
+            (view as ProgressPresenterView).hideProgress()
+        }
+    }
 
-      override fun dropView() {
-          super.dropView()
-          unSubscribe()
-      }
+    fun add(disposable: Disposable) {
+        disposableList .add(disposable)
+    }
+
+    fun unSubscribe() {
+        disposableList
+                .filter { ! it.isDisposed }
+                .forEach { it.dispose() }
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
+    override fun dropView() {
+        super.dropView()
+        job?.cancel()
+        unSubscribe()
+    }
+
+    override fun onTakeView(view: V) {
+        super.onTakeView(view)
+        createSupervisorJob()
+    }
 }

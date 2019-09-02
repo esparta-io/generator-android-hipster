@@ -2,7 +2,7 @@ package <%= appPackage %>.ui.base
 
 import android.app.Activity
 import android.os.Bundle
-import android.support.annotation.Nullable
+import androidx.annotation.Nullable
 
 import java.util.concurrent.CopyOnWriteArrayList
 
@@ -77,7 +77,7 @@ open class Presenter<View> {
 
      * @param view a view that should be taken
      */
-    protected fun onTakeView(view: View) {
+    protected open fun onTakeView(view: View) {
     }
 
     /**

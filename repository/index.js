@@ -76,14 +76,7 @@ module.exports = ActivityGenerator.extend({
                 name: 'service',
                 message: 'Create a simple Retorfit Service inside RemoteRepository?',
                 default: true
-            },
-            {
-                type: 'confirm',
-                name: 'interface',
-                message: 'Create interface for Repository?',
-                default: false
             }
-
         ];
 
         this.prompt(prompts, function (props) {
@@ -112,26 +105,8 @@ module.exports = ActivityGenerator.extend({
             var packageFolder = this.repositoryPackageName.replace(/\./g, '/').replace(this.appPackage, '');
             var packageDir = this.appPackage.replace(/\./g, '/');
 
-            var appFolder;
-            if (this.language == 'java') {
-                appFolder = 'app-java'
-            } else {
-                appFolder = 'app-kotlin'
-            }
-
-            var ext = this.language == 'java' ? '.java' : '.kt';
-
-            if (this.interface == false) {
-                this.template(appFolder + '/src/main/java/_Repository' + ext,
-                    'app/src/main/java/' + packageDir + '/domain/repository/' + packageFolder + '/' + this.repositoryName + 'Repository' + ext, this, {})
-            } else {
-                this.template(appFolder + '/src/main/java/_RepositoryInterface' + ext,
-                    'app/src/main/java/' + packageDir + '/domain/repository/' + packageFolder + '/' + this.repositoryName + 'Repository' + ext, this, {});
-                this.template(appFolder + '/src/main/java/_RepositoryImpl' + ext,
-                    'app/src/main/java/' + packageDir + '/domain/repository/' + packageFolder + '/' + this.repositoryName + 'RepositoryImpl' + ext, this, {});
-                this.provideInComponent(this.repositoryName, packageDir, this.appPackage + '.domain.repository.' + this.repositoryPackageName, 'Repository');
-                this.updateApplicationModuleToRepository(this.repositoryName, packageDir, this.appPackage + '.domain.repository.' + this.repositoryPackageName, this.remoteLocal.indexOf('remote') >= 0, this.remoteLocal.indexOf('local') >= 0)
-            }
+            var appFolder = 'app-kotlin';
+            var ext = '.kt';
 
             if (this.remoteLocal.indexOf('local') >= 0) {
                 this.template(appFolder + '/src/main/java/_LocalRepository' + ext,

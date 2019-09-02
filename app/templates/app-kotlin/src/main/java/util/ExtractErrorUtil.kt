@@ -43,10 +43,10 @@ class ExtractErrorUtil<INCOMING_RESULT_TYPE, ERROR_RESULT_TYPE> {
 
             errorMessage.httpCode = incomingResult.response()?.code() ?: 0
             errorMessage.type = ErrorMessage.ErrorType.SERVER_ERROR
-            if (incomingResult.error() == null) {
-                return Observable.error(ApiException(errorMessage))
+            return if (incomingResult.error() == null) {
+                Observable.error(ApiException(errorMessage))
             } else {
-                return Observable.error(ApiException(errorMessage, incomingResult.error()!!))
+                Observable.error(ApiException(errorMessage, incomingResult.error()!!))
             }
         } catch (e: IOException) {
             <% if (timber == true) { %>Timber.e("IOException in Rest call:", e)<% } else { %>e.printStackTrace()<% } %>
@@ -67,10 +67,11 @@ class ExtractErrorUtil<INCOMING_RESULT_TYPE, ERROR_RESULT_TYPE> {
 
     private fun convertErrorMessage(string: String?): ErrorMessage {
         try {
-            if (string == null || string == "") {
-                return ErrorMessage()
+            return if (string == null || string == "") {
+                ErrorMessage()
+            } else {
+                Gson().fromJson(string, ErrorMessage::class.java)
             }
-            return Gson().fromJson(string, ErrorMessage::class.java)
         } catch (e: JsonSyntaxException) {
             <% if (timber == true) { %>Timber.e("JsonSyntaxException convertErrorMessage", e)<% } else { %>e.printStackTrace()<% } %>
             val error = ErrorMessage()

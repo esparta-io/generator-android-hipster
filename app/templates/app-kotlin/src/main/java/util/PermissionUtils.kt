@@ -5,10 +5,10 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.provider.Settings
-import android.support.design.widget.Snackbar
-import android.support.v4.app.ActivityCompat
-import android.support.v4.content.ContextCompat
-import android.support.v7.app.AlertDialog
+import com.google.android.material.snackbar.Snackbar
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.appcompat.app.AlertDialog
 
 import <%= appPackage %>.R
 
@@ -55,13 +55,13 @@ object PermissionUtils {
     }
 
 
-    fun snackbarForSettings(activity: Activity, REQUEST_SETTINGS: Int) {
+    fun snackbarForSettings(activity: Activity, requestSettings: Int) {
         val make = Snackbar.make(activity.findViewById(android.R.id.content), "R.string.need_permissions", Snackbar.LENGTH_INDEFINITE)
         make.setAction("R.string.settings") { _ ->
             make.dismiss()
             val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:" + activity.packageName))
             intent.flags = 0
-            activity.startActivityForResult(intent, REQUEST_SETTINGS)
+            activity.startActivityForResult(intent, requestSettings)
         }
         make.show()
     }

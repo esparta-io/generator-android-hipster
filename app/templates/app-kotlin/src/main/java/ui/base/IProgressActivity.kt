@@ -1,8 +1,8 @@
 package <%= appPackage %>.ui.base
 
 import android.app.Dialog
-import android.support.annotation.StringRes
-import android.support.v7.app.AppCompatActivity
+import androidx.annotation.StringRes
+import androidx.appcompat.app.AppCompatActivity
 import <%= appPackage %>.ui.components.Dialogs
 
 interface IProgressActivity {

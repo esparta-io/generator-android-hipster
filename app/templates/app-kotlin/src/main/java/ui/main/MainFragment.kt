@@ -9,7 +9,7 @@ import <%= appPackage %>.R
 class MainFragment : BaseFragment<EmptyPresenter>() {
 
     override fun inject() {
-        getComponent(MainComponent::class.java).inject(this)
+        getComponent(MainComponent::class.java)?.inject(this)
     }
 
     override fun getLayoutResource(): Int {

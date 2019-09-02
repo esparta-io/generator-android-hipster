@@ -6,14 +6,17 @@ import retrofit2.adapter.rxjava2.Result
 import retrofit2.Retrofit
 import retrofit2.http.GET
 
-import io.reactivex.Observable
+import <%= appPackage %>.extensions.lazyUnsafe
+import kotlinx.coroutines.Deferred
 
 class <%= repositoryName %>RemoteRepository <% if (interface == false) { %>@Inject<% } %> constructor(retrofit: Retrofit) {
 
-    val service: <%= repositoryName %>Service by lazy { retrofit.create(<%= repositoryName %>Service::class.java) };
+    private val service: <%= repositoryName %>Service by lazyUnsafe { retrofit.create(<%= repositoryName %>Service::class.java) }
+
+    fun foo(): Deferred<Void> = service.foo()
 
     interface <%= repositoryName %>Service {
         @GET("api/foo")
-        fun foo(): Observable<Result<Void>>
+        fun foo(): Deferred<Void>
     }
 }
