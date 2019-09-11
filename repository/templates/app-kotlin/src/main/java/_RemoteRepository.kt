@@ -9,7 +9,7 @@ import retrofit2.http.GET
 import <%= appPackage %>.extensions.lazyUnsafe
 import kotlinx.coroutines.Deferred
 
-class <%= repositoryName %>RemoteRepository <% if (interface == false) { %>@Inject<% } %> constructor(retrofit: Retrofit) {
+class <%= repositoryName %>RemoteRepository @Inject constructor(retrofit: Retrofit) {
 
     private val service: <%= repositoryName %>Service by lazyUnsafe { retrofit.create(<%= repositoryName %>Service::class.java) }
 
