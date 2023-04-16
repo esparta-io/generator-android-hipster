@@ -27,7 +27,7 @@
     "mocha": "^2.3.4",
     "pixl-xml": "^1.0.4",
     "read-json": "^1.0.0",
-    "yeoman-generator": "^0.21.1",
+    "yeoman-generator": "^5.8.0",
     "yosay": "^1.0.2"
   },
   "devDependencies": {
