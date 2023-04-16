@@ -24,7 +24,7 @@
     "fs-extra": "^0.26.4",
     "gulp": "^3.9.0",
     "mkdirp": "^0.5.1",
-    "mocha": "^2.3.4",
+    "mocha": "^10.2.0",
     "pixl-xml": "^1.0.4",
     "read-json": "^1.0.0",
     "yeoman-generator": "^0.21.1",
@@ -37,7 +37,7 @@
     "gulp-eslint": "^1.0.0",
     "gulp-exclude-gitignore": "^1.0.0",
     "gulp-istanbul": "^0.10.3",
-    "gulp-mocha": "^2.0.0",
+    "gulp-mocha": "^8.0.0",
     "gulp-plumber": "^1.0.0",
     "gulp-nsp": "^2.1.0",
     "gulp-coveralls": "^0.1.0"
