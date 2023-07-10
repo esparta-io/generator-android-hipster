@@ -22,7 +22,7 @@
     "chalk": "^1.0.0",
     "file-exists": "^1.0.0",
     "fs-extra": "^0.26.4",
-    "gulp": "^3.9.0",
+    "gulp": "^4.0.2",
     "mkdirp": "^0.5.1",
     "mocha": "^2.3.4",
     "pixl-xml": "^1.0.4",
@@ -33,13 +33,13 @@
   "devDependencies": {
     "yeoman-assert": "^2.0.0",
     "eslint-config-xo-space": "^0.7.0",
-    "gulp": "^3.9.0",
+    "gulp": "^4.0.2",
     "gulp-eslint": "^1.0.0",
     "gulp-exclude-gitignore": "^1.0.0",
     "gulp-istanbul": "^0.10.3",
     "gulp-mocha": "^2.0.0",
     "gulp-plumber": "^1.0.0",
-    "gulp-nsp": "^2.1.0",
+    "gulp-nsp": "^3.0.1",
     "gulp-coveralls": "^0.1.0"
   },
   "eslintConfig": {
